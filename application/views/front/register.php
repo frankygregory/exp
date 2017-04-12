@@ -13,10 +13,10 @@
 				<div class="label">Sebagai</div>
 				<div class="input-container" data-type="role">
 					<label class="label-role">
-						<input type="radio" name="role" value="1" class="input-role" checked="checked" />Konsumen
+						<input type="radio" name="role" value="1" class="input-role" <?= $konsumenChecked ?> />Konsumen
 					</label>
 					<label class="label-role">
-						<input type="radio" name="role" value="2" class="input-role">Ekspedisi
+						<input type="radio" name="role" value="2" class="input-role" <?= $ekspedisiChecked ?>>Ekspedisi
 					</label>
 				</div>
 			</div>
@@ -24,10 +24,10 @@
 				<div class="label">Tipe</div>
 				<div class="input-container" data-type="type">
 					<label class="label-type">
-						<input type="radio" name="type" value="1" class="input-type" checked="checked" />Individu
+						<input type="radio" name="type" value="1" class="input-type" <?= $individuChecked ?> />Individu
 					</label>
 					<label class="label-role">
-						<input type="radio" name="type" value="2" class="input-type">Perusahaan
+						<input type="radio" name="type" value="2" class="input-type" <?= $perusahaanChecked ?>>Perusahaan
 					</label>
 				</div>
 			</div>
@@ -123,7 +123,16 @@
 		$("input.input-konfirmasi").on("focusout", function() {
 			var valid = cekKonfirmasi();
 		});
+		$(".input-terms").on("change", function() {
+			var valid = cekTerms();
+			if (valid) {
+				$(this).next().removeClass("active");
+			}
+		});
 		$("input").on("input", function() {
+			$(this).next().removeClass("active");
+		});
+		$("textarea").on("input", function() {
 			$(this).next().removeClass("active");
 		});
 		$("input[data-type='number']").on("keydown", function(e) {
@@ -155,6 +164,27 @@
 		if (username == "") {
 			valid = false;
 			displayError($(".input-username").next(), "Username harus diisi");
+		} else {
+			if (!isAlphaOrNumeric(username)) {
+				valid = false;
+				displayError($(".input-username").next(), "Username hanya boleh huruf atau angka");
+			} else {
+				$.ajax({
+					url: '<?= base_url("home/cekUsernameKembar") ?>',
+					data: {username: username},
+					type: 'POST',
+					error: function() {
+						valid = false;
+						alert("error");
+					},
+					success: function(data) {
+						if (data == "true") { //berarti username kembar
+							valid = false;
+							displayError($(".input-username").next(), "Username sudah ada");
+						}
+					}
+				});
+			}
 		}
 		return valid;
 	}
@@ -170,6 +200,22 @@
 			if (!validEmail) {
 				valid = false;
 				displayError($(".input-email").next(), "Email tidak valid");
+			} else {
+				$.ajax({
+					url: '<?= base_url("home/cekEmailKembar") ?>',
+					data: {email: email},
+					type: 'POST',
+					error: function() {
+						valid = false;
+						alert("error");
+					},
+					success: function(data) {
+						if (data == "true") { //berarti email kembar
+							valid = false;
+							displayError($(".input-email").next(), "Email sudah ada");
+						}
+					}
+				});
 			}
 		}
 		return valid;
@@ -231,6 +277,11 @@
 		if (password == "") {
 			valid = false;
 			displayError($(".input-password").next(), "Password harus diisi");
+		} else {
+			if (!isAlphaOrNumeric(password)) {
+				valid = false;
+				displayError($(".input-password").next(), "Password harus huruf atau angka");
+			}
 		}
 		return valid;
 	}
@@ -260,122 +311,23 @@
 		return valid;
 	}
 
-    /*function submitRegister(){
-        var role_id = $('input[name=role_id]').val();
-        var usertype = $('input[name=usertype]:checked').val();
-        var username = $('input[name=username]').val();
-        var email = $('input[name=email]').val();
-        var address = $('input[name=useraddress]').val();
-        var tlp = $('input[name=tlp]').val();
-        var hp = $('input[name=hp]').val();
-        var password = $('input[name=password]').val();
-        var password_confirm = $('input[name=password-confirm]').val();
-        var term_conditions = $('input[name=term-conditions]:checked').val();
-
-        try{
-
-            if($('input[name=usertype]:checked').length > 0){
-                resetError('radio','spanUsertype');
-            }else{
-                setError('radio','spanUsertype');
-            }
-
-            if(username !=""){
-                resetError('username','spanusername');
-            }else{
-                setError('username','spanusername');
-            }
-
-            if(validateEmail(email) == true){
-                resetError('email','spanemail');
-            }else{
-                setError('email','spanemail')
-            }
-
-            if(name !=""){
-                resetError('name','spanname');
-            }else{
-                setError('name','spanname');
-            }
-
-            if(address !=""){
-                resetError('useraddress','spanaddress');
-            }else{
-                setError('useraddress','spanaddress');
-            }
-
-            if(tlp !=""){
-                resetError('tlp','spantlp');
-            }else{
-                setError('tlp','spantlp');
-            }
-
-            if(hp !=""){
-                resetError('hp','spanhp');
-            }else{
-                setError('hp','spanhp');
-            }
-
-            if(password !=""){
-                resetError('password','spanpass');
-            }else{
-                setError('password','spanpass');
-            }
-
-            if(password_confirm !=""){
-                resetError('password-confirm','spanpassc');
-            }else{
-                setError('password-confirm','spanpassc');
-            }
-
-            if($('input[name=term-conditions]:checked').length > 0){
-                resetError('term','spanterm-conditions');
-            }else{
-                setError('term','spanterm-conditions');
-            }
-
-            if(password != password_confirm){
-                document.getElementById("spanpassc").innerHTML = "Password not match";
-            }
-
-            if(($('input[name=usertype]:checked').length > 0) && username !=""
-                && validateEmail(email) !=false && name !="" &&
-                address !="" && tlp !="" && hp !="" && password !="" &&
-                password_confirm !="" &&
-                ($('input[name=term-conditions]:checked').length > 0)){
-
-            }
-
-
-        }catch (e){
-            throw e;
-            alert(e);
-            return;
-        }
-    }*/
-
     function validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
-
-    /*function setError(id, spanid){
-        document.getElementById(spanid).innerHTML = 'required';
-        document.getElementById(spanid).style.color = 'red';
-        document.getElementById(id).style.border = '1px solid red';
-    }*/
 	
 	function displayError(element, message) {
 		element.html(message);
 		element.addClass("active");
 	}
-
-    /*function resetError(id, spanid){
-        document.getElementById(spanid).innerHTML = '';
-        document.getElementById(spanid).style.color = '';
-        document.getElementById(id).style.border = '';
-    }*/
 	
+	function isAlphaOrNumeric(text) {
+		if (text.match(/^[a-z0-9]+$/i)) {
+			return true;
+		}
+		return false;
+	}
+
 	function isNumber(e)
 	{
 		if ((e.which >= 65 && e.which <= 90) || e.which >= 186) {

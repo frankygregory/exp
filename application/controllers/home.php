@@ -38,6 +38,10 @@ class Home extends CI_Controller
         $data = array(
             'title' => 'Register',
             'active' => array('', '', '', 'active'),
+			'konsumenChecked' => 'checked',
+			'ekspedisiChecked' => '',
+			'individuChecked' => 'checked',
+			'perusahaanChecked' => '',
 			'username' => '',
 			'email' => '',
 			'nama' => '',
@@ -58,7 +62,23 @@ class Home extends CI_Controller
 	
 	public function doRegisterConsumer() {
 		$role = $this->input->post("role", true);
+		$konsumenChecked = "";
+		$ekspedisiChecked = "";
+		if ($role == "1") {
+			$konsumenChecked = "checked";
+		} else {
+			$ekspedisiChecked = "checked";
+		}
+		
 		$type = $this->input->post("type", true);
+		$individuChecked = "";
+		$perusahaanChecked = "";
+		if ($type == "1") {
+			$individuChecked = "checked";
+		} else {
+			$perusahaanChecked = "checked";
+		}
+		
 		$username = $this->input->post("username", true);
 		$email = $this->input->post("email", true);
 		$nama = $this->input->post("nama", true);
@@ -69,80 +89,72 @@ class Home extends CI_Controller
 		$konfirmasi = $this->input->post("konfirmasi", true);
 		$terms = $this->input->post("terms", true);
 		
-		$data = array(
-            'title' => 'Register',
-            'active' => array('', '', '', 'active'),
-			'role' => $role,
-			'type' => $type,
-			'username' => $username,
-			'email' => $email,
-			'nama' => $nama,
-			'alamat' => $alamat,
-			'telp' => $telp,
-			'handphone' => $handphone,
-			'password' => $password,
-			'terms' => $terms
-        );
-		
 		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'required');
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		
 		if ($this->form_validation->run('form-register') == FALSE) {
+			$data = array(
+				'title' => 'Register',
+				'active' => array('', '', '', 'active'),
+				'konsumenChecked' => $konsumenChecked,
+				'ekspedisiChecked' => $ekspedisiChecked,
+				'individuChecked' => $individuChecked,
+				'perusahaanChecked' => $perusahaanChecked,
+				'username' => $username,
+				'email' => $email,
+				'nama' => $nama,
+				'alamat' => $alamat,
+				'telp' => $telp,
+				'handphone' => $handphone,
+				'terms' => $terms
+			);
 			$this->load->view('front/register', $data);
 		} else {
-			$this->Registration_model->doRegister($data);
-			$this->load->view('front/login', $data);
+			$insertData = array(
+				'role' => $role,
+				'type' => $type,
+				'username' => $username,
+				'email' => $email,
+				'nama' => $nama,
+				'alamat' => $alamat,
+				'telp' => $telp,
+				'handphone' => $handphone,
+				'password' => $password,
+				'terms' => $terms
+			);
+			$this->Registration_model->doRegister($insertData);
+			header("Location: " . base_url("login"));
 		}
 	}
-
-   /* public function doRegisterConsumer()
-    {
-        if ($this->form_validation->run('registration_consumer') == FALSE) {
-			
-            $data = array(
-                'title' => 'Register',
-                'active' => array('', '', '', 'active'),
-            );
-            $this->load->view('front/register', $data);
-        } else {
-			
-          //  $this->load->model('Registration_model');
-            $this->Registration_model->doRegisterConsumer_model();
-
-            $msg = '<div class="alert alert-success fade in block-inner">
-								<button type="button" class="close" data-dismiss="alert">×</button>
-								<i class="icon-checkmark-circle"></i> Sukses! Data berhasil tersimpan.
-							 </div>';
-
-            $this->session->set_flashdata('msg', $msg);
-            redirect(base_url() . "register");
-        }
-    }*/
-
-   /* public function doRegisterExpedition()
-    {
-       // $this->load->model('Registration_model');
-	    
-		if ($this->form_validation->run('registration_expedition') == FALSE) {
-            $data = array(
-                'title' => 'Register',
-                'active' => array('', '', '', 'active'),
-            );
-            $this->load->view('front/register', $data);
-        } else {
-            $this->load->model('Login_model');
-            $this->Registration_model->doRegisterExpedition_model();
-
-            $msg = '<div class="alert alert-success fade in block-inner">
-								<button type="button" class="close" data-dismiss="alert">×</button>
-								<i class="icon-checkmark-circle"></i> Sukses! Data berhasil tersimpan.
-							 </div>';
-
-            $this->session->set_flashdata('msg', $msg);
-            redirect(base_url() . "register");
-        }
-    }*/
+	
+	public function cekUsernameKembar() {
+		$username = $this->input->post('username', true);
+		if ($username == "") {
+			//header("Location: " . base_url("register"));
+		} else {
+			$kembar = "false";
+			$other_username = $this->Registration_model->getUsername($username);
+			if (count($other_username) > 0) { //berarti sudah ada username tsb di table m_user
+				$kembar = "true";
+			}
+			echo $kembar;
+		}
+	}
+	
+	public function cekEmailKembar() {
+		$email = $this->input->post('email', true);
+		if ($email == "") {
+			//header("Location: " . base_url("register"));
+		} else {
+			$kembar = "false";
+			$other_email = $this->Registration_model->getEmail($email);
+			if (count($other_email) > 0) { //berarti sudah ada email tsb di table m_user
+				$kembar = "true";
+			}
+			echo $kembar;
+		}
+	}
 
     public function getValue($inputname)
     {
