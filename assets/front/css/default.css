@@ -1,0 +1,44 @@
+* {
+	padding: 0;
+	margin: 0;
+	outline: 0;
+	font-size: 12pt;
+	box-sizing: border-box;
+}
+
+input[type="text"], input[type="password"] {
+	border: 0;
+	border-bottom: 2px solid #E0E0E0;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+	border-bottom: 2px solid #03A9F4;
+}
+
+input[type="checkbox"] {
+	width: auto;
+}
+
+textarea:focus {
+	border: 1px solid #03A9F4;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #BDBDBD;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #BDBDBD;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #BDBDBD;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #BDBDBD;
+}
+
+.btn {
+	border: 0;
+	border-radius: 3px;
+	box-shadow: 0 0 5px #555555;
+	cursor: pointer;
+}

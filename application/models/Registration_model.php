@@ -7,9 +7,9 @@ class Registration_model extends CI_Model
         parent::__construct();
     }
 
-    public function doRegisterConsumer_model(){
+    public function doRegister($data) {
 
-        $roleId = $this->input->post('role_id');
+        /*$roleId = $this->input->post('role_id');
         $type_id = $this->input->post('type_id');
         $username = $this->input->post('username');
         $email = $this->input->post('email');
@@ -18,30 +18,27 @@ class Registration_model extends CI_Model
         $tlp = $this->input->post('tlp');
         $hp = $this->input->post('hp');
         $password = $this->input->post('password');
-        $term = $this->input->post('term-conditions');
+        $term = $this->input->post('term-conditions');*/
 
         $data = array(
-            'role_id' => $roleId,
-            'type_id' => $type_id,
-            'username' => $username,
-            'user_email' => $email,
-            'user_fullname' => $name,
-            'user_address' => $alamat,
-            'user_telephone' => $tlp,
-            'user_handphone' => $hp,
-            'password' => md5($password),
-            'user_termsandconditions' => $term,
-            'user_last_login_date' => date('d-m-y h:i:s'),
-            'created_date' => date('d-m-y h:i:s'),
-            'created_by' => $username,
-            'modified_date' => date('d-m-y h:i:s'),
-            'modified_by' => $username,
+            'role_id' => $data['role'],
+            'type_id' => $data['type'],
+            'username' => $data['username'],
+            'user_email' => $data['email'],
+            'user_fullname' => $data['nama'],
+            'user_address' => $data['alamat'],
+            'user_telephone' => $data['telp'],
+            'user_handphone' => $data['handphone'],
+            'password' => md5($data['password']),
+            'user_termsandconditions' => $data['terms'],
+            'created_by' => $data['username'],
+            'modified_by' => $data['username']
         );
 
         $this->db->insert('m_user', $data);
     }
 
-    public function doRegisterExpedition_model(){
+    /*public function doRegisterExpedition_model(){
         $roleId = $this->input->post('role_id');
         $username = $this->input->post('username_expedition');
         $email = $this->input->post('email_expedition');
@@ -70,6 +67,6 @@ class Registration_model extends CI_Model
         );
 
         $this->db->insert('m_user', $data);
-    }
+    }*/
 
 }

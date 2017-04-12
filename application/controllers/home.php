@@ -38,6 +38,12 @@ class Home extends CI_Controller
         $data = array(
             'title' => 'Register',
             'active' => array('', '', '', 'active'),
+			'username' => '',
+			'email' => '',
+			'nama' => '',
+			'alamat' => '',
+			'telp' => '',
+			'handphone' => ''
         );
         $this->load->view('front/register', $data);
     }
@@ -49,16 +55,58 @@ class Home extends CI_Controller
         );
         $this->load->view('front/privacy_policy', $data);
     }
+	
+	public function doRegisterConsumer() {
+		$role = $this->input->post("role", true);
+		$type = $this->input->post("type", true);
+		$username = $this->input->post("username", true);
+		$email = $this->input->post("email", true);
+		$nama = $this->input->post("nama", true);
+		$alamat = $this->input->post("alamat", true);
+		$telp = $this->input->post("telp", true);
+		$handphone = $this->input->post("handphone", true);
+		$password = $this->input->post("password", true);
+		$konfirmasi = $this->input->post("konfirmasi", true);
+		$terms = $this->input->post("terms", true);
+		
+		$data = array(
+            'title' => 'Register',
+            'active' => array('', '', '', 'active'),
+			'role' => $role,
+			'type' => $type,
+			'username' => $username,
+			'email' => $email,
+			'nama' => $nama,
+			'alamat' => $alamat,
+			'telp' => $telp,
+			'handphone' => $handphone,
+			'password' => $password,
+			'terms' => $terms
+        );
+		
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('nama', 'Nama', 'required');
+		
+		if ($this->form_validation->run('form-register') == FALSE) {
+			$this->load->view('front/register', $data);
+		} else {
+			$this->Registration_model->doRegister($data);
+			$this->load->view('front/login', $data);
+		}
+	}
 
-    public function doRegisterConsumer()
+   /* public function doRegisterConsumer()
     {
         if ($this->form_validation->run('registration_consumer') == FALSE) {
+			
             $data = array(
                 'title' => 'Register',
                 'active' => array('', '', '', 'active'),
             );
             $this->load->view('front/register', $data);
         } else {
+			
           //  $this->load->model('Registration_model');
             $this->Registration_model->doRegisterConsumer_model();
 
@@ -70,13 +118,13 @@ class Home extends CI_Controller
             $this->session->set_flashdata('msg', $msg);
             redirect(base_url() . "register");
         }
-    }
+    }*/
 
-    public function doRegisterExpedition()
+   /* public function doRegisterExpedition()
     {
        // $this->load->model('Registration_model');
 	    
-	if ($this->form_validation->run('registration_expedition') == FALSE) {
+		if ($this->form_validation->run('registration_expedition') == FALSE) {
             $data = array(
                 'title' => 'Register',
                 'active' => array('', '', '', 'active'),
@@ -94,7 +142,7 @@ class Home extends CI_Controller
             $this->session->set_flashdata('msg', $msg);
             redirect(base_url() . "register");
         }
-    }
+    }*/
 
     public function getValue($inputname)
     {

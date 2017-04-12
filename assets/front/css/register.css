@@ -1,0 +1,113 @@
+* {
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+	user-select: none;          /* Likely future */  
+}
+
+.register-box {
+	width: 500px;
+	height: 750px;
+	margin: 20px auto 20px;
+	padding-top: 20px;
+	padding-left: 15px;
+	border-radius: 5px;
+	overflow: hidden;
+	box-shadow: 0 0 10px #777777;
+}
+
+.register-title {
+	font-size: 16pt;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.form-group {
+	width: 100%;
+	height: 50px;
+	clear: both;
+	overflow: visible;
+	white-space: nowrap;
+}
+
+.form-group[data-type="alamat"] {
+	margin-bottom: 40px;
+}
+
+.label {
+	float: left;
+	width: 150px;
+	text-align: right;
+	margin-right: 10px;
+}
+
+.label-role, .label-type {
+	margin-right: 20px;
+	cursor: pointer;
+}
+
+input[type="radio"] {
+	margin-right: 5px;
+}
+
+.input-container {
+	width: 250px;
+	float: left;
+}
+
+.input-container[data-type="alamat"] {
+	width: 300px;
+	height: 60px;
+}
+
+.input-container[data-type="telp"], .input-container[data-type="handphone"] {
+	width: 150px;
+}
+
+input[type="text"], input[type="password"] {
+	width: 100%;
+}
+
+textarea {
+	width: 100%;
+	height: 100%;
+}
+
+.field-error {
+	color: red;
+	float: right;
+	font-size: 11pt;
+	visibility: hidden;
+}
+
+.field-error.active {
+	visibility: visible;
+}
+
+.label-terms {
+	width: 300px;
+	display: block;
+	margin: 10px auto 40px;
+}
+
+.input-terms {
+	float: left;
+	margin-right: 5px;
+}
+
+.btn-daftar {
+	color: white;
+	display: block;
+	width: 200px;
+	height: 50px;
+	margin: 0 auto 0;
+}
+
+.btn-daftar {
+	background-color: #1976D2;
+}
+
+.btn-daftar:hover {
+	background-color: #1565C0;
+}
