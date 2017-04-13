@@ -19,11 +19,10 @@
 <!--    <link href="--><?//=base_url('assets/panel/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')?><!--" rel="stylesheet">-->
     <!-- Custom CSS -->
     <link href="<?=base_url()?>assets/panel/css/sb-admin.css" rel="stylesheet">
-    <link href="<?=base_url()?>assets/panel/css/sb-admin.css" rel="stylesheet">
-
+	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="<?=base_url()?>assets/panel/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+	
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

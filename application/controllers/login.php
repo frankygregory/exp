@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -45,7 +44,7 @@ class Login extends CI_Controller
             if ($this->form_validation->run() == false) {
                 $img = $this->create_captcha();
             }
-
+			
             $data = array(
                 'title' => 'Login Yukirim',
                 'error' => '',
@@ -68,7 +67,7 @@ class Login extends CI_Controller
             } else {
                 $username = $this->input->post('username');
                 $password = $this->input->post('password');
-
+				
                 if (!preg_match('/^[a-zA-Z0-9_\.]+$/', $username) OR !preg_match('/^[a-zA-Z0-9_\.]+$/', $password)) {
                     $this->view('front/login', 'Isian harus huruf atau angka');
                 } else {
@@ -88,7 +87,7 @@ class Login extends CI_Controller
                                         'menu',
                                         'dashboard'
                                     );
-
+									
                                     redirect('dashboard');
 
 /*                                } elseif ($user[0]['user_level'] == 2) {

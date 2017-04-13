@@ -37,6 +37,7 @@ class MY_Controller extends CI_Controller
     }
 
     public function template($file, $data){
+		$data["pageName"] = $file;
         $this->load->view('template/top', $data);
         $this->load->view($file, $data);
         $this->load->view('template/bottom');

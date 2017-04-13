@@ -2,9 +2,20 @@
 
 <div class="container-fluid">
 
-<div class="page-title">
-Kirim Barang
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Kirim
+        </h1>
+        <ol class="breadcrumb">
+            <li class="active">
+                <i class="fa fa-dashboard"></i> Kirim Barang
+            </li>
+        </ol>
+    </div>
 </div>
+<!-- /.row -->
 
 <div id="successResult"></div>
 <div id="errorResult" class="has-error"></div>
@@ -12,69 +23,7 @@ Kirim Barang
       enctype="multipart/form-data">
 	<input type="hidden" id="type" name="type" value="<?= $type ?>">
 	<input type="hidden" name="id" value="<?= $id ?>">
-	
-	<div class="section-1">
-		<div class="form-header">
-			<div class="form-item">
-				<div class="form-item-label">Judul Kiriman</div>
-				<div class="form-item-input-group">
-					<div class="form-item-error"></div>
-					<input type="text" name="shipment_title" class="input-judul" value="<?= $shipment_title ?>" />
-				</div>
-			</div>
-			<div class="form-item">
-				<div class="form-item-label">Keterangan</div>
-				<div class="form-item-input-group">
-					<div class="form-item-error"></div>
-					<textarea rows="6" name="shipment_information" class="input-keterangan" ><?= $shipment_information ?></textarea>
-				</div>
-			</div>
-			<div class="form-item">
-				<div class="form-item-label">Foto Barang</div>
-				<div class="form-item-input-group">
-					<div class="form-item-error"></div>
-					<input type="file" class="input-gambar" name="shipment_pictures" />
-					<input type="hidden" class="input-gambar-nama" name="shipment_pictures_name" value="<?= $shipment_pictures ?>" />
-				</div>
-			</div>
-		</div>
-		<div class="image-preview-container">
-			<img class="image-preview" />
-		</div>
-	</div>
-	<div class="section-2">
-		<div class="section-asal">
-			<div class="section-asal-title">
-				1 | Tentukan Lokasi Asal
-			</div>
-			<div class="section-asal-form">
-				<div class="form-item">
-					<div class="form-item-label">Lokasi Asal</div>
-					<div class="form-item-error"></div>
-					<input type="text" class="" id="location_from_address" name="location_from_address" value="<?= $location_from_address ?>" />
-				</div>
-				<div class="form-item">
-					<div class="form-item-label">Detail Lokasi</div>
-					<div class="form-item-error"></div>
-					<textarea rows="3" class="input-asal-detail" name="location_from_detail" ></textarea>
-				</div>
-				<div class="form-item">
-					<div class="form-item-label">Kontak</div>
-					<div class="form-item-error"></div>
-					<input type="text" class="input-asal-kontak" name="location_from_contact" value="<?= $location_from_contact ?>" />
-				</div>
-			</div>
-		</div>
-		<div class="section-tujuan">
-			<div class="section-tujuan-title">
-				2 | Tentukan Lokasi Tujuan
-			</div>
-			<div class="section-tujuan-form">
-			
-			</div>
-		</div>
-	</div>
-<!--
+
 <div class="row">
     <div class="col-md-6">
 
@@ -106,7 +55,7 @@ Kirim Barang
 </div>
 
 <hr>
--->
+
 <div class="row">
     <div class="col-md-6">
         <div class="panel panel-primary">
@@ -119,11 +68,11 @@ Kirim Barang
                     <input type="text" class="form-control" id="location_from_contact" name="location_from_contact"
                            value="<?= $location_from_contact ?>">
                 </div>
-                <!--<div class="form-group">
+                <div class="form-group">
                     <label>Detail Lokasi</label>
                     <textarea class="form-control" cols="3" rows="3" id="location_from_address"
                               name="location_from_address"><?= $location_from_address ?></textarea>
-                </div>-->
+                </div>
                 <div class="form-group">
                     <label>Keterangan (gedung, lantai, dst.)</label>
                     <input type="text" class="form-control" id="location_from_name" name="location_from_name"
@@ -585,14 +534,6 @@ Kirim Barang
 <script>
    var type = $("#type").val();
    var url;
-   
-	$(".input-gambar").on("change", function() {
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			$(".image-preview").attr("src", e.target.result);
-		};
-		reader.readAsDataURL($(this)[0].files[0]);
-	});
 
     function doKirim() {
 	
