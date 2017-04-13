@@ -44,12 +44,12 @@ Kirim Barang
 	</div>
 	<div class="section-2">
 		<div class="section-asal">
-			<div class="section-asal-title">
+			<div class="section-title">
 				1 | Tentukan Lokasi Asal
 			</div>
 			<div class="section-asal-form">
 				<div class="form-item">
-					<div class="form-item-label">Lokasi Asal</div>
+					<div class="form-item-label">Lokasi Asal <a class="saved-location">Pilih Lokasi yang sudah didaftarkan</a></div>
 					<div class="form-item-error"></div>
 					<input type="text" class="" id="location_from_address" name="location_from_address" value="<?= $location_from_address ?>" />
 				</div>
@@ -63,14 +63,108 @@ Kirim Barang
 					<div class="form-item-error"></div>
 					<input type="text" class="input-asal-kontak" name="location_from_contact" value="<?= $location_from_contact ?>" />
 				</div>
+				<div class="form-item">
+					<div class="form-item-label">Peta Lokasi</div>
+					<div class="form-group" id="map_asal" style="width: 100%; height: 200px"></div> 
+				</div>
 			</div>
 		</div>
 		<div class="section-tujuan">
-			<div class="section-tujuan-title">
+			<div class="section-title">
 				2 | Tentukan Lokasi Tujuan
 			</div>
 			<div class="section-tujuan-form">
-			
+				<div class="form-item">
+					<div class="form-item-label">Lokasi Tujuan <a class="saved-location">Pilih Lokasi yang sudah didaftarkan</a></div>
+					<div class="form-item-error"></div>
+					<input type="text" class="" id="location_to_address" name="location_to_address" value="<?= $location_to_address ?>" />
+				</div>
+				<div class="form-item">
+					<div class="form-item-label">Detail Lokasi</div>
+					<div class="form-item-error"></div>
+					<textarea rows="3" class="input-tujuan-detail" name="location_to_detail" ></textarea>
+				</div>
+				<div class="form-item">
+					<div class="form-item-label">Kontak</div>
+					<div class="form-item-error"></div>
+					<input type="text" class="input-tujuan-kontak" name="location_to_contact" value="<?= $location_to_contact ?>" />
+				</div>
+				<div class="form-item">
+					<div class="form-item-label">Peta Lokasi</div>
+					<div class="form-group" id="map_tujuan" style="width: 100%; height: 200px"></div> 
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section-3">
+		<div class="section-title">Detail Barang</div>
+		<div class="section-3-content">
+			<div class="form-item form-nama-barang">
+				<div class="form-item-label">Nama Barang</div>
+				<input type="text" class="input-nama-barang" name="item_name" />
+			</div>
+			<div class="form-item form-qty-barang">
+				<div class="form-item-label">Qty</div>
+				<input type="text" class="input-qty-barang" name="item_qty" />
+			</div>
+			<div class="form-item">
+				<div class="form-item-label">Deskripsi Barang</div>
+				<textarea rows="3" class="input-deskripsi-barang" name="item_desc" ></textarea>
+			</div>
+			<div class="pilihan-container">
+				<div class="pilihan-dimensi pilihan">
+					<label class="label-pilihan">
+						<input type="radio" name="pilihan" value="dimensi" checked="checked"/> Dimensi
+					</label>
+					<div class="pilihan-content">
+						<div class="form-item form-panjang-barang">
+							<div class="form-item-label">Panjang</div>
+							<input type="text" name="" class="input-panjang-barang" />
+						</div>
+						<div class="form-item form-lebar-barang">
+							<div class="form-item-label">Lebar</div>
+							<input type="text" name="" class="input-lebar-barang" />
+						</div>
+						<div class="form-item form-tinggi-barang">
+							<div class="form-item-label">Tinggi</div>
+							<input type="text" name="" class="input-tinggi-barang" />
+						</div>
+						<div class="form-item form-satuan-dimensi-barang">
+							<div class="form-item-label">Satuan</div>
+							<input type="text" name="" class="input-satuan-dimensi-barang" />
+						</div>
+					</div>
+				</div>
+				<div class="pilihan-kubikasi pilihan">
+					<label class="label-pilihan">
+						<input type="radio" name="pilihan" value="kubikasi" /> Kubikasi
+					</label>
+					<div class="pilihan-content">
+						<div class="form-item form-kubikasi-barang">
+							<div class="form-item-label">Kubikasi</div>
+							<input type="text" name="" class="input-kubikasi-barang" />
+						</div>
+						<div class="form-item form-satuan-kubikasi-barang">
+							<div class="form-item-label">Satuan</div>
+							<input type="text" name="" class="input-satuan-kubikasi-barang" />
+						</div>
+					</div>
+				</div>
+				<div class="pilihan-berat pilihan">
+					<label class="label-pilihan">
+						<input type="radio" name="pilihan" value="berat" /> Berat
+					</label>
+					<div class="pilihan-content">
+						<div class="form-item form-berat-barang">
+							<div class="form-item-label">Berat</div>
+							<input type="text" name="" class="input-berat-barang" />
+						</div>
+						<div class="form-item form-satuan-berat-barang">
+							<div class="form-item-label">Satuan</div>
+							<input type="text" name="" class="input-satuan-berat-barang" />
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -97,16 +191,16 @@ Kirim Barang
     <div class="col-md-6">
         <div id="image-holder">
             <?php
-            if (strlen($shipment_pictures)>0) {
+            /*if (strlen($shipment_pictures)>0) {
               echo "<img src='".base_url()."/assets/panel/images/".$shipment_pictures."' width='100%'>";
-            }
+            }*/
             ?>
         </div>
     </div>
 </div>
 
 <hr>
--->
+
 <div class="row">
     <div class="col-md-6">
         <div class="panel panel-primary">
@@ -123,7 +217,7 @@ Kirim Barang
                     <label>Detail Lokasi</label>
                     <textarea class="form-control" cols="3" rows="3" id="location_from_address"
                               name="location_from_address"><?= $location_from_address ?></textarea>
-                </div>-->
+                </div>
                 <div class="form-group">
                     <label>Keterangan (gedung, lantai, dst.)</label>
                     <input type="text" class="form-control" id="location_from_name" name="location_from_name"
@@ -134,7 +228,7 @@ Kirim Barang
                     <select name="history_first_place" id="history_first_place" class="form-control location_history">
                         <option selected></option>
                         <?php
-                        $length = count($location_from_history);
+                        /*$length = count($location_from_history);
                         for ($i = 0; $i < $length; $i++) {
                           $str = $location_from_history[$i]['location_contact'].'###'.
                                  $location_from_history[$i]['location_address'].'###'.
@@ -142,7 +236,7 @@ Kirim Barang
                                  $location_from_history[$i]['location_lat'].'###'.
                                  $location_from_history[$i]['location_lng'];
                           echo '<option value="'.$str.'">'.$location_from_history[$i]['location_name'].' ['.$location_from_history[$i]['location_address'].']</option>';
-                        }
+                        }*/
                         ?>
                     </select>
                 </div>
@@ -181,7 +275,7 @@ Kirim Barang
                     <select name="history_last_place" id="history_last_place" class="form-control location_history">
                         <option selected></option>
                         <?php
-                        $length = count($location_to_history);
+                        /*$length = count($location_to_history);
                         for ($i = 0; $i < $length; $i++) {
                           $str = $location_to_history[$i]['location_contact'].'###'.
                                  $location_to_history[$i]['location_address'].'###'.
@@ -189,7 +283,7 @@ Kirim Barang
                                  $location_to_history[$i]['location_lat'].'###'.
                                  $location_to_history[$i]['location_lng'];
                           echo '<option value="'.$str.'">'.$location_to_history[$i]['location_name'].' ['.$location_to_history[$i]['location_address'].']</option>';
-                        }
+                        }*/
                         ?>
                     </select>
                 </div>
@@ -201,7 +295,7 @@ Kirim Barang
                 <span class="form-group" id="latlng_tujuan"></span> 
             </div>
         </div>
-    </div>
+    </div>-->
 </div>
 <!-- /.row -->
 

@@ -31,16 +31,19 @@ input[type="file"] {
 .section-1 {
 	width: 100%;
 	height: 350px;
+	margin-bottom: 10px;
 }
 
 .form-header {
-	width: 49%;
+	width: 43%;
+	max-width: 700px;
 	float: left;
+	margin-right: 1.5%;
 }
 
 .image-preview-container {
-	float: right;
-	width: 49%;
+	float: left;
+	width: 45%;
 	height: 325px;
 }
 
@@ -51,25 +54,23 @@ input[type="file"] {
 
 .section-2 {
 	width: 100%;
-	height: 500px;
+	height: 660px;
 	padding-bottom: 50px;
 }
 
 .section-asal, .section-tujuan {
-	width: 49%;
+	width: 44%;
+	max-width: 600px;
 	height: 100%;
 	border: 1px solid #2196F3;
-}
-
-.section-asal {
 	float: left;
 }
 
-.section-tujuan {
-	float: right;
+.section-asal {
+	margin-right: 1.5%;
 }
 
-.section-asal-title, .section-tujuan-title {
+.section-title {
 	background-color: #2196F3;
 	color: white;
 	padding: 20px;
@@ -78,4 +79,86 @@ input[type="file"] {
 
 .section-asal-form, .section-tujuan-form {
 	padding: 15px;
+}
+
+.saved-location {
+	margin-left: 10px;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.section-3 {
+	width: 90%;
+	max-width: 1220px;
+	height: 500px;
+	border: 1px solid #2196F3;
+}
+
+.section-3-content {
+	padding: 15px;
+}
+
+.form-nama-barang {
+	width: 78%;
+	float: left;
+	margin-right: 2%;
+}
+
+.form-qty-barang {
+	width: 20%;
+	float: left;
+}
+
+.pilihan {
+	float: left;
+	height: 200px;
+	margin-right: 1.5%;
+	border: 1px solid #2196F3;
+}
+
+.pilihan-dimensi {
+	width: 47%;
+}
+
+.pilihan-kubikasi, .pilihan-berat {
+	width: 25%;
+}
+
+.pilihan:nth-child(n+3) {
+	margin-right: 0;
+}
+
+.label-pilihan {
+	display: block;
+	text-align: center;
+	background-color: #2196F3;
+	color: white;
+	padding: 10px 0;
+	cursor: pointer;
+}
+
+.pilihan-content {
+	padding: 15px;
+}
+
+.form-panjang-barang, .form-lebar-barang, .form-tinggi-barang {
+	width: 26%;
+	float: left;
+	margin-right: 2%;
+}
+
+.form-satuan-dimensi-barang {
+	width: 16%;
+	float: left;
+}
+
+.form-kubikasi-barang, .form-berat-barang {
+	width: 66%;
+	float: left;
+	margin-right: 4%;
+}
+
+.form-satuan-kubikasi-barang, .form-satuan-berat-barang {
+	width: 30%;
+	float: left;
 }
