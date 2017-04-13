@@ -93,6 +93,9 @@
 			</label>
 			<button class="btn btn-daftar" type="submit">Daftar</button>
 		</form>
+		<div class="login">
+			<span>Sudah daftar? <a href="<?= base_url("login"); ?>">Go To Login</a></span>
+		</div>
 	</div>
 </div>
 <script type="text/javascript" src="<?=base_url()?>assets/front/js/jquery-2.1.4.min.js"></script>
@@ -175,7 +178,7 @@
 					type: 'POST',
 					error: function() {
 						valid = false;
-						alert("error");
+						displayError($(".input-username").next(), "Unknown Error saat pengecekan kembar");
 					},
 					success: function(data) {
 						if (data == "true") { //berarti username kembar
@@ -207,7 +210,7 @@
 					type: 'POST',
 					error: function() {
 						valid = false;
-						alert("error");
+						displayError($(".input-username").next(), "Unknown Error saat pengecekan kembar");
 					},
 					success: function(data) {
 						if (data == "true") { //berarti email kembar
@@ -328,8 +331,7 @@
 		return false;
 	}
 
-	function isNumber(e)
-	{
+	function isNumber(e) {
 		if ((e.which >= 65 && e.which <= 90) || e.which >= 186) {
 			e.preventDefault();
 		}
