@@ -2,9 +2,7 @@
 
 <div class="container-fluid">
 
-<div class="page-title">
-Kirim Barang
-</div>
+<div class="page-title">Kirim Barang</div>
 
 <div id="successResult"></div>
 <div id="errorResult" class="has-error"></div>
@@ -13,672 +11,272 @@ Kirim Barang
 	<input type="hidden" id="type" name="type" value="<?= $type ?>">
 	<input type="hidden" name="id" value="<?= $id ?>">
 	
-	<div class="section-1">
-		<div class="form-header">
-			<div class="form-item">
-				<div class="form-item-label">Judul Kiriman</div>
-				<div class="form-item-input-group">
-					<div class="form-item-error"></div>
-					<input type="text" name="shipment_title" class="input-judul" value="<?= $shipment_title ?>" />
-				</div>
-			</div>
-			<div class="form-item">
-				<div class="form-item-label">Keterangan</div>
-				<div class="form-item-input-group">
-					<div class="form-item-error"></div>
-					<textarea rows="6" name="shipment_information" class="input-keterangan" ><?= $shipment_information ?></textarea>
-				</div>
-			</div>
-			<div class="form-item">
-				<div class="form-item-label">Foto Barang</div>
-				<div class="form-item-input-group">
-					<div class="form-item-error"></div>
-					<input type="file" class="input-gambar" name="shipment_pictures" />
-					<input type="hidden" class="input-gambar-nama" name="shipment_pictures_name" value="<?= $shipment_pictures ?>" />
-				</div>
-			</div>
-		</div>
-		<div class="image-preview-container">
-			<img class="image-preview" />
-		</div>
-	</div>
-	<div class="section-2">
-		<div class="section-asal">
-			<div class="section-title">
-				1 | Tentukan Lokasi Asal
-			</div>
-			<div class="section-asal-form">
+	<div class="content">
+		<div class="section-1">
+			<div class="form-header">
 				<div class="form-item">
-					<div class="form-item-label">Lokasi Asal <a class="saved-location">Pilih Lokasi yang sudah didaftarkan</a></div>
-					<div class="form-item-error"></div>
-					<input type="text" class="" id="location_from_address" name="location_from_address" value="<?= $location_from_address ?>" />
-				</div>
-				<div class="form-item">
-					<div class="form-item-label">Detail Lokasi</div>
-					<div class="form-item-error"></div>
-					<textarea rows="3" class="input-asal-detail" name="location_from_detail" ></textarea>
-				</div>
-				<div class="form-item">
-					<div class="form-item-label">Kontak</div>
-					<div class="form-item-error"></div>
-					<input type="text" class="input-asal-kontak" name="location_from_contact" value="<?= $location_from_contact ?>" />
-				</div>
-				<div class="form-item">
-					<div class="form-item-label">Peta Lokasi</div>
-					<div class="form-group" id="map_asal" style="width: 100%; height: 200px"></div> 
-				</div>
-			</div>
-		</div>
-		<div class="section-tujuan">
-			<div class="section-title">
-				2 | Tentukan Lokasi Tujuan
-			</div>
-			<div class="section-tujuan-form">
-				<div class="form-item">
-					<div class="form-item-label">Lokasi Tujuan <a class="saved-location">Pilih Lokasi yang sudah didaftarkan</a></div>
-					<div class="form-item-error"></div>
-					<input type="text" class="" id="location_to_address" name="location_to_address" value="<?= $location_to_address ?>" />
-				</div>
-				<div class="form-item">
-					<div class="form-item-label">Detail Lokasi</div>
-					<div class="form-item-error"></div>
-					<textarea rows="3" class="input-tujuan-detail" name="location_to_detail" ></textarea>
-				</div>
-				<div class="form-item">
-					<div class="form-item-label">Kontak</div>
-					<div class="form-item-error"></div>
-					<input type="text" class="input-tujuan-kontak" name="location_to_contact" value="<?= $location_to_contact ?>" />
-				</div>
-				<div class="form-item">
-					<div class="form-item-label">Peta Lokasi</div>
-					<div class="form-group" id="map_tujuan" style="width: 100%; height: 200px"></div> 
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="section-3">
-		<div class="section-title">Detail Barang</div>
-		<div class="section-3-content">
-			<div class="form-item form-nama-barang">
-				<div class="form-item-label">Nama Barang</div>
-				<input type="text" class="input-nama-barang" name="item_name" />
-			</div>
-			<div class="form-item form-qty-barang">
-				<div class="form-item-label">Qty</div>
-				<input type="text" class="input-qty-barang" name="item_qty" />
-			</div>
-			<div class="form-item">
-				<div class="form-item-label">Deskripsi Barang</div>
-				<textarea rows="3" class="input-deskripsi-barang" name="item_desc" ></textarea>
-			</div>
-			<div class="pilihan-container">
-				<div class="pilihan-dimensi pilihan">
-					<label class="label-pilihan">
-						<input type="radio" name="pilihan" value="dimensi" checked="checked"/> Dimensi
-					</label>
-					<div class="pilihan-content">
-						<div class="form-item form-panjang-barang">
-							<div class="form-item-label">Panjang</div>
-							<input type="text" name="" class="input-panjang-barang" />
-						</div>
-						<div class="form-item form-lebar-barang">
-							<div class="form-item-label">Lebar</div>
-							<input type="text" name="" class="input-lebar-barang" />
-						</div>
-						<div class="form-item form-tinggi-barang">
-							<div class="form-item-label">Tinggi</div>
-							<input type="text" name="" class="input-tinggi-barang" />
-						</div>
-						<div class="form-item form-satuan-dimensi-barang">
-							<div class="form-item-label">Satuan</div>
-							<input type="text" name="" class="input-satuan-dimensi-barang" />
-						</div>
+					<div class="form-item-label">Judul Kiriman</div>
+					<div class="form-item-input-group">
+						<div class="form-item-error"></div>
+						<input type="text" name="shipment_title" class="input-judul" value="<?= $shipment_title ?>" />
 					</div>
 				</div>
-				<div class="pilihan-kubikasi pilihan">
-					<label class="label-pilihan">
-						<input type="radio" name="pilihan" value="kubikasi" /> Kubikasi
-					</label>
-					<div class="pilihan-content">
-						<div class="form-item form-kubikasi-barang">
-							<div class="form-item-label">Kubikasi</div>
-							<input type="text" name="" class="input-kubikasi-barang" />
-						</div>
-						<div class="form-item form-satuan-kubikasi-barang">
-							<div class="form-item-label">Satuan</div>
-							<input type="text" name="" class="input-satuan-kubikasi-barang" />
-						</div>
+				<div class="form-item">
+					<div class="form-item-label">Keterangan</div>
+					<div class="form-item-input-group">
+						<div class="form-item-error"></div>
+						<textarea rows="6" name="shipment_information" class="input-keterangan" ><?= $shipment_information ?></textarea>
 					</div>
 				</div>
-				<div class="pilihan-berat pilihan">
-					<label class="label-pilihan">
-						<input type="radio" name="pilihan" value="berat" /> Berat
-					</label>
-					<div class="pilihan-content">
-						<div class="form-item form-berat-barang">
-							<div class="form-item-label">Berat</div>
-							<input type="text" name="" class="input-berat-barang" />
-						</div>
-						<div class="form-item form-satuan-berat-barang">
-							<div class="form-item-label">Satuan</div>
-							<input type="text" name="" class="input-satuan-berat-barang" />
-						</div>
+				<div class="form-item">
+					<div class="form-item-label">Foto Barang</div>
+					<div class="form-item-input-group">
+						<div class="form-item-error"></div>
+						<input type="file" class="input-gambar" name="shipment_pictures" />
+						<input type="hidden" class="input-gambar-nama" name="shipment_pictures_name" value="<?= $shipment_pictures ?>" />
+					</div>
+				</div>
+			</div>
+			<div class="image-preview-container">
+				<img class="image-preview" />
+			</div>
+		</div>
+		<div class="section-2">
+			<div class="section-asal">
+				<div class="section-title">
+					1 | Tentukan Lokasi Asal
+				</div>
+				<div class="section-asal-form">
+					<div class="form-item">
+						<div class="form-item-label">Lokasi Asal <a class="saved-location">Pilih Lokasi yang sudah didaftarkan</a></div>
+						<div class="form-item-error"></div>
+						<input type="text" class="" id="location_from_address" name="location_from_address" value="<?= $location_from_address ?>" />
+					</div>
+					<div class="form-item">
+						<div class="form-item-label">Detail Lokasi</div>
+						<div class="form-item-error"></div>
+						<textarea rows="3" class="input-asal-detail" name="location_from_detail" ></textarea>
+					</div>
+					<div class="form-item">
+						<div class="form-item-label">Kontak</div>
+						<div class="form-item-error"></div>
+						<input type="text" class="input-asal-kontak" name="location_from_contact" value="<?= $location_from_contact ?>" />
+					</div>
+					<div class="form-item">
+						<div class="form-item-label">Peta Lokasi</div>
+						<div class="form-group" id="map_asal" style="width: 100%; height: 200px"></div> 
+					</div>
+				</div>
+			</div>
+			<div class="section-tujuan">
+				<div class="section-title">
+					2 | Tentukan Lokasi Tujuan
+				</div>
+				<div class="section-tujuan-form">
+					<div class="form-item">
+						<div class="form-item-label">Lokasi Tujuan <a class="saved-location">Pilih Lokasi yang sudah didaftarkan</a></div>
+						<div class="form-item-error"></div>
+						<input type="text" class="" id="location_to_address" name="location_to_address" value="<?= $location_to_address ?>" />
+					</div>
+					<div class="form-item">
+						<div class="form-item-label">Detail Lokasi</div>
+						<div class="form-item-error"></div>
+						<textarea rows="3" class="input-tujuan-detail" name="location_to_detail" ></textarea>
+					</div>
+					<div class="form-item">
+						<div class="form-item-label">Kontak</div>
+						<div class="form-item-error"></div>
+						<input type="text" class="input-tujuan-kontak" name="location_to_contact" value="<?= $location_to_contact ?>" />
+					</div>
+					<div class="form-item">
+						<div class="form-item-label">Peta Lokasi</div>
+						<div class="form-group" id="map_tujuan" style="width: 100%; height: 200px"></div> 
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="section-3">
+			<div class="section-title">3 | Tambah Barang</div>
+			<div class="section-3-content">
+				<div class="form-item form-nama-barang">
+					<div class="form-item-label">Nama Barang
+						<div class="error" data-type="nama"></div>
+					</div>
+					
+					<input type="text" class="input-nama-barang" name="item_name" />
+				</div>
+				<div class="form-item form-qty-barang">
+					<div class="form-item-label">Qty
+						<div class="error" data-type="qty"></div>
+					</div>
+					<input type="text" class="input-qty-barang" name="item_qty" data-type="number" maxlength="11" />
+				</div>
+				<div class="form-item">
+					<div class="form-item-label">Deskripsi Barang
+						<div class="error" data-type="deskripsi"></div>
+					</div>
+					<textarea rows="3" class="input-deskripsi-barang" name="item_desc" ></textarea>
+				</div>
+				<div class="pilihan-container">
+					<div class="pilihan-dimensi pilihan">
+						<label class="label-pilihan">
+							<input type="radio" name="pilihan" value="dimensi" checked="checked"/> Dimensi
+						</label>
+						<div class="pilihan-content">
+							<div class="form-item form-panjang-barang">
+								<div class="form-item-label">Panjang</div>
+								<input type="text" name="" class="input-panjang-barang" data-type="number" maxlength="11" />
+								<div class="error" data-type="panjang"></div>
+							</div>
+							<div class="form-item form-lebar-barang">
+								<div class="form-item-label">Lebar</div>
+								<input type="text" name="" class="input-lebar-barang" data-type="number" maxlength="11" />
+								<div class="error" data-type="lebar"></div>
+							</div>
+							<div class="form-item form-tinggi-barang">
+								<div class="form-item-label">Tinggi</div>
+								<input type="text" name="" class="input-tinggi-barang" data-type="number" maxlength="11" />
+								<div class="error" data-type="tinggi"></div>
+							</div>
+							<div class="form-item form-satuan-dimensi-barang">
+								<div class="form-item-label">Satuan</div>
+								<select name="satuan-dimensi-barang" class="input-satuan-dimensi-barang">
+									<option value="cm">Cm</option>
+									<option value="m">M</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="pilihan-kubikasi pilihan">
+						<label class="label-pilihan">
+							<input type="radio" name="pilihan" value="kubikasi" /> Kubikasi
+						</label>
+						<div class="pilihan-content">
+							<div class="form-item form-kubikasi-barang">
+								<div class="form-item-label">Kubikasi</div>
+								<input type="text" name="" class="input-kubikasi-barang" data-type="number" maxlength="11" />
+								<div class="error" data-type="kubikasi"></div>
+							</div>
+							<div class="form-item form-satuan-kubikasi-barang">
+								<div class="form-item-label">Satuan</div>
+								<select name="satuan-kubikasi-barang" class="input-satuan-kubikasi-barang">
+									<option value="cm">Cm3</option>
+									<option value="m">M3</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="pilihan-berat pilihan">
+						<label class="label-pilihan">
+							<input type="radio" name="pilihan" value="berat" /> Berat
+						</label>
+						<div class="pilihan-content">
+							<div class="form-item form-berat-barang">
+								<div class="form-item-label">Berat</div>
+								<input type="text" name="" class="input-berat-barang" data-type="number" maxlength="11" />
+								<div class="error" data-type="berat"></div>
+							</div>
+							<div class="form-item form-satuan-berat-barang">
+								<div class="form-item-label">Satuan</div>
+								<select name="satuan-berat-barang" class="input-satuan-berat-barang">
+									<option value="kg">Kg</option>
+									<option value="ton">Ton</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="section-3-buttons">
+				<button type="button" class="section-btn btn-tambah-item" onclick="addItem()">Tambah Item</button>
+				<button type="button" class="section-btn btn-reset">Reset</button>
+			</div>
+		</div>
+		<div class="section-4">
+			<div class="section-title">4 | List Barang</div>
+			<div class="section-4-content">
+				<table class="section-4-table">
+					<thead>
+						<tr>
+							<td>Nama</td>
+							<td>Qty</td>
+							<td>Deskripsi</td>
+							<td>Dimensi</td>
+							<td>Kubikasi</td>
+							<td>Berat</td>
+							<td>Action</td>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="section-5">
+			<div class="section-title">5 | Tanggal</div>
+			<div class="section-5-content">
+				<div class="section-5-left">
+					<div class="form-item form-tanggal-kirim-awal">
+						<div class="form-item-label">Tanggal Kirim</div>
+						<input type="text" name="" class="input-tanggal-kirim-awal" data-type="number" maxlength="2" placeholder="DD" />
+						<input type="text" name="" class="input-bulan-kirim-awal" data-type="number" maxlength="2" placeholder="MM"/>
+						<input type="text" name="" class="input-tahun-kirim-awal" data-type="number" maxlength="4" placeholder="YYYY" />
+						
+					</div>
+					<div class="form-item form-tanggal-kirim-akhir">
+						<div class="form-item-label">sampai dengan</div>
+						<input type="text" name="" class="input-tanggal-kirim-akhir" data-type="number" maxlength="2" placeholder="DD" />
+						<input type="text" name="" class="input-bulan-kirim-akhir" data-type="number" maxlength="2" placeholder="MM"/>
+						<input type="text" name="" class="input-tahun-kirim-akhir" data-type="number" maxlength="4" placeholder="YYYY" />
+						
+					</div>
+					<div class="form-item form-deadline">
+						<div class="form-item-label">Berakhir tanggal</div>
+						<input type="text" name="" class="input-tanggal-deadline" data-type="number" maxlength="2" placeholder="DD" />
+						<input type="text" name="" class="input-bulan-deadline" data-type="number" maxlength="2" placeholder="MM"/>
+						<input type="text" name="" class="input-tahun-deadline" data-type="number" maxlength="4" placeholder="YYYY" />
+						
+					</div>
+				</div>
+				<div class="section-5-right">
+					<div class="form-item form-item-harga">
+						<div class="form-item-label">Harga</div>
+						<input type="text" name="" class="input-harga" data-type="number" maxlength="11" />
+					</div>
+					<div class="form-item">
+						<div class="form-item-label">Cara Pemesanan</div>
+						<label>
+							<input type="radio" class="" name="pemesanan" value="1" checked="checked" /> Penawaran
+						</label>
+						<label>
+							<input type="radio" class="" name="pemesanan" value="2" /> Pesan secara instan
+						</label>
+					</div>
+					<div class="form-item">
+						<div class="form-item-label">Tipe Penawaran</div>
+						<label>
+							<input type="radio" class="" name="penawaran" value="1" checked="checked" /> Public
+						</label>
+						<label>
+							<input type="radio" class="" name="penawaran" value="2" /> Private
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="buttons">
+			<button class="section-btn btn-submit">Submit</button>
+		</div>
 	</div>
-<!--
-<div class="row">
-    <div class="col-md-6">
-
-        <div class="form-group">
-            <label>Judul Kiriman</label>
-            <input class="form-control" name="shipment_title" id="shipment_title" value="<?= $shipment_title ?>">
-        </div>
-
-        <div class="form-group">
-            <label>Keterangan</label>
-            <textarea cols="3" rows="6" name="shipment_information" id="shipment_information" class="form-control"><?= $shipment_information ?></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Foto Barang</label>
-            <input type="file" id="shipment_pictures" name="shipment_pictures" class="form-control">
-            <input type="hidden" id="shipment_pictures_name" name="shipment_pictures_name" value="<?=$shipment_pictures?>">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div id="image-holder">
-            <?php
-            /*if (strlen($shipment_pictures)>0) {
-              echo "<img src='".base_url()."/assets/panel/images/".$shipment_pictures."' width='100%'>";
-            }*/
-            ?>
-        </div>
-    </div>
-</div>
-
-<hr>
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Asal Lokasi</h3>
-            </div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <label>Contact</label>
-                    <input type="text" class="form-control" id="location_from_contact" name="location_from_contact"
-                           value="<?= $location_from_contact ?>">
-                </div>
-                <!--<div class="form-group">
-                    <label>Detail Lokasi</label>
-                    <textarea class="form-control" cols="3" rows="3" id="location_from_address"
-                              name="location_from_address"><?= $location_from_address ?></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Keterangan (gedung, lantai, dst.)</label>
-                    <input type="text" class="form-control" id="location_from_name" name="location_from_name"
-                           value="<?= $location_from_name ?>">
-                </div>
-                <div class="form-group">
-                    <label>History</label>
-                    <select name="history_first_place" id="history_first_place" class="form-control location_history">
-                        <option selected></option>
-                        <?php
-                        /*$length = count($location_from_history);
-                        for ($i = 0; $i < $length; $i++) {
-                          $str = $location_from_history[$i]['location_contact'].'###'.
-                                 $location_from_history[$i]['location_address'].'###'.
-                                 $location_from_history[$i]['location_detail'].'###'.
-                                 $location_from_history[$i]['location_lat'].'###'.
-                                 $location_from_history[$i]['location_lng'];
-                          echo '<option value="'.$str.'">'.$location_from_history[$i]['location_name'].' ['.$location_from_history[$i]['location_address'].']</option>';
-                        }*/
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Map Lokasi</label>
-                    <input type="hidden" name="location_from_latlng" id="location_from_latlng" class="form-control" value="<?=$location_from_latlng;?>" readonly>
-                </div>
-                <div class="form-group" id="map_asal" style="width: 100%; height: 200px"></div> 
-                <span class="form-group" id="latlng_asal"></span> 
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-6">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Tujuan Lokasi</h3>
-            </div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <label>Contact</label>
-                    <input type="text" class="form-control" id="location_to_contact" name="location_to_contact"
-                           value="<?= $location_to_contact ?>">
-                </div>
-                <div class="form-group">
-                    <label>Detail Lokasi</label>
-                    <textarea class="form-control" cols="3" rows="3" id="location_to_address" name="location_to_address" ><?= $location_to_address ?></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Keterangan (gedung, lantai, dst.)</label>
-                    <input type="text" class="form-control" id="location_to_name" name="location_to_name"
-                           value="<?= $location_to_name ?>">
-                </div>
-                <div class="form-group">
-                    <label>History</label>
-                    <select name="history_last_place" id="history_last_place" class="form-control location_history">
-                        <option selected></option>
-                        <?php
-                        /*$length = count($location_to_history);
-                        for ($i = 0; $i < $length; $i++) {
-                          $str = $location_to_history[$i]['location_contact'].'###'.
-                                 $location_to_history[$i]['location_address'].'###'.
-                                 $location_to_history[$i]['location_detail'].'###'.
-                                 $location_to_history[$i]['location_lat'].'###'.
-                                 $location_to_history[$i]['location_lng'];
-                          echo '<option value="'.$str.'">'.$location_to_history[$i]['location_name'].' ['.$location_to_history[$i]['location_address'].']</option>';
-                        }*/
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Map Lokasi</label>
-                    <input type="hidden" name="location_to_latlng" id="location_to_latlng" class="form-control" value="<?=$location_from_latlng;?>" readonly>
-                </div>
-                <div class="form-group" id="map_tujuan" style="width: 100%; height: 200px"></div> 
-                <span class="form-group" id="latlng_tujuan"></span> 
-            </div>
-        </div>
-    </div>-->
-</div>
-<!-- /.row -->
-
-<hr>
-
-<?php if ($type == "new") { ?>
-    <div class="row">
-        <div class="col-md-3">&nbsp;</div>
-        <div class="col-md-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Detail Barang</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="items">
-                        <div class="form-group row">
-                            <div class="col-md-9">
-                                <label>Nama Barang</label>
-                                <input type="text" id="item_name" name="item_name" class="form-control"><span
-                                    id="span_item_name"></span>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Jumlah</label>
-                                <input type="number" class="form-control" id="item_qty" name="item_qty"><span
-                                    id="span_item_qty"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Deskripsi Tambahan</label>
-                            <textarea class="form-control" id="item_desc" name="item_desc" cols="3" rows="3"></textarea><span
-                                id="span_item_desc"></span>
-                        </div>
-                        <div class="form-group row well">
-                            <div class="col-md-3">
-                                <label>Panjang</label>
-                                <input type="number" id="item_length" name="item_length" class="form-control"><span
-                                    id="span_item_length"></span>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Lebar</label>
-                                <input type="number" id="item_width" name="item_width" class="form-control"><span
-                                    id="span_item_width"></span>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Tinggi</label>
-                                <input type="number" id="item_height" name="item_height" class="form-control"><span
-                                    id="span_item_height"></span>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="item_dimension_unit">Satuan</label>
-                                <select class="form-control" name="item_dimension_unit" id="item_dimension_unit">
-                                    <option value="M">M</option>
-                                    <option value="Cm">Cm</option>
-                                </select>
-                                <span id="span_item_dimension_unit"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="row well">
-                                    <div class="col-md-6">
-                                        <label>Kubikasi</label>
-                                        <input type="number" id="item_cubic" name="item_cubic" class="form-control"><span
-                                            id="span_item_kubikasi"></span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="item_kubikasi_unit">Satuan</label>
-                                        <select class="form-control" name="item_kubikasi_unit" id="item_kubikasi_unit">
-                                            <option value="M3">M3</option>
-                                            <option value="Cm3">Cm3</option>
-                                        </select>
-                                        <span id="span_item_kubikasi_unit"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row well">
-                                    <div class="col-md-6">
-                                        <label>Berat</label>
-                                        <input type="number" class="form-control" id="item_weight" name="item_weight"><span
-                                            id="span_item_weight"></span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="item_weight_unit">Satuan</label>
-                                        <select class="form-control" name="item_weight_unit" id="item_weight_unit">
-                                            <option value="Kg">Kg</option>
-                                            <option value="Ton">Ton</option>
-                                        </select>
-                                        <span id="span_item_weight_unit"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group" id="errMsg"></div>
-                    <div class="form-group" style="float: right">
-                        <button type="reset" class="btn btn-danger"><span class="fa fa-remove"></span> Reset</button>
-                        <a class="btn btn-success" onclick="postItems()"><i class="fa fa-plus"></i> Tambahkan Item</a>
-                    </div>
-                    <input type="hidden" id="temporaryItems" name="temporaryItems">
-
-                    <script>
-                        $( document ).ready(function() {
-                            $('#item_length').blur(function() { this.focusout(); });
-                            $('#item_width').blur(function() { $('#item_length').focusout(); });
-                            $('#item_height').blur(function() { $('#item_length').focusout(); });
-                            $('#item_width').focusout(function() { $('#item_length').focusout(); });
-                            $('#item_height').focusout(function() { $('#item_length').focusout(); });
-                            $('#item_length').focusout(function() {
-                                var p = 0;
-                                if ($('#item_length').val().length>0) {
-                                    p = $('#item_length').val()*1;
-                                }
-                                var l = 0;
-                                if ($('#item_width').val().length>0) {
-                                    l = $('#item_width').val()*1;
-                                }
-                                var t = 0;
-                                if ($('#item_height').val().length>0) {
-                                    t = $('#item_height').val()*1;
-                                }
-
-                                if (p*l*t>0) {
-                                    $("#item_cubic").val(p*l*t);
-                                    $("#item_cubic").prop('disabled', true);
-                                    $("#item_kubikasi_unit").prop('disabled', true);
-                                    $("#item_cubic").attr('disabled','disabled');
-                                    $("#item_kubikasi_unit").attr('disabled','disabled');
-                                }
-                                else {
-                                    $("#item_cubic").prop('disabled', false);
-                                    $("#item_kubikasi_unit").prop('disabled', false);
-                                    $("#item_cubic").removeAttr('disabled');
-                                    $("#item_kubikasi_unit").removeAttr('disabled');
-                                }
-                            });
-
-                            $('#item_dimension_unit').change(function() {
-                                $('#item_kubikasi_unit').val($('#item_dimension_unit').val()+"3");
-                            });
-
-                            $('#item_kubikasi_unit').change(function() {
-                                $('#item_dimension_unit').val($('#item_kubikasi_unit').val().replace("3",""));
-                            });
-                        });
-
-                        var i = 0;
-                        var arrayItems = [];
-
-                        function postItems() {
-                            var item_name = $('#item_name').val().toUpperCase();
-                            var item_desc = $('#item_desc').val().toUpperCase();
-                            var item_length = $('#item_length').val();
-                            var item_width = $('#item_width').val();
-                            var item_height = $('#item_height').val();
-                            var item_dimension_unit = $('#item_dimension_unit').val();
-                            var satuan = $('#item_dimension_unit option:selected').text();
-                            var item_kubikasi = $('#item_cubic').val();
-                            if (item_length && item_width && item_height) {
-                                item_kubikasi = item_length*item_width*item_height;
-                            }
-
-                            var item_kubikasi_unit = $('#item_dimension_unit').val()+"3";
-                            if ($('#item_kubikasi_unit').val()) {item_kubikasi_unit = $('#item_kubikasi_unit').val();}
-                            var item_weight = $('#item_weight').val();
-                            var item_weight_unit = $('#item_weight_unit').val();
-                            var satuan_berat = $('#item_weight_unit option:selected').text();
-                            var item_qty = $('#item_qty').val();
-
-                            try {
-                                if (item_name == "") {
-                                    $('#item_name').focus();
-                                    throw "Nama Barang harus diisi";
-                                }
-                                if (item_qty == "") {
-                                    $('#item_qty').focus();
-                                    throw "Jumlah harus diisi";
-                                }
-                                if (item_desc == "") {
-                                    $('#item_desc').focus();
-                                    throw "Deskripsi Barang harus diisi";
-                                }
-                                /*if (item_length == "") throw "Panjang field required";
-                                if (item_width == "") throw "Lebar field required";
-                                if (item_height == "") throw "Tinggi field required";
-                                if (item_dimension_unit == false) throw "Satuan tinggi required";*/
-                                if (item_kubikasi == "") {
-                                    $('#item_cubic').focus();
-                                    throw "Kubikasi harus diisi";
-                                }
-                                //if (item_kubikasi_unit == false) throw "Satuan kubikasi required";
-                                if (item_weight == "") {
-                                    $('#item_weight').focus();
-                                    throw "Berat harus diisi";
-                                }
-                                //if (item_weight_unit == false) throw "satuan berat required";
-                                $('#errMsg').html('');
-                            } catch (err) {
-                                //alert(err);
-                                $('#errMsg').html('<font color="#f00"> * '+err+'</font>');
-                                return;
-                            }
-							
-                            arrayItems.push({
-                                "item_name": item_name,
-                                "item_desc": item_desc,
-                                "item_length": item_length,
-                                "item_width": item_width,
-                                "item_height": item_height,
-                                "item_dimension_unit": item_dimension_unit,
-                                "item_kubikasi": item_kubikasi,
-                                "item_kubikasi_unit": item_kubikasi_unit,
-                                "item_weight": item_weight,
-                                "item_weight_unit": item_weight_unit,
-                                "item_qty": item_qty
-                            });
-
-                            document.getElementById("temporaryItems").value = JSON.stringify(arrayItems);
-                            console.log(arrayItems);
-							
-							var rowCount = table.rows.length;
-                            var row = table.insertRow(rowCount);
-							
-							console.log("=>"+rowCount);
-
-                            row.insertCell(0).innerHTML = item_name+"<br>=> "+item_desc;
-                            row.insertCell(1).innerHTML = item_qty;
-                            if (item_length*item_width*item_height*1>0) {
-                                row.insertCell(2).innerHTML = item_length+" "+satuan+" x "+item_width+" "+satuan+" x "+item_height+" "+satuan;
-                            }
-                            else {
-                                row.insertCell(2).innerHTML = "";
-                            }
-                            row.insertCell(3).innerHTML = item_kubikasi+" "+satuan+"3";
-                            row.insertCell(4).innerHTML = item_weight+" "+satuan_berat;
-                            row.insertCell(5).innerHTML = '<a class="btn btn-danger" onClick="javacsript:deleteRow(this,i)"><i class="fa fa-remove"></i> Remove</a>';
-							
-						}
-
-                        function deleteRow(obj, i) {
-                            index = obj.parentNode.parentNode.rowIndex;
-                            table = document.getElementById("table");
-                            table.deleteRow(index);
-
-                            arrayItems.splice(i - 1, 1);
-
-                            document.getElementById("temporaryItems").value = JSON.stringify(arrayItems);
-                        }
-
-                        function clearText() {
-                            document.getElementById("item_name").value = "";
-                            document.getElementById("item_desc").value = "";
-                            document.getElementById("item_length").value = "";
-                            document.getElementById("item_width").value = "";
-                            document.getElementById("item_height").value = "";
-                            document.getElementById("item_dimension_unit").value = "";
-                            document.getElementById("item_cubic").value = "";
-                            document.getElementById("item_kubikasi_unit").value = "";
-                            document.getElementById("item_weight").value = "";
-                            document.getElementById("item_weight_unit").value = "";
-                            document.getElementById("item_qty").value = "";
-                        }
-
-                        function setStyle(inputId, spanId, label, display, borderColor) {
-                            document.getElementById(spanId).innerHTML = label;
-                            document.getElementById(spanId).style.display = display;
-                            document.getElementById(inputId).style.borderColor = borderColor;
-                        }
-                    </script>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">&nbsp;</div>
-    </div>
-
-<?php } ?>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="table-responsive">
-            <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                    <th>Deskripsi Barang</th>
-                    <th>Jumlah</th>
-                    <th>Dimensi</th>
-                    <th>Kubikasi</th>
-                    <th>Berat</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php if ($type == "edit") {
-                    $i = 0;
-                    foreach ($shipment_detail as $sd) {
-                        ?>
-                        <tr>
-                            <?php
-                            $uom = $sd['item_dimension_unit'];
-                            ?>
-                            <td><?= $sd['item_name'] ?></td>
-                            <td><?= $sd['item_qty'] ?></td>
-                            <td><?= $sd['item_length']." ".$uom." x ".$sd['item_width']." ".$uom." x ".$sd['item_height']." ".$uom ?></td>
-                            <td><?= $sd['item_kubikasi']." ".$sd['item_kubikasi_unit'] ?></td>
-                            <td><?= $sd['item_weight']." ".$sd['item_weight_unit'] ?></td>
-                            <td>
-                                <button type="button" id="btnEdit<?=$sd['shipment_details_id']?>" class="btn btn-primary" onclick="editItems(<?=$sd['shipment_details_id']?>, this.id)">Edit</button>
-                                <button type="button" id="btnDelete<?=$sd['shipment_details_id']?>" class="btn btn-danger" onclick="deleteItems(<?=$sd['shipment_details_id']?>, this.id)">Delete</button>
-                            </td>
-                        </tr>
-                    <?php
-                    }
-
-                } ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-3">
-        <div class="form-group">
-            <label>Tanggal Kirim</label>
-            <input type="text" class="form-control" id="shipment_delivery_date_from" name="shipment_delivery_date_from"
-                   onmouseover="getTanggal(this.id)" width="50px"
-                   placeholder="Tanggal awal" value="<?= $shipment_delivery_date_from ?>">
-            <label>&nbsp;</label>
-            <input type="text" class="form-control" id="shipment_delivery_date_to" name="shipment_delivery_date_to"
-                   onmouseover="getTanggal(this.id)" width="50px"
-                   placeholder="Tanggal akhir" value="<?= $shipment_delivery_date_to ?>">
-        </div>
-    </div>
-    <div class="col-xs-3">
-        <div class="form-group">
-            <label>Tanggal Max. Kiriman</label>
-            <input type="text" class="form-control" id="shipment_end_date" name="shipment_end_date"
-                   onmouseover="getTanggal(this.id)" width="50px"
-                   placeholder="Tanggal max. kiriman" value="<?= $shipment_end_date ?>">
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>Harga</label>
-            <input type="text" class="form-control" id="shipment_price" name="shipment_price"
-                   value="<?= number_format($shipment_price, 2, '.', ',') ?>">
-        </div>
-
-        <div class="form-group">
-            <label>Cara Pemesanan</label>&nbsp;
-
-            <input type="radio" name="order_type" value="1" <?= ($checked_pemesanan == 1) ? "checked" : "" ?>> Penawaran
-            &nbsp;&nbsp;
-            <input type="radio" name="order_type" value="2" <?= ($checked_pemesanan == 2) ? "checked" : "" ?>> Pesan
-            secara instan
-
-        </div>
-
-        <div class="form-group">
-            <label>Type Penawaran</label>&nbsp;
-
-            <input type="radio" name="shipment_type" value="1" <?= ($checked_penawaran == 1) ? "checked" : "" ?>> Public
-            &nbsp;&nbsp;
-            <input type="radio" name="shipment_type" value="2" <?= ($checked_penawaran == 2) ? "checked" : "" ?>>
-            Private
-
-        </div>
-    </div>
-</div>
-<div class='row'>
-    <div class='col-md-12 text-right'>
-<button type="button" onclick="doKirim()" id="btnSave" class="btn btn-success"><span
-        class="fa fa-save"></span> <?= $btnSave ?></button>
-<button type="reset" class="btn btn-danger"><span class="fa fa-remove"></span> Reset</button>
-<button type="button" onclick="location.href='<?=site_url('kirim/');?>';" class="btn btn-warning"><span class="fa fa-minus-circle"></span> Batal</button>
-    </div>
-</div>
 </form>
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo&callback=initMap&libraries=places" async defer></script>
 <script>
    var type = $("#type").val();
    var url;
+   var error = {
+		nama: "", qty: "", deskripsi: "", panjang: "", lebar: "", tinggi: "", kubikasi: "", berat: ""
+   };
    
 	$(".input-gambar").on("change", function() {
 		var reader = new FileReader();
@@ -687,6 +285,110 @@ Kirim Barang
 		};
 		reader.readAsDataURL($(this)[0].files[0]);
 	});
+	
+	$("input[data-type='number']").on("keydown", function(e) {
+		isNumber(e);
+	});
+	
+	function addItem() {
+		valid = true;
+		clearAllErrors();
+		
+		var nama = $(".input-nama-barang").val();
+		var qty = $(".input-qty-barang").val();
+		var deskripsi = $(".input-deskripsi-barang").val();
+		var select_dimensi = "", select_kubikasi = "", select_berat = "";
+		
+		if (nama == "") {
+			error.nama = "Nama harus diisi";
+			valid = false;
+		}
+		if (qty == "") {
+			error.qty = "Qty harus diisi";
+			valid = false;
+		}
+		if (deskripsi == "") {
+			error.deskripsi = "Deskripsi harus diisi";
+			valid = false;
+		}
+		
+		var checked = $("input[name='pilihan']:checked").val();
+		switch (checked) {
+			case "dimensi":
+				var panjang = $(".input-panjang-barang").val();
+				var lebar = $(".input-lebar-barang").val();
+				var tinggi = $(".input-tinggi-barang").val();
+				var satuan = $(".input-satuan-dimensi-barang").val();
+				select_dimensi = panjang + " " + satuan + "<br>" + lebar + " " + satuan + "<br>" + tinggi + " " + satuan;
+				
+				if (panjang == "") {
+					valid = false;
+					error.panjang = "Panjang harus diisi";
+				}
+				if (lebar == "") {
+					valid = false;
+					error.lebar = "Lebar harus diisi";
+				}
+				if (tinggi == "") {
+					valid = false;
+					error.tinggi = "Tinggi harus diisi";
+				}
+				
+				break;
+			case "kubikasi":
+				var kubikasi = $(".input-kubikasi-barang").val();
+				var satuan = $(".input-satuan-kubikasi-barang").val();
+				select_kubikasi = kubikasi + " " + satuan;
+				if (kubikasi == "") {
+					valid = false;
+					error.kubikasi = "Kubikasi harus diisi";
+				}
+				break;
+			case "berat":
+				var berat = $(".input-berat-barang").val();
+				var satuan = $(".input-satuan-berat-barang").val();
+				select_berat = berat + " " + satuan;
+				if (berat == "") {
+					valid = false;
+					error.berat = "Berat harus diisi";
+				}
+				break;
+		}
+		
+		showErrors();
+		
+		if (valid) {
+			$(".section-4-table tbody").append("<tr><td>" + nama + "</td><td>" + qty + "</td><td>" + deskripsi + "</td><td>" + select_dimensi + "</td><td>" + select_kubikasi + "</td><td>" + select_berat + "</td><td></td></tr>");
+		}
+	}
+	
+	function clearAllErrors() {
+		error.nama = "";
+		error.qty = "";
+		error.deskripsi = "";
+		error.panjang = "";
+		error.lebar = "";
+		error.tinggi = "";
+		error.kubikasi = "";
+		error.berat = "";
+	}
+	
+	function showErrors() {
+		$(".error[data-type='nama']").html(error.nama);
+		$(".error[data-type='qty']").html(error.qty);
+		$(".error[data-type='deskripsi']").html(error.deskripsi);
+		$(".error[data-type='panjang']").html(error.panjang);
+		$(".error[data-type='lebar']").html(error.lebar);
+		$(".error[data-type='tinggi']").html(error.tinggi);
+		$(".error[data-type='kubikasi']").html(error.kubikasi);
+		$(".error[data-type='berat']").html(error.berat);
+	}
+	
+	function isNumber(e) {
+		if ((e.which >= 65 && e.which <= 90) || e.which >= 186) {
+			e.preventDefault();
+		}
+	}
 
     function doKirim() {
 	
@@ -974,102 +676,3 @@ Kirim Barang
 
 </div>
 <!-- /#page-wrapper -->
-
-
-
-<!-- Bootstrap modal -->
-<div class="modal fade" id="modal_form" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Item Details</h3>
-            </div>
-            <div class="modal-body form">
-                <form action="#" id="form" class="form-horizontal">
-                    <input type="hidden" value="" name="shipment_id" id="shipment_id"/>
-                    <input type="hidden" value="" name="shipment_details_id"/>
-
-                    <div class="form-body">
-                        <div class="form-group col-md-12">
-                            <label>Items</label>
-                            <input type="text" id="item_name" name="item_name" class="form-control">
-                            <span class="help-block"></span>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label>Deskripsi</label>
-                            <textarea class="form-control" id="item_desc" name="item_desc" cols="3" rows="3"></textarea>
-                                <span class="help-block"></span>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label>Panjang</label>
-                            <input type="number" id="item_length" name="item_length" class="form-control">
-                                <span class="help-block"></span>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label>Lebar</label>
-                            <input type="number" id="item_width" name="item_width" class="form-control">
-                                <span class="help-block"></span>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Tinggi</label>
-                                    <input type="number" id="item_height" name="item_height" class="form-control">
-                                    <span class="help-block"></span>
-                                </div>
-                                <div class="col-md-6"><br><br>
-                                    <input type="radio" name="item_dimension_unit" value="1"> Meter &nbsp;&nbsp;
-                                    <input type="radio" name="item_dimension_unit" value="2"> Centimeter
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                                <span class="help-block"></span>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Kubikasi</label>
-                                    <input type="number" id="item_cubic" name="item_cubic" class="form-control">
-                                    <span class="help-block"></span>
-                                </div>
-                                <div class="col-md-6"><br><br>
-                                    <input type="radio" name="item_kubikasi_unit" value="1"> m3 &nbsp;&nbsp;
-                                    <input type="radio" name="item_kubikasi_unit" value="2"> cm3
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>Berat</label>
-                                    <input type="number" class="form-control" id="item_weight" name="item_weight">
-                                    <span class="help-block"></span>
-                                </div>
-                                <div class="col-md-6"><br><br>
-                                    <input type="radio" name="item_weight_unit" value="1"> Kilogram &nbsp;&nbsp;
-                                    <input type="radio" name="item_weight_unit" value="2"> Ton
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label>Qty</label>
-                            <input type="number" class="form-control" id="item_qty" name="item_qty">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="btnUpdate" onclick="updateItems()" class="btn btn-primary">Simpan</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- End Bootstrap modal -->
