@@ -64,7 +64,8 @@
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Peta Lokasi</div>
-						<div class="form-group" id="map_asal" style="width: 100%; height: 200px"></div> 
+						<div class="form-group" id="map_asal" style="width: 100%; height: 200px"></div>
+						<input type="hidden" id="location_from_latlng" value="" />
 					</div>
 				</div>
 			</div>
@@ -91,6 +92,7 @@
 					<div class="form-item">
 						<div class="form-item-label">Peta Lokasi</div>
 						<div class="form-group" id="map_tujuan" style="width: 100%; height: 200px"></div> 
+						<input type="hidden" id="location_to_latlng" value="" />
 					</div>
 				</div>
 			</div>
@@ -195,6 +197,7 @@
 		<div class="section-4">
 			<div class="section-title">4 | List Barang</div>
 			<div class="section-4-content">
+				<input type="hidden" class="detail-count" name="detail-count" value="0" />
 				<table class="section-4-table">
 					<thead>
 						<tr>
@@ -246,19 +249,19 @@
 					<div class="form-item">
 						<div class="form-item-label">Cara Pemesanan</div>
 						<label>
-							<input type="radio" class="" name="pemesanan" value="1" checked="checked" /> Penawaran
+							<input type="radio" class="" name="order_type" value="1" checked="checked" /> Penawaran
 						</label>
 						<label>
-							<input type="radio" class="" name="pemesanan" value="2" /> Pesan secara instan
+							<input type="radio" class="" name="order_type" value="2" /> Pesan secara instan
 						</label>
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Tipe Penawaran</div>
 						<label>
-							<input type="radio" class="" name="penawaran" value="1" checked="checked" /> Public
+							<input type="radio" class="" name="shipment_type" value="1" checked="checked" /> Public
 						</label>
 						<label>
-							<input type="radio" class="" name="penawaran" value="2" /> Private
+							<input type="radio" class="" name="shipment_type" value="2" /> Private
 						</label>
 					</div>
 				</div>
@@ -297,6 +300,7 @@
 		var nama = $(".input-nama-barang").val();
 		var qty = $(".input-qty-barang").val();
 		var deskripsi = $(".input-deskripsi-barang").val();
+		var panjang, lebar, tinggi, dimensi_satuan, kubikasi, kubikasi_satuan, berat, berat_satuan;
 		var select_dimensi = "", select_kubikasi = "", select_berat = "";
 		
 		if (nama == "") {
@@ -315,11 +319,11 @@
 		var checked = $("input[name='pilihan']:checked").val();
 		switch (checked) {
 			case "dimensi":
-				var panjang = $(".input-panjang-barang").val();
-				var lebar = $(".input-lebar-barang").val();
-				var tinggi = $(".input-tinggi-barang").val();
-				var satuan = $(".input-satuan-dimensi-barang").val();
-				select_dimensi = panjang + " " + satuan + "<br>" + lebar + " " + satuan + "<br>" + tinggi + " " + satuan;
+				panjang = $(".input-panjang-barang").val();
+				lebar = $(".input-lebar-barang").val();
+				tinggi = $(".input-tinggi-barang").val();
+				dimensi_satuan = $(".input-satuan-dimensi-barang").val();
+				select_dimensi = panjang + " " + dimensi_satuan + "<br>" + lebar + " " + dimensi_satuan + "<br>" + tinggi + " " + dimensi_satuan;
 				
 				if (panjang == "") {
 					valid = false;
@@ -336,18 +340,18 @@
 				
 				break;
 			case "kubikasi":
-				var kubikasi = $(".input-kubikasi-barang").val();
-				var satuan = $(".input-satuan-kubikasi-barang").val();
-				select_kubikasi = kubikasi + " " + satuan;
+				kubikasi = $(".input-kubikasi-barang").val();
+				kubikasi_satuan = $(".input-satuan-kubikasi-barang").val();
+				select_kubikasi = kubikasi + " " + kubikasi_satuan;
 				if (kubikasi == "") {
 					valid = false;
 					error.kubikasi = "Kubikasi harus diisi";
 				}
 				break;
 			case "berat":
-				var berat = $(".input-berat-barang").val();
-				var satuan = $(".input-satuan-berat-barang").val();
-				select_berat = berat + " " + satuan;
+				berat = $(".input-berat-barang").val();
+				berat_satuan = $(".input-satuan-berat-barang").val();
+				select_berat = berat + " " + berat_satuan;
 				if (berat == "") {
 					valid = false;
 					error.berat = "Berat harus diisi";
@@ -358,7 +362,30 @@
 		showErrors();
 		
 		if (valid) {
-			$(".section-4-table tbody").append("<tr><td>" + nama + "</td><td>" + qty + "</td><td>" + deskripsi + "</td><td>" + select_dimensi + "</td><td>" + select_kubikasi + "</td><td>" + select_berat + "</td><td></td></tr>");
+			var count = parseInt($(".detail-count").val());
+			
+			var input_nama = "<input type='hidden' value='" + nama + "' name='item-name-" + count + "' />";
+			var input_qty = "<input type='hidden' value='" + qty + "' name='item-qty-" + count + "' />";
+			var input_deskripsi = "<input type='hidden' value='" + deskripsi + "' name='item-deskripsi-" + count + "' />";
+			
+			var input_panjang = "", input_lebar = "", input_tinggi = "", input_dimensi_satuan = "", input_kubikasi = "", input_kubikasi_satuan = "", input_berat = "", input_berat_satuan = "";
+			
+			if (select_dimensi != "") {
+				input_panjang = "<input type='hidden' value='" + panjang + "' name='item-panjang-" + count + "' />";
+				input_lebar = "<input type='hidden' value='" + lebar + "' name='item-lebar-" + count + "' />";
+				input_tinggi = "<input type='hidden' value='" + tinggi + "' name='item-tinggi-" + count + "' />";
+				input_dimensi_satuan = "<input type='hidden' value='" + dimensi_satuan + "' name='item-dimensi-satuan-" + count + "' />";
+			} else if (select_kubikasi != "") {
+				input_kubikasi = "<input type='hidden' value='" + kubikasi + "' name='item-kubikasi-" + count + "' />";
+				input_kubikasi_satuan = "<input type='hidden' value='" + kubikasi_satuan + "' name='item-kubikasi-satuan-" + count + "' />";
+			} else {
+				input_berat = "<input type='hidden' value='" + berat + "' name='item-berat-" + count + "' />";
+				input_berat_satuan = "<input type='hidden' value='" + berat_satuan + "' name='item-berat-satuan-" + count + "' />";
+			}
+			
+			$(".section-4-table tbody").append("<tr><td>" + nama + input_nama + "</td><td>" + qty + input_qty + "</td><td>" + deskripsi + input_deskripsi + "</td><td>" + select_dimensi + input_panjang + input_lebar + input_tinggi + "</td><td>" + select_kubikasi + input_kubikasi + "</td><td>" + select_berat + input_berat + "</td><td></td></tr>");
+			
+			$(".detail-count").val((count + 1));
 		}
 	}
 	
@@ -601,13 +628,16 @@
                 $("#location_from_latlng").val(lat.toFixed(4)+", "+lng.toFixed(4));
                 marker_asal.setPosition( new google.maps.LatLng(lat,lng) );
                 map_asal.panTo( new google.maps.LatLng(lat,lng) );
+				alert($("#location_from_latlng").val());
             }
             else if (mode=="to") {
                 $("#location_to_latlng").val(lat.toFixed(4)+", "+lng.toFixed(4));
                 marker_tujuan.setPosition( new google.maps.LatLng(lat,lng) );
                 map_tujuan.panTo( new google.maps.LatLng(lat,lng) );
+				alert($("#location_to_latlng").val());
             }
-            //alert(latitude+" and "+longitude);
+            //alert(lat+" and "+lng);
+			
         });
     }
 
