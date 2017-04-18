@@ -21,9 +21,17 @@ class Kirim extends MY_Controller
                    "DATE_FORMAT(a.shipment_delivery_date_to,'%d-%b-%y') ship_date_to ".
                  "from m_shipment a ".
                  "where datediff(a.shipment_end_date,curdate())>-300";
-
+		
+		$role_id = $this->session->userdata("role_id");
+		$page_title = "List Kiriman";
+		if ($role_id == 2) {
+			$page_title = "Cari Kiriman";
+		}
+		
         $data = array(
             'title' => 'All',
+			'role_id' => $role_id,
+			'page_title' => $page_title,
             'data' => $this->queryArray($kirim),
         );
 
@@ -107,7 +115,7 @@ class Kirim extends MY_Controller
 			$order_type_name = "Pesan Instan";
 		}
 		
-		$shipment_id = $data[0]->shipment_id;
+		$shipment_id = $id;
 		
 		$questions = $this->Kirim_model->getQuestions($shipment_id);
 		$answers = [];
@@ -127,13 +135,20 @@ class Kirim extends MY_Controller
 		
 		$bidding = $this->Kirim_model->getBidding($shipment_id);
 		
+		$isOwner = "false";
+		if ($user_id == $data[0]->user_id) {
+			$isOwner = "true";
+		}
+		
         $data = array(
             'title' => 'Kirim Barang',
 			'page_title' => $data[0]->shipment_title,
             'type' => 'edit',
-            'id' => $id,
+            'shipment_id' => $shipment_id,
+			'user_id' => $user_id,
 			'username' => $user_username,
-			'role' => $user_role,
+			'role_id' => $user_role,
+			'isOwner' => $isOwner,
 			'shipment_owner_id' => $data[0]->user_id,
 			'shipment_owner_username' => $data[0]->username,
 			'created_date' => $data[0]->created_date,
@@ -220,9 +235,6 @@ class Kirim extends MY_Controller
 					'shipment_delivery_date_from' => date($this->input->post('tanggal-kirim-awal')),//date('Y-m-d G:i:s'),
 					'shipment_delivery_date_to' => date($this->input->post('tanggal-kirim-akhir')),
 					'shipment_end_date' => date($this->input->post('tanggal-deadline')),
-					//'shipment_delivery_date_from' => date("2017-04-20 22:00:00"),//date('Y-m-d G:i:s'),
-					//'shipment_delivery_date_to' => date("2017-04-20 22:00:00"),
-					//'shipment_end_date' => date("2017-04-20 22:00:00"),
 					'shipment_price' => $this->input->post('shipment_price'),
 					'shipment_status' => $ship_status,
 					'order_type' => $this->input->post('order_type'),
@@ -233,8 +245,6 @@ class Kirim extends MY_Controller
 
 				$this->insertData('m_shipment', $data);
 				
-				echo $data["shipment_delivery_date_from"];
-
 				//Insert detail data
 				$lastid = $this->db->insert_id();
 				for ($i = 0; $i < $item_count; $i++) {
@@ -257,10 +267,44 @@ class Kirim extends MY_Controller
 
 					$this->insertData('m_shipment_details', $data);
 				}
+				
+				header("Location: " . base_url("kirim"));
+			} else {
+				
 			}
 		}
         
     }
+	
+	public function kirimPenawaran() {
+		$submit_bid = $this->input->post("submit_bid");
+		if ($submit_bid != null) {
+			$bidding_price = $this->input->post("bidding_price");
+			$bidding_pickupdate = $this->input->post("bidding_price");
+			$bidding_information = $this->input->post("bidding_information");
+			$shipment_id = $this->input->post("shipment_id");
+			$user_id = $this->session->userdata("user_id");
+			
+			$data = array(
+				"bidding_price" => $bidding_price,
+				"bidding_pickupdate" => $bidding_pickupdate,
+				"bidding_information" => $bidding_information,
+				"shipment_id" => $shipment_id,
+				"user_id" => $user_id,
+				"created_by" => $user_id,
+				"modified_by" => $user_id
+			);
+			
+			$affected_rows = $this->Kirim_model->doBidding($data);
+			if ($affected_rows > 0) {
+				echo "success";
+			} else {
+				echo "no rows affected. WHY??";
+			}
+		} else {
+			header("Location: " . base_url("dashboard"));
+		}
+	}
 
 	public function updatekirimBarang(){
         if ($this->form_validation->run('kirim') == FALSE) {

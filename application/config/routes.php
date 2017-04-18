@@ -60,8 +60,8 @@ $route['dologin'] = 'login/dologin';
 $route['logout'] = 'login/logout';
 
 $route['dashboard'] = 'panel/home';
-$route['cari-kiriman'] = 'panel/cari_kiriman';
-$route['cari-kiriman/(:any)'] = 'panel/cari_kiriman/$1';
+$route['cari-kiriman'] = 'panel/kirim';
+$route['cari-kiriman/(:any)'] = 'panel/kirim/$1';
 //$route['cari-kiriman/private'] = 'panel/cari_kiriman/privates';
 //$route['cari-kiriman/public'] = 'panel/cari_kiriman/publics';
 //$route['cari-kiriman/penawaran'] = 'panel/cari_kiriman/penawaran';

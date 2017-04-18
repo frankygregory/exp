@@ -14,7 +14,7 @@
 					<tr>
 						<td class="td-label">Pelanggan</td>
 						<td class="td-titikdua">:</td>
-						<td><?= $username ?></td>
+						<td><?= $shipment_owner_username ?></td>
 					</tr>
 					<tr>
 						<td class="td-label">Tanggal Buat</td>
@@ -155,6 +155,11 @@
 			<div class="questions">
 				<div class="questions-user-id"><?= $discussions["questions"][$i]->username ?> </div>
 				<div class="questions-text"><?= $discussions["questions"][$i]->questions_text ?></div>
+				<?php
+				if ($isOwner == "true") {
+					echo "<div class='btn-jawab'>Jawab</div>";
+				}
+				?>
 			</div>
 			<div class="answers">
 				<div class="answers_text"><?= $discussions["answers"][$i][0]->answers_text ?></div>
@@ -164,6 +169,37 @@
 	</div>
 	<div class="section-4">
 		<div class="section-title">Penawaran</div>
+		<?php
+		if ($role_id == 2) { ?>
+			<button type="button" class="btn-tawar">Kirim Penawaran</button>
+			<div class="detail-penawaran">
+				<table>
+					<tbody>
+						<tr>
+							<td>Harga</td>
+							<td> : </td>
+							<td><input type="text" class="input-bidding-price" data-type="number-with-thousand" /></td>
+						</tr>
+						<tr>
+							<td>Tanggal Ambil</td>
+							<td> : </td>
+							<td><input type="text" class="input-bidding-pickupdate" class="input-tanggal-ambil" data-type="number-with-thousand" /></td>
+						</tr>
+						<tr>
+							<td>List Kendaraan</td>
+							<td> : </td>
+							<td><input type="text" class="input-bidding-listkendaraan" data-type="number-with-thousand" /></td>
+						</tr>
+						<tr>
+							<td>Keterangan</td>
+							<td> : </td>
+							<td><input type="text" class="input-bidding-information" data-type="number-with-thousand" /></td>
+						</tr>
+					</tbody>
+				</table>
+				<button type="button" class="btn-kirim-penawaran">Kirim</button>
+			</div>
+<?php	}	?>
 		<table>
 			<thead>
 				<tr>
@@ -183,19 +219,60 @@
 		</table>
 	</div>
 </div>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo&callback=initialize" async defer></script>
+
 <script>
 var map_asal, map_tujuan;
 var marker_asal, marker_tujuan;
 var lat, lng, center_from, center_to;
 
-function initialize() {	
+<?php
+if ($role_id == 2) { ?>
+	$( ".input-tanggal-ambil" ).datepicker({
+		dateFormat: "yy-mm-dd"
+	});
+	
+	$(".btn-kirim-penawaran").on("click", function() {
+		kirimPenawaran();
+	});
+	
+	function kirimPenawaran() {
+		var bidding_price = $(".input-bidding-price").val();
+		var bidding_pickupdate = $(".input-bidding-pickupdate").val();
+		var bidding_information = $(".input-bidding-information").val();
+		var shipment_id = <?= $shipment_id ?>;
+		var user_id = <?= $user_id ?>;
+		$.ajax({
+			url: '<?= base_url("kirim/kirimPenawaran") ?>',
+			data: {
+				submit_bid: true,
+				bidding_price: bidding_price,
+				bidding_pickupdate: bidding_pickupdate,
+				bidding_information: bidding_information,
+				shipment_id: shipment_id,
+				user_id: user_id
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					
+				}
+				alert(result);
+			}
+		});
+	}
+<?php } ?>
+
+function initMap() {	
 	lat = <?= $location_from_lat ?>;
 	lng = <?= $location_from_lng ?>;
 	center_from = {lat: lat, lng: lng};
 	
 	lat = <?= $location_to_lat ?>;
-	lng = <?= $location_lng_lng ?>;
+	lng = <?= $location_to_lng ?>;
 	center_to = {lat: lat, lng: lng};
 	
 	map_asal = new google.maps.Map(document.getElementById('map_asal'), {
@@ -225,6 +302,6 @@ function initialize() {
 	});	
 }
 </script>
-
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo&callback=initMap" async defer></script>
 </div>
 </div>

@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        Kirim
+                        <?= $page_title ?>
                     </h1>
                     <ol class="breadcrumb">
                         <li class="active">
@@ -18,32 +18,33 @@
                 </div>
             </div>
             <!-- /.row -->
-
-            <div class="row">
-                    <div class="col-md-2">
-                        <div class="form-group">
-                           <a href="<?=site_url('kirim/kirimbarang/')?>" class="btn btn-success"><i class="fa fa-send"></i> Kirim Barang</a>
-                        </div>
-                    </div>
-                    <form action="#" method="post">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Lokasi Asal">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Lokasi Tujuan">
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <input type="submit" value="Cari" class="btn btn-default">
-                            </div>
-                        </div>
-                    </form>
-            </div>
-
+			<?php
+			if ($role_id == 1) { ?>
+				<div class="row">
+						<div class="col-md-2">
+							<div class="form-group">
+							   <a href="<?=site_url('kirim/kirimbarang/')?>" class="btn btn-success"><i class="fa fa-send"></i> Kirim Barang</a>
+							</div>
+						</div>
+						<form action="#" method="post">
+							<div class="col-md-4">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Lokasi Asal">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Lokasi Tujuan">
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<input type="submit" value="Cari" class="btn btn-default">
+								</div>
+							</div>
+						</form>
+				</div>
+	<?php	}	?>
             <div class="row">
                 <div class="col-md-12">
                     <ul class="nav nav-tabs" role="tablist">
