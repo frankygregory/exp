@@ -1,0 +1,103 @@
+* {
+	font-size: 12pt;
+}
+
+.section-1a, .section-1b {
+	float: left;
+}
+
+.section-1 {
+	margin-bottom: 50px;
+}
+
+.section-1a {
+	width: 40%;
+	float: left;
+}
+
+.section-1b {
+	width: 40%;
+	float: right;
+}
+
+.td-label {
+	text-align: right;
+}
+
+.td-titikdua {
+	width: 10px;
+}
+
+.asal, .tujuan {
+	border: 1px solid black;
+}
+
+.asal-title, .tujuan-title {
+	font-size: 14pt;
+	font-weight: bold;
+}
+
+.asal {
+	margin-bottom: 20px;
+}
+
+.td-address-label {
+	width: 120px;
+}
+
+#map-asal {
+	border: 1px solid black;
+}
+
+.section-2 {
+	clear: both;
+	margin-bottom: 50px;
+}
+
+.section-title {
+	font-size: 14pt;
+	font-weight: bold;
+}
+
+.td-item-label {
+	width: 120px;
+}
+
+.section-3 {
+	margin-bottom: 50px;
+}
+
+.discussions {
+	width: 600px;
+}
+
+.questions {
+	background-color: #F4FF81;
+}
+
+.questions-user-id, .questions-text {
+	float: left;
+	padding: 10px 0;
+	background-color: #F4FF81;
+}
+
+.questions-user-id {
+	width: 120px;
+	font-weight: bold;
+}
+
+.questions-text {
+	width: 470px;
+	margin-left: 10px;
+}
+
+.answers {
+	background-color: #B9F6CA;
+	clear: both;
+	margin-left: 50px;
+	padding: 10px 10px;
+}
+
+.section-4 {
+	margin-bottom: 50px;
+}

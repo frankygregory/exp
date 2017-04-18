@@ -7,6 +7,7 @@ class Kirim extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+		$this->load->model("Kirim_model");
     }
 
     public function index()
@@ -94,35 +95,73 @@ class Kirim extends MY_Controller
     function detail($id)
     {
 
-        $data = $this->queryArray("select * from m_shipment where shipment_id = $id");
-        $detail = $this->queryArray("select * from m_shipment_details where shipment_id = $id");
-
+        $data = $this->Kirim_model->getShipment($id);
+        $items = $this->queryArray("select * from m_shipment_details where shipment_id = $id");
+		$user_id = $this->session->userdata("user_id");
+		$user_username = $this->session->userdata("username");
+		$user_role = $this->session->userdata("role_id");
+		
+		$order_type = $data[0]->order_type;
+		$order_type_name = "Penawaran";
+		if ($order_type == 2) {
+			$order_type_name = "Pesan Instan";
+		}
+		
+		$shipment_id = $data[0]->shipment_id;
+		
+		$questions = $this->Kirim_model->getQuestions($shipment_id);
+		$answers = [];
+		if (sizeof($questions) > 0) {
+			for ($i = 0; $i < sizeof($questions); $i++) {
+				$questions_id = $questions[$i]->questions_id;
+				$answer = $this->Kirim_model->getAnswers($questions_id);
+				
+				array_push($answers, $answer);
+			}
+		}
+		
+		$discussions = array(
+			"questions" => $questions,
+			"answers" => $answers
+		);
+		
+		$bidding = $this->Kirim_model->getBidding($shipment_id);
+		
         $data = array(
             'title' => 'Kirim Barang',
+			'page_title' => $data[0]->shipment_title,
             'type' => 'edit',
             'id' => $id,
-            'shipment_title' => $data[0]['shipment_title'],
-            'shipment_information' => $data[0]['shipment_information'],
-            'location_from_contact' => $data[0]['location_from_contact'],
-            'location_from_name' => $data[0]['location_from_name'],
-            'location_from_address' => $data[0]['location_from_address'],
-            'location_from_latlng' => $data[0]['location_from_lat'].", ".$data[0]['location_from_lng'],
-            'location_to_contact' => $data[0]['location_to_contact'],
-            'location_to_name' => $data[0]['location_to_name'],
-            'location_to_address' => $data[0]['location_to_address'],
-            'location_to_latlng' => $data[0]['location_to_lat'].", ".$data[0]['location_to_lng'],
-            'shipment_delivery_date_from' => $data[0]['shipment_delivery_date_from'],
-            'shipment_delivery_date_to' => $data[0]['shipment_delivery_date_to'],
-            'shipment_end_date' => $data[0]['shipment_end_date'],
-            'shipment_price' => $data[0]['shipment_price'],
-            'shipment_pictures' => $data[0]['shipment_pictures'],
-            'checked_pemesanan' => 1,
-            'checked_penawaran' => 2,
-            'shipment_detail' => $detail,
-            'btnSave' => 'Update',
+			'username' => $user_username,
+			'role' => $user_role,
+			'shipment_owner_id' => $data[0]->user_id,
+			'shipment_owner_username' => $data[0]->username,
+			'created_date' => $data[0]->created_date,
+			'modified_date' => $data[0]->modified_date,
+            'shipment_title' => $data[0]->shipment_title,
+			'order_type_name' => $order_type_name,
+            'shipment_information' => $data[0]->shipment_information,
+            'location_from_contact' => $data[0]->location_from_contact,
+            'location_from_name' => $data[0]->location_from_name,
+            'location_from_address' => $data[0]->location_from_address,
+            'location_from_lat' => $data[0]->location_from_lat,
+			'location_from_lng' => $data[0]->location_from_lng,
+            'location_to_contact' => $data[0]->location_to_contact,
+            'location_to_name' => $data[0]->location_to_name,
+            'location_to_address' => $data[0]->location_to_address,
+            'location_to_lat' => $data[0]->location_to_lat,
+			'location_to_lng' => $data[0]->location_to_lng,
+            'shipment_delivery_date_from' => $data[0]->shipment_delivery_date_from,
+            'shipment_delivery_date_to' => $data[0]->shipment_delivery_date_to,
+            'shipment_end_date' => $data[0]->shipment_end_date,
+            'shipment_price' => $data[0]->shipment_price,
+            'shipment_pictures' => $data[0]->shipment_pictures,
+            'items' => $items,
+			"discussions" => $discussions,
+			"bidding" => $bidding
         );
-
-        parent::template('kirimbarang_form', $data);
+		
+        parent::template('kirimbarang_detail', $data);
     }
 
 

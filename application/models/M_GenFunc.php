@@ -88,6 +88,13 @@ class M_GenFunc extends CI_Model {
 		$this->_get_datatables_query($table,$column_order,$column_search,$order);
 		return $this->db->count_all_results();
 	}
+	
+	public function getUsernameAndRoleByUserId($id) {
+		$this->db->select("role_id, username");
+		$this->db->where("user_id", $id);
+		$this->db->limit(1);
+		return $this->db->get("m_user")->result();
+	}
 
 /*	function get_by_id($table,$id)
 	{

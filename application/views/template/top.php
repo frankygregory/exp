@@ -19,7 +19,7 @@
 <!--    <link href="--><?//=base_url('assets/panel/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')?><!--" rel="stylesheet">-->
     <!-- Custom CSS -->
     <link href="<?=base_url()?>assets/panel/css/sb-admin.css" rel="stylesheet">
-	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css" rel="stylesheet">
+	
     <!-- Custom Fonts -->
     <link href="<?=base_url()?>assets/panel/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	
@@ -29,7 +29,8 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	
+	<link href="<?=base_url()?>assets/panel/css/default.css" rel="stylesheet">
+	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css" rel="stylesheet">
 	<link href="<?=base_url()?>assets/panel/jqueryui/jquery-ui.datetimepicker.min.css" rel="stylesheet" >
 </head>
 

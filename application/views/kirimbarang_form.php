@@ -200,7 +200,7 @@
 			<div class="section-title">4 | List Barang</div>
 			<div class="section-4-content">
 				<input type="hidden" class="detail-count" name="detail-count" value="0" />
-				<table class="section-4-table">
+				<table class="section-4-table table">
 					<thead>
 						<tr>
 							<td>Nama</td>
@@ -268,7 +268,6 @@
 		</div>
 	</div>
 </form>
-<script type="text/javascript" src=""></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo&callback=initMap&libraries=places" async defer></script>
 <script>
    var type = $("#type").val();
@@ -423,109 +422,6 @@ $(function() {
 			e.preventDefault();
 		}
 	}
-
-    /*function doKirim() {
-	
-		if(type == "new"){
-			url = "<?=site_url('kirim/dokirimbarang')?>";
-		}else if(type == "edit"){
-			url = "<?=site_url('kirim/updatekirimbarang')?>";
-		}
-	
-        var formData = new FormData($("#kirimForm")[0]);
-        $("#btnSave").text('Proses...');
-
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: "JSON",
-            success: function (data) {
-                console.log(data);
-                if (data.status) {
-					$('#successResult').append(data.msg);
-                } else {
-                    $('#errorResult').append(data.error);
-                }
-
-                $('#btnSave').text('Simpan'); //change button text
-                $('#btnSave').attr('disabled', false); //set button enable
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('Penyimpanan data gagal.');
-                $('#btnSave').text('Simpan'); //change button text
-                $('#btnSave').attr('disabled', false); //set button enable
-
-            }
-        });
-		
-    }
-
-    function editItems(id, div){
-        $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
-        $('#'+div).text("Process..");
-
-        //Ajax Load data from ajax
-        $.ajax({
-            url: "<?php echo site_url('panel/kirim/ajaxLoad')?>/" + id,
-            type: "GET",
-            dataType: "JSON",
-            success: function (data) {
-                $('[name="shipment_id"]').val(data.shipment_id);
-                $('[name="shipment_details_id"]').val(data.shipment_details_id);
-                $('[name="item_name"]').val(data.item_name);
-                $('[name="item_desc"]').val(data.item_desc);
-                $('[name="item_length"]').val(data.item_length);
-                $('[name="item_width"]').val(data.item_width);
-                $('[name="item_height"]').val(data.item_height);
-                $('[name="item_dimension_unit"]').val(data.item_dimension_unit);
-                $('[name="item_cubic"]').val(data.item_kubikasi);
-                $('[name="item_kubikasi_unit"]').val(data.item_kubikasi_unit);
-                $('[name="item_weight"]').val(data.item_weight);
-                $('[name="item_weight_unit"]').val(data.item_weight_unit);
-                $('[name="item_qty"]').val(data.item_qty);
-                $('#modal_form').modal('show'); 
-                $('.modal-title').text('Ubah Items'); 
-                $('#'+div).text("Edit");
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('Error dalam mengunduh data');
-            }
-        });
-    }
-
-    function updateItems(){
-        var url = "<?=site_url('kirim/update-items')?>";
-        $("#btnUpdate").text('Mengupdate...');
-
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: $('#form').serialize(),
-            dataType: "JSON",
-            success: function (data) {
-                console.log(data);
-                if (data.status) {
-                    $('#modal_form').modal('hide');
-                    editData($('#shipment_id').val());
-                } else {
-                    alert('Penyimpanan data gagal, cek isian item');
-                }
-
-                $('#btnSave').text('Simpan'); //change button text
-                $('#btnSave').attr('disabled', false); //set button enable
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('Penyimpanan data gagal.');
-                $('#btnSave').attr('disabled', false); //set button enable
-
-            }
-        });
-    }*/
 
     var map_asal,map_tujuan;
     var marker_asal,marker_tujuan;
