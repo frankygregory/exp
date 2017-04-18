@@ -270,14 +270,6 @@ table tbody tr:nth-child(even) {
 	
 }
 
-input.input-tanggal-kirim-awal, input.input-tanggal-kirim-akhir, input.input-tanggal-deadline, input.input-bulan-kirim-awal, input.input-bulan-kirim-akhir, input.input-bulan-deadline {
-	width: 25%;
-}
-
-input.input-tahun-kirim-awal, input.input-tahun-kirim-akhir, input.input-tahun-deadline {
-	width: 40%;
-}
-
 .form-deadline {
 	clear: both;
 	width: 200px;

@@ -158,34 +158,43 @@ class Kirim extends MY_Controller
 				$location_to_lat = substr($location_to_latlng,0,strpos($location_to_latlng,",")-1);
 				$location_to_lng = substr($location_to_latlng,strpos($location_to_latlng," ")+1);
 				$ship_status = -1;
-
+				
+				$user_id = $this->session->userdata('user_id');
+				
 				$data = array(
 					'shipment_title' => $this->input->post('shipment_title'),
 					'shipment_information' => $this->input->post('shipment_information'),
 					'shipment_pictures' => $shipment_pictures,
+					'user_id' => $user_id,
+					'location_from_name' => $this->input->post('location_from_name'),
 					'location_from_contact' => $this->input->post('location_from_contact'),
 					'location_from_address' => $this->input->post('location_from_address'),
 					'location_from_detail' => $this->input->post('location_from_detail'),
 					'location_from_lat' => $location_from_lat,
 					'location_from_lng' => $location_from_lng,
+					'location_to_name' => $this->input->post('location_to_name'),
 					'location_to_contact' => $this->input->post('location_to_contact'),
 					'location_to_address' => $this->input->post('location_to_address'),
 					'location_to_detail' => $this->input->post('location_to_detail'),
 					'location_to_lat' => $location_to_lat,
 					'location_to_lng' => $location_to_lng,
-					//'shipment_delivery_date_from' => $this->input->post('shipment_delivery_date_from'),//date('Y-m-d G:i:s'),
-					//'shipment_delivery_date_to' => $this->input->post('shipment_delivery_date_to'),
-					//'shipment_end_date' => $this->input->post('shipment_end_date'),
-					'shipment_delivery_date_from' => date("2017-04-20 22:00:00"),//date('Y-m-d G:i:s'),
-					'shipment_delivery_date_to' => date("2017-04-20 22:00:00"),
-					'shipment_end_date' => date("2017-04-20 22:00:00"),
+					'shipment_delivery_date_from' => date($this->input->post('tanggal-kirim-awal')),//date('Y-m-d G:i:s'),
+					'shipment_delivery_date_to' => date($this->input->post('tanggal-kirim-akhir')),
+					'shipment_end_date' => date($this->input->post('tanggal-deadline')),
+					//'shipment_delivery_date_from' => date("2017-04-20 22:00:00"),//date('Y-m-d G:i:s'),
+					//'shipment_delivery_date_to' => date("2017-04-20 22:00:00"),
+					//'shipment_end_date' => date("2017-04-20 22:00:00"),
 					'shipment_price' => $this->input->post('shipment_price'),
 					'shipment_status' => $ship_status,
 					'order_type' => $this->input->post('order_type'),
-					'shipment_type' => $this->input->post('shipment_type')
+					'shipment_type' => $this->input->post('shipment_type'),
+					'created_by' => $user_id,
+					'modified_by' => $user_id
 				);
 
 				$this->insertData('m_shipment', $data);
+				
+				echo $data["shipment_delivery_date_from"];
 
 				//Insert detail data
 				$lastid = $this->db->insert_id();
@@ -203,13 +212,12 @@ class Kirim extends MY_Controller
 						'item_weight_unit' => $this->input->post('item-berat-satuan-' . $i),
 						'item_qty' => $this->input->post('item-qty-' . $i),
 						'shipment_id' => $lastid,
-						'created_date' => date('Y-m-d G:i:s'),
-						'created_by' => $this->session->userdata('username'),
+						'created_by' => $user_id,
+						'modified_by' => $user_id
 					);
 
 					$this->insertData('m_shipment_details', $data);
 				}
-				echo $location_from_latlng;
 			}
 		}
         

@@ -51,6 +51,7 @@
 						<div class="form-item-label">Lokasi Asal <a class="saved-location">Pilih Lokasi yang sudah didaftarkan</a></div>
 						<div class="form-item-error"></div>
 						<input type="text" class="" id="location_from_address" name="location_from_address" value="<?= $location_from_address ?>" />
+						<input type="hidden" name="location_from_name" id="location_from_name" value="" />
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Detail Lokasi</div>
@@ -65,7 +66,7 @@
 					<div class="form-item">
 						<div class="form-item-label">Peta Lokasi</div>
 						<div class="form-group" id="map_asal" style="width: 100%; height: 200px"></div>
-						<input type="hidden" id="location_from_latlng" value="" />
+						<input type="hidden" id="location_from_latlng" name="location_from_latlng" value="" />
 					</div>
 				</div>
 			</div>
@@ -78,6 +79,7 @@
 						<div class="form-item-label">Lokasi Tujuan <a class="saved-location">Pilih Lokasi yang sudah didaftarkan</a></div>
 						<div class="form-item-error"></div>
 						<input type="text" class="" id="location_to_address" name="location_to_address" value="<?= $location_to_address ?>" />
+						<input type="hidden" name="location_to_name" id="location_to_name" value="" />
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Detail Lokasi</div>
@@ -92,7 +94,7 @@
 					<div class="form-item">
 						<div class="form-item-label">Peta Lokasi</div>
 						<div class="form-group" id="map_tujuan" style="width: 100%; height: 200px"></div> 
-						<input type="hidden" id="location_to_latlng" value="" />
+						<input type="hidden" id="location_to_latlng" name="location_to_latlng" value="" />
 					</div>
 				</div>
 			</div>
@@ -162,8 +164,8 @@
 							<div class="form-item form-satuan-kubikasi-barang">
 								<div class="form-item-label">Satuan</div>
 								<select name="satuan-kubikasi-barang" class="input-satuan-kubikasi-barang">
-									<option value="cm">Cm3</option>
-									<option value="m">M3</option>
+									<option value="cm3">Cm3</option>
+									<option value="m3">M3</option>
 								</select>
 							</div>
 						</div>
@@ -221,30 +223,24 @@
 				<div class="section-5-left">
 					<div class="form-item form-tanggal-kirim-awal">
 						<div class="form-item-label">Tanggal Kirim</div>
-						<input type="text" name="" class="input-tanggal-kirim-awal" data-type="number" maxlength="2" placeholder="DD" />
-						<input type="text" name="" class="input-bulan-kirim-awal" data-type="number" maxlength="2" placeholder="MM"/>
-						<input type="text" name="" class="input-tahun-kirim-awal" data-type="number" maxlength="4" placeholder="YYYY" />
+						<input type="text" name="tanggal-kirim-awal" class="input-tanggal-kirim-awal" placeholder="" />
 						
 					</div>
 					<div class="form-item form-tanggal-kirim-akhir">
 						<div class="form-item-label">sampai dengan</div>
-						<input type="text" name="" class="input-tanggal-kirim-akhir" data-type="number" maxlength="2" placeholder="DD" />
-						<input type="text" name="" class="input-bulan-kirim-akhir" data-type="number" maxlength="2" placeholder="MM"/>
-						<input type="text" name="" class="input-tahun-kirim-akhir" data-type="number" maxlength="4" placeholder="YYYY" />
+						<input type="text" name="tanggal-kirim-akhir" class="input-tanggal-kirim-akhir" placeholder="" />
 						
 					</div>
 					<div class="form-item form-deadline">
 						<div class="form-item-label">Berakhir tanggal</div>
-						<input type="text" name="" class="input-tanggal-deadline" data-type="number" maxlength="2" placeholder="DD" />
-						<input type="text" name="" class="input-bulan-deadline" data-type="number" maxlength="2" placeholder="MM"/>
-						<input type="text" name="" class="input-tahun-deadline" data-type="number" maxlength="4" placeholder="YYYY" />
+						<input type="text" name="tanggal-deadline" class="input-tanggal-deadline" placeholder="" />
 						
 					</div>
 				</div>
 				<div class="section-5-right">
 					<div class="form-item form-item-harga">
 						<div class="form-item-label">Harga</div>
-						<input type="text" name="" class="input-harga" data-type="number" maxlength="11" />
+						<input type="text" name="shipment_price" class="input-harga" data-type="number" maxlength="11" />
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Cara Pemesanan</div>
@@ -272,7 +268,7 @@
 		</div>
 	</div>
 </form>
-
+<script type="text/javascript" src=""></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo&callback=initMap&libraries=places" async defer></script>
 <script>
    var type = $("#type").val();
@@ -281,6 +277,7 @@
 		nama: "", qty: "", deskripsi: "", panjang: "", lebar: "", tinggi: "", kubikasi: "", berat: ""
    };
    
+$(function() {
 	$(".input-gambar").on("change", function() {
 		var reader = new FileReader();
 		reader.onload = function(e) {
@@ -292,6 +289,16 @@
 	$("input[data-type='number']").on("keydown", function(e) {
 		isNumber(e);
 	});
+	
+	$("#kirimForm").on("submit", function() {
+		var from_latlng = $("#location_from_latlng").val();
+	});
+	
+	$( ".input-tanggal-kirim-awal, .input-tanggal-kirim-akhir, .input-tanggal-deadline" ).datepicker({
+		dateFormat: "yy-mm-dd"
+	});
+
+});
 	
 	function addItem() {
 		valid = true;
@@ -383,7 +390,7 @@
 				input_berat_satuan = "<input type='hidden' value='" + berat_satuan + "' name='item-berat-satuan-" + count + "' />";
 			}
 			
-			$(".section-4-table tbody").append("<tr><td>" + nama + input_nama + "</td><td>" + qty + input_qty + "</td><td>" + deskripsi + input_deskripsi + "</td><td>" + select_dimensi + input_panjang + input_lebar + input_tinggi + "</td><td>" + select_kubikasi + input_kubikasi + "</td><td>" + select_berat + input_berat + "</td><td></td></tr>");
+			$(".section-4-table tbody").append("<tr><td>" + nama + input_nama + "</td><td>" + qty + input_qty + "</td><td>" + deskripsi + input_deskripsi + "</td><td>" + select_dimensi + input_panjang + input_lebar + input_tinggi + input_dimensi_satuan + "</td><td>" + select_kubikasi + input_kubikasi + input_kubikasi_satuan + "</td><td>" + select_berat + input_berat + input_berat_satuan + "</td><td></td></tr>");
 			
 			$(".detail-count").val((count + 1));
 		}
@@ -417,7 +424,7 @@
 		}
 	}
 
-    function doKirim() {
+    /*function doKirim() {
 	
 		if(type == "new"){
 			url = "<?=site_url('kirim/dokirimbarang')?>";
@@ -518,10 +525,11 @@
 
             }
         });
-    }
+    }*/
 
     var map_asal,map_tujuan;
     var marker_asal,marker_tujuan;
+	var autocomplete_asal, autocomplete_tujuan;
     var center_from = {lat: 0, lng: 0};
     var center_to = {lat: 0, lng: 0};//{lat: -7.2653524, lng: 112.7454884};
 
@@ -531,9 +539,19 @@
 
     function initialize() {
         input = document.getElementById('location_from_address');
-        new google.maps.places.Autocomplete(input);
+        autocomplete_asal = new google.maps.places.Autocomplete(input);
         input = document.getElementById('location_to_address');
-        new google.maps.places.Autocomplete(input);
+        autocomplete_tujuan = new google.maps.places.Autocomplete(input);
+		
+		autocomplete_asal.addListener('place_changed', function() {
+			var place = autocomplete_asal.getPlace();
+			$("#location_from_name").val(place.name);
+		});
+		
+		autocomplete_tujuan.addListener('place_changed', function() {
+			var place = autocomplete_tujuan.getPlace();
+			$("#location_to_name").val(place.name);
+		});
     }
 
     function initMap() {
@@ -628,13 +646,11 @@
                 $("#location_from_latlng").val(lat.toFixed(4)+", "+lng.toFixed(4));
                 marker_asal.setPosition( new google.maps.LatLng(lat,lng) );
                 map_asal.panTo( new google.maps.LatLng(lat,lng) );
-				alert($("#location_from_latlng").val());
             }
             else if (mode=="to") {
                 $("#location_to_latlng").val(lat.toFixed(4)+", "+lng.toFixed(4));
                 marker_tujuan.setPosition( new google.maps.LatLng(lat,lng) );
                 map_tujuan.panTo( new google.maps.LatLng(lat,lng) );
-				alert($("#location_to_latlng").val());
             }
             //alert(lat+" and "+lng);
 			

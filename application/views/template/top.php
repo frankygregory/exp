@@ -29,12 +29,14 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+	
+	<link href="<?=base_url()?>assets/panel/jqueryui/jquery-ui.datetimepicker.min.css" rel="stylesheet" >
 </head>
 
 <body>
 <script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
 <script src="<?= base_url('assets/panel/jqueryui/jquery-ui.js')?>"></script>
+<script src="<?= base_url('assets/panel/jqueryui/jquery-ui.datetimepicker.min.js')?>"></script>
 <script src="<?=base_url('assets/panel/js/jquery.uploadfile.min.js')?>"></script>
 <script src="<?=base_url('assets/panel/js/jquery.form.min.js')?>"></script>
 <script src="<?=base_url('assets/panel/js/bootstrap.min.js')?>"></script>
