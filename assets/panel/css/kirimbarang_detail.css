@@ -100,5 +100,43 @@
 
 .section-4 {
 	margin-bottom: 50px;
+	width: 100%;
+}
+
+.detail-penawaran {
 	width: 600px;
+}
+
+td.td-harga {
+	width: 150px;
+}
+
+td.td-action {
+	width: 400px;
+}
+
+.container-tolak {
+	display: none;
+}
+
+.input-alasan {
+	margin-top: 10px;
+}
+
+.btn-submit-tolak, .btn-batal-tolak {
+	float: right;
+	margin-top: 5px;
+}
+
+.btn-batal-tolak {
+	margin-right: 10px;
+}
+
+.detail-penawaran {
+	display: none;
+}
+
+.btn-kirim-penawaran {
+	float: right;
+	margin-top: 10px;
 }

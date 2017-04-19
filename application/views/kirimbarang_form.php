@@ -416,12 +416,6 @@ $(function() {
 		$(".error[data-type='kubikasi']").html(error.kubikasi);
 		$(".error[data-type='berat']").html(error.berat);
 	}
-	
-	function isNumber(e) {
-		if ((e.which >= 65 && e.which <= 90) || e.which >= 186) {
-			e.preventDefault();
-		}
-	}
 
     var map_asal,map_tujuan;
     var marker_asal,marker_tujuan;

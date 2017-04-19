@@ -17,7 +17,8 @@ class Kendaraan extends MY_Controller
     {
         $data = array(
             'title' => 'Kendaraan',
-            'data' => $this->queryArray($this->query),
+			'page_title' => "Kendaraan",
+            'data' => '',
         );
 
         parent::template('kendaraan', $data);

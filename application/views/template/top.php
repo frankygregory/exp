@@ -182,6 +182,10 @@
     </nav>
 
 <script>
+var dialog = {
+	shown: false
+};
+
 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -199,4 +203,23 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 function deg2rad(deg) {
   return deg * (Math.PI/180);
 }
+
+function isNumber(e) {
+	if ((e.which >= 65 && e.which <= 90) || e.which >= 186) {
+		e.preventDefault();
+	}
+}
+
+function showDialog(dialog) {
+	$(".dialog-background").css("display", "block");
+	$(dialog).css("display", "block");
+	dialog.shown = true;
+}
+
+function closeDialog() {
+	$(".dialog-background").css("display", "none");
+	$(".dialog").css("display", "none");
+	dialog.shown = false;
+}
+
 </script>

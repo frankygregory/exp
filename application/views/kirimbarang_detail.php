@@ -178,45 +178,94 @@
 						<tr>
 							<td>Harga</td>
 							<td> : </td>
-							<td><input type="text" class="input-bidding-price" data-type="number-with-thousand" /></td>
+							<td><input type="text" class="input-bidding-price" data-type="number" /></td>
 						</tr>
 						<tr>
 							<td>Tanggal Ambil</td>
 							<td> : </td>
-							<td><input type="text" class="input-bidding-pickupdate" class="input-tanggal-ambil" data-type="number-with-thousand" /></td>
+							<td><input type="text" class="input-bidding-pickupdate" /></td>
 						</tr>
 						<tr>
 							<td>List Kendaraan</td>
 							<td> : </td>
-							<td><input type="text" class="input-bidding-listkendaraan" data-type="number-with-thousand" /></td>
+							<td><input type="text" class="input-bidding-listkendaraan" /></td>
 						</tr>
 						<tr>
 							<td>Keterangan</td>
 							<td> : </td>
-							<td><input type="text" class="input-bidding-information" data-type="number-with-thousand" /></td>
+							<td><input type="text" class="input-bidding-information" /></td>
 						</tr>
 					</tbody>
 				</table>
 				<button type="button" class="btn-kirim-penawaran">Kirim</button>
 			</div>
 <?php	}	?>
-		<table>
-			<thead>
-				<tr>
-					<td>Harga</td>
-					<td>Ekspedisi</td>
-				</tr>
-			</thead>
-			<tbody>
-			<?php
-			for ($i = 0; $i < sizeof($bidding); $i++) { ?>
-				<tr>
-					<td><?= $bidding[$i]->bidding_price ?></td>
-					<td><?= $bidding[$i]->username ?></td>
-				</tr>
-	<?php	}	?>
-			</tbody>
-		</table>
+		<?php
+		if ($isOwner) {
+			echo "<table class='table table-list-penawaran'>";
+				echo "<thead>";
+					echo "<tr>";
+						echo "<td class='td-harga'>Harga</td>";
+						echo "<td>Ekspedisi</td>";
+						echo "<td>Detail</td>";
+						echo "<td class='td-action'>Status</td>";
+					echo "</tr>";
+				echo "</thead>";
+				echo "<tbody>";
+				for ($i = 0; $i < sizeof($bidding); $i++) {
+					echo "<tr>";
+						echo "<td>" . number_format($bidding[$i]->bidding_price) . " IDR</td>";
+						echo "<td>" . $bidding[$i]->username . "</td>";
+						echo "<td>";
+							echo "<div>Tanggal Ambil : " . $bidding[$i]->bidding_pickupdate . "</div>";
+							echo "<div>Keterangan : " . $bidding[$i]->bidding_information . "</div>";
+						echo "</td>";
+						echo "<td>";
+						if ($bidding[$i]->bidding_status == 0) {
+							echo "<button class='btn-setuju'>Setuju</button>";
+							echo "<button class='btn-tolak'>Tolak</button>";
+							echo "<div class='container-tolak'>";
+								echo "<textarea class='input-alasan' data-bidding_id='" . $bidding[$i]->bidding_id . "'></textarea>";
+								echo "<button class='btn-submit-tolak' data-bidding_id='" . $bidding[$i]->bidding_id . "'>Tolak</button>";
+								echo "<button class='btn-batal-tolak'>Batal Tolak</button>";
+							echo "</div>";
+						} else if ($bidding[$i]->bidding_status == 2) {
+							echo "<div class='alasan-tolak'>DITOLAK<br><strong>Alasan : </strong>" . $bidding[$i]->bidding_reason . "</div>";
+						}
+						echo "</td>";
+					echo "</tr>";
+				}
+				echo "</tbody>";
+			echo "</table>";
+		} else {	
+			echo "<table class='table table-list-penawaran'>";
+				echo "<thead>";
+					echo "<tr>";
+						echo "<td class='td-harga'>Harga</td>";
+						echo "<td>Ekspedisi</td>";
+						echo "<td>Detail</td>";
+						echo "<td class='td-action'>Status</td>";
+					echo "</tr>";
+				echo "</thead>";
+				echo "<tbody>";
+				for ($i = 0; $i < sizeof($bidding); $i++) {
+					echo "<tr>";
+						echo "<td>" . number_format($bidding[$i]->bidding_price) . " IDR</td>";
+						echo "<td>" . $bidding[$i]->username . "</td>";
+						echo "<td>";
+							echo "<div>Tanggal Ambil : " . $bidding[$i]->bidding_pickupdate . "</div>";
+							echo "<div>Keterangan : " . $bidding[$i]->bidding_information . "</div>";
+						echo "</td>";
+						echo "<td>";
+						if ($bidding[$i]->bidding_status == 2) {
+							echo "<div class='alasan-tolak'>DITOLAK<br><strong>Alasan : </strong>" . $bidding[$i]->bidding_reason . "</div>";
+						}
+						echo "</td>";
+					echo "</tr>";
+				}
+				echo "</tbody>";
+			echo "</table>";
+		}	?>
 	</div>
 </div>
 
@@ -226,14 +275,80 @@ var marker_asal, marker_tujuan;
 var lat, lng, center_from, center_to;
 
 <?php
-if ($role_id == 2) { ?>
-	$( ".input-tanggal-ambil" ).datepicker({
+if ($role_id == 1) { ?>
+	$(".btn-tolak").on("click", function() {
+		showAlasanTolak(this);
+	});
+	
+	$(".btn-batal-tolak").on("click", function() {
+		hideAlasanTolak(this);
+	});
+	
+	$(".btn-submit-tolak").on("click", function() {
+		submitTolak(this);
+	});
+	
+	function submitTolak(element) {
+		var bidding_id = $(element).data("bidding_id");
+		var bidding_reason = $(".input-alasan[data-bidding_id='" + bidding_id + "']").val();
+		$.ajax({
+			url: '<?= base_url("kirim/tolakPenawaran") ?>',
+			data: {
+				submit_tolak: true,
+				bidding_id: bidding_id,
+				bidding_reason: bidding_reason
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					
+				}
+				alert(result);
+				location.href = location.href;
+			}
+		});
+	}
+	
+	function showAlasanTolak(element) {
+		$(element).next().css("display", "block");
+		$(element).next().children(".input-alasan").select();
+	}
+	
+	function hideAlasanTolak(element) {
+		$(element).parent().css("display", "none");
+	}
+<?php
+} else if ($role_id == 2) { ?>
+	var detailPenawaranShown = false;
+	
+	$(".btn-tawar").on("click", function() {
+		toggleDetailPenawaran();
+	});
+	
+	$("input[data-type='number']").on("keydown", function(e) {
+		isNumber(e);
+	});
+	
+	$( ".input-bidding-pickupdate" ).datepicker({
 		dateFormat: "yy-mm-dd"
 	});
 	
 	$(".btn-kirim-penawaran").on("click", function() {
 		kirimPenawaran();
 	});
+	
+	function toggleDetailPenawaran() {
+		if (!detailPenawaranShown) {
+			$(".detail-penawaran").css("display", "block");
+		} else {
+			$(".detail-penawaran").css("display", "none");
+		}
+		detailPenawaranShown = !detailPenawaranShown;
+	}
 	
 	function kirimPenawaran() {
 		var bidding_price = $(".input-bidding-price").val();
@@ -261,6 +376,7 @@ if ($role_id == 2) { ?>
 					
 				}
 				alert(result);
+				toggleDetailPenawaran();
 			}
 		});
 	}

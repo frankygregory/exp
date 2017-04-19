@@ -54,6 +54,16 @@ class Kirim_model extends CI_Model
 		return $query->result();
 	}
 	
+	public function rejectBidding($data) {
+		$this->db->where("bidding_id", $data["bidding_id"]);
+		$updateData = array(
+			"bidding_reason" => $data["bidding_reason"],
+			"bidding_status" => 2
+		);
+		$this->db->update("t_bidding", $updateData);
+		return $this->db->affected_rows();
+	}
+	
 	public function doBidding($data) {
 		$this->db->insert("t_bidding", $data);
 		return $this->db->affected_rows();

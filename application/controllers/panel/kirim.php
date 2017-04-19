@@ -135,9 +135,9 @@ class Kirim extends MY_Controller
 		
 		$bidding = $this->Kirim_model->getBidding($shipment_id);
 		
-		$isOwner = "false";
+		$isOwner = false;
 		if ($user_id == $data[0]->user_id) {
-			$isOwner = "true";
+			$isOwner = true;
 		}
 		
         $data = array(
@@ -276,11 +276,34 @@ class Kirim extends MY_Controller
         
     }
 	
+	public function tolakPenawaran() {
+		$submit_tolak = $this->input->post("submit_tolak");
+		if ($submit_tolak != null) {
+			$bidding_id = $this->input->post("bidding_id");
+			$bidding_reason = $this->input->post("bidding_reason");
+			
+			$data = array(
+				"bidding_id" => $bidding_id,
+				"bidding_reason" => $bidding_reason
+			);
+			
+			$affected_rows = $this->Kirim_model->rejectBidding($data);
+			if ($affected_rows > 0) {
+				echo "success";
+			} else {
+				echo "no rows affected. WHY??";
+			}
+			
+		} else {
+			header("Location: " . base_url("dashboard"));
+		}
+	}
+	
 	public function kirimPenawaran() {
 		$submit_bid = $this->input->post("submit_bid");
 		if ($submit_bid != null) {
 			$bidding_price = $this->input->post("bidding_price");
-			$bidding_pickupdate = $this->input->post("bidding_price");
+			$bidding_pickupdate = $this->input->post("bidding_pickupdate");
 			$bidding_information = $this->input->post("bidding_information");
 			$shipment_id = $this->input->post("shipment_id");
 			$user_id = $this->session->userdata("user_id");
