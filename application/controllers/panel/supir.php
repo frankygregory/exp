@@ -6,16 +6,45 @@ class Supir extends MY_Controller
 
     public function __construct(){
         parent::__construct();
+		$this->load->model("Driver_model");
     }
 
     public function index()
     {
         $data = array(
-            'title' => 'Driver'
+            'title' => 'Driver',
+			"page_title" => "Driver"
         );
 
         parent::template('supir', $data);
     }
+	
+	public function tambahSupir() {
+		$submit_tambah = $this->input->post("submit_tambah");
+		if ($submit_tambah != null) {
+			$driver_name = $this->input->post("driver_name");
+			$driver_handphone = $this->input->post("driver_handphone");
+			$driver_address = $this->input->post("driver_address");
+			$driver_information = intval($this->input->post("driver_information"));
+			$driver_status = intval($this->input->post("driver_status"));
+			$user_id = $this->session->userdata("user_id");
+			
+			$insertData = array(
+				"driver_name" => $driver_name,
+				"driver_handphone" => $driver_handphone,
+				"driver_address" => $driver_address,
+				"driver_information" => $driver_information,
+				"driver_status" => $driver_status,
+				"user_id" => $user_id,
+				"created_by" => $user_id,
+				"modified_by" => $user_id
+			);
+			$this->Driver_model->addDriver($insertData);
+			
+		} else {
+			
+		}
+	}
 	
 	public function ajaxList()
     {

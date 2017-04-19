@@ -51,6 +51,7 @@
 					<td>Jumlah Transaksi</td>
 					<td>Keterangan</td>
 					<td>Status</td>
+					<td>Action</td>
 				</tr>
 			</thead>
 			<tbody class="tbody-kendaraan">
@@ -69,6 +70,7 @@ $(function() {
 	
 	$(".btn-tambah").on("click", function() {
 		showDialog(".dialog-tambah");
+		$(".input-nama").select();
 	});
 	
 	$(".dialog-background").on("click", function(e) {
@@ -135,11 +137,15 @@ $(function() {
 			ketersediaan = "Sedang Digunakan";
 		}
 		
-		var status = "Aktif";
+		var aktifDisabled = "disabled", tidakAktifDisabled = "";
 		if (result.vehicle_status == 0) {
-			status = "Tidak Aktif";
+			aktifDisabled = "";
+			tidakAktifDisabled = "disabled";
 		}
-		var element = "<tr><td>" + no + "</td><td>" + result.vehicle_nomor + "</td><td>" + result.vehicle_name + "</td><td>" + ketersediaan + "</td><td>" + result.jumlah_transaksi + "</td><td>" + result.vehicle_information + "</td><td>" + status + "</td></tr>";
+		
+		var btnAktif = "<button class='btn-default btn-aktif' " + aktifDisabled + ">Aktif</button>";
+		var btnTidakAktif = "<button class='btn-default btn-tidak-aktif' " + tidakAktifDisabled + ">Tidak Aktif</button>";
+		var element = "<tr><td>" + no + "</td><td>" + result.vehicle_nomor + "</td><td>" + result.vehicle_name + "</td><td>" + ketersediaan + "</td><td>" + result.vehicle_jumlah_transaksi + "</td><td>" + result.vehicle_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td></td></tr>";
 		$(".tbody-kendaraan").append(element);
 	}
 	

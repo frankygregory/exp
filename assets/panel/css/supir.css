@@ -1,0 +1,19 @@
+.btn-tambah {
+	margin-bottom: 20px;
+}
+
+.dialog {
+	width: 500px;
+}
+
+.dialog-header {
+	
+}
+
+.dialog-footer {
+	height: 70px;
+}
+
+.btn-submit-tambah {
+	float: right;
+}

@@ -42,9 +42,18 @@ input[type="file"] {
 	border-radius: 2%;
 }
 
-.btn-default:hover {
-	background-color: #1E88E5;
-	color: white;
+.btn-default:hover, .btn-default:focus {
+	background-color: #1E88E5 !important;
+	color: white !important;
+}
+
+.btn-default:disabled, .btn-default:disabled:hover {
+	background-color: #9E9E9E !important;
+	color: #616161 !important;
+}
+
+.btn-default:disabled:hover {
+	
 }
 
 .error {
