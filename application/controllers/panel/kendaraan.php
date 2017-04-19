@@ -8,6 +8,7 @@ class Kendaraan extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+		$this->load->model("Kendaraan_model");
         $this->query = 'select a.*,if((isVehichleInUsed(a.vehicle_id)<>0),"Tidak","Ya") available_status,' .
             'if((getVehicleInUsedTrx(a.vehicle_id)<0),"-",getVehicleInUsedTrx(a.vehicle_id)) ref_transaksi ' .
             'from m_vehicle a';
@@ -17,12 +18,51 @@ class Kendaraan extends MY_Controller
     {
         $data = array(
             'title' => 'Kendaraan',
-			'page_title' => "Kendaraan",
-            'data' => '',
+			'page_title' => "Kendaraan"
         );
 
         parent::template('kendaraan', $data);
     }
+	
+	public function getKendaraan() {
+		$role_id = $this->session->userdata("role_id");
+		if ($role_id == 2) {
+			$user_id = $this->session->userdata("user_id");
+			$kendaraan = $this->Kendaraan_model->getKendaraanByUserId($user_id);
+			echo json_encode($kendaraan);
+		} else {
+			
+		}
+	}
+	
+	public function tambahKendaraan() {
+		$submit_tambah = $this->input->post("submit_tambah");
+		if ($submit_tambah != null) {
+			$vehicle_nomor = $this->input->post("vehicle_nomor");
+			$vehicle_name = $this->input->post("vehicle_name");
+			$vehicle_information = $this->input->post("vehicle_information");
+			$vehicle_status = intval($this->input->post("vehicle_status"));
+			$user_id = $this->session->userdata("user_id");
+			
+			$insertData = array(
+				"vehicle_nomor" => $vehicle_nomor,
+				"vehicle_name" => $vehicle_name,
+				"vehicle_information" => $vehicle_information,
+				"vehicle_status" => $vehicle_status,
+				"user_id" => $user_id,
+				"created_by" => $user_id,
+				"modified_by" => $user_id
+			);
+			$affected_rows = $this->Kendaraan_model->addKendaraan($insertData);
+			if ($affected_rows > 0) {
+				echo "success";
+			} else {
+				echo "no rows affected. WHY??";
+			}
+		} else {
+			header("Location: " . base_url("dashboard"));
+		}
+	}
 
     public function ajaxList()
     {

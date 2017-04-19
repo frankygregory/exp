@@ -11,20 +11,20 @@
 				<tbody>
 					<tr>
 						<td class="">Nama</td>
-						<td><input type="text" /></td>
+						<td><input type="text" class="input-nama" /></td>
 					</tr>
 					<tr>
 						<td class="">Nopol Kendaraan</td>
-						<td><input type="text" class="input-nopol-kendaraan" maxlength="12" /></td>
+						<td><input type="text" class="input-nopol" maxlength="12" /></td>
 					</tr>
 					<tr>
 						<td class="">Keterangan</td>
-						<td><input type="text" /></td>
+						<td><input type="text" class="input-keterangan" /></td>
 					</tr>
 					<tr>
 						<td class="">Ketersediaan</td>
 						<td>
-							<select name="input-ketersediaan">
+							<select name="input-ketersediaan" class="input-ketersediaan">
 								<option value="1">Aktif</option>
 								<option value="0">Tidak Aktif</option>
 							</select>
@@ -53,8 +53,8 @@
 					<td>Status</td>
 				</tr>
 			</thead>
-			<tbody>
-				
+			<tbody class="tbody-kendaraan">
+			
 			</tbody>
 		</table>
 	</div>
@@ -65,6 +65,8 @@
 
 <script type="text/javascript">
 $(function() {
+	getKendaraan();
+	
 	$(".btn-tambah").on("click", function() {
 		showDialog(".dialog-tambah");
 	});
@@ -74,5 +76,78 @@ $(function() {
 			closeDialog();
 		}
 	});
+	
+	$(".btn-submit-tambah").on("click", function() {
+		tambahKendaraan();
+	});
+	
+	function tambahKendaraan() {
+		var vehicle_nomor = $(".input-nopol").val();
+		var vehicle_name = $(".input-nama").val();
+		var vehicle_information = $(".input-keterangan").val();
+		var vehicle_status = $(".input-ketersediaan").val();
+		
+		$.ajax({
+			url: '<?= base_url("kendaraan/tambahKendaraan") ?>',
+			data: {
+				submit_tambah: true,
+				vehicle_nomor: vehicle_nomor,
+				vehicle_name: vehicle_name,
+				vehicle_information: vehicle_information,
+				vehicle_status: vehicle_status
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					resetDialogInput();
+					getKendaraan();
+				}
+			}
+		});
+	}
+	
+	function getKendaraan() {
+		$.ajax({
+			url: '<?= base_url("kendaraan/getKendaraan") ?>',
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(json) {
+				$(".tbody-kendaraan").html("");
+				var result = jQuery.parseJSON(json);
+				for (var i = 0; i < result.length; i++) {
+					addKendaraanToTable((i + 1), result[i]);
+				}
+			}
+		});
+	}
+	
+	function addKendaraanToTable(no, result) {
+		var ketersediaan = "Tersedia";
+		if (result.vehicle_in_use == 1) {
+			ketersediaan = "Sedang Digunakan";
+		}
+		
+		var status = "Aktif";
+		if (result.vehicle_status == 0) {
+			status = "Tidak Aktif";
+		}
+		var element = "<tr><td>" + no + "</td><td>" + result.vehicle_nomor + "</td><td>" + result.vehicle_name + "</td><td>" + ketersediaan + "</td><td>" + result.jumlah_transaksi + "</td><td>" + result.vehicle_information + "</td><td>" + status + "</td></tr>";
+		$(".tbody-kendaraan").append(element);
+	}
+	
+	function resetDialogInput() {
+		$(".input-nopol").val("");
+		$(".input-nama").val("");
+		$(".input-keterangan").val("");
+		$(".input-ketersediaan").val("1");
+	}
 });
 </script>
