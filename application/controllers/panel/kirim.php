@@ -126,6 +126,13 @@ class Kirim extends MY_Controller
 		$bidding = $this->Kirim_model->getBidding($shipment_id);
 		echo json_encode($bidding);
 	}
+	
+	function getKendaraan() {
+		$user_id = $this->session->userdata("user_id");
+		$this->load->model("Kendaraan_model");
+		$vehicles = $this->Kendaraan_model->getKendaraanByUserId($user_id);
+		echo json_encode($vehicles);
+	}
 
     function detail($id)
     {

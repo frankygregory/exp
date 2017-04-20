@@ -64,6 +64,7 @@ $route['cari-kiriman'] = 'panel/kirim';
 $route['cari-kiriman/(:any)'] = 'panel/kirim/$1';
 $route['kirim/getDiscussions'] = 'panel/kirim/getDiscussions';
 $route['kirim/getBiddingList'] = 'panel/kirim/getBiddingList';
+$route['kirim/getKendaraan'] = 'panel/kirim/getKendaraan';
 $route['kirim/kirimPenawaran'] = 'panel/kirim/kirimPenawaran';
 $route['kirim/tolakPenawaran'] = 'panel/kirim/tolakPenawaran';
 //$route['cari-kiriman/private'] = 'panel/cari_kiriman/privates';

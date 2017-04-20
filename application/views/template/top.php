@@ -37,7 +37,7 @@
 <script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
 <script src="<?= base_url('assets/panel/jqueryui/jquery-ui.js')?>"></script>
 <script src="<?= base_url('assets/panel/jqueryui/jquery-ui.datetimepicker.min.js')?>"></script>
-<script src="<?=base_url('assets/panel/js/jquery.uploadfile.min.js')?>"></script>
+<!--<script src="<?//=base_url('assets/panel/js/jquery.uploadfile.min.js')?>"></script>-->
 <script src="<?=base_url('assets/panel/js/jquery.form.min.js')?>"></script>
 <script src="<?=base_url('assets/panel/js/bootstrap.min.js')?>"></script>
 <script src="<?=base_url('assets/panel/datatables/js/jquery.dataTables.min.js')?>"></script>

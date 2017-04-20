@@ -163,22 +163,34 @@
 						<tr>
 							<td>Harga</td>
 							<td> : </td>
-							<td><input type="text" class="input-bidding-price" data-type="number" /></td>
+							<td>
+								<input type="text" class="input-bidding-price" data-type="number" />
+								<div class="error penawaran-error error-bidding-price"></div>
+							</td>
 						</tr>
 						<tr>
 							<td>Tanggal Ambil</td>
 							<td> : </td>
-							<td><input type="text" class="input-bidding-pickupdate" /></td>
+							<td>
+								<input type="text" class="input-bidding-pickupdate" />
+								<div class="error penawaran-error error-bidding-pickupdate"></div>
+							</td>
 						</tr>
 						<tr>
 							<td>List Kendaraan</td>
 							<td> : </td>
-							<td><input type="text" class="input-bidding-listkendaraan" /></td>
+							<td>
+								<input type="text" class="input-kendaraan" />
+								<div class="error penawaran-error error-kendaraan"></div>
+							</td>
 						</tr>
 						<tr>
 							<td>Keterangan</td>
 							<td> : </td>
-							<td><input type="text" class="input-bidding-information" /></td>
+							<td>
+								<input type="text" class="input-bidding-information" />
+								<div class="error penawaran-error error-bidding-information"></div>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -198,72 +210,6 @@
 			
 			</tbody>
 		</table>
-		<?php
-		/*if ($isOwner) {
-			echo "<table class='table table-list-penawaran'>";
-				echo "<thead>";
-					echo "<tr>";
-						echo "<td class='td-harga'>Harga</td>";
-						echo "<td>Ekspedisi</td>";
-						echo "<td>Detail</td>";
-						echo "<td class='td-action'>Status</td>";
-					echo "</tr>";
-				echo "</thead>";
-				echo "<tbody>";
-				for ($i = 0; $i < sizeof($bidding); $i++) {
-					echo "<tr>";
-						echo "<td>" . number_format($bidding[$i]->bidding_price) . " IDR</td>";
-						echo "<td>" . $bidding[$i]->username . "</td>";
-						echo "<td>";
-							echo "<div>Tanggal Ambil : " . $bidding[$i]->bidding_pickupdate . "</div>";
-							echo "<div>Keterangan : " . $bidding[$i]->bidding_information . "</div>";
-						echo "</td>";
-						echo "<td>";
-						if ($bidding[$i]->bidding_status == 0) {
-							echo "<button class='btn-setuju'>Setuju</button>";
-							echo "<button class='btn-tolak'>Tolak</button>";
-							echo "<div class='container-tolak'>";
-								echo "<textarea class='input-alasan' data-bidding_id='" . $bidding[$i]->bidding_id . "'></textarea>";
-								echo "<button class='btn-submit-tolak' data-bidding_id='" . $bidding[$i]->bidding_id . "'>Tolak</button>";
-								echo "<button class='btn-batal-tolak'>Batal Tolak</button>";
-							echo "</div>";
-						} else if ($bidding[$i]->bidding_status == 2) {
-							echo "<div class='alasan-tolak'>DITOLAK<br><strong>Alasan : </strong>" . $bidding[$i]->bidding_reason . "</div>";
-						}
-						echo "</td>";
-					echo "</tr>";
-				}
-				echo "</tbody>";
-			echo "</table>";
-		} else {	
-			echo "<table class='table table-list-penawaran'>";
-				echo "<thead>";
-					echo "<tr>";
-						echo "<td class='td-harga'>Harga</td>";
-						echo "<td>Ekspedisi</td>";
-						echo "<td>Detail</td>";
-						echo "<td class='td-action'>Status</td>";
-					echo "</tr>";
-				echo "</thead>";
-				echo "<tbody>";
-				for ($i = 0; $i < sizeof($bidding); $i++) {
-					echo "<tr>";
-						echo "<td>" . number_format($bidding[$i]->bidding_price) . " IDR</td>";
-						echo "<td>" . $bidding[$i]->username . "</td>";
-						echo "<td>";
-							echo "<div>Tanggal Ambil : " . $bidding[$i]->bidding_pickupdate . "</div>";
-							echo "<div>Keterangan : " . $bidding[$i]->bidding_information . "</div>";
-						echo "</td>";
-						echo "<td>";
-						if ($bidding[$i]->bidding_status == 2) {
-							echo "<div class='alasan-tolak'>DITOLAK<br><strong>Alasan : </strong>" . $bidding[$i]->bidding_reason . "</div>";
-						}
-						echo "</td>";
-					echo "</tr>";
-				}
-				echo "</tbody>";
-			echo "</table>";
-		}*/	?>
 	</div>
 </div>
 
@@ -274,6 +220,7 @@ var lat, lng, center_from, center_to;
 
 getDiscussions();
 getBiddingList();
+//getKendaraan();
 
 <?php
 if ($role_id == 1 && $isOwner) { ?>
@@ -301,7 +248,6 @@ if ($role_id == 1 && $isOwner) { ?>
 			},
 			type: 'POST',
 			error: function(jqXHR, exception) {
-				valid = false;
 				alert(jqXHR + " : " + jqXHR.responseText);
 			},
 			success: function(result) {
@@ -342,6 +288,30 @@ if ($role_id == 1 && $isOwner) { ?>
 		kirimPenawaran();
 	});
 	
+	function getKendaraan() {
+		$.ajax({
+			url: '<?= base_url("kirim/getKendaraan") ?>',
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(json) {
+				var result = jQuery.parseJSON(json);
+				addKendaraanToOption(result);
+			}
+		});
+	}
+	
+	function addKendaraanToOption(result) {
+		var element = "";
+		var iLength = result.length;
+		for (var i = 0; i < iLength; i++) {
+			element += "<option value='" + result[i].vehicle_id + "'>" + result[i].vehicle_name + "</option>";
+		}
+		$(".input-kendaraan").html("");
+		$(".input-kendaraan").append(element);
+	}
+	
 	function toggleDetailPenawaran() {
 		if (!detailPenawaranShown) {
 			$(".detail-penawaran").css("display", "block");
@@ -351,36 +321,72 @@ if ($role_id == 1 && $isOwner) { ?>
 		detailPenawaranShown = !detailPenawaranShown;
 	}
 	
-	function kirimPenawaran() {
+	function kirimPenawaran() {		
 		var bidding_price = $(".input-bidding-price").val();
 		var bidding_pickupdate = $(".input-bidding-pickupdate").val();
+		var bidding_vehicle = $(".input-kendaraan").val();
 		var bidding_information = $(".input-bidding-information").val();
-		var shipment_id = <?= $shipment_id ?>;
-		var user_id = <?= $user_id ?>;
-		$.ajax({
-			url: '<?= base_url("kirim/kirimPenawaran") ?>',
-			data: {
-				submit_bid: true,
-				bidding_price: bidding_price,
-				bidding_pickupdate: bidding_pickupdate,
-				bidding_information: bidding_information,
-				shipment_id: shipment_id,
-				user_id: user_id
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				valid = false;
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					
+		
+		var data = {
+			bidding_price: bidding_price,
+			bidding_pickupdate: bidding_pickupdate,
+			bidding_vehicle: bidding_vehicle,
+			bidding_information: bidding_information
+		};
+		var valid = cekInputPenawaran(data);
+		
+		if (valid) {
+			var shipment_id = <?= $shipment_id ?>;
+			var user_id = <?= $user_id ?>;
+			$.ajax({
+				url: '<?= base_url("kirim/kirimPenawaran") ?>',
+				data: {
+					submit_bid: true,
+					bidding_price: bidding_price,
+					bidding_pickupdate: bidding_pickupdate,
+					bidding_information: bidding_information,
+					shipment_id: shipment_id,
+					user_id: user_id
+				},
+				type: 'POST',
+				error: function(jqXHR, exception) {
+					alert(jqXHR + " : " + jqXHR.responseText);
+				},
+				success: function(result) {
+					if (result == "success") {
+						
+					}
+					alert(result);
+					toggleDetailPenawaran();
 				}
-				alert(result);
-				toggleDetailPenawaran();
-			}
-		});
+			});
+		}
 	}
+	
+	function cekInputPenawaran(data) {
+		clearErrors();
+		
+		var valid = true;
+		if (data.bidding_price == "") {
+			valid = false;
+			$(".error-bidding-price").html("Harga harus diisi");
+		}
+		if (data.bidding_pickupdate == "") {
+			valid = false;
+			$(".error-bidding-pickupdate").html("Tanggal Ambil harus diisi");
+		}
+		if (data.bidding_vehicle == "") {
+			valid = false;
+			$(".error-kendaraan").html("Kendaraan harus diisi");
+		}
+		return valid;
+	}
+	
+	function clearErrors() {
+		$(".error").html("");
+	}
+	
+	$("input")
 <?php } ?>
 
 function getDiscussions() {
@@ -392,7 +398,6 @@ function getDiscussions() {
 		},
 		type: 'POST',
 		error: function(jqXHR, exception) {
-			valid = false;
 			alert(jqXHR + " : " + jqXHR.responseText);
 		},
 		success: function(json) {
@@ -434,7 +439,6 @@ function getBiddingList() {
 		},
 		type: 'POST',
 		error: function(jqXHR, exception) {
-			valid = false;
 			alert(jqXHR + " : " + jqXHR.responseText);
 		},
 		success: function(json) {
