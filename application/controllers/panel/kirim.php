@@ -99,6 +99,33 @@ class Kirim extends MY_Controller
 
         parent::template('kirimbarang_form', $data);
     }
+	
+	function getDiscussions() {
+		$shipment_id = $this->input->post("shipment_id");
+		$questions = $this->Kirim_model->getQuestions($shipment_id);
+		$answers = [];
+		if (sizeof($questions) > 0) {
+			for ($i = 0; $i < sizeof($questions); $i++) {
+				$questions_id = $questions[$i]->questions_id;
+				$answer = $this->Kirim_model->getAnswers($questions_id);
+				
+				array_push($answers, $answer);
+			}
+		}
+		
+		$discussions = array(
+			"questions" => $questions,
+			"answers" => $answers
+		);
+		
+		echo json_encode($discussions);
+	}
+	
+	function getBiddingList() {
+		$shipment_id = $this->input->post("shipment_id");
+		$bidding = $this->Kirim_model->getBidding($shipment_id);
+		echo json_encode($bidding);
+	}
 
     function detail($id)
     {
@@ -116,25 +143,7 @@ class Kirim extends MY_Controller
 		}
 		
 		$shipment_id = $id;
-		
-		$questions = $this->Kirim_model->getQuestions($shipment_id);
-		$answers = [];
-		if (sizeof($questions) > 0) {
-			for ($i = 0; $i < sizeof($questions); $i++) {
-				$questions_id = $questions[$i]->questions_id;
-				$answer = $this->Kirim_model->getAnswers($questions_id);
 				
-				array_push($answers, $answer);
-			}
-		}
-		
-		$discussions = array(
-			"questions" => $questions,
-			"answers" => $answers
-		);
-		
-		$bidding = $this->Kirim_model->getBidding($shipment_id);
-		
 		$isOwner = false;
 		if ($user_id == $data[0]->user_id) {
 			$isOwner = true;
@@ -171,9 +180,7 @@ class Kirim extends MY_Controller
             'shipment_end_date' => $data[0]->shipment_end_date,
             'shipment_price' => $data[0]->shipment_price,
             'shipment_pictures' => $data[0]->shipment_pictures,
-            'items' => $items,
-			"discussions" => $discussions,
-			"bidding" => $bidding
+            'items' => $items
         );
 		
         parent::template('kirimbarang_detail', $data);

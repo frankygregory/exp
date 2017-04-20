@@ -15,7 +15,6 @@
     <link href="<?=base_url()?>assets/panel/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?=base_url('assets/panel/datatables/css/dataTables.bootstrap.css')?>" rel="stylesheet">
     <link href="<?=base_url()?>assets/panel/jqueryui/jquery-ui.css" rel="stylesheet" >
-    <link href="http://hayageek.github.io/jQuery-Upload-File/4.0.10/uploadfile.css" rel="stylesheet">
 <!--    <link href="--><?//=base_url('assets/panel/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')?><!--" rel="stylesheet">-->
     <!-- Custom CSS -->
     <link href="<?=base_url()?>assets/panel/css/sb-admin.css" rel="stylesheet">

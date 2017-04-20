@@ -19,13 +19,24 @@ class Supir extends MY_Controller
         parent::template('supir', $data);
     }
 	
+	function getSupir() {
+		$role_id = $this->session->userdata("role_id");
+		if ($role_id == 2) {
+			$user_id = $this->session->userdata("user_id");
+			$supir = $this->Driver_model->getDriverByUserId($user_id);
+			echo json_encode($supir);
+		} else {
+			
+		}
+	}
+	
 	public function tambahSupir() {
 		$submit_tambah = $this->input->post("submit_tambah");
 		if ($submit_tambah != null) {
 			$driver_name = $this->input->post("driver_name");
 			$driver_handphone = $this->input->post("driver_handphone");
 			$driver_address = $this->input->post("driver_address");
-			$driver_information = intval($this->input->post("driver_information"));
+			$driver_information = $this->input->post("driver_information");
 			$driver_status = intval($this->input->post("driver_status"));
 			$user_id = $this->session->userdata("user_id");
 			
@@ -39,8 +50,12 @@ class Supir extends MY_Controller
 				"created_by" => $user_id,
 				"modified_by" => $user_id
 			);
-			$this->Driver_model->addDriver($insertData);
-			
+			$affected_rows = $this->Driver_model->addDriver($insertData);
+			if ($affected_rows > 0) {
+				echo "success";
+			} else {
+				echo "no rows affected. WHY??";
+			}
 		} else {
 			
 		}

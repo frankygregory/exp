@@ -150,21 +150,6 @@
 	<div class="section-3">
 		<div class="section-title">Diskusi</div>
 		<div class="discussions">
-		<?php
-		for ($i = 0; $i < sizeof($discussions["questions"]); $i++) { ?>
-			<div class="questions">
-				<div class="questions-user-id"><?= $discussions["questions"][$i]->username ?> </div>
-				<div class="questions-text"><?= $discussions["questions"][$i]->questions_text ?></div>
-				<?php
-				if ($isOwner == "true") {
-					echo "<div class='btn-jawab'>Jawab</div>";
-				}
-				?>
-			</div>
-			<div class="answers">
-				<div class="answers_text"><?= $discussions["answers"][$i][0]->answers_text ?></div>
-			</div>
-<?php	}	?>
 		</div>
 	</div>
 	<div class="section-4">
@@ -200,8 +185,21 @@
 				<button type="button" class="btn-kirim-penawaran">Kirim</button>
 			</div>
 <?php	}	?>
+		<table class='table table-list-penawaran'>
+			<thead>
+				<tr>
+					<td class="td-harga">Harga</td>
+					<td>Ekspedisi</td>
+					<td>Detail</td>
+					<td class="td-action">Status</td>
+				</tr>
+			</thead>
+			<tbody class="tbody-list-penawaran">
+			
+			</tbody>
+		</table>
 		<?php
-		if ($isOwner) {
+		/*if ($isOwner) {
 			echo "<table class='table table-list-penawaran'>";
 				echo "<thead>";
 					echo "<tr>";
@@ -265,7 +263,7 @@
 				}
 				echo "</tbody>";
 			echo "</table>";
-		}	?>
+		}*/	?>
 	</div>
 </div>
 
@@ -274,17 +272,20 @@ var map_asal, map_tujuan;
 var marker_asal, marker_tujuan;
 var lat, lng, center_from, center_to;
 
+getDiscussions();
+getBiddingList();
+
 <?php
-if ($role_id == 1) { ?>
-	$(".btn-tolak").on("click", function() {
+if ($role_id == 1 && $isOwner) { ?>
+	$(document).on("click", ".btn-tolak", function() {
 		showAlasanTolak(this);
 	});
 	
-	$(".btn-batal-tolak").on("click", function() {
+	$(document).on("click", ".btn-batal-tolak", function() {
 		hideAlasanTolak(this);
 	});
 	
-	$(".btn-submit-tolak").on("click", function() {
+	$(document).on("click", ".btn-submit-tolak", function() {
 		submitTolak(this);
 	});
 	
@@ -325,11 +326,11 @@ if ($role_id == 1) { ?>
 } else if ($role_id == 2) { ?>
 	var detailPenawaranShown = false;
 	
-	$(".btn-tawar").on("click", function() {
+	$(document).on("click", ".btn-tawar", function() {
 		toggleDetailPenawaran();
 	});
 	
-	$("input[data-type='number']").on("keydown", function(e) {
+	$(document).on("keydown", "input[data-type='number']", function(e) {
 		isNumber(e);
 	});
 	
@@ -337,7 +338,7 @@ if ($role_id == 1) { ?>
 		dateFormat: "yy-mm-dd"
 	});
 	
-	$(".btn-kirim-penawaran").on("click", function() {
+	$(document).on("click", ".btn-kirim-penawaran", function() {
 		kirimPenawaran();
 	});
 	
@@ -381,6 +382,101 @@ if ($role_id == 1) { ?>
 		});
 	}
 <?php } ?>
+
+function getDiscussions() {
+	var shipment_id = <?= $shipment_id ?>;
+	$.ajax({
+		url: '<?= base_url("kirim/getDiscussions") ?>',
+		data: {			
+			shipment_id: shipment_id
+		},
+		type: 'POST',
+		error: function(jqXHR, exception) {
+			valid = false;
+			alert(jqXHR + " : " + jqXHR.responseText);
+		},
+		success: function(json) {
+			var result = jQuery.parseJSON(json);
+			addDiscussionToTable(result);
+		}
+	});
+}
+
+function addDiscussionToTable(result) {
+	var questions = result.questions;
+	var iLength = questions.length;
+	var element = "";
+	for (var i = 0; i < iLength; i++) {
+		element += "<div class='questions'>";
+		element += "<div class='questions-user-id'>" + questions[i].username + "</div>";
+		element += "<div class='questions-text'>" + questions[i].questions_text + "</div>";
+		element += "</div>";
+		
+		var answers = result.answers[i];
+		var jLength = answers.length;
+		for (var j = 0; j < jLength; j++) {
+			element += "<div class='answers'>";
+			element += "<div class='answers_text'>" + answers[j].answers_text + "</div>";
+			element += "</div>";
+		}
+	}
+	
+	$(".discussions").html("");
+	$(".discussions").append(element);
+}
+
+function getBiddingList() {
+	var shipment_id = <?= $shipment_id ?>;
+	$.ajax({
+		url: '<?= base_url("kirim/getBiddingList") ?>',
+		data: {			
+			shipment_id: shipment_id
+		},
+		type: 'POST',
+		error: function(jqXHR, exception) {
+			valid = false;
+			alert(jqXHR + " : " + jqXHR.responseText);
+		},
+		success: function(json) {
+			var result = jQuery.parseJSON(json);
+			addBiddingListToTable(result);
+		}
+	});
+}
+
+function addBiddingListToTable(result) {
+	var iLength = result.length;
+	var element = "";
+	for (var i = 0; i < iLength; i++) {
+		element += "<tr>";
+		element += "<td>" + result[i].bidding_price + " IDR</td>";
+		element += "<td>" + result[i].username + "</td>";
+		element += "<td>";
+		element += "<div>Tanggal Ambil : " + result[i].bidding_pickupdate + "</div>";
+		element += "<div>Keterangan : " + result[i].bidding_information + "</div>";
+		element += "</td>";
+		element += "<td>";
+		if (result[i].bidding_status == 2) {
+			element += "<div class='alasan-tolak'>DITOLAK<br><strong>Alasan : </strong>" + result[i].bidding_reason + "</div>";
+		}
+<?php	if ($isOwner) { ?>
+			else if (result[i].bidding_status == 0) {
+				element += "<button class='btn-setuju'>Setuju</button>";
+				element += "<button class='btn-tolak'>Tolak</button>";
+				element += "<div class='container-tolak'>";
+				element += "<textarea class='input-alasan' data-bidding_id='" + result[i].bidding_id + "'></textarea>";
+				element += "<button class='btn-submit-tolak' data-bidding_id='" + result[i].bidding_id + "'>Tolak</button>";
+				element += "<button class='btn-batal-tolak'>Batal Tolak</button>";
+				element += "</div>";
+			}
+<?php	}	?>
+		element += "</td>";
+		element += "</tr>";
+	}
+	
+	$(".tbody-list-penawaran").html();
+	$(".tbody-list-penawaran").append(element);
+}
 
 function initMap() {	
 	lat = <?= $location_from_lat ?>;

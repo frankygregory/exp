@@ -14,6 +14,10 @@
 						<td><input type="text" class="input-nama" /></td>
 					</tr>
 					<tr>
+						<td class="">Alamat Driver</td>
+						<td><input type="text" class="input-alamat" /></td>
+					</tr>
+					<tr>
 						<td class="">No. HP</td>
 						<td><input type="text" class="input-hp" maxlength="12" /></td>
 					</tr>
@@ -55,7 +59,7 @@
 					<td>Action</td>
 				</tr>
 			</thead>
-			<tbody class="tbody-kendaraan">
+			<tbody class="tbody-supir">
 			
 			</tbody>
 		</table>
@@ -67,7 +71,7 @@
 
 <script type="text/javascript">
 $(function() {
-	getKendaraan();
+	getSupir();
 	
 	$(".btn-tambah").on("click", function() {
 		showDialog(".dialog-tambah");
@@ -81,23 +85,25 @@ $(function() {
 	});
 	
 	$(".btn-submit-tambah").on("click", function() {
-		tambahKendaraan();
+		tambahSupir();
 	});
 	
-	function tambahKendaraan() {
-		var vehicle_nomor = $(".input-nopol").val();
-		var vehicle_name = $(".input-nama").val();
-		var vehicle_information = $(".input-keterangan").val();
-		var vehicle_status = $(".input-ketersediaan").val();
+	function tambahSupir() {
+		var driver_name = $(".input-nama").val();
+		var driver_handphone = $(".input-hp").val();
+		var driver_address = $(".input-alamat").val();
+		var driver_information = $(".input-keterangan").val();
+		var driver_status = $(".input-ketersediaan").val();
 		
 		$.ajax({
-			url: '<?= base_url("kendaraan/tambahKendaraan") ?>',
+			url: '<?= base_url("supir/tambahSupir") ?>',
 			data: {
 				submit_tambah: true,
-				vehicle_nomor: vehicle_nomor,
-				vehicle_name: vehicle_name,
-				vehicle_information: vehicle_information,
-				vehicle_status: vehicle_status
+				driver_name: driver_name,
+				driver_handphone: driver_handphone,
+				driver_address: driver_address,
+				driver_information: driver_information,
+				driver_status: driver_status
 			},
 			type: 'POST',
 			error: function(jqXHR, exception) {
@@ -105,54 +111,61 @@ $(function() {
 				alert(jqXHR + " : " + jqXHR.responseText);
 			},
 			success: function(result) {
+				
 				if (result == "success") {
 					closeDialog();
 					resetDialogInput();
-					getKendaraan();
+					getSupir();
 				}
 			}
 		});
 	}
 	
-	function getKendaraan() {
+	function getSupir() {
+		
 		$.ajax({
-			url: '<?= base_url("kendaraan/getKendaraan") ?>',
+			url: '<?= base_url("supir/getSupir") ?>',
 			type: 'POST',
 			error: function(jqXHR, exception) {
 				valid = false;
 				alert(jqXHR + " : " + jqXHR.responseText);
 			},
 			success: function(json) {
-				$(".tbody-kendaraan").html("");
+				$(".tbody-supir").html("");
 				var result = jQuery.parseJSON(json);
 				for (var i = 0; i < result.length; i++) {
-					addKendaraanToTable((i + 1), result[i]);
+					addSupirToTable((i + 1), result[i]);
 				}
 			}
 		});
 	}
 	
-	function addKendaraanToTable(no, result) {
+	function addSupirToTable(no, result) {
 		var ketersediaan = "Tersedia";
-		if (result.vehicle_in_use == 1) {
+		if (result.driver_in_use == 1) {
 			ketersediaan = "Sedang Digunakan";
 		}
 		
+		if (result.driver_rating == null) {
+			result.driver_rating = "Unrated";
+		}
+		
 		var aktifDisabled = "disabled", tidakAktifDisabled = "";
-		if (result.vehicle_status == 0) {
+		if (result.driver_status == 0) {
 			aktifDisabled = "";
 			tidakAktifDisabled = "disabled";
 		}
 		
 		var btnAktif = "<button class='btn-default btn-aktif' " + aktifDisabled + ">Aktif</button>";
 		var btnTidakAktif = "<button class='btn-default btn-tidak-aktif' " + tidakAktifDisabled + ">Tidak Aktif</button>";
-		var element = "<tr><td>" + no + "</td><td>" + result.vehicle_nomor + "</td><td>" + result.vehicle_name + "</td><td>" + ketersediaan + "</td><td>" + result.vehicle_jumlah_transaksi + "</td><td>" + result.vehicle_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td></td></tr>";
-		$(".tbody-kendaraan").append(element);
+		var element = "<tr><td>" + no + "</td><td>" + result.driver_name + "</td><td>" + result.driver_handphone + "</td><td>" + ketersediaan + "</td><td>" + result.driver_rating + "</td><td>" + result.driver_jumlah_transaksi + "</td><td>" + result.driver_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td></td></tr>";
+		$(".tbody-supir").append(element);
 	}
 	
 	function resetDialogInput() {
-		$(".input-nopol").val("");
 		$(".input-nama").val("");
+		$(".input-hp").val("");
+		$(".input-alamat").val("");
 		$(".input-keterangan").val("");
 		$(".input-ketersediaan").val("1");
 	}
