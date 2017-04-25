@@ -9,15 +9,12 @@ class Kirim_model extends CI_Model
 	
 	public function getListKirimanUmum() {
 		$query =  $this->db->query(
-			"SELECT a.*,concat(datediff(a.shipment_end_date,curdate()),' hari') rem_date,
-			(SELECT COUNT(1) FROM t_bidding b WHERE a.shipment_id=b.shipment_id) bid_count,
-			(SELECT COUNT(1) FROM t_bidding b WHERE a.shipment_id=b.shipment_id and b.bidding_status=0) active_bid_count,
-            (SELECT min(bidding_price) FROM t_bidding b WHERE a.shipment_id=b.shipment_id) min_bid_price,
-            (SELECT SUM(b.item_weight*if(UPPER(b.item_weight_unit)='TON',1000,1)) FROM m_shipment_details b WHERE a.shipment_id=b.shipment_id) tot_weight_kg,
-            DATE_FORMAT(a.shipment_delivery_date_from,'%d-%b-%y') ship_date_from,
-            DATE_FORMAT(a.shipment_delivery_date_to,'%d-%b-%y') ship_date_to 
-            FROM m_shipment a 
-            WHERE datediff(a.shipment_end_date,curdate())>-300"
+			"SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_price, m.shipment_length, m.location_from_name, m.location_to_name, TIMESTAMPDIFF(SECOND, CURRENT_TIMESTAMP(), m.shipment_end_date) AS berakhir, COUNT(t.bidding_id) AS bidding_count
+			FROM `m_shipment` m
+			LEFT JOIN `t_bidding` t
+			ON m.shipment_id = t.shipment_id
+			WHERE m.shipment_end_date > CURRENT_TIMESTAMP()
+			GROUP BY t.shipment_id"
 		);
 		return $query->result();
 	}
@@ -26,7 +23,7 @@ class Kirim_model extends CI_Model
 		$query = $this->db->query(
 			"SELECT s.*, u.username
 			FROM `m_shipment` s, `m_user` u
-			WHERE s.user_id = u.user_id AND s.shipment_id = " . $shipment_id . ";"
+			WHERE s.created_by = u.user_id AND s.shipment_id = " . $shipment_id . ";"
 		);
 		return $query->result();
 	}
@@ -49,7 +46,7 @@ class Kirim_model extends CI_Model
 		$query = $this->db->query(
 			"SELECT t.*, u.username
 			FROM `t_bidding` t, `m_user` u
-			WHERE t.user_id = u.user_id AND shipment_id = " . $shipment_id . ";"
+			WHERE t.created_by = u.user_id AND shipment_id = " . $shipment_id . ";"
 		);
 		return $query->result();
 	}

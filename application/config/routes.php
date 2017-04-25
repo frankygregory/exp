@@ -86,6 +86,7 @@ $route["kendaraan/toggleKendaraanAktif"] = "panel/kendaraan/toggleKendaraanAktif
 $route["kendaraan/deleteKendaraan"] = "panel/kendaraan/deleteKendaraan";
 $route['kirim'] = 'panel/kirim';
 //$route['kirim/(:any)'] = 'panel/kirim/$1';
+$route['kirim/getKiriman'] = 'panel/kirim/getKiriman';
 $route['kirim/private'] = 'panel/kirim/privates';
 $route['kirim/public'] = 'panel/kirim/publics';
 $route['kirim/penawaran'] = 'panel/kirim/penawaran';

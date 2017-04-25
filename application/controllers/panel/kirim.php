@@ -12,16 +12,6 @@ class Kirim extends MY_Controller
 
     public function index()
     {
-        $kirim = "select a.*,concat(datediff(a.shipment_end_date,curdate()),' hari') rem_date,".
-                   "(select count(1) from t_bidding b where a.shipment_id=b.shipment_id) bid_count,".
-                   "(select count(1) from t_bidding b where a.shipment_id=b.shipment_id and b.bidding_status=0) active_bid_count,".
-                   "(select min(bidding_price) from t_bidding b where a.shipment_id=b.shipment_id) min_bid_price,".
-                   "(select sum(b.item_weight*if(upper(b.item_weight_unit)='TON',1000,1)) from m_shipment_details b where a.shipment_id=b.shipment_id) tot_weight_kg,".
-                   "DATE_FORMAT(a.shipment_delivery_date_from,'%d-%b-%y') ship_date_from,".
-                   "DATE_FORMAT(a.shipment_delivery_date_to,'%d-%b-%y') ship_date_to ".
-                 "from m_shipment a ".
-                 "where datediff(a.shipment_end_date,curdate())>-300";
-		
 		$role_id = $this->session->userdata("role_id");
 		$page_title = "List Kiriman";
 		if ($role_id == 2) {
@@ -32,11 +22,15 @@ class Kirim extends MY_Controller
             'title' => 'All',
 			'role_id' => $role_id,
 			'page_title' => $page_title,
-            'data' => $this->queryArray($kirim),
         );
 
         parent::template('kirim', $data);
     }
+	
+	public function getKiriman() {
+		 $kirim = $this->Kirim_model->getListKirimanUmum();
+		 echo json_encode($kirim);
+	}
 
     public function privates()
     {
@@ -152,7 +146,7 @@ class Kirim extends MY_Controller
 		$shipment_id = $id;
 				
 		$isOwner = false;
-		if ($user_id == $data[0]->user_id) {
+		if ($user_id == $data[0]->created_by) {
 			$isOwner = true;
 		}
 		
@@ -165,7 +159,7 @@ class Kirim extends MY_Controller
 			'username' => $user_username,
 			'role_id' => $user_role,
 			'isOwner' => $isOwner,
-			'shipment_owner_id' => $data[0]->user_id,
+			'shipment_owner_id' => $data[0]->created_by,
 			'shipment_owner_username' => $data[0]->username,
 			'created_date' => $data[0]->created_date,
 			'modified_date' => $data[0]->modified_date,

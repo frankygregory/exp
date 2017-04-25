@@ -1,279 +1,229 @@
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo&libraries=places" async defer></script>
+<div id="page-wrapper">
+<div class="container-fluid">
+<div class="page-title"><?= $page_title ?></div>
+<div class="content">
+	<div class="section-1">
+		<button type="button" class="btn-default btn-tambah">Kirim Barang</button>
+		<table class="table">
+			<thead>
+				<tr>
+					<td>Nama Kirim</td>
+					<td>Harga</td>
+					<td>Asal</td>
+					<td>Tujuan</td>
+					<td>KM</td>
+					<td>Berakhir</td>
+				</tr>
+			</thead>
+			<tbody class="tbody-kiriman">
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+</div>
 
-    <div id="page-wrapper">
 
-        <div class="container-fluid">
-
-            <!-- Page Heading -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">
-                        <?= $page_title ?>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li class="active">
-                            <i class="fa fa-dashboard"></i> Kirim
-                        </li>
-                    </ol>
-                </div>
-            </div>
-            <!-- /.row -->
-			<?php
-			if ($role_id == 1) { ?>
-				<div class="row">
-						<div class="col-md-2">
-							<div class="form-group">
-							   <a href="<?=site_url('kirim/kirimbarang/')?>" class="btn btn-success"><i class="fa fa-send"></i> Kirim Barang</a>
-							</div>
-						</div>
-						<form action="#" method="post">
-							<div class="col-md-4">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Lokasi Asal">
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Lokasi Tujuan">
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									<input type="submit" value="Cari" class="btn btn-default">
-								</div>
-							</div>
-						</form>
-				</div>
-	<?php	}	?>
-            <div class="row">
-                <div class="col-md-12">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active">
-                            <a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a>
-                        </li>
-                        <li role="private">
-                            <a href="#private" aria-controls="private" role="tab" data-toggle="tab">Private</a>
-                        </li>
-                        <li role="public">
-                            <a href="#public" aria-controls="public" role="tab" data-toggle="tab">Public</a>
-                        </li>
-                        <li role="penawaran">
-                            <a href="#penawaran" aria-controls="penawaran" role="tab" data-toggle="tab">Penawaran</a>
-                        </li>
-                    </ul>
-                    <br>
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="all">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>Nama Kiriman</th>
-                                        <th>Harga</th>
-                                        <th>Asal</th>
-                                        <th>Tujuan</th>
-                                        <th>KM</th>
-                                        <th>Berakhir</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                    <?php
-                                    $data2 = $data;
-                                    foreach($data2 as $data){ ?>
-                                        <tr>
-                                            <td>
-                                                <a href="<?= site_url() ?>kirim/detail/<?=$data['shipment_id']?>"><h4><?=$data['shipment_title']?></h4></a>
-                                                <img src="<?= base_url().'/assets/panel/images/'.$data['shipment_pictures']?>" width="110">
-                                                <h5>400 Kg</h5>
-                                            </td>
-                                            <td>
-                                                Bid : <?= $data['bid_count'].' ('.$data['active_bid_count'].' Active)' ?><br>
-                                                Low : <?= $data['min_bid_price'] ?>
-                                            </td>
-                                            <td>
-                                                <?=$data['location_from_name']?><br>
-                                                Tgl : <?=$data['shipment_delivery_date_to']?> - <?=$data['shipment_end_date']?>
-                                            </td>
-                                            <td>
-                                                <?=$data['location_to_name']?><br>
-                                                Tgl : <?=$data['shipment_delivery_date_to']?> - <?=$data['shipment_end_date']?>
-                                            </td>
-                                            <td>
-                                            <script>
-                                                var lat1 = "<?=$data['location_from_lat'] ?>";
-                                                if (lat1.length==0) {lat1="0";}
-                                                var lng1 = "<?=$data['location_from_lng'] ?>";
-                                                if (lng1.length==0) {lng1="0";}
-                                                var lat2 = "<?=$data['location_to_lat'] ?>";
-                                                if (lat2.length==0) {lat2="0";}
-                                                var lng2 = "<?=$data['location_to_lng'] ?>";
-                                                if (lng2.length==0) {lng2="0";}
-                                                var dist = getDistanceFromLatLonInKm(lat1*1,lng1*1,lat2*1,lng2*1).toFixed(2);
-                                                document.write(dist);
-                                                var latLngA = new google.maps.LatLng({lat:(lat1*1),lng:(lng1*1)});
-                                                var latLngB = new google.maps.LatLng({lat:(lat2*1),lng:(lng2*1)});
-                                                //var latLngA = {lat:(lat1*1),lng:(lng1*1)};
-                                                //var latLngB = {lat:(lat2*1),lng:(lng2*1)};
-                                                //document.write(google.maps.geometry.spherical.computeDistanceBetween(latLngA, latLngB));
-                                            </script>
-                                            </td>
-                                            <td><?=$data['rem_date']?></td>
-                                        </tr>
-                                    <?php }
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="private">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>Nama Kiriman</th>
-                                        <th>Harga</th>
-                                        <th>Asal</th>
-                                        <th>Tujuan</th>
-                                        <th>KM</th>
-                                        <th>Berakhir</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                    <?php
-                                    foreach($data2 as $data){
-                                      if ($data['shipment_type']==2) { ?>
-                                        <tr>
-                                            <td>
-                                                <a href="<?= site_url() ?>kirim/detail/<?=$data['shipment_id']?>"><h4><?=$data['shipment_title']?></h4></a>
-        <!--                                        <img src="--><?//= base_url() ?><!--/assets/panel/images/gambar-01.jpg" width="110">-->
-                                                <h5>400 Kg</h5>
-                                            </td>
-                                            <td>
-                                                Bid : 2 (1 Active) <br>
-                                                Low : <?=$data['shipment_price']?>
-                                            </td>
-                                            <td>
-                                                <?=$data['location_from_name']?><br>
-                                                Tgl : <?=$data['shipment_delivery_date_to']?> - <?=$data['shipment_end_date']?>
-                                            </td>
-                                            <td>
-                                                <?=$data['location_to_name']?><br>
-                                                Tgl : <?=$data['shipment_delivery_date_to']?> - <?=$data['shipment_end_date']?>
-                                            </td>
-                                            <td>
-                                            <script>
-                                                var lat1 = "<?=$data['location_from_lat'] ?>";
-                                                if (lat1.length==0) {lat1="0";}
-                                                var lng1 = "<?=$data['location_from_lng'] ?>";
-                                                if (lng1.length==0) {lng1="0";}
-                                                var lat2 = "<?=$data['location_to_lat'] ?>";
-                                                if (lat2.length==0) {lat2="0";}
-                                                var lng2 = "<?=$data['location_to_lng'] ?>";
-                                                if (lng2.length==0) {lng2="0";}
-                                                var dist = getDistanceFromLatLonInKm(lat1*1,lng1*1,lat2*1,lng2*1).toFixed(2);
-                                                document.write(dist);
-                                                var latLngA = new google.maps.LatLng({lat:(lat1*1),lng:(lng1*1)});
-                                                var latLngB = new google.maps.LatLng({lat:(lat2*1),lng:(lng2*1)});
-                                                //var latLngA = {lat:(lat1*1),lng:(lng1*1)};
-                                                //var latLngB = {lat:(lat2*1),lng:(lng2*1)};
-                                                //document.write(google.maps.geometry.spherical.computeDistanceBetween(latLngA, latLngB));
-                                            </script>
-                                            </td>
-                                            <td><?=$data['rem_date']?></td>
-                                        </tr>
-                                    <?php
-                                      }
-                                    }
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="public">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>Nama Kiriman</th>
-                                        <th>Harga</th>
-                                        <th>Asal</th>
-                                        <th>Tujuan</th>
-                                        <th>KM</th>
-                                        <th>Berakhir</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                    <?php
-                                    foreach($data2 as $data){
-                                      if ($data['shipment_type']==1) { ?>
-                                        <tr>
-                                            <td>
-                                                <a href="<?= site_url() ?>kirim/detail/<?=$data['shipment_id']?>"><h4><?=$data['shipment_title']?></h4></a>
-        <!--                                        <img src="--><?//= base_url() ?><!--/assets/panel/images/gambar-01.jpg" width="110">-->
-                                                <h5>400 Kg</h5>
-                                            </td>
-                                            <td>
-                                                Bid : 2 (1 Active) <br>
-                                                Low : <?=$data['shipment_price']?>
-                                            </td>
-                                            <td>
-                                                <?=$data['location_from_name']?><br>
-                                                Tgl : <?=$data['shipment_delivery_date_to']?> - <?=$data['shipment_end_date']?>
-                                            </td>
-                                            <td>
-                                                <?=$data['location_to_name']?><br>
-                                                Tgl : <?=$data['shipment_delivery_date_to']?> - <?=$data['shipment_end_date']?>
-                                            </td>
-                                            <td>
-                                            <script>
-                                                var lat1 = "<?=$data['location_from_lat'] ?>";
-                                                if (lat1.length==0) {lat1="0";}
-                                                var lng1 = "<?=$data['location_from_lng'] ?>";
-                                                if (lng1.length==0) {lng1="0";}
-                                                var lat2 = "<?=$data['location_to_lat'] ?>";
-                                                if (lat2.length==0) {lat2="0";}
-                                                var lng2 = "<?=$data['location_to_lng'] ?>";
-                                                if (lng2.length==0) {lng2="0";}
-                                                var dist = getDistanceFromLatLonInKm(lat1*1,lng1*1,lat2*1,lng2*1).toFixed(2);
-                                                document.write(dist);
-                                                var latLngA = new google.maps.LatLng({lat:(lat1*1),lng:(lng1*1)});
-                                                var latLngB = new google.maps.LatLng({lat:(lat2*1),lng:(lng2*1)});
-                                                //var latLngA = {lat:(lat1*1),lng:(lng1*1)};
-                                                //var latLngB = {lat:(lat2*1),lng:(lng2*1)};
-                                                //document.write(google.maps.geometry.spherical.computeDistanceBetween(latLngA, latLngB));
-                                            </script>
-                                            </td>
-                                            <td><?=$data['rem_date']?></td>
-                                        </tr>
-                                    <?php
-                                      }
-                                    }
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="penawaran">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
-
-    </div>
-    <!-- /#page-wrapper -->
-
-<script>
-$(document).ready(function()
-{
-    
+<script type="text/javascript">
+$(function() {
+	getKiriman();
+	
+	$(".btn-tambah").on("click", function() {
+		showDialog(".dialog-tambah");
+		$(".dialog-tambah .input-nama").select();
+	});
+	
+	$(".dialog-background").on("click", function(e) {
+		if (e.target.className == "dialog-background") {
+			closeDialog();
+		}
+	});
+	
+	$(".btn-submit-tambah").on("click", function() {
+		tambahKendaraan();
+	});
+	
+	$(document).on("click", ".btn-edit", function() {
+		editKendaraan(this);
+	});
+	
+	$(".btn-batal").on("click", function() {
+		closeDialog();
+	});
+	
+	$(".btn-submit-edit").on("click", function() {
+		updateKendaraan();
+	});
+	
+	$(document).on("click", ".btn-toggle", function() {
+		toggleKendaraanAktif(this);
+	});
+	
+	$(document).on("click", ".btn-delete", function() {
+		var namaKendaraan = $(this).closest(".tr-kendaraan").children(".td-name").html();
+		var vehicle_id = $(this).closest(".tr-kendaraan").data("id");
+		$(".dialog-konfirmasi-delete").data("id", vehicle_id);
+		$(".dialog-konfirmasi-delete .dialog-body").html("Delete " + namaKendaraan + "?");
+		showDialog(".dialog-konfirmasi-delete");
+	});
+	
+	$(".btn-submit-delete").on("click", function() {
+		deleteKendaraan(this);
+	});
+	
+	function toggleKendaraanAktif(element) {
+		var vehicle_status = $(element).data("value");
+		var vehicle_id = $(element).closest(".tr-kendaraan").data("id");
+		
+		$.ajax({
+			url: '<?= base_url("kendaraan/toggleKendaraanAktif") ?>',
+			data: {
+				vehicle_id: vehicle_id,
+				vehicle_status: vehicle_status
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					getKiriman();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	}
+	
+	function editKendaraan(element) {
+		var id = $(element).data("id");
+		var vehicle_nomor = $(".tr-kendaraan[data-id='" + id + "'] .td-nomor").html();
+		var vehicle_name = $(".tr-kendaraan[data-id='" + id + "'] .td-name").html();
+		var vehicle_information = $(".tr-kendaraan[data-id='" + id + "'] .td-information").html();
+		var vehicle_status = $(".tr-kendaraan[data-id='" + id + "'] .btn-aktif").prop("disabled");
+		
+		if (vehicle_status) {
+			vehicle_status = "1";
+		} else {
+			vehicle_status = "0";
+		}
+		
+		$(".dialog-edit").data("id", id);
+		$(".dialog-edit .input-nopol").val(vehicle_nomor);
+		$(".dialog-edit .input-nama").val(vehicle_name);
+		$(".dialog-edit .input-keterangan").val(vehicle_information);
+		$(".dialog-edit .input-status").val(vehicle_status);
+		
+		showDialog(".dialog-edit");
+	}
+	
+	function updateKendaraan() {
+		var vehicle_id = $(".dialog-edit").data("id");
+		var vehicle_nomor = $(".dialog-edit .input-nopol").val();
+		var vehicle_name = $(".dialog-edit .input-nama").val();
+		var vehicle_information = $(".dialog-edit .input-keterangan").val();
+		var vehicle_status = $(".dialog-edit .input-status").val();
+		
+		$.ajax({
+			url: '<?= base_url("kendaraan/updateKendaraan") ?>',
+			data: {
+				submit_update: true,
+				vehicle_id: vehicle_id,
+				vehicle_nomor: vehicle_nomor,
+				vehicle_name: vehicle_name,
+				vehicle_information: vehicle_information,
+				vehicle_status: vehicle_status
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getKiriman();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	}
+	
+	function tambahKendaraan() {
+		var vehicle_nomor = $(".dialog-tambah .input-nopol").val();
+		var vehicle_name = $(".dialog-tambah .input-nama").val();
+		var vehicle_information = $(".dialog-tambah .input-keterangan").val();
+		var vehicle_status = $(".dialog-tambah .input-status").val();
+		
+		$.ajax({
+			url: '<?= base_url("kendaraan/tambahKendaraan") ?>',
+			data: {
+				submit_tambah: true,
+				vehicle_nomor: vehicle_nomor,
+				vehicle_name: vehicle_name,
+				vehicle_information: vehicle_information,
+				vehicle_status: vehicle_status
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getKiriman();
+				}
+			}
+		});
+	}
+	
+	function deleteKendaraan(element) {
+		var vehicle_id = $(".dialog-konfirmasi-delete").data("id");
+		$.ajax({
+			url: '<?= base_url("kendaraan/deleteKendaraan") ?>',
+			data: {
+				submit_delete: true,
+				vehicle_id: vehicle_id
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getKiriman();
+				}
+			}
+		});
+	}
+	
+	function getKiriman() {
+		$.ajax({
+			url: '<?= base_url("kirim/getKiriman") ?>',
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(json) {
+				$(".tbody-kiriman").html("");
+				var result = jQuery.parseJSON(json);
+				for (var i = 0; i < result.length; i++) {
+					addKirimanToTable((i + 1), result[i]);
+				}
+			}
+		});
+	}
+	
+	function addKirimanToTable(no, result) {
+		var element = "<tr class='tr-kiriman' data-id='" + result.shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result.shipment_id + "'>" + result.shipment_title + "</a></td><td class='td-price'>" + result.bidding_count + "</td><td class='td-asal'>" + result.location_from_name + "</td><td class='td-tujuan'>" + result.location_to_name + "</td><td class='td-km'>" + result.shipment_length + "</td><td class='td-berakhir'>" + result.berakhir + "</td></td></tr>";
+		$(".tbody-kiriman").append(element);
+	}
+	
 });
 </script>
