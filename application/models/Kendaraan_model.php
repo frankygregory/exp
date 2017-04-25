@@ -25,8 +25,23 @@ class Kendaraan_model extends CI_Model
 		return $this->db->affected_rows();
 	}
 	
+	public function toggleKendaraanAktif($data) {
+		$this->db->where("vehicle_id", $data["vehicle_id"]);
+		$updateData = array(
+			"vehicle_status" => $data["vehicle_status"]
+		);
+		$this->db->update("m_vehicle", $updateData);
+		return $this->db->affected_rows();
+	}
+	
 	public function getKendaraanByUserId($user_id) {
 		$this->db->where("user_id", $user_id);
 		return $this->db->get("m_vehicle")->result();
+	}
+	
+	public function deleteKendaraan($vehicle_id) {
+		$this->db->where("vehicle_id", $vehicle_id);
+		$this->db->delete("m_vehicle");
+		return $this->db->affected_rows();
 	}
 }

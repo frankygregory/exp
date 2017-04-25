@@ -76,6 +76,20 @@
 		</div>
 	</div>
 </div>
+<div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-delete">
+		<div class="dialog-header">
+			<div class="dialog-title">Delete Kendaraan</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-delete">Delete</button>
+			<button type="button" class="btn-negative btn-batal">Batal</button>
+		</div>
+	</div>
+</div>
 <div class="content">
 	<div class="section-1">
 		<button type="button" class="btn-default btn-tambah">Tambah Kendaraan</button>
@@ -132,6 +146,47 @@ $(function() {
 		updateKendaraan();
 	});
 	
+	$(document).on("click", ".btn-toggle", function() {
+		toggleKendaraanAktif(this);
+	});
+	
+	$(document).on("click", ".btn-delete", function() {
+		var namaKendaraan = $(this).closest(".tr-kendaraan").children(".td-name").html();
+		var vehicle_id = $(this).closest(".tr-kendaraan").data("id");
+		$(".dialog-konfirmasi-delete").data("id", vehicle_id);
+		$(".dialog-konfirmasi-delete .dialog-body").html("Delete " + namaKendaraan + "?");
+		showDialog(".dialog-konfirmasi-delete");
+	});
+	
+	$(".btn-submit-delete").on("click", function() {
+		deleteKendaraan(this);
+	});
+	
+	function toggleKendaraanAktif(element) {
+		var vehicle_status = $(element).data("value");
+		var vehicle_id = $(element).closest(".tr-kendaraan").data("id");
+		
+		$.ajax({
+			url: '<?= base_url("kendaraan/toggleKendaraanAktif") ?>',
+			data: {
+				vehicle_id: vehicle_id,
+				vehicle_status: vehicle_status
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					getKendaraan();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	}
+	
 	function editKendaraan(element) {
 		var id = $(element).data("id");
 		var vehicle_nomor = $(".tr-kendaraan[data-id='" + id + "'] .td-nomor").html();
@@ -181,9 +236,8 @@ $(function() {
 					closeDialog();
 					getKendaraan();
 				} else {
-					
+					alert(result);
 				}
-				alert(result);
 			}
 		});
 	}
@@ -202,6 +256,28 @@ $(function() {
 				vehicle_name: vehicle_name,
 				vehicle_information: vehicle_information,
 				vehicle_status: vehicle_status
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getKendaraan();
+				}
+			}
+		});
+	}
+	
+	function deleteKendaraan(element) {
+		var vehicle_id = $(".dialog-konfirmasi-delete").data("id");
+		$.ajax({
+			url: '<?= base_url("kendaraan/deleteKendaraan") ?>',
+			data: {
+				submit_delete: true,
+				vehicle_id: vehicle_id
 			},
 			type: 'POST',
 			error: function(jqXHR, exception) {
@@ -247,8 +323,8 @@ $(function() {
 			tidakAktifDisabled = "disabled";
 		}
 		
-		var btnAktif = "<button class='btn-default btn-aktif' " + aktifDisabled + ">Aktif</button>";
-		var btnTidakAktif = "<button class='btn-default btn-tidak-aktif' " + tidakAktifDisabled + ">Tidak Aktif</button>";
+		var btnAktif = "<button class='btn-default btn-toggle btn-aktif' data-value='1' " + aktifDisabled + ">Aktif</button>";
+		var btnTidakAktif = "<button class='btn-default btn-toggle btn-tidak-aktif' data-value='0' " + tidakAktifDisabled + ">Tidak Aktif</button>";
 		
 		var btnEdit = "<button class='btn-default btn-edit' data-id='" + result.vehicle_id + "'>Edit</button>";
 		var btnDelete = "<button class='btn-negative btn-delete' data-id='" + result.vehicle_id + "'>Delete</button>";
