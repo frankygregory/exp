@@ -7,127 +7,105 @@ class Alat extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+		$this->load->model("Alat_model");
     }
 
     public function index()
     {
         $data = array(
-            'title' => 'Alat'
+            'title' => 'Alat',
+			'page_title' => "Alat"
         );
         parent::template('alat', $data);
     }
 	
-	public function ajaxList()
-    {
-        $table = 'm_device_customer';
-        $column_order = array('device_name', 'device_email', null);
-        $column_search = array('device_name', 'device_email');
-        $order = array('device_id' => 'desc'); // default order 
-        $list = $this->getDataTables($table, $column_order, $column_search, $order);
-        $datalist = array();
-        $no = 0;
-        if (isset($_POST['start'])) {
-            $no = $_POST['start'];
-        }
-        foreach ($list as $data) {
-            $no++;
-            $row = array();
-            $row[] = $data->device_id;
-            $row[] = $data->device_name;
-            $row[] = $data->device_information;
-            $row[] = $data->device_email;
+	function getAlat() {
+		$user_id = $this->session->userdata("user_id");
+		$alat = $this->Alat_model->getAlatByUserId($user_id);
+		echo json_encode($alat);
+	}
+	
+	public function tambahAlat() {
+		$submit_tambah = $this->input->post("submit_tambah");
+		if ($submit_tambah != null) {
+			$device_name = $this->input->post("device_name");
+			$device_information = $this->input->post("device_information");
+			$device_email = $this->input->post("device_email");
+			$device_status = intval($this->input->post("device_status"));
+			$user_id = $this->session->userdata("user_id");
 			
-            //add html for action
-            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Ubah" onclick="editData(' . "'" . $data->device_id . "'" . ')"><i class="glyphicon glyphicon-pencil"></i></a>
-                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="deleteData(' . "'" . $data->device_id . "'" . ')"><i class="glyphicon glyphicon-trash"></i></a>';
-            $datalist[] = $row;
-        }
-
-        $draw = null;
-        if (isset($_POST['draw'])) {
-            $draw = $_POST['draw'];
-        }
-
-        $output = array(
-            "draw" => $draw,
-            "recordsTotal" => $this->countAll($table, $column_order, $column_search, $order),
-            "recordsFiltered" => $this->countFiltered($table, $column_order, $column_search, $order),
-            "data" => $datalist,
-        );
-        //output to json format
-        echo json_encode($output);
-    }
+			$insertData = array(
+				"device_name" => $device_name,
+				"device_information" => $device_information,
+				"device_email" => $device_email,
+				"device_status" => $device_status,
+				"created_by" => $user_id,
+				"modified_by" => $user_id
+			);
+			$affected_rows = $this->Alat_model->addAlat($insertData);
+			if ($affected_rows > 0) {
+				echo "success";
+			} else {
+				echo "no rows affected. WHY??";
+			}
+		} else {
+			
+		}
+	}
 	
-	public function ajaxAdd()
-    {
-        $this->validasi();
-        $data = array(
-            'device_name' => $this->input->post('device_name'),
-            'device_information' => $this->input->post('device_information'),
-            'device_email' => $this->input->post('device_email'),
-            'created_date' => date('Y-m-d G:i:s'),
-            'created_by' => (int)$this->session->userdata('user_id'),
-        );
-        $this->insertData('m_device_customer', $data);
-        echo json_encode(array("status" => TRUE));
-    }
-
-    public function ajaxUpdate()
-    {
-        $this->validasi();        
-        $data = array(
-            'device_name' => $this->input->post('device_name'),
-            'device_information' => $this->input->post('device_information'),
-            'device_email' => $this->input->post('device_email'),
-            'modified_date' => date('Y-m-d G:i:s'),
-            'modified_by' => (int)$this->session->userdata('user_id')
-        );
-				
-        $this->updateData('m_device_customer', $data, array('device_id' => $this->input->post('device_id')));
-        echo json_encode(array("status" => TRUE));
-    }
+	public function updateAlat() {
+		$submit_update = $this->input->post("submit_update");
+		if ($submit_update != null) {
+			$device_id = $this->input->post("device_id");
+			$device_name = $this->input->post("device_name");
+			$device_email = $this->input->post("device_email");
+			$device_information = $this->input->post("device_information");
+			$device_status = intval($this->input->post("device_status"));
+			$user_id = $this->session->userdata("user_id");
+			
+			$data = array(
+				"device_id" => $device_id,
+				"device_name" => $device_name,
+				"device_email" => $device_email,
+				"device_information" => $device_information,
+				"device_status" => $device_status,
+				"modified_by" => $user_id
+			);
+			$affected_rows = $this->Alat_model->updateAlat($data);
+			if ($affected_rows > 0) {
+				echo "success";
+			} else {
+				echo "no rows affected. WHY??";
+			}
+		} else {
+			
+		}
+	}
 	
-	public function ajaxDelete($id)
-    {
-        $this->deleteData("m_device_customer", array('device_id' => $id));
-        echo json_encode(array("status" => TRUE));
-    }
+	public function toggleAlatAktif() {
+		$device_id = $this->input->post("device_id");
+		$device_status = intval($this->input->post("device_status"));
+		$user_id = $this->session->userdata("user_id");
+		$data = array(
+			"device_id" => $device_id,
+			"device_status" => $device_status,
+			"modified_by" => $user_id
+		);
+		$affected_rows = $this->Alat_model->toggleAlatAktif($data);
+		if ($affected_rows > 0) {
+			echo "success";
+		} else {
+			echo "no rows affected. WHY??";
+		}
+	}
 	
-	public function ajaxLoad($id)
-    {
-        $data = $this->queryData('select * from m_device_customer where device_id=' . $id)->row();
-        echo json_encode($data);
-    }
-	
-	private function validasi()
-    {
-        $data = array();
-        $data['error_string'] = array();
-        $data['inputerror'] = array();
-        $data['status'] = TRUE;
-
-
-        if ($this->input->post('device_name') == '') {
-            $data['inputerror'][] = 'device_name';
-            $data['error_string'][] = 'Nama Alat wajib diisi!';
-            $data['status'] = FALSE;
-        }
-
-        if ($this->input->post('device_information') == '') {
-            $data['inputerror'][] = 'device_information';
-            $data['error_string'][] = 'Keterangan wajib diisi!';
-            $data['status'] = FALSE;
-        }
-
-        if ($this->input->post('device_email') == '') {
-            $data['inputerror'][] = 'device_email';
-            $data['error_string'][] = 'Email wajib diisi!';
-            $data['status'] = FALSE;
-        }
-		
-        if ($data['status'] === FALSE) {
-            echo json_encode($data);
-            exit();
-        }
-    }
+	public function deleteAlat() {
+		$device_id = $this->input->post("device_id");
+		$affected_rows = $this->Alat_model->deleteAlat($device_id);
+		if ($affected_rows > 0) {
+			echo "success";
+		} else {
+			echo "no rows affected. WHY??";
+		}
+	}
 }

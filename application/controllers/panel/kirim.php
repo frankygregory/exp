@@ -251,7 +251,6 @@ class Kirim extends MY_Controller
 					'shipment_end_date' => date($this->input->post('tanggal-deadline')),
 					'shipment_price' => $this->input->post('shipment_price'),
 					'shipment_status' => $ship_status,
-					'order_type' => $this->input->post('order_type'),
 					'shipment_type' => $this->input->post('shipment_type'),
 					'created_by' => $user_id,
 					'modified_by' => $user_id

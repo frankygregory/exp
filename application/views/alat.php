@@ -1,281 +1,331 @@
-
 <div id="page-wrapper">
-
-    <div class="container-fluid">
-
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">
-                    Alat
-                </h1>
-                <ol class="breadcrumb">
-                    <li class="active">
-                        <i class="fa fa-dashboard"></i> Data Alat
-                    </li>
-                </ol>
-            </div>
-        </div>
-        <!-- /.row -->
-
-		<div class="row" style="margin-bottom:10px;">
-            <div class="col-md-3">
-                <button class="btn btn-success" onclick="addData()"><i class="glyphicon glyphicon-plus"></i> Tambah
-                </button>
-                <button class="btn btn-default" onclick="reloadTable()"><i class="glyphicon glyphicon-refresh"></i>
-                    Reload
-                </button>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                    <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                        <thead>
-                        <tr>
-	                        <th>No</th>
-	                        <th>Nama Alat</th>
-	                        <th>Keterangan</th>
-	                        <th>Email</th>
-                            <th>Action</th>
-						</tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-							<tfoot>
-							<tr>
-		                        <th>No</th>
-		                        <th>Nama Alat</th>
-		                        <th>Keterangan</th>
-		                        <th>Email</th>
-	                            <th>Action</th>
-	                        </tr>
-							</tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-
+<div class="container-fluid">
+<div class="page-title"><?= $page_title ?></div>
+<div class="dialog-background">
+	<div class="dialog dialog-tambah">
+		<div class="dialog-header">
+			<div class="dialog-title">Tambah Alat</div>
+		</div>
+		<div class="dialog-body">
+			<table>
+				<tbody>
+					<tr>
+						<td class="">Nama Alat</td>
+						<td><input type="text" class="input-nama" /></td>
+					</tr>
+					<tr>
+						<td class="">Keterangan</td>
+						<td><input type="text" class="input-keterangan" /></td>
+					</tr>
+					<tr>
+						<td class="">Email</td>
+						<td><input type="text" class="input-email" /></td>
+					</tr>
+					<tr>
+						<td class="">Status</td>
+						<td>
+							<select name="input-status" class="input-status">
+								<option value="1">Aktif</option>
+								<option value="0">Tidak Aktif</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-tambah">Tambah</button>
+		</div>
+	</div>
 </div>
-<!-- /#page-wrapper -->
+<div class="dialog-background">
+	<div class="dialog dialog-edit">
+		<div class="dialog-header">
+			<div class="dialog-title">Edit Alat</div>
+		</div>
+		<div class="dialog-body">
+			<table>
+				<tbody>
+					<tr>
+						<td class="">Nama Alat</td>
+						<td><input type="text" class="input-nama" /></td>
+					</tr>
+					<tr>
+						<td class="">Keterangan</td>
+						<td><input type="text" class="input-keterangan" /></td>
+					</tr>
+					<tr>
+						<td class="">Email</td>
+						<td><input type="text" class="input-email" /></td>
+					</tr>
+					<tr>
+						<td class="">Status</td>
+						<td>
+							<select name="input-status" class="input-status">
+								<option value="1">Aktif</option>
+								<option value="0">Tidak Aktif</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-edit">Simpan</button>
+			<button type="button" class="btn-negative btn-batal">Batal</button>
+		</div>
+	</div>
+</div>
+<div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-delete">
+		<div class="dialog-header">
+			<div class="dialog-title">Delete Alat</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-delete">Delete</button>
+			<button type="button" class="btn-negative btn-batal">Batal</button>
+		</div>
+	</div>
+</div>
+<div class="content">
+	<div class="section-1">
+		<button type="button" class="btn-default btn-tambah">Tambah Alat</button>
+		<table class="table">
+			<thead>
+				<tr>
+					<td>No.</td>
+					<td>Nama Alat</td>
+					<td>Keterangan</td>
+					<td>Email</td>
+					<td>Status</td>
+					<td>Action</td>
+				</tr>
+			</thead>
+			<tbody class="tbody-alat">
+			
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+</div>
 
 
 <script type="text/javascript">
-    var save_method; //for save method string
-    var table;
-
-    $(document).ready(function () {
-        //datatables
-        table = $('#table').DataTable({
-            "processing": true, //Feature control the processing indicator.
-            "serverSide": true, //Feature control DataTables' server-side processing mode.
-            "order": [], //Initial no order.
-
-            // Load data for the table's content from an Ajax source
-            "ajax": {
-                "url": "<?php echo site_url('alat/ajaxList')?>",
-                "type": "POST"
-            },
-
-            //Set column definition initialisation properties.
-            "columnDefs": [
-                {
-                    "targets": [ -1 ], //last column
-                    "orderable": false, //set not orderable
-                },
-            ],
-        });
-
-        $("input").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-        $("textarea").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-        $("select").change(function(){
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
-    });
-
-    function addData() {
-        save_method = 'add';
-        $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
-        $('#modal_form').modal('show'); // show bootstrap modal
-        $('.modal-title').text('Tambah Data Alat'); // Set Title to Bootstrap modal title
-    }
-
-    function editData(id) {
-        save_method = 'update';
-        $('#form')[0].reset(); // reset form on modals
-        $('.form-group').removeClass('has-error'); // clear error class
-        $('.help-block').empty(); // clear error string
-
-        //Ajax Load data from ajax
-        $.ajax({
-            url: "<?php echo site_url('panel/alat/ajaxLoad/')?>/" + id,
-            type: "GET",
-            dataType: "JSON",
-            success: function (data) {
-                $('[name="device_id"]').val(data.device_id);
-                $('[name="device_name"]').val(data.device_name);
-                $('[name="device_information"]').val(data.device_information);
-                $('[name="device_email"]').val(data.device_email);
-                $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Ubah Data Alat'); // Set title to Bootstrap modal title
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('Error dalam mengunduh data');
-            }
-        });
-    }
-
-    function reloadTable() {
-        table.ajax.reload(null, false); //reload datatable ajax
-    }
-
-    function save() {
-        $('#btnSave').text('Proses...'); //change button text
-        $('#btnSave').attr('disabled', true); //set button disable
-        var url;
-
-        if (save_method == 'add') {
-            url = "<?php echo site_url('alat/ajaxAdd')?>";
-        } else {
-            url = "<?php echo site_url('alat/ajaxUpdate')?>";
-        }
-
-		// ajax adding data to database
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: $('#form').serialize(),
-            dataType: "JSON",
-            success: function (data) {
-                if (data.status) //if success close modal and reload ajax table
-                {
-                    $('#modal_form').modal('hide');
-                    reloadTable();
-                } else {
-                    for (var i = 0; i < data.inputerror.length; i++) {
-                        $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
-                        $('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[i]); //select span help-block class set text error string
-                    }
-                }
-
-                $('#btnSave').text('Simpan'); //change button text
-                $('#btnSave').attr('disabled', false); //set button enable
-
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('Penyimpanan data gagal.');
-                $('#btnSave').text('Simpan'); //change button text
-                $('#btnSave').attr('disabled', false); //set button enable
-
-            }
-        });
-
-    }
+$(function() {
+	getAlat();
 	
-	function deleteData(id) {
-        if (confirm('Apakah Anda yakin hendak menghapus data ini?')) {
-// ajax delete data to database
-            $.ajax({
-                url: "<?php echo site_url('panel/alat/ajaxDelete')?>/" + id,
-                type: "POST",
-                dataType: "JSON",
-                success: function (data) {
-                    //if success reload ajax table
-                    $('#modal_form').modal('hide');
-                    reloadTable();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert('Error deleting data');
-                }
-            });
-        }
-    }
-
-    function toggleActive(id, newStatus) {
-        var url = "<?php echo site_url('panel/alat/ajaxToggleActive/"+id+"/"+newStatus+"')?>";
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: $('#form').serialize(),
-            dataType: "JSON",
-            success: function (data) {
-                if (newStatus == 1) {
-                    $('#status' + id).html("<a href='javascript:void(0)' onclick='toggleActive(" + id + ",0);' class='btn btn-success'>Aktif</a>");
-                }
-                else {
-                    $('#status' + id).html("<a href='javascript:void(0)' onclick='toggleActive(" + id + ",1);' class='btn btn-danger'>Tidak Aktif</a>");
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('Error adding / update data');
-            }
-        });
-    }
+	$(".btn-tambah").on("click", function() {
+		showDialog(".dialog-tambah");
+		$(".dialog-tambah .input-nama").select();
+	});
+	
+	$(".dialog-background").on("click", function(e) {
+		if (e.target.className == "dialog-background") {
+			closeDialog();
+		}
+	});
+	
+	$(".btn-submit-tambah").on("click", function() {
+		tambahAlat();
+	});
+	
+	$(document).on("click", ".btn-edit", function() {
+		editAlat(this);
+	});
+	
+	$(".btn-batal").on("click", function() {
+		closeDialog();
+	});
+	
+	$(".btn-submit-edit").on("click", function() {
+		updateAlat();
+	});
+	
+	$(document).on("click", ".btn-toggle", function() {
+		toggleAlatAktif(this);
+	});
+	
+	$(document).on("click", ".btn-delete", function() {
+		var namaAlat = $(this).closest(".tr-alat").children(".td-name").html();
+		var device_id = $(this).closest(".tr-alat").data("id");
+		$(".dialog-konfirmasi-delete").data("id", device_id);
+		$(".dialog-konfirmasi-delete .dialog-body").html("Delete " + namaAlat + "?");
+		showDialog(".dialog-konfirmasi-delete");
+	});
+	
+	$(".btn-submit-delete").on("click", function() {
+		deleteAlat(this);
+	});
+	
+	function deleteAlat(element) {
+		var device_id = $(".dialog-konfirmasi-delete").data("id");
+		$.ajax({
+			url: '<?= base_url("alat/deleteAlat") ?>',
+			data: {
+				submit_delete: true,
+				device_id: device_id
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getAlat();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	}
+	
+	function toggleAlatAktif(element) {
+		var device_id = $(element).closest(".tr-alat").data("id");
+		var device_status = $(element).data("value");
+		
+		$.ajax({
+			url: '<?= base_url("alat/toggleAlatAktif") ?>',
+			data: {
+				device_id: device_id,
+				device_status: device_status
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getAlat();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	}
+	
+	function editAlat(element) {
+		var id = $(element).data("id");
+		
+		var device_name = $(".tr-alat[data-id='" + id + "'] .td-name").html();
+		var device_email = $(".tr-alat[data-id='" + id + "'] .td-email").html();
+		var device_information = $(".tr-alat[data-id='" + id + "'] .td-information").html();
+		var device_status = $(".tr-alat[data-id='" + id + "'] .btn-aktif").prop("disabled");
+		
+		if (device_status) {
+			device_status = "1";
+		} else {
+			device_status = "0";
+		}
+		
+		$(".dialog-edit").data("id", id);
+		$(".dialog-edit .input-nama").val(device_name);
+		$(".dialog-edit .input-email").val(device_email);
+		$(".dialog-edit .input-keterangan").val(device_information);
+		$(".dialog-edit .input-status").val(device_status);
+		
+		showDialog(".dialog-edit");
+	}
+	
+	function updateAlat() {
+		var device_id = $(".dialog-edit").data("id");
+		var device_name = $(".dialog-edit .input-nama").val();
+		var device_email = $(".dialog-edit .input-email").val();
+		var device_information = $(".dialog-edit .input-keterangan").val();
+		var driver_status = $(".dialog-edit .input-status").val();
+		
+		$.ajax({
+			url: '<?= base_url("alat/updateAlat") ?>',
+			data: {
+				submit_update: true,
+				device_id: device_id,
+				device_name: device_name,
+				device_email: device_email,
+				device_information: device_information,
+				driver_status: driver_status
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getAlat();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	}
+	
+	function tambahAlat() {
+		var device_name = $(".dialog-tambah .input-nama").val();
+		var device_email = $(".dialog-tambah .input-email").val();
+		var device_information = $(".dialog-tambah .input-keterangan").val();
+		var device_status = $(".dialog-tambah .input-status").val();
+		
+		$.ajax({
+			url: '<?= base_url("alat/tambahAlat") ?>',
+			data: {
+				submit_tambah: true,
+				device_name: device_name,
+				device_email: device_email,
+				device_information: device_information,
+				device_status: device_status
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getAlat();
+				}
+			}
+		});
+	}
+	
+	function getAlat() {
+		$.ajax({
+			url: '<?= base_url("alat/getAlat") ?>',
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(json) {
+				$(".tbody-alat").html("");
+				var result = jQuery.parseJSON(json);
+				for (var i = 0; i < result.length; i++) {
+					addAlatToTable((i + 1), result[i]);
+				}
+			}
+		});
+	}
+	
+	function addAlatToTable(no, result) {
+		
+		var aktifDisabled = "disabled", tidakAktifDisabled = "";
+		if (result.device_status == 0) {
+			aktifDisabled = "";
+			tidakAktifDisabled = "disabled";
+		}
+		
+		var btnAktif = "<button class='btn-default btn-toggle btn-aktif' data-value='1' " + aktifDisabled + ">Aktif</button>";
+		var btnTidakAktif = "<button class='btn-default btn-toggle btn-tidak-aktif' data-value='0' " + tidakAktifDisabled + ">Tidak Aktif</button>";
+		
+		var btnEdit = "<button class='btn-default btn-edit' data-id='" + result.device_id + "'>Edit</button>";
+		var btnDelete = "<button class='btn-negative btn-delete' data-id='" + result.device_id + "'>Delete</button>";
+		
+		var element = "<tr class='tr-alat' data-id='" + result.device_id + "'><td>" + no + "</td><td class='td-name'>" + result.device_name + "</td><td class='td-information'>" + result.device_information + "</td><td class='td-email'>" + result.device_email + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
+		$(".tbody-alat").append(element);
+	}
+	
+});
 </script>
-
-<!-- Bootstrap modal -->
-<div class="modal fade" id="modal_form" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Form Alat</h3>
-            </div>
-            <div class="modal-body form">
-                <form action="#" id="form" class="form-horizontal">
-                    <input type="hidden" value="" name="device_id"/>
-
-                    <div class="form-body">
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Nama Alat</label>
-
-                            <div class="col-md-9">
-                                <input id="device_name" name="device_name" class="form-control" type="text">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Email</label>
-
-                            <div class="col-md-9">
-                                <input id="driver_email" name="device_email" class="form-control" type="text">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Keterangan</label>
-
-                            <div class="col-md-9">
-                                <textarea id="driver_information" name="device_information" class="form-control"></textarea>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Simpan</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- End Bootstrap modal -->

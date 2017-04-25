@@ -243,21 +243,12 @@
 						<input type="text" name="shipment_price" class="input-harga" data-type="number" maxlength="11" />
 					</div>
 					<div class="form-item">
-						<div class="form-item-label">Cara Pemesanan</div>
-						<label>
-							<input type="radio" class="" name="order_type" value="1" checked="checked" /> Penawaran
-						</label>
-						<label>
-							<input type="radio" class="" name="order_type" value="2" /> Pesan secara instan
-						</label>
-					</div>
-					<div class="form-item">
 						<div class="form-item-label">Tipe Penawaran</div>
 						<label>
-							<input type="radio" class="" name="shipment_type" value="1" checked="checked" /> Public
+							<input type="radio" class="" name="shipment_type" value="1" checked="checked" /> Terbuka
 						</label>
 						<label>
-							<input type="radio" class="" name="shipment_type" value="2" /> Private
+							<input type="radio" class="" name="shipment_type" value="2" /> Tertutup
 						</label>
 					</div>
 				</div>
