@@ -76,6 +76,7 @@ $route['kendaraan'] = 'panel/kendaraan';
 $route['kendaraan/(:any)'] = 'panel/kendaraan/$1/$2';
 $route["kendaraan/getKendaraan"] = "panel/kendaraan/getKendaraan";
 $route["kendaraan/tambahKendaraan"] = "panel/kendaraan/tambahKendaraan";
+$route["kendaraan/updateKendaraan"] = "panel/kendaraan/updateKendaraan";
 $route['kirim'] = 'panel/kirim';
 //$route['kirim/(:any)'] = 'panel/kirim/$1';
 $route['kirim/private'] = 'panel/kirim/privates';

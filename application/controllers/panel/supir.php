@@ -61,6 +61,20 @@ class Supir extends MY_Controller
 		}
 	}
 	
+	public function updateSupir() {
+		$submit_update = $this->input->post("submit_update");
+		if ($submit_update != null) {
+			$driver_name = $this->input->post("driver_name");
+			$driver_handphone = $this->input->post("driver_handphone");
+			$driver_address = $this->input->post("driver_address");
+			$driver_information = $this->input->post("driver_information");
+			$driver_status = intval($this->input->post("driver_status"));
+			$user_id = $this->session->userdata("user_id");
+		} else {
+			
+		}
+	}
+	
 	public function ajaxList()
     {
         $table = 'm_driver';

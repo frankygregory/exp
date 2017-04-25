@@ -63,6 +63,35 @@ class Kendaraan extends MY_Controller
 			header("Location: " . base_url("dashboard"));
 		}
 	}
+	
+	public function updateKendaraan() {
+		$submit_update = $this->input->post("submit_update");
+		if ($submit_update != null) {
+			$vehicle_id = $this->input->post("vehicle_id");
+			$vehicle_nomor = $this->input->post("vehicle_nomor");
+			$vehicle_name = $this->input->post("vehicle_name");
+			$vehicle_information = $this->input->post("vehicle_information");
+			$vehicle_status = intval($this->input->post("vehicle_status"));
+			$user_id = $this->session->userdata("user_id");
+			
+			$updateData = array(
+				"vehicle_id" => $vehicle_id,
+				"vehicle_nomor" => $vehicle_nomor,
+				"vehicle_name" => $vehicle_name,
+				"vehicle_information" => $vehicle_information,
+				"vehicle_status" => $vehicle_status,
+				"user_id" => $user_id
+			);
+			$affected_rows = $this->Kendaraan_model->updateKendaraan($updateData);
+			if ($affected_rows > 0) {
+				echo "success";
+			} else {
+				echo "no rows affected. WHY??";
+			}
+		} else {
+			header("Location: " . base_url("dashboard"));
+		}
+	}
 
     public function ajaxList()
     {

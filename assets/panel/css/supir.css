@@ -14,6 +14,6 @@
 	height: 70px;
 }
 
-.btn-submit-tambah {
+.btn-submit-tambah, .btn-submit-edit, .btn-batal {
 	float: right;
 }

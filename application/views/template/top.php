@@ -210,7 +210,7 @@ function isNumber(e) {
 }
 
 function showDialog(dialog) {
-	$(".dialog-background").css("display", "block");
+	$(dialog).parent(".dialog-background").css("display", "block");
 	$(dialog).css("display", "block");
 	dialog.shown = true;
 }
@@ -219,6 +219,9 @@ function closeDialog() {
 	$(".dialog-background").css("display", "none");
 	$(".dialog").css("display", "none");
 	dialog.shown = false;
+	
+	$(".dialog input, .dialog textarea").val("");
+	$("select")[0].selectedIndex = 0;
 }
 
 </script>

@@ -274,39 +274,6 @@
 <script>
 $(document).ready(function()
 {
-    var extraObj = $("#fileuploader").uploadFile({
-        url:"upload.php",
-        multiple:true,
-        dragDrop:true,
-        fileName:"myfile",
-        sequential:true,
-        sequentialCount:1,
-        acceptFiles:"image/*",
-        maxFileCount:3,
-        maxFileSize:100*1024,
-        dragDropStr: "<span><b>Drop file here</b></span>",
-        abortStr:"Batal",
-        cancelStr:"Batal",
-        doneStr:"Sukses",
-        multiDragErrorStr:"Drop file error",
-        extErrorStr:"File not supported",
-        sizeErrorStr:"File size too large",
-        uploadErrorStr:"Error uploading file",
-        uploadStr:"Uploading",
-        extraHTML:function()
-        {
-            var html = "<div><b>File Tags:</b><input type='text' name='tags' value='' /> <br/>";
-            html += "<b>Category</b>:<select name='category'><option value='1'>ONE</option><option value='2'>TWO</option></select>";
-            html += "</div>";
-            return html;
-        },
-        autoSubmit:false
-    });
-
-    $("#extrabutton").click(function()
-    {
-
-        extraObj.startUpload();
-    });
+    
 });
 </script>

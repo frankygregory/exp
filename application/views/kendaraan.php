@@ -22,9 +22,9 @@
 						<td><input type="text" class="input-keterangan" /></td>
 					</tr>
 					<tr>
-						<td class="">Ketersediaan</td>
+						<td class="">Status</td>
 						<td>
-							<select name="input-ketersediaan" class="input-ketersediaan">
+							<select name="input-status" class="input-status">
 								<option value="1">Aktif</option>
 								<option value="0">Tidak Aktif</option>
 							</select>
@@ -35,6 +35,44 @@
 		</div>
 		<div class="dialog-footer">
 			<button type="button" class="btn-default btn-submit-tambah">Tambah</button>
+		</div>
+	</div>
+</div>
+<div class="dialog-background">
+	<div class="dialog dialog-edit">
+		<div class="dialog-header">
+			<div class="dialog-title">Edit Kendaraan</div>
+		</div>
+		<div class="dialog-body">
+			<table>
+				<tbody>
+					<tr>
+						<td class="">Nama</td>
+						<td><input type="text" class="input-nama" /></td>
+					</tr>
+					<tr>
+						<td class="">Nopol Kendaraan</td>
+						<td><input type="text" class="input-nopol" maxlength="12" /></td>
+					</tr>
+					<tr>
+						<td class="">Keterangan</td>
+						<td><input type="text" class="input-keterangan" /></td>
+					</tr>
+					<tr>
+						<td class="">Status</td>
+						<td>
+							<select name="input-status" class="input-status">
+								<option value="1">Aktif</option>
+								<option value="0">Tidak Aktif</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-edit">Simpan</button>
+			<button type="button" class="btn-negative btn-batal">Batal</button>
 		</div>
 	</div>
 </div>
@@ -55,7 +93,6 @@
 				</tr>
 			</thead>
 			<tbody class="tbody-kendaraan">
-			
 			</tbody>
 		</table>
 	</div>
@@ -70,7 +107,7 @@ $(function() {
 	
 	$(".btn-tambah").on("click", function() {
 		showDialog(".dialog-tambah");
-		$(".input-nama").select();
+		$(".dialog-tambah .input-nama").select();
 	});
 	
 	$(".dialog-background").on("click", function(e) {
@@ -83,11 +120,79 @@ $(function() {
 		tambahKendaraan();
 	});
 	
+	$(document).on("click", ".btn-edit", function() {
+		editKendaraan(this);
+	});
+	
+	$(".btn-batal").on("click", function() {
+		closeDialog();
+	});
+	
+	$(".btn-submit-edit").on("click", function() {
+		updateKendaraan();
+	});
+	
+	function editKendaraan(element) {
+		var id = $(element).data("id");
+		var vehicle_nomor = $(".tr-kendaraan[data-id='" + id + "'] .td-nomor").html();
+		var vehicle_name = $(".tr-kendaraan[data-id='" + id + "'] .td-name").html();
+		var vehicle_information = $(".tr-kendaraan[data-id='" + id + "'] .td-information").html();
+		var vehicle_status = $(".tr-kendaraan[data-id='" + id + "'] .btn-aktif").prop("disabled");
+		
+		if (vehicle_status) {
+			vehicle_status = "1";
+		} else {
+			vehicle_status = "0";
+		}
+		
+		$(".dialog-edit").data("id", id);
+		$(".dialog-edit .input-nopol").val(vehicle_nomor);
+		$(".dialog-edit .input-nama").val(vehicle_name);
+		$(".dialog-edit .input-keterangan").val(vehicle_information);
+		$(".dialog-edit .input-status").val(vehicle_status);
+		
+		showDialog(".dialog-edit");
+	}
+	
+	function updateKendaraan() {
+		var vehicle_id = $(".dialog-edit").data("id");
+		var vehicle_nomor = $(".dialog-edit .input-nopol").val();
+		var vehicle_name = $(".dialog-edit .input-nama").val();
+		var vehicle_information = $(".dialog-edit .input-keterangan").val();
+		var vehicle_status = $(".dialog-edit .input-status").val();
+		
+		$.ajax({
+			url: '<?= base_url("kendaraan/updateKendaraan") ?>',
+			data: {
+				submit_update: true,
+				vehicle_id: vehicle_id,
+				vehicle_nomor: vehicle_nomor,
+				vehicle_name: vehicle_name,
+				vehicle_information: vehicle_information,
+				vehicle_status: vehicle_status
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getKendaraan();
+				} else {
+					
+				}
+				alert(result);
+			}
+		});
+	}
+	
 	function tambahKendaraan() {
-		var vehicle_nomor = $(".input-nopol").val();
-		var vehicle_name = $(".input-nama").val();
-		var vehicle_information = $(".input-keterangan").val();
-		var vehicle_status = $(".input-ketersediaan").val();
+		var vehicle_nomor = $(".dialog-tambah .input-nopol").val();
+		var vehicle_name = $(".dialog-tambah .input-nama").val();
+		var vehicle_information = $(".dialog-tambah .input-keterangan").val();
+		var vehicle_status = $(".dialog-tambah .input-status").val();
 		
 		$.ajax({
 			url: '<?= base_url("kendaraan/tambahKendaraan") ?>',
@@ -106,7 +211,6 @@ $(function() {
 			success: function(result) {
 				if (result == "success") {
 					closeDialog();
-					resetDialogInput();
 					getKendaraan();
 				}
 			}
@@ -145,15 +249,13 @@ $(function() {
 		
 		var btnAktif = "<button class='btn-default btn-aktif' " + aktifDisabled + ">Aktif</button>";
 		var btnTidakAktif = "<button class='btn-default btn-tidak-aktif' " + tidakAktifDisabled + ">Tidak Aktif</button>";
-		var element = "<tr><td>" + no + "</td><td>" + result.vehicle_nomor + "</td><td>" + result.vehicle_name + "</td><td>" + ketersediaan + "</td><td>" + result.vehicle_jumlah_transaksi + "</td><td>" + result.vehicle_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td></td></tr>";
+		
+		var btnEdit = "<button class='btn-default btn-edit' data-id='" + result.vehicle_id + "'>Edit</button>";
+		var btnDelete = "<button class='btn-negative btn-delete' data-id='" + result.vehicle_id + "'>Delete</button>";
+		
+		var element = "<tr class='tr-kendaraan' data-id='" + result.vehicle_id + "'><td>" + no + "</td><td class='td-nomor'>" + result.vehicle_nomor + "</td><td class='td-name'>" + result.vehicle_name + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td class='td-jumlah-transaksi'>" + result.vehicle_jumlah_transaksi + "</td><td class='td-information'>" + result.vehicle_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
 		$(".tbody-kendaraan").append(element);
 	}
 	
-	function resetDialogInput() {
-		$(".input-nopol").val("");
-		$(".input-nama").val("");
-		$(".input-keterangan").val("");
-		$(".input-ketersediaan").val("1");
-	}
 });
 </script>

@@ -12,6 +12,19 @@ class Kendaraan_model extends CI_Model
 		return $this->db->affected_rows();
 	}
 	
+	public function updateKendaraan($data) {
+		$this->db->where("vehicle_id", $data["vehicle_id"]);
+		$updateData = array(
+			"vehicle_nomor" => $data["vehicle_nomor"],
+			"vehicle_name" => $data["vehicle_name"],
+			"vehicle_information" => $data["vehicle_information"],
+			"vehicle_status" => $data["vehicle_status"],
+			"modified_by" => $data["user_id"]
+		);
+		$this->db->update("m_vehicle", $updateData);
+		return $this->db->affected_rows();
+	}
+	
 	public function getKendaraanByUserId($user_id) {
 		$this->db->where("user_id", $user_id);
 		return $this->db->get("m_vehicle")->result();

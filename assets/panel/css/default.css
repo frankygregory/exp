@@ -32,7 +32,7 @@ input[type="file"] {
 	border: 1px solid #9E9E9E;
 }
 
-.btn-default {
+.btn-default, .btn-default:focus {
 	border: 0;
 	font-size: 12pt;
 	padding: 8px 15px;
@@ -42,18 +42,29 @@ input[type="file"] {
 	border-radius: 2%;
 }
 
-.btn-default:hover, .btn-default:focus {
+.btn-default:hover {
 	background-color: #1E88E5 !important;
 	color: white !important;
 }
 
-.btn-default:disabled, .btn-default:disabled:hover {
+.btn-default:disabled, .btn-negative:disabled, .btn-default:disabled:hover, .btn-negative:disabled:hover {
 	background-color: #9E9E9E !important;
 	color: #616161 !important;
 }
 
-.btn-default:disabled:hover {
-	
+.btn-negative, .btn-negative:focus {
+	border: 0;
+	font-size: 12pt;
+	padding: 8px 15px;
+	background-color: #F44336;
+	color: white;
+	box-shadow: 0 0 3px #777777;
+	border-radius: 2%;
+}
+
+.btn-negative:hover {
+	background-color: #E53935 !important;
+	color: white !important;
 }
 
 .error {
