@@ -84,6 +84,20 @@
 		</div>
 	</div>
 </div>
+<div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-delete">
+		<div class="dialog-header">
+			<div class="dialog-title">Delete Driver</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-delete">Delete</button>
+			<button type="button" class="btn-negative btn-batal">Batal</button>
+		</div>
+	</div>
+</div>
 <div class="content">
 	<div class="section-1">
 		<button type="button" class="btn-default btn-tambah">Tambah Driver</button>
@@ -143,6 +157,72 @@ $(function() {
 		updateSupir();
 	});
 	
+	$(document).on("click", ".btn-toggle", function() {
+		toggleDriverAktif(this);
+	});
+	
+	$(document).on("click", ".btn-delete", function() {
+		var namaSupir = $(this).closest(".tr-supir").children(".td-name").html();
+		var driver_id = $(this).closest(".tr-supir").data("id");
+		$(".dialog-konfirmasi-delete").data("id", driver_id);
+		$(".dialog-konfirmasi-delete .dialog-body").html("Delete " + namaSupir + "?");
+		showDialog(".dialog-konfirmasi-delete");
+	});
+	
+	$(".btn-submit-delete").on("click", function() {
+		deleteSupir(this);
+	});
+	
+	function deleteSupir(element) {
+		var driver_id = $(".dialog-konfirmasi-delete").data("id");
+		$.ajax({
+			url: '<?= base_url("supir/deleteSupir") ?>',
+			data: {
+				submit_delete: true,
+				driver_id: driver_id
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getSupir();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	}
+	
+	function toggleDriverAktif(element) {
+		var driver_id = $(element).closest(".tr-supir").data("id");
+		var driver_status = $(element).data("value");
+		
+		$.ajax({
+			url: '<?= base_url("supir/toggleSupirAktif") ?>',
+			data: {
+				driver_id: driver_id,
+				driver_status: driver_status
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				valid = false;
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getSupir();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	}
+	
 	function editSupir(element) {
 		var id = $(element).data("id");
 		
@@ -172,7 +252,7 @@ $(function() {
 		var driver_id = $(".dialog-edit").data("id");
 		var driver_name = $(".dialog-edit .input-nama").val();
 		var driver_handphone = $(".dialog-edit .input-hp").val();
-		var driver_address = $("..dialog-edit input-alamat").val();
+		var driver_address = $(".dialog-edit .input-alamat").val();
 		var driver_information = $(".dialog-edit .input-keterangan").val();
 		var driver_status = $(".dialog-edit .input-status").val();
 		
@@ -196,6 +276,8 @@ $(function() {
 				if (result == "success") {
 					closeDialog();
 					getSupir();
+				} else {
+					alert(result);
 				}
 			}
 		});
@@ -204,7 +286,7 @@ $(function() {
 	function tambahSupir() {
 		var driver_name = $(".dialog-tambah .input-nama").val();
 		var driver_handphone = $(".dialog-tambah .input-hp").val();
-		var driver_address = $("..dialog-tambah input-alamat").val();
+		var driver_address = $(".dialog-tambah .input-alamat").val();
 		var driver_information = $(".dialog-tambah .input-keterangan").val();
 		var driver_status = $(".dialog-tambah .input-status").val();
 		
@@ -266,8 +348,8 @@ $(function() {
 			tidakAktifDisabled = "disabled";
 		}
 		
-		var btnAktif = "<button class='btn-default btn-aktif' " + aktifDisabled + ">Aktif</button>";
-		var btnTidakAktif = "<button class='btn-default btn-tidak-aktif' " + tidakAktifDisabled + ">Tidak Aktif</button>";
+		var btnAktif = "<button class='btn-default btn-toggle btn-aktif' data-value='1' " + aktifDisabled + ">Aktif</button>";
+		var btnTidakAktif = "<button class='btn-default btn-toggle btn-tidak-aktif' data-value='0' " + tidakAktifDisabled + ">Tidak Aktif</button>";
 		
 		var btnEdit = "<button class='btn-default btn-edit' data-id='" + result.driver_id + "'>Edit</button>";
 		var btnDelete = "<button class='btn-negative btn-delete' data-id='" + result.driver_id + "'>Delete</button>";

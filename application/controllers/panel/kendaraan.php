@@ -96,9 +96,11 @@ class Kendaraan extends MY_Controller
 	public function toggleKendaraanAktif() {
 		$vehicle_status = intval($this->input->post("vehicle_status"));
 		$vehicle_id = $this->input->post("vehicle_id");
+		$user_id = $this->session->userdata("user_id");
 		$data = array(
 			"vehicle_id" => $vehicle_id,
-			"vehicle_status" => $vehicle_status
+			"vehicle_status" => $vehicle_status,
+			"modified_by" => $user_id
 		);
 		$affected_rows = $this->Kendaraan_model->toggleKendaraanAktif($data);
 		if ($affected_rows > 0) {

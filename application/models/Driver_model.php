@@ -12,8 +12,38 @@ class Driver_model extends CI_Model
 		return $this->db->affected_rows();
 	}
 	
+	public function updateDriver($data) {
+		$this->db->where("driver_id", $data["driver_id"]);
+		$updateData = array(
+			"driver_name" => $data["driver_name"],
+			"driver_handphone" => $data["driver_handphone"],
+			"driver_address" => $data["driver_address"],
+			"driver_information" => $data["driver_information"],
+			"driver_status" => $data["driver_status"],
+			"modified_by" => $data["modified_by"]
+		);
+		$this->db->update("m_driver", $updateData);
+		return $this->db->affected_rows();
+	}
+	
+	public function toggleDriverAktif($data) {
+		$this->db->where("driver_id", $data["driver_id"]);
+		$updateData = array(
+			"driver_status" => $data["driver_status"],
+			"modified_by" => $data["modified_by"]
+		);
+		$this->db->update("m_driver", $updateData);
+		return $this->db->affected_rows();
+	}
+	
 	public function getDriverByUserId($user_id) {
-		$this->db->where("user_id", $user_id);
+		$this->db->where("created_by", $user_id);
 		return $this->db->get("m_driver")->result();
+	}
+	
+	public function deleteDriver($driver_id) {
+		$this->db->where("driver_id", $driver_id);
+		$this->db->delete("m_driver");
+		return $this->db->affected_rows();
 	}
 }
