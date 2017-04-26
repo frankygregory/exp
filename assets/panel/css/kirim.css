@@ -1,9 +1,46 @@
 a.btn-kirim-barang {
-	display: block;
-	margin-bottom: 20px;
+	
+}
+
+.section {
+	height: 80px;
+	margin-top: 20px;
+}
+
+.subsection-filter {
+	width: 800px;
+	float: left;
+}
+
+.subsection-title {
+	float: left;
+	margin-top: 33px;
+	margin-right: 20px;
+}
+
+.form-item {
+	float: left;
+	width: 170px;
+	margin-right: 10px;
+}
+
+.form-item-jarak {
+	width: 100px;
+}
+
+.form-item-label {
+	font-size: 10pt;
+}
+
+.table-kiriman {
+	margin-top: 20px;
 }
 
 .shipment-picture {
 	display: block;
 	width: 150px;
+}
+
+.subsection-sort {
+	float: right;
 }

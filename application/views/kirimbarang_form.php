@@ -115,7 +115,7 @@
 					</div>
 					<input type="text" class="input-qty-barang" name="item_qty" data-type="number" maxlength="11" />
 				</div>
-				<div class="form-item">
+				<div class="form-item form-deskripsi-barang">
 					<div class="form-item-label">Deskripsi Barang
 						<div class="error" data-type="deskripsi"></div>
 					</div>

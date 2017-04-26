@@ -1,5 +1,7 @@
 * {
-	
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
 
 .page-title {
@@ -9,7 +11,7 @@
 }
 
 .form-item {
-	margin-bottom: 15px;
+	margin-bottom: 20px;
 }
 
 .form-item-label {
@@ -21,15 +23,15 @@
 input[type="text"], input[type="file"], textarea, select {
 	width: 100%;
 	font-size: 12pt;
-	padding: 5px 7px;
-}
-
-select {
 	padding: 8px 7px;
 }
 
 input[type="file"] {
 	border: 1px solid #9E9E9E;
+}
+
+button {
+	cursor: pointer;
 }
 
 .btn-default, .btn-default:focus {
@@ -75,6 +77,7 @@ input[type="file"] {
 
 table {
 	width: 100%;
+	border-spacing: 0;
 }
 
 table thead tr td {
@@ -82,7 +85,7 @@ table thead tr td {
 }
 
 table.table thead tr td {
-	border-bottom: 1px solid #BDBDBD;
+	border-bottom: 1px solid #BDBDBD !important;
 	border-top: 1px solid #BDBDBD !important;
 }
 

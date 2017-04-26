@@ -1,0 +1,74 @@
+.container {
+	height: 100vh;
+	width: 100vw;
+}
+
+.navigation-header {
+	height: 50px;
+	width: 100%;
+	position: fixed;
+	background-color: #616161;
+	color: white;
+	z-index: 1000;
+	top: 0;
+}
+
+.logo {
+	display: block;
+	float: left;
+	font-size: 18pt;
+	font-weight: bold;
+	margin-left: 50px;
+	margin-top: 10px;
+	color: white;
+	text-decoration: none;
+}
+
+.nav-account {
+	float: right;
+	font-size: 14pt;
+	margin-top: 10px;
+	margin-right: 20px;
+}
+
+.logout {
+	float: right;
+	color: white;
+	margin-top: 10px;
+	margin-right: 20px;
+}
+
+.navigation-header-space {
+	height: 50px;
+	width: 100%;
+}
+
+.container-body {
+	width: 100%;
+	height: calc(100vh - 50px);
+}
+
+.navigation-menu {
+	width: 220px;
+	height: 100%;
+	background-color: #616161;
+	float: left;
+	padding-left: 25px;
+	padding-top: 25px;
+}
+
+.navigation-menu a {
+	display: block;
+	width: 150px;
+	color: white;
+	text-decoration: none;
+	font-size: 14pt;
+	margin-bottom: 15px;
+}
+
+.container-content {
+	height: 100%;
+	overflow: auto;
+	padding: 15px;
+}
+
