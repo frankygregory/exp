@@ -27,8 +27,19 @@ class Kirim extends MY_Controller
         parent::template('kirim', $data);
     }
 	
+	function secondsToTime($seconds) {
+		$dtF = new \DateTime('@0');
+		$dtT = new \DateTime("@$seconds");
+		return $dtF->diff($dtT)->format('%a hari, %h jam, %i menit');
+	}
+	
 	public function getKiriman() {
 		 $kirim = $this->Kirim_model->getListKirimanUmum();
+		 $iLength = sizeof($kirim);
+		 for ($i = 0; $i < $iLength; $i++) {
+			 $berakhir = $kirim[$i]->berakhir;
+			 $kirim[$i]->berakhir = $this->secondsToTime($berakhir);
+		 }
 		 echo json_encode($kirim);
 	}
 
