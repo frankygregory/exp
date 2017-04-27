@@ -28,6 +28,19 @@ class Kirim_model extends CI_Model
 		return $query->result();
 	}
 	
+	public function insertQuestions($data) {
+		$insertData = array(
+			"questions_text" => $data["questions_text"],
+			"user_id" => $data["user_id"],
+			"shipment_id" => $data["shipment_id"],
+			"group_id" => $data["group_id"],
+			"created_by" => $data["user_id"],
+			"modified_by" => $data["user_id"]
+		);
+		$this->db->insert("t_questions", $insertData);
+		return $this->db->affected_rows();
+	}
+	
 	public function getQuestions($shipment_id) {
 		$query = $this->db->query(
 			"SELECT t.*, u.username
@@ -35,6 +48,17 @@ class Kirim_model extends CI_Model
 			WHERE t.user_id = u.user_id AND t.shipment_id = " . $shipment_id . ";"
 		);
 		return $query->result();
+	}
+	
+	public function insertAnswers($data) {
+		$insertData = array(
+			"questions_id" => $data["questions_id"],
+			"answers_text" => $data["answers_text"],
+			"created_by" => $data["user_id"],
+			"modified_by" => $data["user_id"]
+		);
+		$this->db->insert("t_questions_details", $insertData);
+		return $this->db->affected_rows();
 	}
 	
 	public function getAnswers($questions_id) {

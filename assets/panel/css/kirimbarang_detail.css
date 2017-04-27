@@ -73,7 +73,7 @@
 }
 
 .detail-pertanyaan {
-	width: 500px;
+	width: 600px;
 	height: 140px;
 }
 
@@ -86,31 +86,57 @@
 	width: 600px;
 }
 
+.discussions-item {
+	overflow: auto;
+}
+
+.detail-jawab-pertanyaan {
+	display: none;
+	margin: 10px 0;
+}
+
+.btn-submit-jawab-pertanyaan {
+	float: right;
+}
+
 .questions {
+	overflow: auto;
 	background-color: #F4FF81;
 }
 
-.questions-user-id, .questions-text {
+.questions-user-id, .questions-text, .answers-user-id, .answers-text {
 	float: left;
 	padding: 10px 0;
-	background-color: #F4FF81;
 }
 
-.questions-user-id {
+.questions-user-id, .answers-user-id {
 	width: 120px;
 	font-weight: bold;
+	padding-left: 15px;
 }
 
 .questions-text {
 	width: 470px;
 	margin-left: 10px;
+	padding-right: 10px;
+}
+
+.btn-jawab-pertanyaan {
+	float: right;
+	margin-right: 10px;
+	margin-bottom: 10px;
 }
 
 .answers {
 	background-color: #B9F6CA;
-	clear: both;
 	margin-left: 50px;
-	padding: 10px 10px;
+	overflow: auto;
+}
+
+.answers-text {
+	width: 420px;
+	margin-left: 10px;
+	padding-right: 10px;
 }
 
 .section-4 {

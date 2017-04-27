@@ -232,7 +232,19 @@ getBiddingList();
 //getKendaraan();
 
 <?php
-if ($role_id == 1 && $isOwner) { ?>
+$btnJawabPertanyaan = "";
+$detailJawabPertanyaan = "";
+$divQuestions = "element += \"<div class='questions'>\";";
+
+if ($role_id == 1 && $isOwner) { 
+	$btnJawabPertanyaan = "element += \"<button class='btn-neutral btn-jawab-pertanyaan'>Jawab</button>\";";
+	$detailJawabPertanyaan = "element += \"<div class='detail-jawab-pertanyaan'>\";" .
+		"element += \"<textarea class='input-jawab-pertanyaan'></textarea>\";" .
+		"element += \"<button class='btn-default btn-submit-jawab-pertanyaan'>Submit Jawaban</button>\";" .
+		"element += \"</div>\";";
+	$divQuestions = "element += \"<div class='questions' data-questions-id='\" + questions[i].questions_id + \"'>\";";
+?>
+	
 	$(document).on("click", ".btn-tolak", function() {
 		showAlasanTolak(this);
 	});
@@ -244,6 +256,24 @@ if ($role_id == 1 && $isOwner) { ?>
 	$(document).on("click", ".btn-submit-tolak", function() {
 		submitTolak(this);
 	});
+	
+	$(document).on("click", ".btn-jawab-pertanyaan", function() {
+		$(".detail-jawab-pertanyaan").css("display", "none");
+		var element = $(this).closest(".discussions-item").children(".detail-jawab-pertanyaan");
+		$(element).css("display", "block");
+		$(element).children("textarea").select();
+	});
+	
+	$(document).on("click", ".btn-submit-jawab-pertanyaan", function() {
+		jawabPertanyaan(this);
+	});
+	
+	function jawabPertanyaan(element) {
+		var questions_id = $(element).closest(".discussions-item").children(".questions").data("questions-id");
+		var answers_text = $(element).closest(".discussions-item").children(".input-jawab-pertanyaan").val();
+		
+		
+	}
 	
 	function submitTolak(element) {
 		var bidding_id = $(element).data("bidding_id");
@@ -294,6 +324,38 @@ if ($role_id == 1 && $isOwner) { ?>
 	$(document).on("click", ".btn-kirim-penawaran", function() {
 		kirimPenawaran();
 	});
+	
+	$(".btn-submit-pertanyaan").on("click", function() {
+		kirimPertanyaan();
+	});
+	
+	function kirimPertanyaan() {
+		var questions_text = $(".input-pertanyaan").val();
+		var shipment_id = <?= $shipment_id ?>;
+		
+		$.ajax({
+			url: '<?= base_url("kirim/kirimPertanyaan") ?>',
+			data: {
+				submit_pertanyaan: true,
+				questions_text: questions_text,
+				shipment_id: shipment_id
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					clearQuestion();
+					getDiscussions();
+				}
+			}
+		});
+	}
+	
+	function clearQuestion() {
+		$(".input-pertanyaan").val("");
+	}
 	
 	function getKendaraan() {
 		$.ajax({
@@ -418,18 +480,23 @@ function addDiscussionToTable(result) {
 	var iLength = questions.length;
 	var element = "";
 	for (var i = 0; i < iLength; i++) {
-		element += "<div class='questions'>";
+		element += "<div class='discussions-item'>";
+		<?= $divQuestions ?>
 		element += "<div class='questions-user-id'>" + questions[i].username + "</div>";
 		element += "<div class='questions-text'>" + questions[i].questions_text + "</div>";
+		<?= $btnJawabPertanyaan ?>
 		element += "</div>";
 		
 		var answers = result.answers[i];
 		var jLength = answers.length;
 		for (var j = 0; j < jLength; j++) {
 			element += "<div class='answers'>";
-			element += "<div class='answers_text'>" + answers[j].answers_text + "</div>";
+			element += "<div class='answers-user-id'><?= $shipment_owner_username ?></div>";
+			element += "<div class='answers-text'>" + answers[j].answers_text + "</div>";
 			element += "</div>";
 		}
+		<?= $detailJawabPertanyaan ?>
+		element += "</div>";
 	}
 	
 	$(".discussions").html("");
@@ -469,17 +536,6 @@ function addBiddingListToTable(result) {
 		if (result[i].bidding_status == 2) {
 			element += "<div class='alasan-tolak'>DITOLAK<br><strong>Alasan : </strong>" + result[i].bidding_reason + "</div>";
 		}
-<?php	if ($isOwner) { ?>
-			else if (result[i].bidding_status == 0) {
-				element += "<button class='btn-default btn-setuju'>Setuju</button>";
-				element += "<button class='btn-negative btn-tolak'>Tolak</button>";
-				element += "<div class='container-tolak'>";
-				element += "<textarea class='input-alasan' data-bidding_id='" + result[i].bidding_id + "'></textarea>";
-				element += "<button class='btn-negative btn-submit-tolak' data-bidding_id='" + result[i].bidding_id + "'>Tolak</button>";
-				element += "<button class='btn-neutral btn-batal-tolak'>Batal Tolak</button>";
-				element += "</div>";
-			}
-<?php	}	?>
 		element += "</td>";
 		element += "</tr>";
 	}

@@ -350,20 +350,48 @@ class Kirim extends MY_Controller
 		}
 	}
 	
+	public function jawabPertanyaan() {
+		$submit_jawaban = $this->input->post("submit_jawaban");
+		if ($submit_jawaban != null) {
+			$questions_id = $this->input->post("questions_id");
+			$answers_text = $this->input->post("answers_text");
+			$user_id = $this->session->userdata("user_id");
+			
+			$insertData = array(
+				"questions_id" => $questions_id,
+				"answers_text" => $answers_text,
+				"user_id" => $user_id
+			);
+			$affected_rows = $this->Kirim_model->insertAnswers($insertData);
+			if ($affected_rows > 0) {
+				echo "success";
+			} else {
+				echo "no rows affected. WHY??";
+			}
+		}
+	}
+	
 	public function kirimPertanyaan() {
 		$submit_pertanyaan = $this->input->post("submit_pertanyaan");
 		if ($submit_pertanyaan != null) {
 			$questions_text = $this->input->post("questions_text");
 			$shipment_id = $this->input->post("shipment_id");
 			$user_id = $this->session->userdata("user_id");
+			$group_id = $this->session->userdata("group_id");
 			
 			$insertData = array(
 				"questions_text" => $questions_text,
 				"shipment_id" => $shipment_id,
-				"created_by" => $user_id,
-				"modified_by" => $user_id
+				"user_id" => $user_id,
+				"group_id" => $group_id
 			);
 			
+			$affected_rows = $this->Kirim_model->insertQuestions($insertData);
+			if ($affected_rows > 0) {
+				echo "success";
+			} else {
+				echo "no rows affected. WHY??";
+			}
 			
 		} else {
 			
