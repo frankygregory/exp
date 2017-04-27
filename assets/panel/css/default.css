@@ -2,6 +2,7 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	font-family: roboto-regular;
 }
 
 .page-title {
@@ -49,7 +50,7 @@ button {
 	color: white !important;
 }
 
-.btn-default:disabled, .btn-negative:disabled, .btn-default:disabled:hover, .btn-negative:disabled:hover {
+.btn-default:disabled, .btn-negative:disabled, .btn-neutral:disabled, .btn-default:disabled:hover, .btn-negative:disabled:hover, .btn-neutral:disabled:hover {
 	background-color: #9E9E9E !important;
 	color: #616161 !important;
 }
@@ -66,6 +67,21 @@ button {
 
 .btn-negative:hover {
 	background-color: #E53935 !important;
+	color: white !important;
+}
+
+.btn-neutral, .btn-neutral:focus {
+	border: 0;
+	font-size: 12pt;
+	padding: 8px 15px;
+	background-color: #616161;
+	color: white;
+	box-shadow: 0 0 3px #777777;
+	border-radius: 2%;
+}
+
+.btn-neutral:hover {
+	background-color: #424242 !important;
 	color: white !important;
 }
 

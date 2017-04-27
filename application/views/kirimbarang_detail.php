@@ -149,6 +149,15 @@
 	</div>
 	<div class="section-3">
 		<div class="section-title">Diskusi</div>
+<?php	if ($role_id == 2) { ?>
+		<div class="detail-pertanyaan">
+			<div class="form-item">
+				<div class="form-item-label">Pertanyaan</div>
+				<textarea class="input-pertanyaan"></textarea>
+			</div>
+			<button class="btn-default btn-submit-pertanyaan">Submit Pertanyaan</button>
+		</div>
+<?php	}	?>
 		<div class="discussions">
 		</div>
 	</div>
@@ -156,37 +165,37 @@
 		<div class="section-title">Penawaran</div>
 		<?php
 		if ($role_id == 2) { ?>
-			<button type="button" class="btn-tawar">Kirim Penawaran</button>
+			<button type="button" class="btn-default btn-tawar">Kirim Penawaran</button>
 			<div class="detail-penawaran">
-				<table>
+				<table class="table-detail-penawaran">
 					<tbody>
 						<tr>
-							<td>Harga</td>
-							<td> : </td>
+							<td class="td-label">Harga</td>
+							<td class="td-titikdua"> : </td>
 							<td>
 								<input type="text" class="input-bidding-price" data-type="number" />
 								<div class="error penawaran-error error-bidding-price"></div>
 							</td>
 						</tr>
 						<tr>
-							<td>Tanggal Ambil</td>
-							<td> : </td>
+							<td class="td-label">Tanggal Ambil</td>
+							<td class="td-titikdua"> : </td>
 							<td>
 								<input type="text" class="input-bidding-pickupdate" />
 								<div class="error penawaran-error error-bidding-pickupdate"></div>
 							</td>
 						</tr>
 						<tr>
-							<td>List Kendaraan</td>
-							<td> : </td>
+							<td class="td-label">List Kendaraan</td>
+							<td class="td-titikdua"> : </td>
 							<td>
 								<input type="text" class="input-kendaraan" />
 								<div class="error penawaran-error error-kendaraan"></div>
 							</td>
 						</tr>
 						<tr>
-							<td>Keterangan</td>
-							<td> : </td>
+							<td class="td-label">Keterangan</td>
+							<td class="td-titikdua"> : </td>
 							<td>
 								<input type="text" class="input-bidding-information" />
 								<div class="error penawaran-error error-bidding-information"></div>
@@ -194,7 +203,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<button type="button" class="btn-kirim-penawaran">Kirim</button>
+				<button type="button" class="btn-default btn-kirim-penawaran">Kirim</button>
 			</div>
 <?php	}	?>
 		<table class='table table-list-penawaran'>
@@ -252,10 +261,8 @@ if ($role_id == 1 && $isOwner) { ?>
 			},
 			success: function(result) {
 				if (result == "success") {
-					
+					getBiddingList();
 				}
-				alert(result);
-				location.href = location.href;
 			}
 		});
 	}
@@ -354,10 +361,9 @@ if ($role_id == 1 && $isOwner) { ?>
 				},
 				success: function(result) {
 					if (result == "success") {
-						
+						toggleDetailPenawaran();
+						getBiddingList();
 					}
-					alert(result);
-					toggleDetailPenawaran();
 				}
 			});
 		}
@@ -453,7 +459,7 @@ function addBiddingListToTable(result) {
 	var element = "";
 	for (var i = 0; i < iLength; i++) {
 		element += "<tr>";
-		element += "<td>" + result[i].bidding_price + " IDR</td>";
+		element += "<td>" + addCommas(result[i].bidding_price) + " IDR</td>";
 		element += "<td>" + result[i].username + "</td>";
 		element += "<td>";
 		element += "<div>Tanggal Ambil : " + result[i].bidding_pickupdate + "</div>";
@@ -465,12 +471,12 @@ function addBiddingListToTable(result) {
 		}
 <?php	if ($isOwner) { ?>
 			else if (result[i].bidding_status == 0) {
-				element += "<button class='btn-setuju'>Setuju</button>";
-				element += "<button class='btn-tolak'>Tolak</button>";
+				element += "<button class='btn-default btn-setuju'>Setuju</button>";
+				element += "<button class='btn-negative btn-tolak'>Tolak</button>";
 				element += "<div class='container-tolak'>";
 				element += "<textarea class='input-alasan' data-bidding_id='" + result[i].bidding_id + "'></textarea>";
-				element += "<button class='btn-submit-tolak' data-bidding_id='" + result[i].bidding_id + "'>Tolak</button>";
-				element += "<button class='btn-batal-tolak'>Batal Tolak</button>";
+				element += "<button class='btn-negative btn-submit-tolak' data-bidding_id='" + result[i].bidding_id + "'>Tolak</button>";
+				element += "<button class='btn-neutral btn-batal-tolak'>Batal Tolak</button>";
 				element += "</div>";
 			}
 <?php	}	?>
@@ -478,7 +484,7 @@ function addBiddingListToTable(result) {
 		element += "</tr>";
 	}
 	
-	$(".tbody-list-penawaran").html();
+	$(".tbody-list-penawaran").html("");
 	$(".tbody-list-penawaran").append(element);
 }
 

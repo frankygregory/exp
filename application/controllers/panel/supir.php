@@ -39,6 +39,7 @@ class Supir extends MY_Controller
 			$driver_information = $this->input->post("driver_information");
 			$driver_status = intval($this->input->post("driver_status"));
 			$user_id = $this->session->userdata("user_id");
+			$group_id = $this->session->userdata("group_id");
 			
 			$insertData = array(
 				"driver_name" => $driver_name,
@@ -46,8 +47,8 @@ class Supir extends MY_Controller
 				"driver_address" => $driver_address,
 				"driver_information" => $driver_information,
 				"driver_status" => $driver_status,
-				"created_by" => $user_id,
-				"modified_by" => $user_id
+				"user_id" => $user_id,
+				"group_id" => $group_id
 			);
 			$affected_rows = $this->Driver_model->addDriver($insertData);
 			if ($affected_rows > 0) {

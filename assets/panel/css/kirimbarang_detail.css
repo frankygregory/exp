@@ -57,6 +57,11 @@
 .section-title {
 	font-size: 14pt;
 	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.item {
+	border: 1px solid black;
 }
 
 .td-item-label {
@@ -65,6 +70,16 @@
 
 .section-3 {
 	margin-bottom: 50px;
+}
+
+.detail-pertanyaan {
+	width: 500px;
+	height: 140px;
+}
+
+.btn-submit-pertanyaan {
+	float: right;
+	margin-top: -10px;
 }
 
 .discussions {
@@ -103,8 +118,23 @@
 	width: 100%;
 }
 
+.btn-tawar {
+	margin-bottom: 10px;
+}
+
 .detail-penawaran {
+	display: none;
 	width: 600px;
+	height: 300px;
+	margin-bottom: 10px;
+}
+
+td.td-label {
+	width: 150px;
+}
+
+td.td-titikdua {
+	width: 10px;
 }
 
 td.td-harga {
@@ -132,11 +162,8 @@ td.td-action {
 	margin-right: 10px;
 }
 
-.detail-penawaran {
-	display: none;
-}
-
 .btn-kirim-penawaran {
 	float: right;
 	margin-top: 10px;
+	margin-right: 5px;
 }

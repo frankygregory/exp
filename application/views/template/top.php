@@ -10,6 +10,12 @@
     <meta name="author" content="">
 
     <title>yukirim - <?=$title?></title>
+	<style>
+		@font-face {
+			font-family: roboto-regular;
+			src: url(<?= base_url("assets/fonts/Roboto-Regular.ttf") ?>);
+		}
+	</style>
 	<link href="<?=base_url()?>assets/panel/css/default.css" rel="stylesheet">
 	<link href="<?=base_url()?>assets/template/css/top.css" rel="stylesheet">
 	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css" rel="stylesheet">
@@ -46,6 +52,9 @@
 				<div class="">Alat</div>
 			</a>
 <?php	}	?>
+			<a href="<?= base_url("user") ?>">
+				<div class="">User</div>
+			</a>
 		</div>
 		<div class="container-content">
 <script>

@@ -33,14 +33,15 @@ class Alat extends MY_Controller
 			$device_email = $this->input->post("device_email");
 			$device_status = intval($this->input->post("device_status"));
 			$user_id = $this->session->userdata("user_id");
+			$group_id = $this->session->userdata("group_id");
 			
 			$insertData = array(
 				"device_name" => $device_name,
 				"device_information" => $device_information,
 				"device_email" => $device_email,
 				"device_status" => $device_status,
-				"created_by" => $user_id,
-				"modified_by" => $user_id
+				"user_id" => $user_id,
+				"group_id" => $group_id
 			);
 			$affected_rows = $this->Alat_model->addAlat($insertData);
 			if ($affected_rows > 0) {

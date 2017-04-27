@@ -62,7 +62,16 @@ class Kirim_model extends CI_Model
 	}
 	
 	public function doBidding($data) {
-		$this->db->insert("t_bidding", $data);
+		$insertData = array(
+			"bidding_price" => $data["bidding_price"],
+			"bidding_pickupdate" => $data["bidding_pickupdate"],
+			"bidding_information" => $data["bidding_information"],
+			"shipment_id" => $data["shipment_id"],
+			"user_id" => $data["user_id"],
+			"created_by" => $data["user_id"],
+			"modified_by" => $data["user_id"]
+		);
+		$this->db->insert("t_bidding", $insertData);
 		return $this->db->affected_rows();
 	}
 }

@@ -43,6 +43,7 @@ class Kendaraan extends MY_Controller
 			$vehicle_information = $this->input->post("vehicle_information");
 			$vehicle_status = intval($this->input->post("vehicle_status"));
 			$user_id = $this->session->userdata("user_id");
+			$group_id = $this->session->userdata("group_id");
 			
 			$insertData = array(
 				"vehicle_nomor" => $vehicle_nomor,
@@ -50,8 +51,7 @@ class Kendaraan extends MY_Controller
 				"vehicle_information" => $vehicle_information,
 				"vehicle_status" => $vehicle_status,
 				"user_id" => $user_id,
-				"created_by" => $user_id,
-				"modified_by" => $user_id
+				"group_id" => $group_id
 			);
 			$affected_rows = $this->Kendaraan_model->addKendaraan($insertData);
 			if ($affected_rows > 0) {

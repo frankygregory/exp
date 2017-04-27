@@ -80,7 +80,7 @@
 		</div>
 		<div class="dialog-footer">
 			<button type="button" class="btn-default btn-submit-edit">Simpan</button>
-			<button type="button" class="btn-negative btn-batal">Batal</button>
+			<button type="button" class="btn-neutral btn-batal">Batal</button>
 		</div>
 	</div>
 </div>
@@ -93,8 +93,8 @@
 			<div></div>
 		</div>
 		<div class="dialog-footer">
-			<button type="button" class="btn-default btn-submit-delete">Delete</button>
-			<button type="button" class="btn-negative btn-batal">Batal</button>
+			<button type="button" class="btn-negative btn-submit-delete">Delete</button>
+			<button type="button" class="btn-neutral btn-batal">Batal</button>
 		</div>
 	</div>
 </div>
@@ -309,6 +309,8 @@ $(function() {
 				if (result == "success") {
 					closeDialog();
 					getSupir();
+				} else {
+					
 				}
 			}
 		});

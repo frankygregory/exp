@@ -18,7 +18,7 @@
 	float: left;
 	font-size: 18pt;
 	font-weight: bold;
-	margin-left: 50px;
+	margin-left: 60px;
 	margin-top: 10px;
 	color: white;
 	text-decoration: none;
@@ -53,17 +53,20 @@
 	height: 100%;
 	background-color: #616161;
 	float: left;
-	padding-left: 25px;
-	padding-top: 25px;
+	padding-top: 10px;
 }
 
 .navigation-menu a {
 	display: block;
-	width: 150px;
+	width: 100%;
 	color: white;
 	text-decoration: none;
-	font-size: 14pt;
-	margin-bottom: 15px;
+	font-size: 12pt;
+	padding: 14px 0 14px 25px;
+}
+
+.navigation-menu a:hover {
+	background-color: rgba(0, 0, 0, 0.3);
 }
 
 .container-content {

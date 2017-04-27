@@ -8,7 +8,18 @@ class Alat_model extends CI_Model
     }
 	
 	public function addAlat($data) {
-		$this->db->insert("m_device_customer", $data);
+		$insertData = array(
+			"device_name" => $data["device_name"],
+			"device_information" => $data["device_information"],
+			"device_email" => $data["device_email"],
+			"device_status" => $data["device_status"],
+			"group_id" => $data["group_id"],
+			"user_id" => $data["user_id"],
+			"created_by" => $data["user_id"],
+			"modified_by" => $data["user_id"]
+		);
+			
+		$this->db->insert("m_device_customer", $insertData);
 		return $this->db->affected_rows();
 	}
 	

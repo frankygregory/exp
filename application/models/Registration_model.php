@@ -9,22 +9,9 @@ class Registration_model extends CI_Model
 
     public function doRegister($data) {
 
-        $data = array(
-            'role_id' => $data['role'],
-            'type_id' => $data['type'],
-            'username' => $data['username'],
-            'user_email' => $data['email'],
-            'user_fullname' => $data['nama'],
-            'user_address' => $data['alamat'],
-            'user_telephone' => $data['telp'],
-            'user_handphone' => $data['handphone'],
-            'password' => md5($data['password']),
-            'user_termsandconditions' => $data['terms'],
-            'created_by' => $data['username'],
-            'modified_by' => $data['username']
-        );
-
-        $this->db->insert('m_user', $data);
+        $data["password"] = md5($data["password"]);
+		
+		$this->db->query("CALL register_user('" . $data["role"] . "', '" . $data["type"] . "', '" . $data["username"] . "', '" . $data["email"] . "', '" . $data["nama"] . "', '" . $data["alamat"] . "', '" . $data["telp"] . "', '" . $data["handphone"] . "', '" . $data["password"] . "', '" . $data["terms"] . "', -1, -1);");
     }
 	
 	public function getUsername($username) {
