@@ -1,0 +1,51 @@
+.tabs-header {
+	overflow: auto;
+	border-bottom: 1px solid #252525;
+}
+
+.tabs-item-container {
+	overflow: auto;
+	position: relative;
+}
+
+.tabs-item {
+	float: left;
+	width: 90px;
+	padding: 10px 0 10px;
+	text-align: center;
+	cursor: pointer;
+	color: #AAAAAA;
+}
+
+.tabs-item.active {
+	color: black;
+}
+
+.tabs-item:hover {
+	color: black;
+}
+
+.tabs-selection {
+	width: 90px;
+	height: 5px;
+	margin-top: -5px;
+	background-color: #2196F3;
+}
+
+.tabs-body {
+	position: relative;
+	margin-top: 10px;
+}
+
+.tabs-content {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+	opacity: 0;
+}
+
+.tabs-content.active {
+	display: block;
+	opacity: 1;
+}

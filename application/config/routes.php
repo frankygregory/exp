@@ -82,6 +82,7 @@ $route['kirim/updatekirimbarang'] = 'panel/kirim/updatekirimBarang';
 $route['kirim/update-items'] = 'panel/kirim/updateItems';
 $route['kirim/setujuPenawaran'] = 'panel/kirim/setujuPenawaran';
 $route['kiriman-saya'] = 'panel/kiriman';
+$route['kiriman-saya/getKirimanSaya'] = 'panel/kiriman/getKirimanSaya';
 //$route['cari-kiriman/private'] = 'panel/cari_kiriman/privates';
 //$route['cari-kiriman/public'] = 'panel/cari_kiriman/publics';
 //$route['cari-kiriman/penawaran'] = 'panel/cari_kiriman/penawaran';

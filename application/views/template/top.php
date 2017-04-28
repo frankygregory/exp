@@ -22,7 +22,7 @@
 	<link href="<?=base_url()?>assets/panel/jqueryui/jquery-ui.datetimepicker.min.css" rel="stylesheet" >
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
 	<script src="<?= base_url('assets/panel/jqueryui/jquery-ui.datetimepicker.min.js')?>"></script>
-
+	<?= $modules ?>
 </head>
 <body>
 <div class="container">
@@ -37,7 +37,7 @@
 			<a href="<?= base_url("dashboard") ?>">
 				<div>Dashboard</div>
 			</a>
-			<a href="<?= base_url("kirim") ?>">
+			<a href="<?= base_url("kirim/kirimbarang") ?>">
 				<div>Kiriman</div>
 			</a>
 <?php	if ($this->session->userdata("role_id") == 1) { ?>

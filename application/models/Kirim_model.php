@@ -109,6 +109,6 @@ class Kirim_model extends CI_Model
 	}
 	
 	public function acceptBidding($data) {
-		$this->db->query("CALL setuju_penawaran(" . $data["shipment_id"] . ", " . $data["bidding_id"] . ", " . $data["user_id"] . ");");
+		$this->db->query("CALL setuju_penawaran('" . $data["shipment_id"] . "', '" . $data["bidding_id"] . "', '" . $data["user_id"] . "');");
 	}
 }

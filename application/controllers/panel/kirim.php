@@ -310,8 +310,9 @@ class Kirim extends MY_Controller
 				"user_id" => $user_id
 			);
 			$this->Kirim_model->acceptBidding($data);
-			echo "ABSDS";
-			//header("Location: " . base_url("dashboard"));
+			header("Location: " . base_url("kiriman-saya"));
+		} else {
+			header("Location: " . base_url("dashboard"));
 		}
 	}
 	

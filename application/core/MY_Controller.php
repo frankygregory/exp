@@ -8,6 +8,7 @@ Just put general function which frequently used in this class
 
 class MY_Controller extends CI_Controller
 {
+	protected $modules = "";
     public function __construct()
     {
         parent::__construct();
@@ -21,6 +22,10 @@ class MY_Controller extends CI_Controller
             redirect('login');
         }
     }
+	
+	public function loadModule($moduleName) {
+		$this->modules .= "<link href='" . base_url("assets/template/css/" . $moduleName . ".css") . "' rel='stylesheet'>" . "<script src='" . base_url("assets/template/js/" . $moduleName . ".js") . "'></script>";
+	}
 
     public function upload_file_settings($path = '', $max_size = '')
     {
@@ -38,6 +43,7 @@ class MY_Controller extends CI_Controller
 
     public function template($file, $data){
 		$data["pageName"] = $file;
+		$data["modules"] = $this->modules;
         $this->load->view('template/top', $data);
         $this->load->view($file, $data);
         $this->load->view('template/bottom');

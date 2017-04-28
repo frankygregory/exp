@@ -324,11 +324,17 @@ if ($role_id == 1 && $isOwner) {
 		var bidding_id = $(element).closest(".dialog-konfirmasi-setuju").data("bidding_id");
 		var shipment_id = "<?= $shipment_id ?>";
 		var form = "<form action='<?= base_url("kirim/setujuPenawaran") ?>' method='POST'>";
-		form += "<input type='hidden' name='bidding_id' values='" + bidding_id + "' />";
-		form += "<input type='hidden' name='shipment_id' values='" + shipment_id + "' />";
+		var input_shipment = "<input type='hidden' name='shipment_id' value='" + shipment_id + "' />";
+		var input_bidding = "<input type='hidden' name='bidding_id' value='" + bidding_id + "' />";
 		form += "</form>";
 		
-		$(form).appendTo("body").submit();
+		$("<form>", {
+			"action": "<?= base_url("kirim/setujuPenawaran") ?>",
+			"method": "POST",
+			"html": input_shipment + input_bidding
+		}).appendTo(document.body).submit();
+		
+		//$(form).appendTo("body").submit();
 	}
 	
 	function jawabPertanyaan(element) {
