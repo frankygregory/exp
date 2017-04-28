@@ -93,6 +93,7 @@
 .detail-jawab-pertanyaan {
 	display: none;
 	margin: 10px 0;
+	overflow: auto;
 }
 
 .btn-submit-jawab-pertanyaan {

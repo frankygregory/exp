@@ -143,7 +143,7 @@ class Kirim extends MY_Controller
     {
 
         $data = $this->Kirim_model->getShipment($id);
-        $items = $this->queryArray("select * from m_shipment_details where shipment_id = $id");
+        $items = $this->Kirim_model->getShipmentDetail($id);
 		$user_id = $this->session->userdata("user_id");
 		$user_username = $this->session->userdata("username");
 		$user_role = $this->session->userdata("role_id");
@@ -177,6 +177,7 @@ class Kirim extends MY_Controller
             'shipment_title' => $data[0]->shipment_title,
 			'order_type_name' => $order_type_name,
             'shipment_information' => $data[0]->shipment_information,
+			'pending_by' => $data[0]->pending_by,
             'location_from_contact' => $data[0]->location_from_contact,
             'location_from_name' => $data[0]->location_from_name,
             'location_from_address' => $data[0]->location_from_address,
@@ -296,6 +297,23 @@ class Kirim extends MY_Controller
 		}
         
     }
+	
+	public function setujuPenawaran() {
+		$shipment_id = $this->input->post("shipment_id");
+		$bidding_id = $this->input->post("bidding_id");
+		$user_id = $this->session->userdata("user_id");
+		
+		if ($shipment_id != null && $bidding_id != null && $user_id != null) {
+			$data = array(
+				"shipment_id" => $shipment_id,
+				"bidding_id" => $bidding_id,
+				"user_id" => $user_id
+			);
+			$this->Kirim_model->acceptBidding($data);
+			echo "ABSDS";
+			//header("Location: " . base_url("dashboard"));
+		}
+	}
 	
 	public function tolakPenawaran() {
 		$submit_tolak = $this->input->post("submit_tolak");

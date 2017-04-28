@@ -139,12 +139,14 @@ table.table tbody tr:nth-child(even) {
 
 .dialog {
 	display: none;
+	width: 500px;
 	vertical-align: center;
 	position: relative;
 	margin: 15vh auto 0;
 	box-shadow: 0 0 20px #333333;
 	font-size: 12pt;
 	z-index: 1001;
+	overflow: auto;
 }
 
 .dialog-header, .dialog-body, .dialog-footer {
@@ -164,7 +166,6 @@ table.table tbody tr:nth-child(even) {
 	bottom: 10px;
 	left: 10px;
 	font-size: 16pt;
-	font-weight: bold;
 }
 
 .dialog-body {
@@ -172,5 +173,14 @@ table.table tbody tr:nth-child(even) {
 }
 
 .dialog-footer {
-	
+	padding: 15px;
+	overflow: auto;
+}
+
+.dialog-footer button {
+	float: right;
+}
+
+.dialog-footer button:nth-child(n+2) {
+	margin-right: 10px;
 }

@@ -221,7 +221,20 @@
 		</table>
 	</div>
 </div>
-
+<div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-setuju">
+		<div class="dialog-header">
+			<div class="dialog-title">Setuju Bid</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-setuju">Setuju</button>
+			<button type="button" class="btn-neutral btn-batal">Batal Setuju</button>
+		</div>
+	</div>
+</div>
 <script>
 var map_asal, map_tujuan;
 var marker_asal, marker_tujuan;
@@ -235,6 +248,8 @@ getBiddingList();
 $btnJawabPertanyaan = "";
 $detailJawabPertanyaan = "";
 $divQuestions = "element += \"<div class='questions'>\";";
+$tr_bidding = "";
+$btnSetujuBidding = "";
 
 if ($role_id == 1 && $isOwner) { 
 	$btnJawabPertanyaan = "element += \"<button class='btn-neutral btn-jawab-pertanyaan'>Jawab</button>\";";
@@ -243,6 +258,19 @@ if ($role_id == 1 && $isOwner) {
 		"element += \"<button class='btn-default btn-submit-jawab-pertanyaan'>Submit Jawaban</button>\";" .
 		"element += \"</div>\";";
 	$divQuestions = "element += \"<div class='questions' data-questions-id='\" + questions[i].questions_id + \"'>\";";
+	
+	if ($pending_by != "null") {
+		$tr_bidding = " data-bidding_id='\" + result[i].bidding_id + \"'";
+		$btnSetujuBidding = "element += \"";
+		$btnSetujuBidding .= "<button class='btn-default btn-setuju'>Setuju</button>";
+		$btnSetujuBidding .= "<button class='btn-negative btn-tolak'>Tolak</button>";
+		$btnSetujuBidding .= "<div class='container-tolak'>";
+		$btnSetujuBidding .= "<textarea class='input-alasan' data-bidding_id='\" + result[i].bidding_id + \"'></textarea>";
+		$btnSetujuBidding .= "<button class='btn-negative btn-submit-tolak' data-bidding_id='\" + result[i].bidding_id + \"'>Tolak</button>";
+		$btnSetujuBidding .= "<button class='btn-neutral btn-batal-tolak'>Batal Tolak</button>";
+		$btnSetujuBidding .= "</div>";
+		$btnSetujuBidding .= "\";";
+	}
 ?>
 	
 	$(document).on("click", ".btn-tolak", function() {
@@ -258,26 +286,95 @@ if ($role_id == 1 && $isOwner) {
 	});
 	
 	$(document).on("click", ".btn-jawab-pertanyaan", function() {
-		$(".detail-jawab-pertanyaan").css("display", "none");
-		var element = $(this).closest(".discussions-item").children(".detail-jawab-pertanyaan");
-		$(element).css("display", "block");
-		$(element).children("textarea").select();
+		showDetailJawabPertanyaan(this);
 	});
 	
 	$(document).on("click", ".btn-submit-jawab-pertanyaan", function() {
 		jawabPertanyaan(this);
 	});
 	
+	$(document).on("click", ".btn-setuju", function() {
+		
+		var tr_bidding = $(this).closest(".tr-bidding");
+		var bidding_id = $(tr_bidding).data("bidding_id");
+		var username = $(tr_bidding).children(".td-bidding-username").html();
+		var harga = $(tr_bidding).children(".td-bidding-price").html();
+		var text = "Setuju penawaran " + username + " seharga " + harga + "?";
+		
+		$(".dialog-konfirmasi-setuju").data("bidding_id", bidding_id);
+		$(".dialog-konfirmasi-setuju .dialog-body").html(text);
+		showDialog(".dialog-konfirmasi-setuju");
+	});
+	
+	$(".dialog-background").on("click", function(e) {
+		if (e.target.className == "dialog-background") {
+			closeDialog();
+		}
+	});
+	
+	$(".btn-batal").on("click", function() {
+		closeDialog();
+	});
+	
+	$(".btn-submit-setuju").on("click", function() {
+		setujuBidding(this);
+	});
+	
+	function setujuBidding(element) {
+		var bidding_id = $(element).closest(".dialog-konfirmasi-setuju").data("bidding_id");
+		var shipment_id = "<?= $shipment_id ?>";
+		var form = "<form action='<?= base_url("kirim/setujuPenawaran") ?>' method='POST'>";
+		form += "<input type='hidden' name='bidding_id' values='" + bidding_id + "' />";
+		form += "<input type='hidden' name='shipment_id' values='" + shipment_id + "' />";
+		form += "</form>";
+		
+		$(form).appendTo("body").submit();
+	}
+	
 	function jawabPertanyaan(element) {
-		var questions_id = $(element).closest(".discussions-item").children(".questions").data("questions-id");
-		var answers_text = $(element).closest(".discussions-item").children(".input-jawab-pertanyaan").val();
+		var discussions_item = $(element).closest(".discussions-item");
+		var questions_id = $(discussions_item).children(".questions").data("questions-id");
+		var answers_text = $(discussions_item).find("textarea").val();
 		
-		
+		if (answers_text != "") {
+			$.ajax({
+				url: '<?= base_url("kirim/jawabPertanyaan") ?>',
+				data: {
+					submit_jawaban: true,
+					questions_id: questions_id,
+					answers_text: answers_text
+				},
+				type: 'POST',
+				error: function(jqXHR, exception) {
+					alert(jqXHR + " : " + jqXHR.responseText);
+				},
+				success: function(result) {
+					if (result == "success") {
+						getDiscussions();
+					}
+				}
+			});
+		} else {
+			alert("Jawaban tidak boleh kosong");
+			$(discussions_item).find("textarea").select();
+		}
+	}
+	
+	function showDetailJawabPertanyaan(element) {
+		$(".detail-jawab-pertanyaan").css("display", "none");
+		var detailJawabPertanyaan = $(element).closest(".discussions-item").children(".detail-jawab-pertanyaan");
+		$(detailJawabPertanyaan).css("display", "block");
+		$(detailJawabPertanyaan).children("textarea").select();
+	}
+	
+	function closeDetailJawabPertanyaan() {
+		$(".detail-jawab-pertanyaan").css("display", "none");
 	}
 	
 	function submitTolak(element) {
 		var bidding_id = $(element).data("bidding_id");
-		var bidding_reason = $(".input-alasan[data-bidding_id='" + bidding_id + "']").val();
+		var bidding_reason = $(element).siblings(".input-alasan").val();
+		
 		$.ajax({
 			url: '<?= base_url("kirim/tolakPenawaran") ?>',
 			data: {
@@ -333,24 +430,29 @@ if ($role_id == 1 && $isOwner) {
 		var questions_text = $(".input-pertanyaan").val();
 		var shipment_id = <?= $shipment_id ?>;
 		
-		$.ajax({
-			url: '<?= base_url("kirim/kirimPertanyaan") ?>',
-			data: {
-				submit_pertanyaan: true,
-				questions_text: questions_text,
-				shipment_id: shipment_id
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					clearQuestion();
-					getDiscussions();
+		if (questions_text != "") {
+			$.ajax({
+				url: '<?= base_url("kirim/kirimPertanyaan") ?>',
+				data: {
+					submit_pertanyaan: true,
+					questions_text: questions_text,
+					shipment_id: shipment_id
+				},
+				type: 'POST',
+				error: function(jqXHR, exception) {
+					alert(jqXHR + " : " + jqXHR.responseText);
+				},
+				success: function(result) {
+					if (result == "success") {
+						clearQuestion();
+						getDiscussions();
+					}
 				}
-			}
-		});
+			});
+		} else {
+			alert("Pertanyaan tidak boleh kosong");
+			$(".input-pertanyaan").select();
+		}
 	}
 	
 	function clearQuestion() {
@@ -525,16 +627,18 @@ function addBiddingListToTable(result) {
 	var iLength = result.length;
 	var element = "";
 	for (var i = 0; i < iLength; i++) {
-		element += "<tr>";
-		element += "<td>" + addCommas(result[i].bidding_price) + " IDR</td>";
-		element += "<td>" + result[i].username + "</td>";
-		element += "<td>";
+		element += "<tr class='tr-bidding' <?= $tr_bidding ?>>";
+		element += "<td class='td-bidding-price'>" + addCommas(result[i].bidding_price) + " IDR</td>";
+		element += "<td class='td-bidding-username'>" + result[i].username + "</td>";
+		element += "<td class='td-bidding-tanggal-ambil'>";
 		element += "<div>Tanggal Ambil : " + result[i].bidding_pickupdate + "</div>";
 		element += "<div>Keterangan : " + result[i].bidding_information + "</div>";
 		element += "</td>";
 		element += "<td>";
 		if (result[i].bidding_status == 2) {
 			element += "<div class='alasan-tolak'>DITOLAK<br><strong>Alasan : </strong>" + result[i].bidding_reason + "</div>";
+		} else {
+		<?= $btnSetujuBidding ?>
 		}
 		element += "</td>";
 		element += "</tr>";

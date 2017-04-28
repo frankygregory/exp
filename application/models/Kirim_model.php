@@ -13,7 +13,7 @@ class Kirim_model extends CI_Model
 			FROM `m_shipment` m
 			LEFT JOIN `t_bidding` t
 			ON m.shipment_id = t.shipment_id
-			WHERE m.shipment_end_date > CURRENT_TIMESTAMP()
+			WHERE m.shipment_end_date > CURRENT_TIMESTAMP() AND m.pending_by IS NULL
 			GROUP BY t.shipment_id"
 		);
 		return $query->result();
@@ -26,6 +26,15 @@ class Kirim_model extends CI_Model
 			WHERE s.created_by = u.user_id AND s.shipment_id = " . $shipment_id . ";"
 		);
 		return $query->result();
+	}
+	
+	public function getShipmentDetail($shipment_id) {
+		$query = $this->db->query(
+			"SELECT *
+			FROM m_shipment_details
+			WHERE shipment_id = " . $shipment_id . ";"
+		);
+		return $query->result_array();
 	}
 	
 	public function insertQuestions($data) {
@@ -97,5 +106,9 @@ class Kirim_model extends CI_Model
 		);
 		$this->db->insert("t_bidding", $insertData);
 		return $this->db->affected_rows();
+	}
+	
+	public function acceptBidding($data) {
+		$this->db->query("CALL setuju_penawaran(" . $data["shipment_id"] . ", " . $data["bidding_id"] . ", " . $data["user_id"] . ");");
 	}
 }

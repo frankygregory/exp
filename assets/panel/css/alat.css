@@ -3,7 +3,7 @@
 }
 
 .dialog {
-	width: 500px;
+	
 }
 
 .dialog-header {
@@ -11,13 +11,9 @@
 }
 
 .dialog-footer {
-	height: 70px;
+	
 }
 
 .btn-submit-tambah, .btn-submit-edit, .btn-batal, .btn-submit-delete {
 	float: right;
-}
-
-.btn-batal {
-	margin-right: 10px;
 }
