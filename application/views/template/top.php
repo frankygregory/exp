@@ -37,16 +37,19 @@
 			<a href="<?= base_url("dashboard") ?>">
 				<div>Dashboard</div>
 			</a>
-			<a href="<?= base_url("kirim/kirimbarang") ?>">
-				<div>Kiriman</div>
-			</a>
 <?php	if ($this->session->userdata("role_id") == 1) { ?>
+			<a href="<?= base_url("kirim/kirimbarang") ?>">
+				<div>Kirim Barang</div>
+			</a>
 			<a href="<?= base_url("kiriman-saya") ?>">
 				<div>Kiriman Saya</div>
 			</a>
 <?php	}	?>
 	<?php
 		if ($this->session->userdata("role_id") == 2) { ?>
+			<a href="<?= base_url("kirim") ?>">
+				<div>Cari Kiriman</div>
+			</a>
 			<a href="<?= base_url("kendaraan") ?>">
 				<div class="">Kendaraan</div>
 			</a>

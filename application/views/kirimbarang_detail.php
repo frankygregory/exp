@@ -252,14 +252,14 @@ $tr_bidding = "";
 $btnSetujuBidding = "";
 
 if ($role_id == 1 && $isOwner) { 
-	$btnJawabPertanyaan = "element += \"<button class='btn-neutral btn-jawab-pertanyaan'>Jawab</button>\";";
-	$detailJawabPertanyaan = "element += \"<div class='detail-jawab-pertanyaan'>\";" .
-		"element += \"<textarea class='input-jawab-pertanyaan'></textarea>\";" .
-		"element += \"<button class='btn-default btn-submit-jawab-pertanyaan'>Submit Jawaban</button>\";" .
-		"element += \"</div>\";";
-	$divQuestions = "element += \"<div class='questions' data-questions-id='\" + questions[i].questions_id + \"'>\";";
+	if ($pending_by == "null") {
+		$btnJawabPertanyaan = "element += \"<button class='btn-neutral btn-jawab-pertanyaan'>Jawab</button>\";";
+		$detailJawabPertanyaan = "element += \"<div class='detail-jawab-pertanyaan'>\";" .
+			"element += \"<textarea class='input-jawab-pertanyaan'></textarea>\";" .
+			"element += \"<button class='btn-default btn-submit-jawab-pertanyaan'>Submit Jawaban</button>\";" .
+			"element += \"</div>\";";
+		$divQuestions = "element += \"<div class='questions' data-questions-id='\" + questions[i].questions_id + \"'>\";";
 	
-	if ($pending_by != "null") {
 		$tr_bidding = " data-bidding_id='\" + result[i].bidding_id + \"'";
 		$btnSetujuBidding = "element += \"";
 		$btnSetujuBidding .= "<button class='btn-default btn-setuju'>Setuju</button>";
