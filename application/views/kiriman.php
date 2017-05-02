@@ -41,7 +41,6 @@
 							<td>Asal</td>
 							<td>Tujuan</td>
 							<td>Jarak</td>
-							<td>Berakhir</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -60,7 +59,6 @@
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
-							<td>Berakhir</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -79,7 +77,6 @@
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
-							<td>Berakhir</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -98,7 +95,6 @@
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
-							<td>Berakhir</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -117,7 +113,7 @@
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
-							<td>Berakhir</td>
+							<td>Rating</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -136,7 +132,6 @@
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
-							<td>Berakhir</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -209,10 +204,12 @@ $(function() {
 			var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear();
 			
 			var additionalTd = "";
-			
+			var berakhir = "";
+			var rating = "";
 			switch (result[i].shipment_status) {
 				case "-1":
 					tab = "open";
+					berakhir = "<td class='td-berakhir'>" + result[i].berakhir + "</td>";
 					break;
 				case "0":
 					tab = "pending";
@@ -235,6 +232,7 @@ $(function() {
 				case "5":
 					tab = "diterima";
 					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
+					rating = "<td><textarea class='input-rating-feedback'></textarea><button class='btn-default btn-submit-rating'>Submit</button></td>";
 					break;
 				case "6":
 					tab = "selesai";
@@ -243,7 +241,7 @@ $(function() {
 			}
 			
 			element[tab].count++;
-			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td><td class='td-berakhir'>" + result[i].berakhir + "</td>" + additionalTd + "</tr>";
+			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + additionalTd + berakhir + rating + "</tr>";
 		}
 		
 		$(".tbody-kiriman").html("");

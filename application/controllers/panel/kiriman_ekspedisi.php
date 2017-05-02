@@ -76,6 +76,51 @@ class Kiriman_ekspedisi extends MY_Controller
 		}
 	}
 	
+	public function submitKirim() {
+		$shipment_id = $this->input->post("shipment_id");
+		$user_id = $this->session->userdata("user_id");
+		$data = array(
+			"shipment_id" => $shipment_id,
+			"user_id" => $user_id
+		);
+		$affected_rows = $this->Kiriman_ekspedisi_model->submitKirim($data);
+		if ($affected_rows > 0) {
+			echo "success";
+		} else {
+			echo "no rows affected. WHY??";
+		}
+	}
+	
+	public function submitAmbil() {
+		$shipment_id = $this->input->post("shipment_id");
+		$user_id = $this->session->userdata("user_id");
+		$data = array(
+			"shipment_id" => $shipment_id,
+			"user_id" => $user_id
+		);
+		$affected_rows = $this->Kiriman_ekspedisi_model->submitAmbil($data);
+		if ($affected_rows > 0) {
+			echo "success";
+		} else {
+			echo "no rows affected. WHY??";
+		}
+	}
+	
+	public function submitTerima() {
+		$shipment_id = $this->input->post("shipment_id");
+		$user_id = $this->session->userdata("user_id");
+		$data = array(
+			"shipment_id" => $shipment_id,
+			"user_id" => $user_id
+		);
+		$affected_rows = $this->Kiriman_ekspedisi_model->submitTerima($data);
+		if ($affected_rows > 0) {
+			echo "success";
+		} else {
+			echo "no rows affected. WHY??";
+		}
+	}
+	
 	public function getSupir() {
 		$user_id = $this->session->userdata("user_id");
 		$driver = $this->Driver_model->getDriverByUserId($user_id);

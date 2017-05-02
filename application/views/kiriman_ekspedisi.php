@@ -174,6 +174,18 @@ $(function() {
 		submitPesan(this);
 	});
 	
+	$(document).on("click", ".btn-dikirim", function() {
+		submitKirim(this);
+	});
+	
+	$(document).on("click", ".btn-diambil", function() {
+		submitAmbil(this);
+	});
+	
+	$(document).on("click", ".btn-diterima", function() {
+		submitTerima(this);
+	});
+	
 	function getKendaraan() {
 		$.ajax({
 			url: '<?= base_url("kiriman-ekspedisi/getKendaraan") ?>',
@@ -242,6 +254,69 @@ $(function() {
 					element += "<option value='" + result[i].device_id + "'>" + result[i].device_name + "</option>";
 				}
 				$(".select-alat").append(element);
+			}
+		});
+	}
+	
+	function submitTerima(element) {
+		var shipment_id = $(element).closest(".tr-kiriman").data("id");
+		$.ajax({
+			url: '<?= base_url("kiriman-ekspedisi/submitTerima") ?>',
+			data: {
+				shipment_id: shipment_id
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					getKirimanSaya();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	}
+	
+	function submitAmbil(element) {
+		var shipment_id = $(element).closest(".tr-kiriman").data("id");
+		$.ajax({
+			url: '<?= base_url("kiriman-ekspedisi/submitAmbil") ?>',
+			data: {
+				shipment_id: shipment_id
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					getKirimanSaya();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	}
+	
+	function submitKirim(element) {
+		var shipment_id = $(element).closest(".tr-kiriman").data("id");
+		$.ajax({
+			url: '<?= base_url("kiriman-ekspedisi/submitKirim") ?>',
+			data: {
+				shipment_id: shipment_id
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					getKirimanSaya();
+				} else {
+					alert(result);
+				}
 			}
 		});
 	}
@@ -353,7 +428,7 @@ $(function() {
 			"diterima": {
 				count: 0,
 				value: "",
-				btn: "<button class='btn-default btn-action btn-selesai'>Selesai</button>",
+				btn: "",
 			},
 			"selesai": {
 				count: 0,

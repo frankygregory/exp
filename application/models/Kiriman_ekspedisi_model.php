@@ -28,4 +28,19 @@ class Kiriman_ekspedisi_model extends CI_Model
 		$this->db->query("CALL pesan_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "', '" . $data["driver_id"] . "', '" . $data["vehicle_id"] . "', '" . $data["device_id"] . "');");
 		return 1;
 	}
+	
+	public function submitKirim($data) {
+		$this->db->query("CALL kirim_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
+		return 1;
+	}
+	
+	public function submitAmbil($data) {
+		$this->db->query("CALL ambil_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
+		return 1;
+	}
+	
+	public function submitTerima($data) {
+		$this->db->query("CALL terima_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
+		return 1;
+	}
 }
