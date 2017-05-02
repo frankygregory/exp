@@ -43,6 +43,9 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Supir</td>
+							<td>Kendaraan</td>
+							<td>Lacak</td>
 							<td>Action</td>
 						</tr>
 					</thead>
@@ -60,6 +63,9 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Supir</td>
+							<td>Kendaraan</td>
+							<td>Lacak</td>
 							<td>Action</td>
 						</tr>
 					</thead>
@@ -77,6 +83,9 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Supir</td>
+							<td>Kendaraan</td>
+							<td>Lacak</td>
 							<td>Action</td>
 						</tr>
 					</thead>
@@ -94,6 +103,9 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Supir</td>
+							<td>Kendaraan</td>
+							<td>Lacak</td>
 							<td>Action</td>
 						</tr>
 					</thead>
@@ -111,6 +123,9 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Supir</td>
+							<td>Kendaraan</td>
+							<td>Lacak</td>
 							<td>Action</td>
 						</tr>
 					</thead>
@@ -128,6 +143,9 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Supir</td>
+							<td>Kendaraan</td>
+							<td>Lacak</td>
 							<td>Action</td>
 						</tr>
 					</thead>
@@ -146,9 +164,123 @@ $(function() {
 	var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	getKirimanSaya();
 	
+	var kendaraan = [], supir = [], alat = [];
+	
 	$(document).on("click", ".btn-deal", function() {
 		submitDeal(this);
 	});
+	
+	$(document).on("click", ".btn-pesan", function() {
+		submitPesan(this);
+	});
+	
+	function getKendaraan() {
+		$.ajax({
+			url: '<?= base_url("kiriman-ekspedisi/getKendaraan") ?>',
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(json) {
+				var result = jQuery.parseJSON(json);
+				
+				var element = "";
+				var iLength = result.length;
+				for (var i = 0; i < iLength; i++) {
+					kendaraan.push({
+						id: result[i].vehicle_id,
+						name: result[i].vehicle_name
+					});
+					element += "<option value='" + result[i].vehicle_id + "'>" + result[i].vehicle_name + "</option>";
+				}
+				$(".select-kendaraan").append(element);
+			}
+		});
+	}
+	
+	function getSupir() {
+		$.ajax({
+			url: '<?= base_url("kiriman-ekspedisi/getSupir") ?>',
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(json) {
+				var result = jQuery.parseJSON(json);
+				
+				var element = "";
+				var iLength = result.length;
+				for (var i = 0; i < iLength; i++) {
+					supir.push({
+						id: result[i].driver_id,
+						name: result[i].driver_name
+					});
+					element += "<option value='" + result[i].driver_id + "'>" + result[i].driver_name + "</option>";
+				}
+				$(".select-supir").append(element);
+			}
+		});
+	}
+	
+	function getAlat() {
+		$.ajax({
+			url: '<?= base_url("kiriman-ekspedisi/getAlat") ?>',
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(json) {
+				var result = jQuery.parseJSON(json);
+				
+				var element = "";
+				var iLength = result.length;
+				for (var i = 0; i < iLength; i++) {
+					alat.push({
+						id: result[i].device_id,
+						name: result[i].device_name
+					});
+					element += "<option value='" + result[i].device_id + "'>" + result[i].device_name + "</option>";
+				}
+				$(".select-alat").append(element);
+			}
+		});
+	}
+	
+	function submitPesan(element) {
+		var shipment_id = $(element).closest(".tr-kiriman").data("id");
+		var driver_id = $(element).closest(".tr-kiriman").find(".select-supir").val();
+		var vehicle_id = $(element).closest(".tr-kiriman").find(".select-kendaraan").val();
+		var device_id = $(element).closest(".tr-kiriman").find(".select-alat").val();
+		
+		if (driver_id == "") {
+			alert("tidak ada supir yang dipilih");
+		} else if (vehicle_id == "") {
+			alert("tidak ada kendaraan yang dipilih");
+		} else if (device_id == "") {
+			alert("tidak ada alat yang dipilih");
+		} else {
+			$.ajax({
+				url: '<?= base_url("kiriman-ekspedisi/submitPesan") ?>',
+				data: {
+					shipment_id: shipment_id,
+					driver_id: driver_id,
+					vehicle_id: vehicle_id,
+					device_id: device_id
+				},
+				type: 'POST',
+				error: function(jqXHR, exception) {
+					alert(jqXHR + " : " + jqXHR.responseText);
+				},
+				success: function(result) {
+					if (result == "success") {
+						getKirimanSaya();
+					} else {
+						alert(result);
+					}
+				}
+			});
+		}
+	}
 	
 	function submitDeal(element) {
 		var shipment_id = $(element).closest(".tr-kiriman").data("id");
@@ -177,10 +309,15 @@ $(function() {
 			type: 'POST',
 			error: function(jqXHR, exception) {
 				alert(jqXHR + " : " + jqXHR.responseText);
+				console.log(jqXHR.responseText);
 			},
 			success: function(json) {
 				var result = jQuery.parseJSON(json);
 				addKirimanToTable(result);
+				
+				getKendaraan();
+				getSupir();
+				getAlat();
 			}
 		});
 	}
@@ -190,47 +327,39 @@ $(function() {
 		var element = {
 			"deal": {
 				count: 0,
-				value: ""
+				value: "",
+				btn: "<button class='btn-default btn-action btn-deal'>Deal</button>"
 			},
 			"pending": {
 				count: 0,
-				value: ""
+				value: "",
+				btn: "<button class='btn-default btn-action btn-pesan'>Pesan</button>"
 			},
 			"pesanan": {
 				count: 0,
-				value: ""
+				value: "",
+				btn: "<button class='btn-default btn-action btn-dikirim'>Dikirim</button>"
 			},
 			"dikirim": {
 				count: 0,
-				value: ""
+				value: "",
+				btn: "<button class='btn-default btn-action btn-diambil'>Diambil</button>"
 			},
 			"diambil": {
 				count: 0,
-				value: ""
+				value: "",
+				btn: "<button class='btn-default btn-action btn-diterima'>Diterima</button>"
 			},
 			"diterima": {
 				count: 0,
-				value: ""
+				value: "",
+				btn: "<button class='btn-default btn-action btn-selesai'>Selesai</button>",
 			},
 			"selesai": {
 				count: 0,
-				value: ""
-			},
-			"cancel": {
-				count: 0,
-				value: ""
+				value: "",
+				btn: ""
 			}
-		};
-		
-		var btn = {
-			"deal": "<button class='btn-default btn-action btn-deal'>Deal</button>",
-			"pending": "<button class='btn-default btn-action btn-pesan'>Pesan</button>",
-			"pesanan": "<button class='btn-default btn-action btn-dikirim'>Dikirim</button>",
-			"dikirim": "<button class='btn-default btn-action btn-diambil'>Diambil</button>",
-			"diambil": "<button class='btn-default btn-action btn-diterima'>Diterima</button>",
-			"diterima": "<button class='btn-default btn-action btn-selesai'>Selesai</button>",
-			"selesai": "",
-			"cancel": ""
 		};
 		
 		var tab = "";
@@ -240,35 +369,40 @@ $(function() {
 			var date_to = new Date(result[i].shipment_delivery_date_to);
 			var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear();
 			
+			var additionalTd = "";
+			
 			switch (result[i].shipment_status) {
 				case "0":
 					tab = "deal";
 					break;
 				case "1":
 					tab = "pending";
+					additionalTd = "<td><select class='select-supir'></select></td><td><select class='select-kendaraan'></select></td><td><select class='select-alat'></select></td>";
 					break;
 				case "2":
 					tab = "pesanan";
+					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
 					break;
 				case "3":
 					tab = "dikirim";
+					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
 					break;
 				case "4":
 					tab = "diambil";
+					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
 					break;
 				case "5":
 					tab = "diterima";
+					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
 					break;
 				case "6":
 					tab = "selesai";
-					break;
-				case "7":
-					tab = "cancel";
+					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
 					break;
 			}
 			
 			element[tab].count++;
-			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td><td class='td-berakhir'>" + result[i].berakhir + "</td><td>" + btn[tab] + "</td></tr>";
+			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td><td class='td-berakhir'>" + result[i].berakhir + "</td>" + additionalTd + "<td>" + element[tab].btn + "</td></tr>";
 		}
 		
 		$(".tbody-kiriman").html("");

@@ -57,6 +57,9 @@
 							<td>Asal</td>
 							<td>Tujuan</td>
 							<td>Jarak</td>
+							<td>Supir</td>
+							<td>Kendaraan</td>
+							<td>Lacak</td>
 							<td>Berakhir</td>
 						</tr>
 					</thead>
@@ -73,6 +76,9 @@
 							<td>Asal</td>
 							<td>Tujuan</td>
 							<td>Jarak</td>
+							<td>Supir</td>
+							<td>Kendaraan</td>
+							<td>Lacak</td>
 							<td>Berakhir</td>
 						</tr>
 					</thead>
@@ -89,6 +95,9 @@
 							<td>Asal</td>
 							<td>Tujuan</td>
 							<td>Jarak</td>
+							<td>Supir</td>
+							<td>Kendaraan</td>
+							<td>Lacak</td>
 							<td>Berakhir</td>
 						</tr>
 					</thead>
@@ -105,6 +114,9 @@
 							<td>Asal</td>
 							<td>Tujuan</td>
 							<td>Jarak</td>
+							<td>Supir</td>
+							<td>Kendaraan</td>
+							<td>Lacak</td>
 							<td>Berakhir</td>
 						</tr>
 					</thead>
@@ -121,6 +133,9 @@
 							<td>Asal</td>
 							<td>Tujuan</td>
 							<td>Jarak</td>
+							<td>Supir</td>
+							<td>Kendaraan</td>
+							<td>Lacak</td>
 							<td>Berakhir</td>
 						</tr>
 					</thead>
@@ -183,10 +198,6 @@ $(function() {
 			"selesai": {
 				count: 0,
 				value: ""
-			},
-			"cancel": {
-				count: 0,
-				value: ""
 			}
 		};
 		
@@ -196,6 +207,8 @@ $(function() {
 			var fullDateFrom = date_from.getDate() + " " + month[date_from.getMonth()] + " " + date_from.getFullYear();
 			var date_to = new Date(result[i].shipment_delivery_date_to);
 			var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear();
+			
+			var additionalTd = "";
 			
 			switch (result[i].shipment_status) {
 				case "-1":
@@ -209,26 +222,28 @@ $(function() {
 					break;
 				case "2":
 					tab = "pesanan";
+					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
 					break;
 				case "3":
 					tab = "dikirim";
+					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
 					break;
 				case "4":
 					tab = "diambil";
+					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
 					break;
 				case "5":
 					tab = "diterima";
+					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
 					break;
 				case "6":
 					tab = "selesai";
-					break;
-				case "7":
-					tab = "cancel";
+					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
 					break;
 			}
 			
 			element[tab].count++;
-			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td><td class='td-berakhir'>" + result[i].berakhir + "</td></tr>";
+			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td><td class='td-berakhir'>" + result[i].berakhir + "</td>" + additionalTd + "</tr>";
 		}
 		
 		$(".tbody-kiriman").html("");
