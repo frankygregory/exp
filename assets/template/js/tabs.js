@@ -22,3 +22,7 @@ $(function() {
 		});
 	});
 });
+
+function updateTabsItemCount(tabsNumber, count) {
+	$(".tabs-item[data-tabs-number='" + tabsNumber + "'] .tabs-item-count").html(count);
+}

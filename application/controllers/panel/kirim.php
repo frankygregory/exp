@@ -177,7 +177,7 @@ class Kirim extends MY_Controller
             'shipment_title' => $data[0]->shipment_title,
 			'order_type_name' => $order_type_name,
             'shipment_information' => $data[0]->shipment_information,
-			'pending_by' => $data[0]->pending_by,
+			'shipment_status' => $data[0]->shipment_status,
             'location_from_contact' => $data[0]->location_from_contact,
             'location_from_name' => $data[0]->location_from_name,
             'location_from_address' => $data[0]->location_from_address,

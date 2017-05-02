@@ -6,6 +6,7 @@ class Login extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+		$this->load->model("Login_model");
     }
 
     function create_captcha() {
@@ -56,93 +57,45 @@ class Login extends CI_Controller
 
     public function doLogin()
     {
-//        if ($this->check_captcha()) {
-            if ($this->form_validation->run('login') == FALSE) {
-                $data = array(
-                    'title' => 'Login Yukirim',
-                    'error' => '',
-                    'img' => $this->create_captcha(),
-                );
-                $this->load->view('front/login', $data);
-            } else {
-                $username = $this->input->post('username');
-                $password = $this->input->post('password');
-				
-                if (!preg_match('/^[a-zA-Z0-9_\.]+$/', $username) OR !preg_match('/^[a-zA-Z0-9_\.]+$/', $password)) {
-                    $this->view('front/login', 'Isian harus huruf atau angka');
-                } else {
-                    if ((strlen($username) > 0) OR (strlen($password) > 0)) {
-                        if ($user = $this->db->query("select * from m_user where username = '" . $username . "' limit 1")->result_array()) {
-
-                            if ($user[0]['password'] == md5($password)) {
-
-//                                if ($user[0]['user_level'] == 1) {
-
-                                    $this->setuserdata(
-                                        $user[0]['user_id'],
-                                        $user[0]['username'],
-                                        $user[0]['user_fullname'],
-										$user[0]['group_id'],
-                                        $user[0]['user_level'],
-                                        $user[0]['role_id'],
-                                        'menu',
-                                        'dashboard'
-                                    );
-                                    redirect('dashboard');
-
-/*                                } elseif ($user[0]['user_level'] == 2) {
-                                    if ($user[0]['role_id'] == 1) {
-                                        $this->setuserdata(
-                                            $user[0]['user_id'],
-                                            $user[0]['username'],
-                                            $user[0]['user_fullname'],
-                                            $user[0]['user_level'],
-                                            $user[0]['role_id'],
-                                            'user/consumer/common/menu',
-                                            'consumer/home'
-                                        );
-                                        redirect('consumer/home');
-                                    } elseif ($user[0]['role_id'] == 2) {
-                                        $this->setuserdata(
-                                            $user[0]['user_id'],
-                                            $user[0]['username'],
-                                            $user[0]['user_fullname'],
-                                            $user[0]['user_level'],
-                                            $user[0]['role_id'],
-                                            'user/expedition/common/menu',
-                                            'expedition/home'
-                                        );
-                                        redirect('expedition/home');
-                                    }
-                                }*/
-                            } else {
-                                $data = array(
-                                    'title' => 'Login Yukirim',
-                                    'error' => 'Password salah!!',
-                                    'img' => $this->create_captcha(),
-                                );
-                                $this->load->view('front/login', $data);
-                            }
-                        } else {
-                            $data = array(
-                                'title' => 'Login Yukirim',
-                                'error' => 'Username salah!!',
-                                'img' => $this->create_captcha(),
-                            );
-                            $this->load->view('front/login', $data);
-                        }
-                    }
-                }
-            }
-//        }
-//        else {
-//            $data = array(
-//                'title' => 'Login Yukirim',
-//                'error' => 'Wrong Captcha!!',
-//                'img' => $this->create_captcha(),
-//            );
-//            $this->load->view('front/login', $data);
-//        }
+		if ($this->form_validation->run('login') == FALSE) {
+			$data = array(
+				'title' => 'Login Yukirim',
+				'error' => '',
+				'img' => $this->create_captcha(),
+			);
+			$this->load->view('front/login', $data);
+		} else {
+			$username = $this->input->post('username');
+			$password = $this->input->post('password');
+			
+			if (!preg_match('/^[a-zA-Z0-9_\.]+$/', $username) OR !preg_match('/^[a-zA-Z0-9_\.]+$/', $password)) {
+				$this->view('front/login', 'Isian harus huruf atau angka');
+			} else {
+				if ((strlen($username) > 0) OR (strlen($password) > 0)) {
+					$user = $this->Login_model->login($username, $password);
+					if (sizeof($user) > 0) {
+						$this->setuserdata(
+							$user[0]['user_id'],
+							$user[0]['username'],
+							$user[0]['user_fullname'],
+							$user[0]['group_id'],
+							$user[0]['user_level'],
+							$user[0]['role_id'],
+							'menu',
+							'dashboard'
+						);
+						redirect('dashboard');
+					} else {
+						$data = array(
+							'title' => 'Login Yukirim',
+							'error' => 'Username / Password salah!!',
+							'img' => $this->create_captcha(),
+						);
+						$this->load->view('front/login', $data);
+					}
+				}
+			}
+		}
     }
 
     public function logout()

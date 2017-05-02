@@ -10,7 +10,7 @@
 
 .tabs-item {
 	float: left;
-	width: 90px;
+	width: 100px;
 	padding: 10px 0 10px;
 	text-align: center;
 	cursor: pointer;
@@ -26,7 +26,7 @@
 }
 
 .tabs-selection {
-	width: 90px;
+	width: 100px;
 	height: 5px;
 	margin-top: -5px;
 	background-color: #2196F3;
@@ -39,6 +39,7 @@
 
 .tabs-content {
 	position: absolute;
+	width: 100%;
 	top: 0;
 	left: 0;
 	display: none;

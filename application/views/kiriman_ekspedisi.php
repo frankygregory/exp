@@ -5,7 +5,7 @@
 	<div class="tabs" data-id="asd">
 		<div class="tabs-header">
 			<div class="tabs-item-container">
-				<div class="tabs-item active" data-tabs-number="1">Open (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item active" data-tabs-number="1">Deal (<span class="tabs-item-count">0</span>)</div>
 				<div class="tabs-item" data-tabs-number="2">Pending (<span class="tabs-item-count">0</span>)</div>
 				<div class="tabs-item" data-tabs-number="3">Pesanan (<span class="tabs-item-count">0</span>)</div>
 				<div class="tabs-item" data-tabs-number="4">Dikirim (<span class="tabs-item-count">0</span>)</div>
@@ -26,6 +26,7 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -42,6 +43,7 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -58,6 +60,7 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -74,6 +77,7 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -90,6 +94,7 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -106,6 +111,7 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -122,6 +128,7 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -139,9 +146,34 @@ $(function() {
 	var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	getKirimanSaya();
 	
+	$(document).on("click", ".btn-deal", function() {
+		submitDeal(this);
+	});
+	
+	function submitDeal(element) {
+		var shipment_id = $(element).closest(".tr-kiriman").data("id");
+		$.ajax({
+			url: '<?= base_url("kiriman-ekspedisi/submitDeal") ?>',
+			data: {
+				shipment_id: shipment_id
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					getKirimanSaya();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	}
+	
 	function getKirimanSaya() {
 		$.ajax({
-			url: '<?= base_url("kiriman-saya/getKirimanSaya") ?>',
+			url: '<?= base_url("kiriman-ekspedisi/getKirimanSaya") ?>',
 			type: 'POST',
 			error: function(jqXHR, exception) {
 				alert(jqXHR + " : " + jqXHR.responseText);
@@ -156,7 +188,7 @@ $(function() {
 	function addKirimanToTable(result) {
 		var iLength = result.length;
 		var element = {
-			"open": {
+			"deal": {
 				count: 0,
 				value: ""
 			},
@@ -190,6 +222,17 @@ $(function() {
 			}
 		};
 		
+		var btn = {
+			"deal": "<button class='btn-default btn-action btn-deal'>Deal</button>",
+			"pending": "<button class='btn-default btn-action btn-pesan'>Pesan</button>",
+			"pesanan": "<button class='btn-default btn-action btn-dikirim'>Dikirim</button>",
+			"dikirim": "<button class='btn-default btn-action btn-diambil'>Diambil</button>",
+			"diambil": "<button class='btn-default btn-action btn-diterima'>Diterima</button>",
+			"diterima": "<button class='btn-default btn-action btn-selesai'>Selesai</button>",
+			"selesai": "",
+			"cancel": ""
+		};
+		
 		var tab = "";
 		for (var i = 0; i < iLength; i++) {
 			var date_from = new Date(result[i].shipment_delivery_date_from);
@@ -198,11 +241,8 @@ $(function() {
 			var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear();
 			
 			switch (result[i].shipment_status) {
-				case "-1":
-					tab = "open";
-					break;
 				case "0":
-					tab = "pending";
+					tab = "deal";
 					break;
 				case "1":
 					tab = "pending";
@@ -228,18 +268,19 @@ $(function() {
 			}
 			
 			element[tab].count++;
-			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td><td class='td-berakhir'>" + result[i].berakhir + "</td></tr>";
+			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td><td class='td-berakhir'>" + result[i].berakhir + "</td><td>" + btn[tab] + "</td></tr>";
 		}
 		
 		$(".tbody-kiriman").html("");
-		$(".tabs-content[data-tabs-number='1'] .tbody-kiriman").append(element["open"].value);
+		$(".tabs-content[data-tabs-number='1'] .tbody-kiriman").append(element["deal"].value);
 		$(".tabs-content[data-tabs-number='2'] .tbody-kiriman").append(element["pending"].value);
 		$(".tabs-content[data-tabs-number='3'] .tbody-kiriman").append(element["pesanan"].value);
 		$(".tabs-content[data-tabs-number='4'] .tbody-kiriman").append(element["dikirim"].value);
 		$(".tabs-content[data-tabs-number='5'] .tbody-kiriman").append(element["diambil"].value);
 		$(".tabs-content[data-tabs-number='6'] .tbody-kiriman").append(element["diterima"].value);
 		$(".tabs-content[data-tabs-number='7'] .tbody-kiriman").append(element["selesai"].value);
-		updateTabsItemCount(1, element["open"].count);
+		
+		updateTabsItemCount(1, element["deal"].count);
 		updateTabsItemCount(2, element["pending"].count);
 		updateTabsItemCount(3, element["pesanan"].count);
 		updateTabsItemCount(4, element["dikirim"].count);

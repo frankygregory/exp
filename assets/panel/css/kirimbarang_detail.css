@@ -152,8 +152,8 @@
 .detail-penawaran {
 	display: none;
 	width: 600px;
-	height: 300px;
-	margin-bottom: 10px;
+	margin-bottom: 20px;
+	overflow-y: auto;
 }
 
 td.td-label {
@@ -189,7 +189,7 @@ td.td-action {
 	margin-right: 10px;
 }
 
-.btn-kirim-penawaran {
+.btn-kirim-penawaran, .btn-batal-kirim-penawaran {
 	float: right;
 	margin-top: 10px;
 	margin-right: 5px;

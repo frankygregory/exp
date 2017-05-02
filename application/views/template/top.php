@@ -50,6 +50,9 @@
 			<a href="<?= base_url("kirim") ?>">
 				<div>Cari Kiriman</div>
 			</a>
+			<a href="<?= base_url("kiriman-ekspedisi") ?>">
+				<div>Kiriman</div>
+			</a>
 			<a href="<?= base_url("kendaraan") ?>">
 				<div class="">Kendaraan</div>
 			</a>

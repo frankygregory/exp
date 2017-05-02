@@ -1,0 +1,19 @@
+
+
+.table-kiriman {
+	margin-top: 10px;
+}
+
+.shipment-picture {
+	display: block;
+	width: 150px;
+}
+
+.subsection-sort {
+	float: right;
+}
+
+.btn-action {
+	display: block;
+	margin: 0 auto;
+}
