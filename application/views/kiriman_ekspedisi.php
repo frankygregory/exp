@@ -126,7 +126,6 @@
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
-							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -146,7 +145,6 @@
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
-							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -403,27 +401,27 @@ $(function() {
 			"deal": {
 				count: 0,
 				value: "",
-				btn: "<button class='btn-default btn-action btn-deal'>Deal</button>"
+				btn: "<td><button class='btn-default btn-action btn-deal'>Deal</button></td>"
 			},
 			"pending": {
 				count: 0,
 				value: "",
-				btn: "<button class='btn-default btn-action btn-pesan'>Pesan</button>"
+				btn: "<td><button class='btn-default btn-action btn-pesan'>Pesan</button></td>"
 			},
 			"pesanan": {
 				count: 0,
 				value: "",
-				btn: "<button class='btn-default btn-action btn-dikirim'>Dikirim</button>"
+				btn: "<td><button class='btn-default btn-action btn-dikirim'>Dikirim</button></td>"
 			},
 			"dikirim": {
 				count: 0,
 				value: "",
-				btn: "<button class='btn-default btn-action btn-diambil'>Diambil</button>"
+				btn: "<td><button class='btn-default btn-action btn-diambil'>Diambil</button></td>"
 			},
 			"diambil": {
 				count: 0,
 				value: "",
-				btn: "<button class='btn-default btn-action btn-diterima'>Diterima</button>"
+				btn: "<td><button class='btn-default btn-action btn-diterima'>Diterima</button></td>"
 			},
 			"diterima": {
 				count: 0,
@@ -477,7 +475,7 @@ $(function() {
 			}
 			
 			element[tab].count++;
-			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td><td class='td-berakhir'>" + result[i].berakhir + "</td>" + additionalTd + "<td>" + element[tab].btn + "</td></tr>";
+			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td><td class='td-berakhir'>" + result[i].berakhir + "</td>" + additionalTd + element[tab].btn + "</tr>";
 		}
 		
 		$(".tbody-kiriman").html("");

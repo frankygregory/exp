@@ -16,3 +16,13 @@
 .btn-submit-rating {
 	float: right;
 }
+
+.rating-section {
+	width: 300px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.stars {
+	overflow: auto;
+}

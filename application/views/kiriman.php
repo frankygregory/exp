@@ -149,6 +149,36 @@ $(function() {
 	var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	getKirimanSaya();
 	
+	$(document).on("click", ".btn-submit-rating", function() {
+		submitRating(this);
+	});
+	
+	function submitRating(element) {
+		var shipment_rating_number = getRatingValue();
+		var shipment_rating_feedback = $(element).parent().find("textarea.input-rating-feedback").val();
+		var shipment_id = $(element).closest(".tr-kiriman").data("id");
+		
+		$.ajax({
+			url: '<?= base_url("kiriman-saya/submitRating") ?>',
+			data: {
+				shipment_id: shipment_id,
+				shipment_rating_number: shipment_rating_number,
+				shipment_rating_feedback: shipment_rating_feedback
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					getKirimanSaya();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	}
+	
 	function getKirimanSaya() {
 		$.ajax({
 			url: '<?= base_url("kiriman-saya/getKirimanSaya") ?>',
@@ -205,7 +235,7 @@ $(function() {
 			
 			var additionalTd = "";
 			var berakhir = "";
-			var rating = "";
+			var ratingSection = "";
 			switch (result[i].shipment_status) {
 				case "-1":
 					tab = "open";
@@ -232,7 +262,7 @@ $(function() {
 				case "5":
 					tab = "diterima";
 					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
-					rating = "<td><textarea class='input-rating-feedback'></textarea><button class='btn-default btn-submit-rating'>Submit</button></td>";
+					ratingSection = "<td><div class='rating-section'>" + getRatingJs() + "<textarea class='input-rating-feedback'></textarea><button class='btn-default btn-submit-rating'>Submit</button></div></td>";
 					break;
 				case "6":
 					tab = "selesai";
@@ -241,7 +271,7 @@ $(function() {
 			}
 			
 			element[tab].count++;
-			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + additionalTd + berakhir + rating + "</tr>";
+			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + additionalTd + berakhir + ratingSection + "</tr>";
 		}
 		
 		$(".tbody-kiriman").html("");

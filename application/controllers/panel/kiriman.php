@@ -8,6 +8,7 @@ class Kiriman extends MY_Controller
         parent::__construct();
         $this->load->model("Kiriman_model");
 		$this->loadModule("tabs");
+		$this->loadModule("rating");
     }
 
     public function index()
@@ -35,5 +36,26 @@ class Kiriman extends MY_Controller
 			 $kiriman[$i]->berakhir = $this->secondsToTime($berakhir);
 		 }
 		echo json_encode($kiriman);
+	}
+	
+	public function submitRating() {
+		$user_id = $this->session->userdata("user_id");
+		$shipment_id = $this->input->post("shipment_id");
+		$shipment_rating_number = $this->input->post("shipment_rating_number");
+		$shipment_rating_feedback = $this->input->post("shipment_rating_feedback");
+		
+		$data = array(
+			"shipment_id" => $shipment_id,
+			"user_id" => $user_id,
+			"shipment_rating_number" => $shipment_rating_number,
+			"shipment_rating_feedback" => $shipment_rating_feedback
+		);
+		
+		$affected_rows = $this->Kiriman_model->submitRating($data);
+		if ($affected_rows > 0) {
+			echo "success";
+		} else {
+			echo "no rows affected. WHY??";
+		}
 	}
 }
