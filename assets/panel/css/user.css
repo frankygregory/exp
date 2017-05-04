@@ -1,0 +1,28 @@
+.section-1 {
+	height: 400px;
+	margin-bottom: 50px;
+}
+
+.btn-tambah {
+	margin-bottom: 20px;
+}
+
+.dialog {
+	
+}
+
+.dialog-header {
+	
+}
+
+.dialog-footer {
+	
+}
+
+.btn-submit-tambah, .btn-submit-edit, .btn-batal, .btn-submit-delete {
+	float: right;
+}
+
+.table-group {
+	width: 500px;
+}

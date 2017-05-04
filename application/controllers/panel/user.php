@@ -10,10 +10,9 @@ class User extends MY_Controller
 
     public function index()
     {
-     //   $this->load->model('User_model');
         $data = array(
             'title' => 'User',
-     //       'userdata' => $this->User_model->select_user()
+			"page_title" => "User"
         );
 
         parent::template('user', $data);

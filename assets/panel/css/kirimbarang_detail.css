@@ -19,6 +19,7 @@
 .section-1b {
 	width: 40%;
 	float: right;
+	margin-right: 1%;
 }
 
 .td-label {
@@ -29,11 +30,11 @@
 	width: 10px;
 }
 
-.asal, .tujuan {
-	border: 1px solid black;
+.asal {
+	
 }
 
-.asal-title, .tujuan-title {
+.asal-title {
 	font-size: 14pt;
 	font-weight: bold;
 }

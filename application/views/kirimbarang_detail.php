@@ -93,7 +93,7 @@
 		</div>
 		<div class="section-1b">
 			<div class="asal">
-				<div class="asal-title">Asal</div>
+				<div class="asal-title">Lokasi</div>
 				<table>
 					<tbody>
 						<tr>
@@ -109,24 +109,6 @@
 					</tbody>
 				</table>
 				<div class="form-group" id="map_asal" style="width: 100%; height: 200px"></div>
-			</div>
-			<div class="tujuan">
-				<div class="tujuan-title">Tujuan</div>
-				<table>
-					<tbody>
-						<tr>
-							<td class="td-address-label">Nama Lokasi</td>
-							<td class="td-titikdua">:</td>
-							<td><?= $location_to_name ?></td>
-						</tr>
-						<tr>
-							<td class="td-address-label">Alamat Lokasi</td>
-							<td class="td-titikdua">:</td>
-							<td><?= $location_to_address ?></td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="form-group" id="map_tujuan" style="width: 100%; height: 200px"></div> 
 			</div>
 		</div>
 	
@@ -222,9 +204,9 @@
 	</div>
 </div>
 <script>
-var map_asal, map_tujuan;
-var marker_asal, marker_tujuan;
-var lat, lng, center_from, center_to;
+var map;
+var marker;
+var lat, lng, center_from;
 
 getDiscussions();
 getBiddingList();
@@ -650,37 +632,40 @@ function initMap() {
 	lng = <?= $location_from_lng ?>;
 	center_from = {lat: lat, lng: lng};
 	
-	lat = <?= $location_to_lat ?>;
-	lng = <?= $location_to_lng ?>;
-	center_to = {lat: lat, lng: lng};
+	map = new google.maps.Map(document.getElementById('map_asal'), {
+		scrollwheel: false,
+		disableDoubleClickZoom: true,
+		draggable: false,
+		panControl: false,
+		clickableIcons: false,
+		streetViewControl: false,
+		disableDefaultUI: true
+	});
 	
-	map_asal = new google.maps.Map(document.getElementById('map_asal'), {
-		center: center_from,
-		streetViewControl: false,
-		disableDefaultUI: true,
-		zoom: 17
+	map.addListener("click", function(e) {
+		return false;
 	});
 
-	marker_asal = new google.maps.Marker({
-		position: center_from,
-		draggable: true,
-		map: map_asal
-	});
+	var directionsService = new google.maps.DirectionsService;
+	var directionsDisplay = new google.maps.DirectionsRenderer;
+	directionsDisplay.setMap(map);
+	calculateAndDisplayRoute(directionsService, directionsDisplay);
+}
 
-	map_tujuan = new google.maps.Map(document.getElementById('map_tujuan'), {
-		center: center_to,
-		streetViewControl: false,
-		disableDefaultUI: true,
-		zoom: 17
+function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+	directionsService.route({
+		origin: new google.maps.LatLng(<?= $location_from_lat ?>, <?= $location_from_lng ?>),
+		destination: new google.maps.LatLng(<?= $location_to_lat ?>, <?= $location_to_lng ?>),
+		travelMode: "DRIVING"
+	}, function(response, status) {
+		if (status === "OK") {
+			directionsDisplay.setDirections(response);
+		} else {
+			alert(status);
+		}
 	});
-
-	marker_tujuan = new google.maps.Marker({
-		position: center_to,
-		draggable: true,
-		map: map_tujuan
-	});	
 }
 </script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo&callback=initMap" async defer></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCt0M5ZsAQf8_sLJXsviGEOJHQn15QUKXM&callback=initMap" async defer></script>
 </div>
 </div>
