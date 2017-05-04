@@ -4,7 +4,7 @@
 <div class="content">
 	<div class="section-1">
 		<div class="section-1a">
-			<table>
+			<table class="table-section-1a">
 				<tbody>
 					<tr>
 						<td class="td-label">Keterangan</td>
@@ -38,6 +38,58 @@
 					</tr>
 				</tbody>
 			</table>
+			<div class="subsection">
+				<div class="section-title">Item</div>
+				<?php
+				for ($i = 0; $i < sizeof($items); $i++)
+				{	
+					$item_dimension = "";
+					if ($items[$i]["item_length"] != "") {
+						$item_dimension = $items[$i]["item_length"] . " " . $items[$i]["item_dimension_unit"] . " X " . $items[$i]["item_width"] . " " . $items[$i]["item_dimension_unit"] . " X " . $items[$i]["item_height"] . " " . $items[$i]["item_dimension_unit"];
+					}
+					?>
+					<div class="item">
+						<table class="table-section-left">
+							<tbody>
+								<tr>
+									<td class="td-item-label">Nama</td>
+									<td class="td-titikdua">:</td>
+									<td class="td-item-value"><?= $items[$i]['item_name'] ?></td>
+								</tr>
+								<tr>
+									<td class="td-item-label">Deskripsi</td>
+									<td class="td-titikdua">:</td>
+									<td class="td-item-value"><?= $items[$i]['item_desc'] ?></td>
+								</tr>
+								<tr>
+									<td class="td-item-label">Qty</td>
+									<td class="td-titikdua">:</td>
+									<td class="td-item-value"><?= $items[$i]['item_qty'] ?></td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="table-section-right">
+							<tbody>
+								<tr>
+									<td class="td-item-label">Dimensi</td>
+									<td class="td-titikdua">:</td>
+									<td class="td-item-value"><?= $item_dimension ?></td>
+								</tr>
+								<tr>
+									<td class="td-item-label">Total Kubikasi</td>
+									<td class="td-titikdua">:</td>
+									<td class="td-item-value"><?= $items[$i]['item_kubikasi'] ?>  <?= $items[$i]['item_kubikasi_unit'] ?></td>
+								</tr>
+								<tr>
+									<td class="td-item-label">Total Berat</td>
+									<td class="td-titikdua">:</td>
+									<td class="td-item-value"><?= $items[$i]['item_weight'] ?>  <?= $items[$i]['item_weight_unit'] ?></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+		<?php	}	?>
+			</div>
 		</div>
 		<div class="section-1b">
 			<div class="asal">
@@ -77,75 +129,8 @@
 				<div class="form-group" id="map_tujuan" style="width: 100%; height: 200px"></div> 
 			</div>
 		</div>
-	</div>
-	<div class="section-2">
-		<div class="section-title">Item</div>
-		<?php
-		for ($i = 0; $i < sizeof($items); $i++)
-		{	?>
-			<div class="item">
-				<table>
-					<tbody>
-						<tr>
-							<td class="td-item-label">Nama</td>
-							<td class="td-titikdua">:</td>
-							<td><?= $items[$i]['item_name'] ?></td>
-						</tr>
-						<tr>
-							<td class="td-item-label">Deskripsi</td>
-							<td class="td-titikdua">:</td>
-							<td><?= $items[$i]['item_desc'] ?></td>
-						</tr>
-					</tbody>
-				</table>
-				<table>
-					<tbody>
-						<tr>
-							<td class="td-item-label">Qty</td>
-							<td class="td-titikdua">:</td>
-							<td><?= $items[$i]['item_qty'] ?></td>
-						</tr>
-					</tbody>
-				</table>
-				<table>
-					<tbody>
-						<tr>
-							<td class="td-item-label">Panjang</td>
-							<td class="td-titikdua">:</td>
-							<td><?= $items[$i]['item_length'] ?> <?= $items[$i]['item_dimension_unit'] ?></td>
-						</tr>
-						<tr>
-							<td class="td-item-label">Lebar</td>
-							<td class="td-titikdua">:</td>
-							<td><?= $items[$i]['item_width'] ?> <?= $items[$i]['item_dimension_unit'] ?></td>
-						</tr>
-						<tr>
-							<td class="td-item-label">Tinggi</td>
-							<td class="td-titikdua">:</td>
-							<td><?= $items[$i]['item_height'] ?> <?= $items[$i]['item_dimension_unit'] ?></td>
-						</tr>
-					</tbody>
-				</table>
-				<table>
-					<tbody>
-						<tr>
-							<td class="td-item-label">Total Kubikasi</td>
-							<td class="td-titikdua">:</td>
-							<td><?= $items[$i]['item_kubikasi'] ?>  <?= $items[$i]['item_kubikasi_unit'] ?></td>
-						</tr>
-					</tbody>
-				</table>
-				<table>
-					<tbody>
-						<tr>
-							<td class="td-item-label">Total Berat</td>
-							<td class="td-titikdua">:</td>
-							<td><?= $items[$i]['item_weight'] ?>  <?= $items[$i]['item_weight_unit'] ?></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-<?php	}	?>
+	
+		
 	</div>
 	<div class="section-3">
 		<div class="section-title">Diskusi</div>

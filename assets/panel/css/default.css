@@ -108,6 +108,7 @@ table.table thead tr td {
 table td {
 	font-size: 12pt;
 	padding: 10px 5px;
+	vertical-align: top;
 }
 
 table.table td {

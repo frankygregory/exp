@@ -34,13 +34,14 @@ class Kirim extends MY_Controller
 	}
 	
 	public function getKiriman() {
-		 $kirim = $this->Kirim_model->getListKirimanUmum();
-		 $iLength = sizeof($kirim);
-		 for ($i = 0; $i < $iLength; $i++) {
-			 $berakhir = $kirim[$i]->berakhir;
-			 $kirim[$i]->berakhir = $this->secondsToTime($berakhir);
-		 }
-		 echo json_encode($kirim);
+		$order_by = $this->input->post("order_by");
+		$kirim = $this->Kirim_model->getListKirimanUmum($order_by);
+		$iLength = sizeof($kirim);
+		for ($i = 0; $i < $iLength; $i++) {
+			$berakhir = $kirim[$i]->berakhir;
+			$kirim[$i]->berakhir = $this->secondsToTime($berakhir);
+		}
+		echo json_encode($kirim);
 	}
 
     public function privates()

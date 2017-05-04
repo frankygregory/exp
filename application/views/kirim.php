@@ -34,8 +34,12 @@
 				<div class="form-item">
 					<div class="form-item-label" style="visibility: hidden">sort</div>
 					<select class="select-sort">
-						<option value="shipment_end_date">Tanggal Berakhir</option>
-						<option value="shipment_length">Jarak</option>
+						<option value="created_date desc">Terbaru</option>
+						<option value="created_date asc">Terlama</option>
+						<option value="shipment_end_date asc">Tanggal Berakhir Asc</option>
+						<option value="shipment_end_date desc">Tanggal Berakhir Desc</option>
+						<option value="shipment_length asc">Jarak Asc</option>
+						<option value="shipment_length desc">Jarak Desc</option>
 					</select>
 				</div>
 			</div>
@@ -65,186 +69,19 @@ $(function() {
 	var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	getKiriman();
 	
-	$(".btn-tambah").on("click", function() {
-		showDialog(".dialog-tambah");
-		$(".dialog-tambah .input-nama").select();
+	$(".select-sort").on("change", function() {
+		getKiriman();
 	});
-	
-	$(".dialog-background").on("click", function(e) {
-		if (e.target.className == "dialog-background") {
-			closeDialog();
-		}
-	});
-	
-	$(".btn-submit-tambah").on("click", function() {
-		tambahKendaraan();
-	});
-	
-	$(document).on("click", ".btn-edit", function() {
-		editKendaraan(this);
-	});
-	
-	$(".btn-batal").on("click", function() {
-		closeDialog();
-	});
-	
-	$(".btn-submit-edit").on("click", function() {
-		updateKendaraan();
-	});
-	
-	$(document).on("click", ".btn-toggle", function() {
-		toggleKendaraanAktif(this);
-	});
-	
-	$(document).on("click", ".btn-delete", function() {
-		var namaKendaraan = $(this).closest(".tr-kendaraan").children(".td-name").html();
-		var vehicle_id = $(this).closest(".tr-kendaraan").data("id");
-		$(".dialog-konfirmasi-delete").data("id", vehicle_id);
-		$(".dialog-konfirmasi-delete .dialog-body").html("Delete " + namaKendaraan + "?");
-		showDialog(".dialog-konfirmasi-delete");
-	});
-	
-	$(".btn-submit-delete").on("click", function() {
-		deleteKendaraan(this);
-	});
-	
-	function toggleKendaraanAktif(element) {
-		var vehicle_status = $(element).data("value");
-		var vehicle_id = $(element).closest(".tr-kendaraan").data("id");
-		
-		$.ajax({
-			url: '<?= base_url("kendaraan/toggleKendaraanAktif") ?>',
-			data: {
-				vehicle_id: vehicle_id,
-				vehicle_status: vehicle_status
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				valid = false;
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					getKiriman();
-				} else {
-					alert(result);
-				}
-			}
-		});
-	}
-	
-	function editKendaraan(element) {
-		var id = $(element).data("id");
-		var vehicle_nomor = $(".tr-kendaraan[data-id='" + id + "'] .td-nomor").html();
-		var vehicle_name = $(".tr-kendaraan[data-id='" + id + "'] .td-name").html();
-		var vehicle_information = $(".tr-kendaraan[data-id='" + id + "'] .td-information").html();
-		var vehicle_status = $(".tr-kendaraan[data-id='" + id + "'] .btn-aktif").prop("disabled");
-		
-		if (vehicle_status) {
-			vehicle_status = "1";
-		} else {
-			vehicle_status = "0";
-		}
-		
-		$(".dialog-edit").data("id", id);
-		$(".dialog-edit .input-nopol").val(vehicle_nomor);
-		$(".dialog-edit .input-nama").val(vehicle_name);
-		$(".dialog-edit .input-keterangan").val(vehicle_information);
-		$(".dialog-edit .input-status").val(vehicle_status);
-		
-		showDialog(".dialog-edit");
-	}
-	
-	function updateKendaraan() {
-		var vehicle_id = $(".dialog-edit").data("id");
-		var vehicle_nomor = $(".dialog-edit .input-nopol").val();
-		var vehicle_name = $(".dialog-edit .input-nama").val();
-		var vehicle_information = $(".dialog-edit .input-keterangan").val();
-		var vehicle_status = $(".dialog-edit .input-status").val();
-		
-		$.ajax({
-			url: '<?= base_url("kendaraan/updateKendaraan") ?>',
-			data: {
-				submit_update: true,
-				vehicle_id: vehicle_id,
-				vehicle_nomor: vehicle_nomor,
-				vehicle_name: vehicle_name,
-				vehicle_information: vehicle_information,
-				vehicle_status: vehicle_status
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				valid = false;
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getKiriman();
-				} else {
-					alert(result);
-				}
-			}
-		});
-	}
-	
-	function tambahKendaraan() {
-		var vehicle_nomor = $(".dialog-tambah .input-nopol").val();
-		var vehicle_name = $(".dialog-tambah .input-nama").val();
-		var vehicle_information = $(".dialog-tambah .input-keterangan").val();
-		var vehicle_status = $(".dialog-tambah .input-status").val();
-		
-		$.ajax({
-			url: '<?= base_url("kendaraan/tambahKendaraan") ?>',
-			data: {
-				submit_tambah: true,
-				vehicle_nomor: vehicle_nomor,
-				vehicle_name: vehicle_name,
-				vehicle_information: vehicle_information,
-				vehicle_status: vehicle_status
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				valid = false;
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getKiriman();
-				}
-			}
-		});
-	}
-	
-	function deleteKendaraan(element) {
-		var vehicle_id = $(".dialog-konfirmasi-delete").data("id");
-		$.ajax({
-			url: '<?= base_url("kendaraan/deleteKendaraan") ?>',
-			data: {
-				submit_delete: true,
-				vehicle_id: vehicle_id
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				valid = false;
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getKiriman();
-				}
-			}
-		});
-	}
 	
 	function getKiriman() {
+		var order_by = $(".select-sort").val();
 		$.ajax({
 			url: '<?= base_url("kirim/getKiriman") ?>',
+			data: {
+				order_by: order_by
+			},
 			type: 'POST',
 			error: function(jqXHR, exception) {
-				valid = false;
 				alert(jqXHR + " : " + jqXHR.responseText);
 			},
 			success: function(json) {

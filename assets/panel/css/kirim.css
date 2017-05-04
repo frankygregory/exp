@@ -44,3 +44,8 @@ a.btn-kirim-barang {
 .subsection-sort {
 	float: right;
 }
+
+.subsection-sort .form-item {
+	width: 200px;
+	float: right;
+}
