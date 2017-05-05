@@ -19,6 +19,10 @@ class Account_model extends CI_Model
 	
 	public function updateCertainField($data) {
 		$this->db->where("user_id", $data["user_id"]);
+		if ($data["field"] == "password") {
+			$this->db->where("password", $data["old"]);
+		}
+		
 		$updateData = array(
 			$data["field"] => $data["value"],
 			"modified_by" => $data["user_id"]
@@ -31,4 +35,5 @@ class Account_model extends CI_Model
 		}
 		return $this->db->affected_rows();
 	}
+	
 }

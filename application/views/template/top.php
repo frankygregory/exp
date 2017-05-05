@@ -29,7 +29,12 @@
     <div class="navigation-header">
 		<a href="<?= base_url() ?>" class="logo">Yukirim</a>
 		<div class="nav-account">
-			<div><?= $this->session->userdata("user_fullname") ?><span></span></div>
+			<div class="fullname"><?= $this->session->userdata("user_fullname") ?></div>
+			<span class="dropdown-icon">
+				<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+					<path fill="#FFFFFF" d="M7,10L12,15L17,10H7Z" />
+				</svg>
+			</span>
 			<div class="profile-dropdown">
 				<a href="<?= base_url("account-settings") ?>" class="profile-menu">Account Settings</a>
 				<a href="<?= base_url("logout") ?>" class="profile-menu">Logout</a>

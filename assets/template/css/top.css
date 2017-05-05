@@ -38,6 +38,15 @@
 	background-color: rgba(0, 0, 0, 0.2);
 }
 
+.nav-account .fullname {
+	float: left;
+}
+
+.nav-account .dropdown-icon {
+	display: inline-block;
+	margin-left: 5px;
+}
+
 .profile-dropdown {
 	display: none;
 	position: absolute;

@@ -28,19 +28,25 @@ class Account extends MY_Controller
 		$value = $this->input->post("value");
 		$table = $this->input->post("table");
 		$user_id = $this->session->userdata("user_id");
+		$old = "";
+		if ($field == "password") {
+			$old = md5($this->input->post("old"));
+			$value = md5($value);
+		}
 		
 		$data = array(
 			"field" => $field,
 			"value" => $value,
 			"table" => $table,
-			"user_id" => $user_id
+			"user_id" => $user_id,
+			"old" => $old
 		);
 		
 		$affected_rows = $this->Account_model->updateCertainField($data);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {
-			echo "no rows affected. WHY??";
+			echo "null";
 		}
 	}
 }

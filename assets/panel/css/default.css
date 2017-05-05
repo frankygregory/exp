@@ -21,7 +21,7 @@
 	font-weight: bold;
 }
 
-input[type="text"], input[type="file"], textarea, select {
+input[type="text"], input[type="password"], input[type="file"], textarea, select {
 	width: 100%;
 	font-size: 12pt;
 	padding: 8px 7px;

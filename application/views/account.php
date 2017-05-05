@@ -9,7 +9,7 @@
 					<td class="td-label">Tipe</td>
 					<td class="td-value">
 						<span class="span-value"><?= $data->type_name ?></span>
-						<span class="edit-icon" data-table="1" data-field="type_name" data-input-type="tipe" data-value="<?= $data->type_id ?>">Edit</span>
+						<span class="edit-icon" data-table="1" data-field="type_id" data-input-type="tipe" data-value="<?= $data->type_id ?>">Edit</span>
 					</td>
 				</tr>
 				<tr>
@@ -65,15 +65,15 @@
 				</tr>
 				<tr>
 					<td class="td-label">NPWP</td>
-					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="" data-input-type="text">Edit</span></td>
+					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="" data-input-type="">Edit</span></td>
 				</tr>
 				<tr>
 					<td class="td-label">SIUP</td>
-					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="" data-input-type="text">Edit</span></td>
+					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="" data-input-type="">Edit</span></td>
 				</tr>
 				<tr>
 					<td class="td-label">TDP</td>
-					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="" data-input-type="text">Edit</span></td>
+					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="" data-input-type="">Edit</span></td>
 				</tr>
 			</tbody>
 		</table>
@@ -128,6 +128,23 @@ $(function() {
 				element = "<label><input class='input-value' type='radio' name='" + field + "' value='1' " + checked1 + "/>Individu</label>";
 				element += "<label><input class='input-value' type='radio' name='" + field + "' value='2' " + checked2 + "/>Perusahaan</label>";
 				break;
+			case "password":
+				element = "<div class='form-item'>";
+				element += "<div class='form-item-label'>Password lama</div>";
+				element += "<input type='password' class='input-password-lama' maxlength='40' />";
+				element += "<div class='error'></div>";
+				element += "</div>";
+				element += "<div class='form-item'>";
+				element += "<div class='form-item-label'>Password baru</div>";
+				element += "<input type='password' class='input-value input-password-baru' maxlength='40' />";
+				element += "<div class='error'></div>";
+				element += "</div>";
+				element += "<div class='form-item'>";
+				element += "<div class='form-item-label'>Konfirmasi password baru</div>";
+				element += "<input type='password' class='input-konfirmasi-password' maxlength='40' />";
+				element += "<div class='error'></div>";
+				element += "</div>";
+				break;
 		}
 		
 		$(".dialog-edit .dialog-body").html(element);
@@ -166,17 +183,52 @@ function cekInput() {
 			valid = false;
 			$(".dialog-edit .error").html(label + " harus diisi");
 		}
+	} else if (type == "password") {
+		var lama = $(".dialog-edit .input-password-lama").val();
+		var baru = $(".dialog-edit .input-password-baru").val();
+		var konfirm = $(".dialog-edit .input-konfirmasi-password").val();
+		
+		var kosong = false;
+		if (lama == "" || lama == undefined) {
+			valid = false;
+			kosong = true;
+			$(".dialog-edit .input-password-lama").next().html("Password lama harus diisi");
+		}
+		if (baru == "" || baru == undefined) {
+			valid = false;
+			kosong = true;
+			$(".dialog-edit .input-password-baru").next().html("Password baru harus diisi");
+		}
+		if (konfirm == "" || konfirm == undefined) {
+			valid = false;
+			kosong = true;
+			$(".dialog-edit .input-konfirmasi-password").next().html("Konfirmasi password baru harus diisi");
+		}
+		
+		if (!kosong) {
+			if (baru != konfirm) {
+				valid = false;
+				$(".dialog-edit .input-konfirmasi-password").next().html("Konfirmasi password baru harus sama dengan password baru");
+			}
+		}
 	}
+	
 	return valid;
 }
 
 function updateData() {
-	var field = $(".dialog-edit").data("field");
-	var table = $(".dialog-edit").data("table");
-	var value = $(".dialog-edit .input-value").val();
-	
 	var valid = cekInput();
 	if (valid) {
+		var field = $(".dialog-edit").data("field");
+		var table = $(".dialog-edit").data("table");
+		var type = $(".dialog-edit").data("type");
+		var value;
+		if (type == "text" || type == "textarea") {
+			value = $(".dialog-edit .input-value").val();
+		} else if (type == "tipe") {
+			value = $(".dialog-edit .input-value[name='" + field + "']:checked").val();
+		}
+	
 		$.ajax({
 			url: '<?= base_url("account-settings/updateCertainField") ?>',
 			data: {
@@ -191,8 +243,10 @@ function updateData() {
 			success: function(result) {
 				if (result == "success") {
 					window.location.reload(true);
-				} else {
-					alert(result);
+				} else if (result == "null") {
+					if ($(".dialog-edit").data("type") == "password") {
+						alert("Password lama salah");
+					}
 				}
 			}
 		});
