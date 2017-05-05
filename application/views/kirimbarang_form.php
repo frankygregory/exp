@@ -98,6 +98,7 @@
 					</div>
 				</div>
 			</div>
+			<input type="hidden" id="shipment_length" name="shipment_length" value="" />
 		</div>
 		<div class="section-3">
 			<div class="section-title">3 | Tambah Barang</div>
@@ -267,7 +268,23 @@
 		nama: "", qty: "", deskripsi: "", panjang: "", lebar: "", tinggi: "", kubikasi: "", berat: ""
    };
    
+   var location_from_address = {
+	   autocomplete_clicked: false,
+	   changed: false
+   }
+   
+   var location_to_address = {
+	   autocomplete_clicked: false,
+	   changed: false
+   }
+   
 $(function() {
+	$(document).on("keypress", function(e) {
+		if (e.which == 13) { //ENTER
+			e.preventDefault();
+		}
+	});
+	
 	$(".input-gambar").on("change", function() {
 		var reader = new FileReader();
 		reader.onload = function(e) {
@@ -290,312 +307,392 @@ $(function() {
 
 });
 	
-	function addItem() {
-		valid = true;
-		clearAllErrors();
-		
-		var nama = $(".input-nama-barang").val();
-		var qty = $(".input-qty-barang").val();
-		var deskripsi = $(".input-deskripsi-barang").val();
-		var panjang, lebar, tinggi, dimensi_satuan, kubikasi, kubikasi_satuan, berat, berat_satuan;
-		var select_dimensi = "", select_kubikasi = "", select_berat = "";
-		
-		if (nama == "") {
-			error.nama = "Nama harus diisi";
-			valid = false;
-		}
-		if (qty == "") {
-			error.qty = "Qty harus diisi";
-			valid = false;
-		}
-		if (deskripsi == "") {
-			error.deskripsi = "Deskripsi harus diisi";
-			valid = false;
-		}
-		
-		var checked = $("input[name='pilihan']:checked").val();
-		switch (checked) {
-			case "dimensi":
-				panjang = $(".input-panjang-barang").val();
-				lebar = $(".input-lebar-barang").val();
-				tinggi = $(".input-tinggi-barang").val();
-				dimensi_satuan = $(".input-satuan-dimensi-barang").val();
-				select_dimensi = panjang + " " + dimensi_satuan + "<br>" + lebar + " " + dimensi_satuan + "<br>" + tinggi + " " + dimensi_satuan;
-				
-				if (panjang == "") {
-					valid = false;
-					error.panjang = "Panjang harus diisi";
-				}
-				if (lebar == "") {
-					valid = false;
-					error.lebar = "Lebar harus diisi";
-				}
-				if (tinggi == "") {
-					valid = false;
-					error.tinggi = "Tinggi harus diisi";
-				}
-				
-				break;
-			case "kubikasi":
-				kubikasi = $(".input-kubikasi-barang").val();
-				kubikasi_satuan = $(".input-satuan-kubikasi-barang").val();
-				select_kubikasi = kubikasi + " " + kubikasi_satuan;
-				if (kubikasi == "") {
-					valid = false;
-					error.kubikasi = "Kubikasi harus diisi";
-				}
-				break;
-			case "berat":
-				berat = $(".input-berat-barang").val();
-				berat_satuan = $(".input-satuan-berat-barang").val();
-				select_berat = berat + " " + berat_satuan;
-				if (berat == "") {
-					valid = false;
-					error.berat = "Berat harus diisi";
-				}
-				break;
-		}
-		
-		showErrors();
-		
-		if (valid) {
-			var count = parseInt($(".detail-count").val());
+function addItem() {
+	valid = true;
+	clearAllErrors();
+	
+	var nama = $(".input-nama-barang").val();
+	var qty = $(".input-qty-barang").val();
+	var deskripsi = $(".input-deskripsi-barang").val();
+	var panjang, lebar, tinggi, dimensi_satuan, kubikasi, kubikasi_satuan, berat, berat_satuan;
+	var select_dimensi = "", select_kubikasi = "", select_berat = "";
+	
+	if (nama == "") {
+		error.nama = "Nama harus diisi";
+		valid = false;
+	}
+	if (qty == "") {
+		error.qty = "Qty harus diisi";
+		valid = false;
+	}
+	if (deskripsi == "") {
+		error.deskripsi = "Deskripsi harus diisi";
+		valid = false;
+	}
+	
+	var checked = $("input[name='pilihan']:checked").val();
+	switch (checked) {
+		case "dimensi":
+			panjang = $(".input-panjang-barang").val();
+			lebar = $(".input-lebar-barang").val();
+			tinggi = $(".input-tinggi-barang").val();
+			dimensi_satuan = $(".input-satuan-dimensi-barang").val();
+			select_dimensi = panjang + " " + dimensi_satuan + "<br>" + lebar + " " + dimensi_satuan + "<br>" + tinggi + " " + dimensi_satuan;
 			
-			var input_nama = "<input type='hidden' value='" + nama + "' name='item-name-" + count + "' />";
-			var input_qty = "<input type='hidden' value='" + qty + "' name='item-qty-" + count + "' />";
-			var input_deskripsi = "<input type='hidden' value='" + deskripsi + "' name='item-deskripsi-" + count + "' />";
-			
-			var input_panjang = "", input_lebar = "", input_tinggi = "", input_dimensi_satuan = "", input_kubikasi = "", input_kubikasi_satuan = "", input_berat = "", input_berat_satuan = "";
-			
-			if (select_dimensi != "") {
-				input_panjang = "<input type='hidden' value='" + panjang + "' name='item-panjang-" + count + "' />";
-				input_lebar = "<input type='hidden' value='" + lebar + "' name='item-lebar-" + count + "' />";
-				input_tinggi = "<input type='hidden' value='" + tinggi + "' name='item-tinggi-" + count + "' />";
-				input_dimensi_satuan = "<input type='hidden' value='" + dimensi_satuan + "' name='item-dimensi-satuan-" + count + "' />";
-			} else if (select_kubikasi != "") {
-				input_kubikasi = "<input type='hidden' value='" + kubikasi + "' name='item-kubikasi-" + count + "' />";
-				input_kubikasi_satuan = "<input type='hidden' value='" + kubikasi_satuan + "' name='item-kubikasi-satuan-" + count + "' />";
-			} else {
-				input_berat = "<input type='hidden' value='" + berat + "' name='item-berat-" + count + "' />";
-				input_berat_satuan = "<input type='hidden' value='" + berat_satuan + "' name='item-berat-satuan-" + count + "' />";
+			if (panjang == "") {
+				valid = false;
+				error.panjang = "Panjang harus diisi";
+			}
+			if (lebar == "") {
+				valid = false;
+				error.lebar = "Lebar harus diisi";
+			}
+			if (tinggi == "") {
+				valid = false;
+				error.tinggi = "Tinggi harus diisi";
 			}
 			
-			$(".section-4-table tbody").append("<tr><td>" + nama + input_nama + "</td><td>" + qty + input_qty + "</td><td>" + deskripsi + input_deskripsi + "</td><td>" + select_dimensi + input_panjang + input_lebar + input_tinggi + input_dimensi_satuan + "</td><td>" + select_kubikasi + input_kubikasi + input_kubikasi_satuan + "</td><td>" + select_berat + input_berat + input_berat_satuan + "</td><td></td></tr>");
-			
-			$(".detail-count").val((count + 1));
+			break;
+		case "kubikasi":
+			kubikasi = $(".input-kubikasi-barang").val();
+			kubikasi_satuan = $(".input-satuan-kubikasi-barang").val();
+			select_kubikasi = kubikasi + " " + kubikasi_satuan;
+			if (kubikasi == "") {
+				valid = false;
+				error.kubikasi = "Kubikasi harus diisi";
+			}
+			break;
+		case "berat":
+			berat = $(".input-berat-barang").val();
+			berat_satuan = $(".input-satuan-berat-barang").val();
+			select_berat = berat + " " + berat_satuan;
+			if (berat == "") {
+				valid = false;
+				error.berat = "Berat harus diisi";
+			}
+			break;
+	}
+	
+	showErrors();
+	
+	if (valid) {
+		var count = parseInt($(".detail-count").val());
+		
+		var input_nama = "<input type='hidden' value='" + nama + "' name='item-name-" + count + "' />";
+		var input_qty = "<input type='hidden' value='" + qty + "' name='item-qty-" + count + "' />";
+		var input_deskripsi = "<input type='hidden' value='" + deskripsi + "' name='item-deskripsi-" + count + "' />";
+		
+		var input_panjang = "", input_lebar = "", input_tinggi = "", input_dimensi_satuan = "", input_kubikasi = "", input_kubikasi_satuan = "", input_berat = "", input_berat_satuan = "";
+		
+		if (select_dimensi != "") {
+			input_panjang = "<input type='hidden' value='" + panjang + "' name='item-panjang-" + count + "' />";
+			input_lebar = "<input type='hidden' value='" + lebar + "' name='item-lebar-" + count + "' />";
+			input_tinggi = "<input type='hidden' value='" + tinggi + "' name='item-tinggi-" + count + "' />";
+			input_dimensi_satuan = "<input type='hidden' value='" + dimensi_satuan + "' name='item-dimensi-satuan-" + count + "' />";
+		} else if (select_kubikasi != "") {
+			input_kubikasi = "<input type='hidden' value='" + kubikasi + "' name='item-kubikasi-" + count + "' />";
+			input_kubikasi_satuan = "<input type='hidden' value='" + kubikasi_satuan + "' name='item-kubikasi-satuan-" + count + "' />";
+		} else {
+			input_berat = "<input type='hidden' value='" + berat + "' name='item-berat-" + count + "' />";
+			input_berat_satuan = "<input type='hidden' value='" + berat_satuan + "' name='item-berat-satuan-" + count + "' />";
 		}
-	}
-	
-	function clearAllErrors() {
-		error.nama = "";
-		error.qty = "";
-		error.deskripsi = "";
-		error.panjang = "";
-		error.lebar = "";
-		error.tinggi = "";
-		error.kubikasi = "";
-		error.berat = "";
-	}
-	
-	function showErrors() {
-		$(".error[data-type='nama']").html(error.nama);
-		$(".error[data-type='qty']").html(error.qty);
-		$(".error[data-type='deskripsi']").html(error.deskripsi);
-		$(".error[data-type='panjang']").html(error.panjang);
-		$(".error[data-type='lebar']").html(error.lebar);
-		$(".error[data-type='tinggi']").html(error.tinggi);
-		$(".error[data-type='kubikasi']").html(error.kubikasi);
-		$(".error[data-type='berat']").html(error.berat);
-	}
-
-    var map_asal,map_tujuan;
-    var marker_asal,marker_tujuan;
-	var autocomplete_asal, autocomplete_tujuan;
-    var center_from = {lat: 0, lng: 0};
-    var center_to = {lat: 0, lng: 0};//{lat: -7.2653524, lng: 112.7454884};
-
-    function updatePosition(div, lat, lng) {
-        $("#"+div).val(lat.toFixed(4)+', '+lng.toFixed(4));
-    }
-
-    function initialize() {
-        input = document.getElementById('location_from_address');
-        autocomplete_asal = new google.maps.places.Autocomplete(input);
-        input = document.getElementById('location_to_address');
-        autocomplete_tujuan = new google.maps.places.Autocomplete(input);
 		
-		autocomplete_asal.addListener('place_changed', function() {
-			var place = autocomplete_asal.getPlace();
-			$("#location_from_name").val(place.name);
-		});
+		$(".section-4-table tbody").append("<tr><td>" + nama + input_nama + "</td><td>" + qty + input_qty + "</td><td>" + deskripsi + input_deskripsi + "</td><td>" + select_dimensi + input_panjang + input_lebar + input_tinggi + input_dimensi_satuan + "</td><td>" + select_kubikasi + input_kubikasi + input_kubikasi_satuan + "</td><td>" + select_berat + input_berat + input_berat_satuan + "</td><td></td></tr>");
 		
-		autocomplete_tujuan.addListener('place_changed', function() {
-			var place = autocomplete_tujuan.getPlace();
-			$("#location_to_name").val(place.name);
-		});
-    }
+		$(".detail-count").val((count + 1));
+		
+		clearTambahBarang();
+	}
+}
 
-    function initMap() {
-        latlng = "<?=$location_from_latlng;?>";
-        if (latlng.length>0) {
-            lat = latlng.substr(0,latlng.indexOf(",")-1)*1;
-            lng = latlng.substr(latlng.indexOf(" ")+1)*1;
-            center_from = {lat: lat, lng: lng};
-        }
+function clearTambahBarang() {
+	$(".input-nama-barang").val("");
+	$(".input-qty-barang").val("");
+	$(".input-deskripsi-barang").val("");
+	$(".input-panjang-barang").val("");
+	$(".input-lebar-barang").val("");
+	$(".input-tinggi-barang").val("");
+	$(".input-kubikasi-barang").val("");
+	$(".input-berat-barang").val("");
+}
 
-        latlng = "<?=$location_to_latlng;?>";
-        if (latlng.length>0) {
-            lat = latlng.substr(0,latlng.indexOf(",")-1)*1;
-            lng = latlng.substr(latlng.indexOf(" ")+1)*1;
-            center_to = {lat: lat, lng: lng};
-        }
+function clearAllErrors() {
+	error.nama = "";
+	error.qty = "";
+	error.deskripsi = "";
+	error.panjang = "";
+	error.lebar = "";
+	error.tinggi = "";
+	error.kubikasi = "";
+	error.berat = "";
+}
 
-        map_asal = new google.maps.Map(document.getElementById('map_asal'), {
-          center: center_from,
-          streetViewControl: false,
-          disableDefaultUI: true,
-          zoom: 17
-        });
+function showErrors() {
+	$(".error[data-type='nama']").html(error.nama);
+	$(".error[data-type='qty']").html(error.qty);
+	$(".error[data-type='deskripsi']").html(error.deskripsi);
+	$(".error[data-type='panjang']").html(error.panjang);
+	$(".error[data-type='lebar']").html(error.lebar);
+	$(".error[data-type='tinggi']").html(error.tinggi);
+	$(".error[data-type='kubikasi']").html(error.kubikasi);
+	$(".error[data-type='berat']").html(error.berat);
+}
 
-        marker_asal = new google.maps.Marker({
-            position: center_from,
-            draggable: true,
-            map: map_asal
-        });
+var map_asal,map_tujuan;
+var marker_asal,marker_tujuan;
+var autocomplete_asal, autocomplete_tujuan;
+var center_from = {lat: 0, lng: 0};
+var center_to = {lat: 0, lng: 0};//{lat: -7.2653524, lng: 112.7454884};
 
-        google.maps.event.addListener(marker_asal, 'dragend', function () {
-            map_asal.setCenter(this.getPosition()); // Set map center to marker position
-            updatePosition("location_from_latlng",this.getPosition().lat(), this.getPosition().lng()); // update position display
-            latlng = {lat: parseFloat(this.getPosition().lat()),lng: parseFloat(this.getPosition().lng())};
-            var geocoder = new google.maps.Geocoder;
-            geocoder.geocode({'location': latlng}, function(results, status) {
-              if (status === 'OK') {
-                if (results[1]) {
-                  $("#location_from_address").val(results[0].formatted_address);
-                } else {
-                  window.alert('No results found');
-                }
-              } else {
-                window.alert('Geocoder failed due to: ' + status);
-              }
-            });
-        });
+function updatePosition(div, lat, lng) {
+	$("#"+div).val(lat +', '+lng);
+}
 
-        map_tujuan = new google.maps.Map(document.getElementById('map_tujuan'), {
-          center: center_to,
-          streetViewControl: false,
-          disableDefaultUI: true,
-          zoom: 17
-        });
-
-        marker_tujuan = new google.maps.Marker({
-            position: center_to,
-            draggable: true,
-            map: map_tujuan
-        });
-
-        google.maps.event.addListener(marker_tujuan, 'dragend', function () {
-            map_tujuan.setCenter(this.getPosition()); // Set map center to marker position
-            updatePosition("location_to_latlng",this.getPosition().lat(), this.getPosition().lng()); // update position display
-            latlng = {lat: parseFloat(this.getPosition().lat()),lng: parseFloat(this.getPosition().lng())};
-            var geocoder = new google.maps.Geocoder;
-            geocoder.geocode({'location': latlng}, function(results, status) {
-              if (status === 'OK') {
-                if (results[1]) {
-                  $("#location_to_address").val(results[0].formatted_address);
-                } else {
-                  window.alert('No results found');
-                }
-              } else {
-                window.alert('Geocoder failed due to: ' + status);
-              }
-            });
-        });
-
-        updatePosition("location_from_latlng",center_from.lat,center_from.lng);
-        updatePosition("location_to_latlng",center_to.lat,center_to.lng);
-        google.maps.event.addDomListener(window, 'load', initialize);
-    }
-
-    function get_lat_long(mode,address) {
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': address}, function(results, status) {
-            var lat = results[0].geometry.location.lat()*1;
-            var lng = results[0].geometry.location.lng()*1;
-
-            if (mode=="from") {
-                $("#location_from_latlng").val(lat.toFixed(4)+", "+lng.toFixed(4));
-                marker_asal.setPosition( new google.maps.LatLng(lat,lng) );
-                map_asal.panTo( new google.maps.LatLng(lat,lng) );
-            }
-            else if (mode=="to") {
-                $("#location_to_latlng").val(lat.toFixed(4)+", "+lng.toFixed(4));
-                marker_tujuan.setPosition( new google.maps.LatLng(lat,lng) );
-                map_tujuan.panTo( new google.maps.LatLng(lat,lng) );
-            }
-            //alert(lat+" and "+lng);
+function initialize() {
+	input = document.getElementById('location_from_address');
+	autocomplete_asal = new google.maps.places.Autocomplete(input);
+	input = document.getElementById('location_to_address');
+	autocomplete_tujuan = new google.maps.places.Autocomplete(input);
+	
+	autocomplete_asal.addListener('place_changed', function() {
+		var place = autocomplete_asal.getPlace();
+		$("#location_from_name").val(place.name);
+		var latlng = place.geometry.location;
+		get_lat_long('location', latlng, "location_from_latlng");
+		
+		var to_address = $("#location_to_address").val();
+		if (to_address != "") {
+			var to_latlng = $("#location_to_latlng").val().split(",");
+			var to_lat = parseFloat(to_latlng[0]);
+			var to_lng = parseFloat(to_latlng[1]);
 			
-        });
-    }
+			to_latlng = new google.maps.LatLng(to_lat, to_lng);
+			callDistanceMatrixService(latlng, to_latlng);
+		}
+	});
+	
+	autocomplete_tujuan.addListener('place_changed', function() {
+		var place = autocomplete_tujuan.getPlace();
+		$("#location_to_name").val(place.name);
+		var latlng = place.geometry.location;
+		get_lat_long('location', latlng, "location_to_latlng");
+		
+		var from_address = $("#location_from_address").val();
+		if (from_address != "") {
+			var from_latlng = $("#location_from_latlng").val().split(",");
+			var from_lat = parseFloat(to_latlng[0]);
+			var from_lng = parseFloat(to_latlng[1]);
+			
+			from_latlng = new google.maps.LatLng(from_lat, from_lng);
+			callDistanceMatrixService(latlng, from_latlng);
+		}
+	});
+}
 
-    $("#location_from_address").change(function() {
-        get_lat_long('from',$(this).val());
-    });
+function callDistanceMatrixService(from_latlng, to_latlng) {
+	var distanceMatrix = new google.maps.DistanceMatrixService();
+	distanceMatrix.getDistanceMatrix({
+		origins: [from_latlng],
+		destinations: [to_latlng],
+		travelMode: "DRIVING",
+		avoidHighways: false,
+		avoidTolls: false
+	}, distanceMatrixCallback);
+}
 
-    $("#location_to_address").change(function() {
-        get_lat_long('to',$(this).val());
-    });
+function distanceMatrixCallback(response, status) {
+	if (status == "OK") {
+		var origins = response.originAddresses;
+		var destinations = response.destinationAddresses;
+				
+		var results = response.rows[0].elements;
+		var element = results[0];
+		var distance = element.distance.value; //distance in meter
+		distance /= 1000;
+		
+		$("#shipment_length").val(distance);
+	}
+}
 
-    $("#location_from_address").blur(function() {
-        $("#location_from_address").change();
-    });
+function initMap() {
+	latlng = "<?=$location_from_latlng;?>";
+	if (latlng.length>0) {
+		lat = latlng.substr(0,latlng.indexOf(",")-1)*1;
+		lng = latlng.substr(latlng.indexOf(" ")+1)*1;
+		center_from = {lat: lat, lng: lng};
+	}
 
-    $("#location_to_address").blur(function() {
-        $("#location_to_address").change();
-    });
+	latlng = "<?=$location_to_latlng;?>";
+	if (latlng.length>0) {
+		lat = latlng.substr(0,latlng.indexOf(",")-1)*1;
+		lng = latlng.substr(latlng.indexOf(" ")+1)*1;
+		center_to = {lat: lat, lng: lng};
+	}
 
-    $("#location_from_latlng").on("change",function() {
-        latlng = $("#location_from_latlng").val();
-        lat = substr(latlng,0,strpos(latlng,",")-1)*1;
-        lng = substr(latlng,strpos(latlng," ")+1)*1;
-        marker_asal.setPosition( new google.maps.LatLng(lat,lng) );
-        map_asal.panTo( new google.maps.LatLng(lat,lng) );
-    });
+	map_asal = new google.maps.Map(document.getElementById('map_asal'), {
+	  center: center_from,
+	  streetViewControl: false,
+	  disableDefaultUI: true,
+	  zoom: 17
+	});
 
-    $("#location_to_latlng").change(function() {
-        latlng = $("#location_to_latlng").val();
-        lat = substr(latlng,0,strpos(latlng,",")-1)*1;
-        lng = substr(latlng,strpos(latlng," ")+1)*1;
-        marker_tujuan.setPosition( new google.maps.LatLng(lat,lng) );
-        map_tujuan.panTo( new google.maps.LatLng(lat,lng) );
-    });
+	marker_asal = new google.maps.Marker({
+		position: center_from,
+		draggable: true,
+		map: map_asal
+	});
 
-    $(".location_history").change(function() {
-        str = $(this).val();
-        sContact = str.substr(0,str.indexOf('###'));
-        str = str.substr(str.indexOf('###')+3);
-        sAddr = str.substr(0,str.indexOf('###'));
-        str = str.substr(str.indexOf('###')+3);
-        sDetail = str.substr(0,str.indexOf('###'));
-        str = str.substr(str.indexOf('###')+3);
-        sLat = str.substr(0,str.indexOf('###'));
-        sLng = str.substr(str.indexOf('###')+3);
+	google.maps.event.addListener(marker_asal, 'dragend', function () {
+		map_asal.setCenter(this.getPosition()); // Set map center to marker position
+		updatePosition("location_from_latlng",this.getPosition().lat(), this.getPosition().lng()); // update position display
+		latlng = {lat: parseFloat(this.getPosition().lat()),lng: parseFloat(this.getPosition().lng())};
+		var geocoder = new google.maps.Geocoder;
+		geocoder.geocode({'location': latlng}, function(results, status) {
+		  if (status === 'OK') {
+			if (results[1]) {
+			  $("#location_from_address").val(results[0].formatted_address);
+			} else {
+			  window.alert('No results found');
+			}
+		  } else {
+			window.alert('Geocoder failed due to: ' + status);
+		  }
+		});
+	});
 
-        if ($(this).attr('name')=='history_first_place') {
-            $('#location_from_contact').val(sContact);
-            $('#location_from_address').val(sAddr);
-            $('#location_from_name').val(sDetail);
-            $('#location_from_latlng').val(sLat+','+sLng);
-            $("#location_from_address").change();
-        }
-        else if ($(this).attr('name')=='history_last_place') {
-            $('#location_to_contact').val(sContact);
-            $('#location_to_address').val(sAddr);
-            $('#location_to_name').val(sDetail);
-            $('#location_to_latlng').val(sLat+','+sLng);
-            $("#location_to_address").change();
-        }
-    });
+	map_tujuan = new google.maps.Map(document.getElementById('map_tujuan'), {
+	  center: center_to,
+	  streetViewControl: false,
+	  disableDefaultUI: true,
+	  zoom: 17
+	});
+
+	marker_tujuan = new google.maps.Marker({
+		position: center_to,
+		draggable: true,
+		map: map_tujuan
+	});
+
+	google.maps.event.addListener(marker_tujuan, 'dragend', function () {
+		map_tujuan.setCenter(this.getPosition()); // Set map center to marker position
+		updatePosition("location_to_latlng",this.getPosition().lat(), this.getPosition().lng()); // update position display
+		latlng = {lat: parseFloat(this.getPosition().lat()),lng: parseFloat(this.getPosition().lng())};
+		var geocoder = new google.maps.Geocoder;
+		geocoder.geocode({'location': latlng}, function(results, status) {
+		  if (status === 'OK') {
+			if (results[1]) {
+			  $("#location_to_address").val(results[0].formatted_address);
+			} else {
+			  window.alert('No results found');
+			}
+		  } else {
+			window.alert('Geocoder failed due to: ' + status);
+		  }
+		});
+	});
+
+	updatePosition("location_from_latlng",center_from.lat,center_from.lng);
+	updatePosition("location_to_latlng",center_to.lat,center_to.lng);
+	google.maps.event.addDomListener(window, 'load', initialize);
+}
+
+function get_lat_long(mode, value, div) {
+	var lat, lng;
+	if (mode == "location") {
+		lat = value.lat();
+		lng = value.lng();
+	} else if (mode == "address") {
+		var geocoder = new google.maps.Geocoder();
+		geocoder.geocode({address: value}, function(results, status) {
+			lat = results[0].geometry.location.lat()*1;
+			lng = results[0].geometry.location.lng()*1;
+			
+			if (div == "location_from_latlng") {
+				$("#location_from_latlng").val(lat + ", " + lng);
+				marker_asal.setPosition( new google.maps.LatLng(lat,lng) );
+				map_asal.panTo( new google.maps.LatLng(lat,lng) );
+			}
+			else if (div == "location_to_latlng") {
+				$("#location_to_latlng").val(lat + ", " + lng);
+				marker_tujuan.setPosition( new google.maps.LatLng(lat,lng) );
+				map_tujuan.panTo( new google.maps.LatLng(lat,lng) );
+			}
+		});
+	}
+	
+	if (div == "location_from_latlng") {
+		$("#location_from_latlng").val(lat + ", " + lng);
+		marker_asal.setPosition( new google.maps.LatLng(lat,lng) );
+		map_asal.panTo( new google.maps.LatLng(lat,lng) );
+	}
+	else if (div == "location_to_latlng") {
+		$("#location_to_latlng").val(lat + ", " + lng);
+		marker_tujuan.setPosition( new google.maps.LatLng(lat,lng) );
+		map_tujuan.panTo( new google.maps.LatLng(lat,lng) );
+	}
+}
+
+$("#location_from_address").on("change", function() {
+	location_from_address.changed = true;
+});
+
+$("#location_to_address").on("change", function() {
+	location_to_address.changed = true;
+});
+
+$("#location_from_address").on("focusout", function() {
+	
+	location_from_address.autocomplete_clicked = false;
+	location_from_address.changed = false;
+});
+
+$("#location_to_address").on("focusout", function() {
+	location_to_address.autocomplete_clicked = false;
+	location_to_address.changed = false;
+});
+
+$("#location_from_latlng").on("change",function() {
+	latlng = $("#location_from_latlng").val();
+	lat = substr(latlng,0,strpos(latlng,",")-1)*1;
+	lng = substr(latlng,strpos(latlng," ")+1)*1;
+	marker_asal.setPosition( new google.maps.LatLng(lat,lng) );
+	map_asal.panTo( new google.maps.LatLng(lat,lng) );
+});
+
+$("#location_to_latlng").change(function() {
+	latlng = $("#location_to_latlng").val();
+	lat = substr(latlng,0,strpos(latlng,",")-1)*1;
+	lng = substr(latlng,strpos(latlng," ")+1)*1;
+	marker_tujuan.setPosition( new google.maps.LatLng(lat,lng) );
+	map_tujuan.panTo( new google.maps.LatLng(lat,lng) );
+});
+
+$(".location_history").change(function() {
+	str = $(this).val();
+	sContact = str.substr(0,str.indexOf('###'));
+	str = str.substr(str.indexOf('###')+3);
+	sAddr = str.substr(0,str.indexOf('###'));
+	str = str.substr(str.indexOf('###')+3);
+	sDetail = str.substr(0,str.indexOf('###'));
+	str = str.substr(str.indexOf('###')+3);
+	sLat = str.substr(0,str.indexOf('###'));
+	sLng = str.substr(str.indexOf('###')+3);
+
+	if ($(this).attr('name')=='history_first_place') {
+		$('#location_from_contact').val(sContact);
+		$('#location_from_address').val(sAddr);
+		$('#location_from_name').val(sDetail);
+		$('#location_from_latlng').val(sLat+','+sLng);
+		$("#location_from_address").change();
+	}
+	else if ($(this).attr('name')=='history_last_place') {
+		$('#location_to_contact').val(sContact);
+		$('#location_to_address').val(sAddr);
+		$('#location_to_name').val(sDetail);
+		$('#location_to_latlng').val(sLat+','+sLng);
+		$("#location_to_address").change();
+	}
+});
 </script>
 
 </div>

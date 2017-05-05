@@ -226,6 +226,7 @@ class Kirim extends MY_Controller
 			}
 
 			if (!$err) {
+				$shipment_length = $this->input->post('shipment_length');
 				$location_from_latlng = $this->input->post('location_from_latlng');
 				$location_from_lat = substr($location_from_latlng,0,strpos($location_from_latlng,",")-1);
 				$location_from_lng = substr($location_from_latlng,strpos($location_from_latlng," ")+1);
@@ -242,6 +243,7 @@ class Kirim extends MY_Controller
 					'shipment_information' => $this->input->post('shipment_information'),
 					'shipment_pictures' => $shipment_pictures,
 					'user_id' => $user_id,
+					'shipment_length' => $shipment_length,
 					'location_from_name' => $this->input->post('location_from_name'),
 					'location_from_contact' => $this->input->post('location_from_contact'),
 					'location_from_address' => $this->input->post('location_from_address'),
@@ -291,7 +293,7 @@ class Kirim extends MY_Controller
 					$this->insertData('m_shipment_details', $data);
 				}
 				
-				header("Location: " . base_url("kirim"));
+				header("Location: " . base_url("kiriman-saya"));
 			} else {
 				
 			}
