@@ -26,9 +26,60 @@
 
 .nav-account {
 	float: right;
+	position: relative;
 	font-size: 14pt;
-	margin-top: 10px;
-	margin-right: 20px;
+	padding: 5px 10px;
+	margin-top: 9px;
+	margin-right: 40px;
+	cursor: pointer;
+}
+
+.nav-account:hover {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.profile-dropdown {
+	display: none;
+	position: absolute;
+	width: 150px;
+	top: 40px;
+	right: 0;
+	border: 1px solid #AAA;
+	color: black;
+	font-size: 11pt;
+	background-color: white;
+	padding: 10px 0;
+	box-shadow: 0 0 10px #AAA;
+}
+
+.profile-dropdown:after {
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.profile-dropdown:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: white;
+	border-width: 12px;
+	margin-left: 10px;
+}
+
+.profile-menu, .profile-menu:visited {
+	display: block;
+	color: black;
+	text-decoration: none;
+	padding: 10px 10px;
+	cursor: pointer;
+}
+
+.profile-menu:hover {
+	background-color: #EEEEEE;
 }
 
 .logout {

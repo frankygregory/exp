@@ -1,0 +1,66 @@
+.section-1 {
+	width: 570px;
+	margin-bottom: 50px;
+}
+
+.section-1 {
+	margin-left: 20px;
+	box-shadow: 0 0 10px #BBB;
+	border-radius: 2px;
+	margin: 0 auto;
+}
+
+td {
+	border-bottom: 1px solid #E0E0E0;
+	padding-top: 20px !important;
+	padding-bottom: 20px !important;
+}
+
+.td-label {
+	width: 170px;
+	padding-left: 20px;
+}
+
+.td-value {
+	padding-left: 50px;
+	color: #757575;
+	font-size: 11pt;
+}
+
+.span-value {
+	display: inline-block;
+	width: 250px;
+}
+
+.error {
+	margin-top: 5px;
+}
+
+.edit-icon {
+	float: right;
+	margin-right: 20px;
+	color: #2196F3;
+	cursor: pointer;
+}
+
+label {
+	margin-left: 140px;
+}
+
+label:nth-child(2) {
+	margin-left: 20px;
+}
+
+input[type="radio"] {
+	margin-right: 5px;
+}
+
+textarea {
+	height: 80px;
+}
+
+.btn-simpan, .btn-simpan:active {
+	padding: 15px 40px !important;
+	float: right;
+	margin-top: 20px;
+}

@@ -129,7 +129,8 @@ $route['user'] = 'panel/user';
 $route['user/(:any)'] = 'panel/user/$1/$2';
 $route['confirm'] = 'confirm';
 $route['doconfirm'] = 'confirm/doconfirm';
-
+$route['account-settings'] = 'panel/account';
+$route['account-settings/updateCertainField'] = 'panel/account/updateCertainField';
 //$route['expedition/(:any)'] = 'expedition/$1';
 //$route['consumer/(:any)'] = 'consumer/$1';
 

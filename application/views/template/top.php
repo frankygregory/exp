@@ -28,8 +28,13 @@
 <div class="container">
     <div class="navigation-header">
 		<a href="<?= base_url() ?>" class="logo">Yukirim</a>
-		<a href="<?= base_url("logout") ?>" class="logout">Logout</a>
-		<div class="nav-account"><?= $this->session->userdata("user_fullname") ?></div>
+		<div class="nav-account">
+			<div><?= $this->session->userdata("user_fullname") ?><span></span></div>
+			<div class="profile-dropdown">
+				<a href="<?= base_url("account-settings") ?>" class="profile-menu">Account Settings</a>
+				<a href="<?= base_url("logout") ?>" class="profile-menu">Logout</a>
+			</div>
+		</div>
 	</div>
 	<div class="navigation-header-space"></div>
 	<div class="container-body">
@@ -73,22 +78,27 @@ var dialog = {
 	shown: false
 };
 
-function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-  var R = 6371; // Radius of the earth in km
-  var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1); 
-  var a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-  var d = R * c; // Distance in km
-  return d;
-}
+$(function() {
+	$(".nav-account").on("click", function(e) {
+		toggleProfileDropdown(e);
+	});
+	
+	$(document).on("click", function(e) {
+		if ($(e.target).attr("class") !== "profile-dropdown") {
+			if ($(".nav-account .profile-dropdown").css("display") == "block") {
+				$(".nav-account .profile-dropdown").css("display", "none");
+			}
+		}
+	});
+});
 
-function deg2rad(deg) {
-  return deg * (Math.PI/180);
+function toggleProfileDropdown(e) {
+	if ($(".nav-account .profile-dropdown").css("display") == "none") {
+		$(".nav-account .profile-dropdown").css("display", "block");
+	} else {
+		$(".nav-account .profile-dropdown").css("display", "none");
+	}
+	e.stopPropagation();
 }
 
 function isNumber(e) {
@@ -109,7 +119,9 @@ function closeDialog() {
 	dialog.shown = false;
 	
 	$(".dialog input, .dialog textarea").val("");
-	$("select")[0].selectedIndex = 0;
+	if ($("select").length > 0) {
+		$("select")[0].selectedIndex = 0;
+	}
 }
 
 function addCommas(nStr) {
