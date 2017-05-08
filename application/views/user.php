@@ -159,10 +159,6 @@ $(function() {
 		updateGroup();
 	});
 	
-	$(".btn-batal").on("click", function() {
-		closeDialog();
-	});
-	
 	$(document).on("click", ".btn-edit-group", function() {
 		var group_id = $(this).closest(".tr-group").data("id");
 		var group_name = $(this).closest(".tr-group").find(".td-group_name").html();

@@ -132,10 +132,6 @@ $(function() {
 		editKendaraan(this);
 	});
 	
-	$(".btn-batal").on("click", function() {
-		closeDialog();
-	});
-	
 	$(".btn-submit-edit").on("click", function() {
 		updateKendaraan();
 	});

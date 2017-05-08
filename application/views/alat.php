@@ -131,10 +131,6 @@ $(function() {
 		editAlat(this);
 	});
 	
-	$(".btn-batal").on("click", function() {
-		closeDialog();
-	});
-	
 	$(".btn-submit-edit").on("click", function() {
 		updateAlat();
 	});

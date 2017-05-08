@@ -189,16 +189,6 @@ $(function() {
 		submitRating(this);
 	});
 	
-	$(".dialog-background").on("click", function(e) {
-		if (e.target.className == "dialog-background") {
-			closeDialog();
-		}
-	});
-	
-	$(".btn-batal").on("click", function() {
-		closeDialog();
-	});
-	
 	$(document).on("click", ".btn-cancel-transaction", function() {
 		var shipment_id = $(this).closest(".tr-kiriman").data("id");
 		var shipment_title = $(this).closest(".tr-kiriman").find(".td-title").html();

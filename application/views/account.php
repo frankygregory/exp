@@ -161,16 +161,6 @@ $(function() {
 	$(".btn-submit-simpan").on("click", function() {
 		updateData();
 	});
-	
-	$(".dialog-background").on("click", function(e) {
-		if (e.target.className == "dialog-background") {
-			closeDialog();
-		}
-	});
-	
-	$(".btn-batal").on("click", function() {
-		closeDialog();
-	});
 });
 
 function cekInput() {

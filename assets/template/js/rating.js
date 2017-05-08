@@ -8,7 +8,6 @@ var rating = {
 	}
 };
 
-
 $(function() {
 	$(document).on("click", ".star.rating", function() {
 		$(this).parent().attr('data-stars', $(this).data('rating'));

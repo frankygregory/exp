@@ -272,16 +272,6 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		showDialog(".dialog-konfirmasi-setuju");
 	});
 	
-	$(".dialog-background").on("click", function(e) {
-		if (e.target.className == "dialog-background") {
-			closeDialog();
-		}
-	});
-	
-	$(".btn-batal").on("click", function() {
-		closeDialog();
-	});
-	
 	$(".btn-submit-setuju").on("click", function() {
 		setujuBidding(this);
 	});

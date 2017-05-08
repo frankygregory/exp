@@ -107,6 +107,10 @@ $(function() {
 			closeDialog();
 		}
 	});
+	
+	$(document).on("click", ".dialog .btn-batal", function() {
+		closeDialog();
+	});
 });
 
 function toggleProfileDropdown(e) {
@@ -151,6 +155,20 @@ function addCommas(nStr) {
             x1 = x1.replace(rgx, '$1' + ',' + '$2');
     }
     return x1 + x2;
+}
+
+function ajaxCall(url, data, callback) {
+	$.ajax({
+		url: url,
+		data: data,
+		type: 'POST',
+		error: function(jqXHR, exception) {
+			alert(jqXHR + " : " + jqXHR.responseText);
+		},
+		success: function(result) {
+			callback(result);
+		}
+	});
 }
 
 </script>
