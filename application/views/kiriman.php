@@ -1,6 +1,20 @@
 <div id="page-wrapper">
 <div class="container-fluid">
 <div class="page-title"><?= $page_title ?></div>
+<div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-cancel-transaction">
+		<div class="dialog-header">
+			<div class="dialog-title">Pembatalan Kiriman</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-negative btn-submit-cancel-transaction">Batalkan Kiriman</button>
+			<button type="button" class="btn-neutral btn-batal">Tidak</button>
+		</div>
+	</div>
+</div>
 <div class="content">
 	<div class="tabs" data-id="asd">
 		<div class="tabs-header">
@@ -26,6 +40,7 @@
 							<td>Tujuan</td>
 							<td>Jarak</td>
 							<td>Berakhir</td>
+							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -41,6 +56,7 @@
 							<td>Asal</td>
 							<td>Tujuan</td>
 							<td>Jarak</td>
+							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -59,6 +75,7 @@
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
+							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -77,6 +94,7 @@
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
+							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -95,6 +113,7 @@
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
+							<td>Action</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -152,6 +171,50 @@ $(function() {
 	$(document).on("click", ".btn-submit-rating", function() {
 		submitRating(this);
 	});
+	
+	$(".dialog-background").on("click", function(e) {
+		if (e.target.className == "dialog-background") {
+			closeDialog();
+		}
+	});
+	
+	$(".btn-batal").on("click", function() {
+		closeDialog();
+	});
+	
+	$(document).on("click", ".btn-cancel-transaction", function() {
+		var shipment_id = $(this).closest(".tr-kiriman").data("id");
+		var shipment_title = $(this).closest(".tr-kiriman").find(".td-title").html();
+		$(".dialog-konfirmasi-cancel-transaction .dialog-body").html("Batalkan pengiriman untuk<br>" + shipment_title);
+		$(".dialog-konfirmasi-cancel-transaction").data("id", shipment_id);
+		showDialog(".dialog-konfirmasi-cancel-transaction");
+	});
+	
+	$(".btn-submit-cancel-transaction").on("click", function() {
+		cancelShipment();
+	});
+	
+	function cancelShipment() {
+		var shipment_id = $(".dialog-konfirmasi-cancel-transaction").data("id");
+		$.ajax({
+			url: '<?= base_url("kiriman-saya/cancelShipment") ?>',
+			data: {
+				shipment_id: shipment_id
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getKirimanSaya();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	}
 	
 	function submitRating(element) {
 		var shipment_rating_number = getRatingValue();
@@ -223,6 +286,10 @@ $(function() {
 			"selesai": {
 				count: 0,
 				value: ""
+			},
+			"cancel": {
+				count: 0,
+				value: ""
 			}
 		};
 		
@@ -236,6 +303,7 @@ $(function() {
 			var additionalTd = "";
 			var berakhir = "";
 			var ratingSection = "";
+			var action = "<td><button class='btn-negative btn-cancel-transaction'>Batalkan Kiriman</button></td>";
 			switch (result[i].shipment_status) {
 				case "-1":
 					tab = "open";
@@ -263,15 +331,20 @@ $(function() {
 					tab = "diterima";
 					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
 					ratingSection = "<td><div class='rating-section'>" + getRatingJs() + "<textarea class='input-rating-feedback'></textarea><button class='btn-default btn-submit-rating'>Submit</button></div></td>";
+					action = "";
 					break;
 				case "6":
 					tab = "selesai";
 					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
+					action = "";
+					break;
+				case "7":
+					tab = "cancel";
 					break;
 			}
 			
 			element[tab].count++;
-			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + additionalTd + berakhir + ratingSection + "</tr>";
+			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + additionalTd + berakhir + ratingSection + action + "</tr>";
 		}
 		
 		$(".tbody-kiriman").html("");

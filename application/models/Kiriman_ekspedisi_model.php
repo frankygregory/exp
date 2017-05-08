@@ -10,10 +10,16 @@ class Kiriman_ekspedisi_model extends CI_Model
 	public function getKiriman($user_id) {
 		$query = $this->db->query(
 			"SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_price, m.shipment_length, m.shipment_status, m.location_from_name, m.location_to_name, TIMESTAMPDIFF(SECOND, CURRENT_TIMESTAMP(), m.shipment_end_date) AS berakhir, COUNT(t.bidding_id) AS bidding_count, d.driver_name, v.vehicle_name, dc.device_name
-			FROM `m_driver` d, `m_vehicle` v, `m_device_customer` dc, `m_shipment` m
+			FROM `m_shipment` m
 			LEFT JOIN `t_bidding` t
 			ON m.shipment_id = t.shipment_id
-			WHERE t.user_id = " . $user_id . " AND t.bidding_status = 1 AND d.driver_id = m.driver_id AND v.vehicle_id = m.vehicle_id AND dc.device_id = m.device_id
+			LEFT JOIN `m_driver` d
+            ON m.driver_id = d.driver_id
+            LEFT JOIN `m_vehicle` v
+            ON m.vehicle_id = v.vehicle_id
+            LEFT JOIN `m_device_customer` dc
+            ON m.device_id = dc.device_id
+			WHERE t.user_id = " . $user_id . " AND t.bidding_status = 1
 			GROUP BY t.shipment_id"
 		);
 		return $query->result();

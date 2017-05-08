@@ -58,4 +58,19 @@ class Kiriman extends MY_Controller
 			echo "no rows affected. WHY??";
 		}
 	}
+	
+	public function cancelShipment() {
+		$shipment_id = $this->input->post("shipment_id");
+		$user_id = $this->session->userdata("user_id");
+		$data = array(
+			"shipment_id" => $shipment_id,
+			"user_id" => $user_id
+		);
+		$affected_rows = $this->Kiriman_model->cancelShipment($data);
+		if ($affected_rows > 0) {
+			echo "success";
+		} else {
+			echo "no rows affected. WHY??";
+		}
+	}
 }

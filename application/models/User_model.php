@@ -9,19 +9,26 @@ class User_model extends CI_Model{
         return $this->db->query("select * from m_user order by user_id desc")->result_array();
     }
 	
-	public function updateExistingGroup($data) {
+	public function getMyGroups($user_id) {
+		$this->db->where("user_id", $user_id);
+		return $this->db->get("m_group")->result();
+	}
+	
+	public function updateGroup($data) {
 		$this->db->where("user_id", $data["user_id"]);
-		$this->db->limit(1);
+		$this->db->where("group_id", $data["group_id"]);
 		$updateData = array(
 			"group_name" => $data["group_name"],
-			"modified_by" => $data["modified_by"]
+			"modified_by" => $data["user_id"]
 		);
 		$this->db->update("m_group", $updateData);
+		return $this->db->affected_rows();
 	}
 	
 	public function insertGroup($data) {
 		$insertData = array(
 			"group_name" => $data["group_name"],
+			"user_id" => $data["user_id"],
 			"created_by" => $data["user_id"],
 			"modified_by" => $data["user_id"]
 		);

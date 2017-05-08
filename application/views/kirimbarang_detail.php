@@ -614,7 +614,10 @@ function addBiddingListToTable(result) {
 		element += "<div>Keterangan : " + result[i].bidding_information + "</div>";
 		element += "</td>";
 		element += "<td>";
-		if (result[i].bidding_status == 2) {
+		if (result[i].bidding_status == 1) {
+			element += "DITERIMA";
+		}
+		else if (result[i].bidding_status == 2) {
 			element += "<div class='alasan-tolak'>DITOLAK<br><strong>Alasan : </strong>" + result[i].bidding_reason + "</div>";
 		} else {
 		<?= $btnSetujuBidding ?>

@@ -113,13 +113,34 @@
 		</div>
 	</div>
 </div>
+<div class="dialog-background">
+	<div class="dialog dialog-edit-group">
+		<div class="dialog-header">
+			<div class="dialog-title"></div>
+		</div>
+		<div class="dialog-body">
+			<table>
+				<tbody>
+					<tr>
+						<td class="">Nama Grup</td>
+						<td><input type="text" class="input-group_name" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-edit-group">Simpan</button>
+			<button type="button" class="btn-neutral btn-batal">Batal</button>
+		</div>
+	</div>
+</div>
 <div class="content">
 	<div class="section-1">
 		<button type="button" class="btn-default btn-tambah-user">Tambah User</button>
 		<table class="table table-user">
 			<thead>
 				<tr>
-					<td>No.</td>
+					<td class='td-no'>No.</td>
 					<td>Nama</td>
 					<td>Email</td>
 					<td>Group</td>
@@ -138,12 +159,12 @@
 		<table class="table table-group">
 			<thead>
 				<tr>
-					<td>No.</td>
+					<td class='td-no'>No.</td>
 					<td>Nama</td>
 					<td>Action</td>
 				</tr>
 			</thead>
-			<tbody class="tbody-user">
+			<tbody class="tbody-group">
 			</tbody>
 		</table>
 	</div>
@@ -154,6 +175,8 @@
 
 <script type="text/javascript">
 $(function() {
+	getMyGroups();
+	
 	$(".btn-tambah-user").on("click", function() {
 		showDialog(".dialog-tambah-user");
 	});
@@ -162,10 +185,124 @@ $(function() {
 		showDialog(".dialog-tambah-group");
 	});
 	
+	$(".btn-submit-tambah-group").on("click", function() {
+		insertGroup();
+	});
+	
+	$(".btn-submit-edit-group").on("click", function() {
+		updateGroup();
+	});
+	
 	$(".dialog-background").on("click", function(e) {
 		if (e.target.className == "dialog-background") {
 			closeDialog();
 		}
 	});
+	
+	$(".btn-batal").on("click", function() {
+		closeDialog();
+	});
+	
+	$(document).on("click", ".btn-edit-group", function() {
+		var group_id = $(this).closest(".tr-group").data("id");
+		var group_name = $(this).closest(".tr-group").find(".td-group_name").html();
+		$(".dialog-edit-group").data("id", group_id);
+		$(".dialog-edit-group .dialog-title").html("Edit Group " + group_name);
+		$(".dialog-edit-group input.input-group_name").val(group_name);
+		showDialog(".dialog-edit-group");
+	});
 });
+
+function updateGroup() {
+	var group_id = $(".dialog-edit-group").data("id");
+	var group_name = $(".dialog-edit-group .input-group_name").val().trim();
+	if (group_name != "") {
+		$.ajax({
+			url: '<?= base_url("user/updateGroup") ?>',
+			data: {
+				group_id: group_id,
+				group_name: group_name
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getMyGroups();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	} else {
+		alert("Nama group tidak boleh kosong");
+	}
+}
+
+function insertGroup() {
+	var group_name = $(".dialog-tambah-group .input-group_name").val().trim();
+	if (group_name != "") {
+		$.ajax({
+			url: '<?= base_url("user/insertGroup") ?>',
+			data: {
+				group_name: group_name
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getMyGroups();
+				} else {
+					alert(result);
+				}
+			}
+		});
+	} else {
+		alert("Nama Group tidak boleh kosong");
+	}
+}
+
+function getMyGroups() {
+	$.ajax({
+		url: '<?= base_url("user/getMyGroups") ?>',
+		type: 'POST',
+		error: function(jqXHR, exception) {
+			alert(jqXHR + " : " + jqXHR.responseText);
+		},
+		success: function(json) {
+			$(".tbody-group").html("");
+			var result = jQuery.parseJSON(json);
+			addGroupsToTable(result);
+		}
+	});
+}
+
+function addGroupsToTable(result) {
+	var element = "";
+	
+	var group_name = "";
+	var iLength = result.length;
+	var btnDelete = "<button class='btn-negative btn-delete'>Delete</button>";
+	if (iLength == 1) {
+		btnDelete = "";
+	}
+	for (var i = 0; i < iLength; i++) {
+		group_name = result[i].group_name;
+		if (group_name == "") {
+			group_name = "default";
+		}
+		element += "<tr class='tr-group' data-id='" + result[i].group_id + "'>";
+		element += "<td>" + (i + 1) + "</td>";
+		element += "<td class='td-group_name'>" + group_name + "</td>";
+		element += "<td><button class='btn-default btn-edit-group'>Edit</button>" + btnDelete + "</td>";
+		element += "</tr>";
+	}
+	$(".tbody-group").html("");
+	$(".tbody-group").html(element);
+}
 </script>

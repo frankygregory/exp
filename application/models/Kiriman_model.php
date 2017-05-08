@@ -29,4 +29,9 @@ class Kiriman_model extends CI_Model
 		$this->db->query("CALL submit_rating('" . $data["shipment_id"] . "', '" . $data["user_id"] . "', '" . $data["shipment_rating_number"] . "', '" . $data["shipment_rating_feedback"] . "');");
 		return 1;
 	}
+	
+	public function cancelShipment($data) {
+		$this->db->query("CALL cancel_shipment('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
+		return 1;
+	}
 }
