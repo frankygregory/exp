@@ -26,6 +26,7 @@
 				<div class="tabs-item" data-tabs-number="5">Diambil (<span class="tabs-item-count">0</span>)</div>
 				<div class="tabs-item" data-tabs-number="6">Diterima (<span class="tabs-item-count">0</span>)</div>
 				<div class="tabs-item" data-tabs-number="7">Selesai (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="8">Cancel (<span class="tabs-item-count">0</span>)</div>
 			</div>
 			<div class="tabs-selection"></div>
 		</div>
@@ -151,6 +152,22 @@
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
+						</tr>
+					</thead>
+					<tbody class="tbody-kiriman">
+					</tbody>
+				</table>
+			</div>
+			<div class="tabs-content" data-tabs-number="8">
+				<table class="table table-kiriman">
+					<thead>
+						<tr>
+							<td>Nama Kirim</td>
+							<td>Harga</td>
+							<td>Asal</td>
+							<td>Tujuan</td>
+							<td>Jarak</td>
+							<td>Cancel</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -302,6 +319,7 @@ $(function() {
 			
 			var additionalTd = "";
 			var berakhir = "";
+			var cancelBy = "";
 			var ratingSection = "";
 			var action = "<td><button class='btn-negative btn-cancel-transaction'>Batalkan Kiriman</button></td>";
 			switch (result[i].shipment_status) {
@@ -340,11 +358,13 @@ $(function() {
 					break;
 				case "7":
 					tab = "cancel";
+					action = "";
+					cancelBy = "<td>" + result[i].cancel_by + "</td>";
 					break;
 			}
 			
 			element[tab].count++;
-			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + additionalTd + berakhir + ratingSection + action + "</tr>";
+			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + additionalTd + berakhir + ratingSection + action + cancelBy + "</tr>";
 		}
 		
 		$(".tbody-kiriman").html("");
@@ -355,6 +375,7 @@ $(function() {
 		$(".tabs-content[data-tabs-number='5'] .tbody-kiriman").append(element["diambil"].value);
 		$(".tabs-content[data-tabs-number='6'] .tbody-kiriman").append(element["diterima"].value);
 		$(".tabs-content[data-tabs-number='7'] .tbody-kiriman").append(element["selesai"].value);
+		$(".tabs-content[data-tabs-number='8'] .tbody-kiriman").append(element["cancel"].value);
 		updateTabsItemCount(1, element["open"].count);
 		updateTabsItemCount(2, element["pending"].count);
 		updateTabsItemCount(3, element["pesanan"].count);
@@ -362,6 +383,7 @@ $(function() {
 		updateTabsItemCount(5, element["diambil"].count);
 		updateTabsItemCount(6, element["diterima"].count);
 		updateTabsItemCount(7, element["selesai"].count);
+		updateTabsItemCount(8, element["cancel"].count);
 	}
 });
 </script>

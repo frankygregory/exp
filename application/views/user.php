@@ -22,16 +22,15 @@
 						<td><input type="text" class="input-user_fullname" /></td>
 					</tr>
 					<tr>
-						<td class="">Alamat</td>
-						<td><input type="text" class="input-user_address" /></td>
+						<td class="">Group</td>
+						<td><select class="input-group_id"></select></td>
 					</tr>
 					<tr>
-						<td class="">Telepon</td>
-						<td><input type="text" class="input-user_telephone" /></td>
-					</tr>
-					<tr>
-						<td class="">Handphone</td>
-						<td><input type="text" class="input-user_handphone" /></td>
+						<td class="">Level</td>
+						<td>
+							<label class="label-radio"><input type="radio" name="user_level" class="input-user_level" value="super" checked="checked" />Super Admin</label>
+							<label class="label-radio"><input type="radio" name="user_level" class="input-user_level" value="admin" />Admin</label>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -51,7 +50,10 @@
 				<tbody>
 					<tr>
 						<td class="">Nama Grup</td>
-						<td><input type="text" class="input-group_name" /></td>
+						<td>
+							<input type="text" class="input-group_name" />
+							<div class="error"></div>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -62,45 +64,7 @@
 	</div>
 </div>
 <div class="dialog-background">
-	<div class="dialog dialog-edit">
-		<div class="dialog-header">
-			<div class="dialog-title">Edit Kendaraan</div>
-		</div>
-		<div class="dialog-body">
-			<table>
-				<tbody>
-					<tr>
-						<td class="">Nama</td>
-						<td><input type="text" class="input-nama" /></td>
-					</tr>
-					<tr>
-						<td class="">Nopol Kendaraan</td>
-						<td><input type="text" class="input-nopol" maxlength="12" /></td>
-					</tr>
-					<tr>
-						<td class="">Keterangan</td>
-						<td><input type="text" class="input-keterangan" /></td>
-					</tr>
-					<tr>
-						<td class="">Status</td>
-						<td>
-							<select name="input-status" class="input-status">
-								<option value="1">Aktif</option>
-								<option value="0">Tidak Aktif</option>
-							</select>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="dialog-footer">
-			<button type="button" class="btn-default btn-submit-edit">Simpan</button>
-			<button type="button" class="btn-neutral btn-batal">Batal</button>
-		</div>
-	</div>
-</div>
-<div class="dialog-background">
-	<div class="dialog dialog-konfirmasi-delete">
+	<div class="dialog dialog-konfirmasi-delete-user">
 		<div class="dialog-header">
 			<div class="dialog-title">Delete User</div>
 		</div>
@@ -108,7 +72,7 @@
 			<div></div>
 		</div>
 		<div class="dialog-footer">
-			<button type="button" class="btn-negative btn-submit-delete">Delete</button>
+			<button type="button" class="btn-negative btn-submit-delete-user">Delete</button>
 			<button type="button" class="btn-neutral btn-batal">Batal</button>
 		</div>
 	</div>
@@ -178,10 +142,12 @@ $(function() {
 	getMyGroups();
 	
 	$(".btn-tambah-user").on("click", function() {
+		clearAllErrors();
 		showDialog(".dialog-tambah-user");
 	});
 	
 	$(".btn-tambah-group").on("click", function() {
+		clearAllErrors();
 		showDialog(".dialog-tambah-group");
 	});
 	
@@ -191,12 +157,6 @@ $(function() {
 	
 	$(".btn-submit-edit-group").on("click", function() {
 		updateGroup();
-	});
-	
-	$(".dialog-background").on("click", function(e) {
-		if (e.target.className == "dialog-background") {
-			closeDialog();
-		}
 	});
 	
 	$(".btn-batal").on("click", function() {
@@ -212,6 +172,10 @@ $(function() {
 		showDialog(".dialog-edit-group");
 	});
 });
+
+function clearAllErrors() {
+	$(".error").html("");
+}
 
 function updateGroup() {
 	var group_id = $(".dialog-edit-group").data("id");
@@ -237,7 +201,7 @@ function updateGroup() {
 			}
 		});
 	} else {
-		alert("Nama group tidak boleh kosong");
+		$(".dialog-edit-group .input-group_name").next().html("Nama Group harus diisi");
 	}
 }
 
@@ -263,7 +227,7 @@ function insertGroup() {
 			}
 		});
 	} else {
-		alert("Nama Group tidak boleh kosong");
+		$(".dialog-tambah-group .input-group_name").next().html("Nama Group harus diisi");
 	}
 }
 
@@ -284,7 +248,7 @@ function getMyGroups() {
 
 function addGroupsToTable(result) {
 	var element = "";
-	
+	var option = "";
 	var group_name = "";
 	var iLength = result.length;
 	var btnDelete = "<button class='btn-negative btn-delete'>Delete</button>";
@@ -301,8 +265,14 @@ function addGroupsToTable(result) {
 		element += "<td class='td-group_name'>" + group_name + "</td>";
 		element += "<td><button class='btn-default btn-edit-group'>Edit</button>" + btnDelete + "</td>";
 		element += "</tr>";
+		
+		option += "<option value='" + result[i].group_id + "'>" + group_name + "</option>";
 	}
 	$(".tbody-group").html("");
 	$(".tbody-group").html(element);
+	
+	
+	$(".input-group_id").html("");
+	$(".input-group_id").html(option);
 }
 </script>

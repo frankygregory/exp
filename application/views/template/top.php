@@ -95,6 +95,18 @@ $(function() {
 			}
 		}
 	});
+	
+	$(".dialog-background").on("click", function(e) {
+		if (e.target.className == "dialog-background") {
+			closeDialog();
+		}
+	});
+	
+	$(document).on("keydown", function(e) {
+		if (e.which == 27) {
+			closeDialog();
+		}
+	});
 });
 
 function toggleProfileDropdown(e) {

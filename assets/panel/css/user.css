@@ -7,16 +7,16 @@
 	margin-bottom: 20px;
 }
 
-.dialog {
-	
+label {
+	cursor: pointer;
 }
 
-.dialog-header {
-	
+.label-radio {
+	margin-right: 15px;
 }
 
-.dialog-footer {
-	
+.label-radio input[type="radio"] {
+	margin-right: 5px;
 }
 
 .btn-submit-tambah, .btn-submit-edit, .btn-batal, .btn-submit-delete {
@@ -29,4 +29,8 @@
 
 .td-no {
 	width: 50px;
+}
+
+.error {
+	color: red;
 }

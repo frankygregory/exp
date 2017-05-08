@@ -123,12 +123,6 @@ $(function() {
 		$(".dialog-tambah .input-nama").select();
 	});
 	
-	$(".dialog-background").on("click", function(e) {
-		if (e.target.className == "dialog-background") {
-			closeDialog();
-		}
-	});
-	
 	$(".btn-submit-tambah").on("click", function() {
 		tambahAlat();
 	});

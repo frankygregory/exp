@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-$route['default_controller'] = 'home';
+$route['default_controller'] = 'dashboard';
 $route['contact'] = 'home/contact';
 $route['kebijakan-privasi'] = 'home/privacy_policy';
 
@@ -59,7 +59,7 @@ $route['login'] = 'login';
 $route['dologin'] = 'login/dologin';
 $route['logout'] = 'login/logout';
 
-$route['dashboard'] = 'panel/home';
+$route['dashboard'] = 'panel/dashboard';
 $route['cari-kiriman'] = 'panel/kirim';
 $route['cari-kiriman/(:any)'] = 'panel/kirim/$1';
 $route['kirim/getDiscussions'] = 'panel/kirim/getDiscussions';
