@@ -1,0 +1,27 @@
+.section {
+	overflow: auto;
+	margin-bottom: 50px;
+}
+
+.section-title {
+	font-size: 14pt;
+	font-weight: bold;
+}
+
+.table-statistik-kiriman, .table-statistik-bidding {
+	width: 500px;
+}
+
+table td {
+	width: 90px;
+	text-align: center;
+}
+
+.td-col-header {
+	
+}
+
+.td-row-header {
+	width: 100px;
+	text-align: right;
+}

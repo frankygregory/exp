@@ -76,6 +76,9 @@
 			<a href="<?= base_url("user") ?>">
 				<div class="">User</div>
 			</a>
+			<a href="<?= base_url("statistik") ?>">
+				<div class="">Statistik</div>
+			</a>
 		</div>
 		<div class="container-content">
 <script>

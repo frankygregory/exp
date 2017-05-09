@@ -23,7 +23,7 @@
 					</tr>
 					<tr>
 						<td class="">Group</td>
-						<td><select class="input-group_id"></select></td>
+						<td class="td-grup"></td>
 					</tr>
 					<tr>
 						<td class="">Level</td>

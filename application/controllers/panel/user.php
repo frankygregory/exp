@@ -8,6 +8,15 @@ class User extends MY_Controller
         parent::__construct();
 		$this->load->model("User_model");
     }
+	
+	function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+		$str = '';
+		$max = mb_strlen($keyspace, '8bit') - 1;
+		for ($i = 0; $i < $length; ++$i) {
+			$str .= $keyspace[random_int(0, $max)];
+		}
+		return $str;
+	}
 
     public function index()
     {
@@ -52,6 +61,35 @@ class User extends MY_Controller
 			"user_id" => $user_id
 		);
 		$affected_rows = $this->User_model->updateGroup($data);
+		if ($affected_rows > 0) {
+			echo "success";
+		} else {
+			echo "no rows affected. WHY??";
+		}
+	}
+	
+	public function addOtherUser() {
+		$username = $this->input->post("username");
+		$user_email = $this->input->post("user_email");
+		$group_ids = $this->input->post("group_ids");
+		$user_level = $this->input->post("user_level");
+		$role_id = $this->session->userdata("role_id");
+		$type_id = $this->session->userdata("type_id");
+		$user_id_ref = $this->session->userdata("user_id");
+		$password = $this->random_str(6);
+		
+		$data = array(
+			"username" => $username,
+			"user_email" => $user_email,
+			"group_ids" => $group_ids,
+			"user_level" => $user_level,
+			"role_id" => $role_id,
+			"type_id" => $type_id,
+			"user_id_ref" => $user_id_ref,
+			"password" => $password
+		);
+		
+		$affected_rows = $this->User_model->add_other_user($data);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {
