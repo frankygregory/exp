@@ -17,7 +17,8 @@
 		}
 	</style>
 	<link href="<?=base_url()?>assets/panel/css/default.css" rel="stylesheet">
-	<link href="<?=base_url()?>assets/template/css/top.css" rel="stylesheet">
+	<link href="<?=base_url()?>assets/template/css/top.css" rel="stylesheet" media="(orientation: landscape)">
+	<link href="<?=base_url()?>assets/template/css/top - portrait.css" rel="stylesheet" media="(orientation: portrait)">
 	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css" rel="stylesheet">
 	<link href="<?=base_url()?>assets/panel/jqueryui/jquery-ui.datetimepicker.min.css" rel="stylesheet" >
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
@@ -27,6 +28,10 @@
 <body>
 <div class="container">
     <div class="navigation-header">
+		<svg class="menu-hamburger" fill="#FFF" height="24" viewBox="0 0 24 24" width="24" >
+			<path d="M0 0h24v24H0z" fill="none"/>
+			<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+		</svg>
 		<a href="<?= base_url() ?>" class="logo">Yukirim</a>
 		<div class="nav-account">
 			<div class="fullname"><?= $this->session->userdata("user_fullname") ?></div>
@@ -114,7 +119,24 @@ $(function() {
 	$(document).on("click", ".dialog .btn-batal", function() {
 		closeDialog();
 	});
+	
+	$(".menu-hamburger").on("click", function() {
+		toggleNavigationDrawer();
+	});
 });
+
+function toggleNavigationDrawer() {
+	var marginLeft = parseInt($(".navigation-menu").css("margin-left"));
+	if (marginLeft < 0) {
+		$(".navigation-menu").animate({
+			marginLeft: 0
+		}, 100);
+	} else {
+		$(".navigation-menu").animate({
+			marginLeft: -220
+		}, 100);
+	}
+}
 
 function toggleProfileDropdown(e) {
 	if ($(".nav-account .profile-dropdown").css("display") == "none") {

@@ -319,7 +319,7 @@ $(function() {
 		var btnEdit = "<button class='btn-default btn-edit' data-id='" + result.vehicle_id + "'>Edit</button>";
 		var btnDelete = "<button class='btn-negative btn-delete' data-id='" + result.vehicle_id + "'>Delete</button>";
 		
-		var element = "<tr class='tr-kendaraan' data-id='" + result.vehicle_id + "'><td>" + no + "</td><td class='td-nomor'>" + result.vehicle_nomor + "</td><td class='td-name'>" + result.vehicle_name + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td class='td-jumlah-transaksi'>" + result.vehicle_jumlah_transaksi + "</td><td class='td-information'>" + result.vehicle_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
+		var element = "<tr class='tr-kendaraan' data-id='" + result.vehicle_id + "'><td data-label='No'>" + no + "</td><td class='td-nomor' data-label='Nopol'>" + result.vehicle_nomor + "</td><td class='td-name' data-label='Nama'>" + result.vehicle_name + "</td><td class='td-ketersediaan' data-label='Ketersediaan'>" + ketersediaan + "</td><td class='td-jumlah-transaksi' data-label='Jumlah Transaksi'>" + result.vehicle_jumlah_transaksi + "</td><td class='td-information' data-label='Keterangan'>" + result.vehicle_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
 		$(".tbody-kendaraan").append(element);
 	}
 	
