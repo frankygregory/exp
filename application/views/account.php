@@ -218,25 +218,18 @@ function updateData() {
 		} else if (type == "tipe") {
 			value = $(".dialog-edit .input-value[name='" + field + "']:checked").val();
 		}
-	
-		$.ajax({
-			url: '<?= base_url("account-settings/updateCertainField") ?>',
-			data: {
-				field: field,
-				value: value,
-				table: table
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					window.location.reload(true);
-				} else if (result == "null") {
-					if ($(".dialog-edit").data("type") == "password") {
-						alert("Password lama salah");
-					}
+		
+		var data = {
+			field: field,
+			value: value,
+			table: table
+		};
+		ajaxCall("<?= base_url("account-settings/updateCertainField") ?>", data, function(result) {
+			if (result == "success") {
+				window.location.reload(true);
+			} else if (result == "null") {
+				if ($(".dialog-edit").data("type") == "password") {
+					alert("Password lama salah");
 				}
 			}
 		});

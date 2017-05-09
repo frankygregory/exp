@@ -31,13 +31,7 @@ class User_model extends CI_Model{
 	}
 	
 	public function insertGroup($data) {
-		$insertData = array(
-			"group_name" => $data["group_name"],
-			"user_id" => $data["user_id"],
-			"created_by" => $data["user_id"],
-			"modified_by" => $data["user_id"]
-		);
-		$this->db->insert("m_group", $insertData);
-		return $this->db->affected_rows();
+		$this->db->query("CALL create_group('" . $data["group_name"] . "', '" . $data["user_id"] . "');");
+		return 1;
 	}
 }

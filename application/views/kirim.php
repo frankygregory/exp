@@ -1,49 +1,43 @@
 <div id="page-wrapper">
 <div class="container-fluid">
 <div class="page-title"><?= $page_title ?></div>
+<div class="section">
+	<div class="subsection-filter">
+		<div class="subsection-title">Filter</div>
+		<div class="form-item">
+			<div class="form-item-label">Lokasi Asal</div>
+			<input type="text" class="input" />
+		</div>
+		<div class="form-item">
+			<div class="form-item-label">Lokasi Tujuan</div>
+			<input type="text" class="input" />
+		</div>
+		<div class="form-item form-item-jarak">
+			<div class="form-item-label">Jarak (Km)</div>
+			<input type="text" class="input" maxlength="4" />
+		</div>
+		<div class="form-item">
+			<div class="form-item-label">Tanggal Berakhir</div>
+			<input type="text" class="input" />
+		</div>
+	</div>
+	<div class="subsection-sort">
+		<div class="subsection-title">Sort</div>
+		<div class="form-item">
+			<div class="form-item-label" style="visibility: hidden">sort</div>
+			<select class="select-sort">
+				<option value="created_date desc">Terbaru</option>
+				<option value="created_date asc">Terlama</option>
+				<option value="shipment_end_date asc">Tanggal Berakhir Asc</option>
+				<option value="shipment_end_date desc">Tanggal Berakhir Desc</option>
+				<option value="shipment_length asc">Jarak Asc</option>
+				<option value="shipment_length desc">Jarak Desc</option>
+			</select>
+		</div>
+	</div>
+</div>
 <div class="content">
 	<div class="section-1">
-	<?php
-		if ($this->session->userdata("role_id") == 1) { ?>
-		<a class="btn-kirim-barang" href="<?= base_url("kirim/kirimbarang") ?>">
-			<button type="button" class="btn-default">Kirim Barang</button>
-		</a>
-<?php	}	?>
-		<div class="section">
-			<div class="subsection-filter">
-				<div class="subsection-title">Filter</div>
-				<div class="form-item">
-					<div class="form-item-label">Lokasi Asal</div>
-					<input type="text" class="input" />
-				</div>
-				<div class="form-item">
-					<div class="form-item-label">Lokasi Tujuan</div>
-					<input type="text" class="input" />
-				</div>
-				<div class="form-item form-item-jarak">
-					<div class="form-item-label">Jarak (Km)</div>
-					<input type="text" class="input" maxlength="4" />
-				</div>
-				<div class="form-item">
-					<div class="form-item-label">Tanggal Berakhir</div>
-					<input type="text" class="input" />
-				</div>
-			</div>
-			<div class="subsection-sort">
-				<div class="subsection-title">Sort</div>
-				<div class="form-item">
-					<div class="form-item-label" style="visibility: hidden">sort</div>
-					<select class="select-sort">
-						<option value="created_date desc">Terbaru</option>
-						<option value="created_date asc">Terlama</option>
-						<option value="shipment_end_date asc">Tanggal Berakhir Asc</option>
-						<option value="shipment_end_date desc">Tanggal Berakhir Desc</option>
-						<option value="shipment_length asc">Jarak Asc</option>
-						<option value="shipment_length desc">Jarak Desc</option>
-					</select>
-				</div>
-			</div>
-		</div>
 		<table class="table table-kiriman">
 			<thead>
 				<tr>

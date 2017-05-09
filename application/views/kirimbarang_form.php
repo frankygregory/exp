@@ -193,8 +193,8 @@
 				</div>
 			</div>
 			<div class="section-3-buttons">
-				<button type="button" class="section-btn btn-tambah-item" onclick="addItem()">Tambah Item</button>
-				<button type="button" class="section-btn btn-reset">Reset</button>
+				<button type="button" class="section-btn btn-positive btn-tambah-item" onclick="addItem()">Tambah Item</button>
+				<button type="button" class="section-btn btn-neutral btn-reset">Reset</button>
 			</div>
 		</div>
 		<div class="section-4">
@@ -219,7 +219,7 @@
 			</div>
 		</div>
 		<div class="section-5">
-			<div class="section-title">5 | Tanggal</div>
+			<div class="section-title">5 | Tentukan Tanggal</div>
 			<div class="section-5-content">
 				<div class="section-5-left">
 					<div class="form-item form-tanggal-kirim-awal">

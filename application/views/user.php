@@ -149,6 +149,7 @@ $(function() {
 	$(".btn-tambah-group").on("click", function() {
 		clearAllErrors();
 		showDialog(".dialog-tambah-group");
+		$(".dialog-tambah-group .input-group_name").select();
 	});
 	
 	$(".btn-submit-tambah-group").on("click", function() {
@@ -177,23 +178,16 @@ function updateGroup() {
 	var group_id = $(".dialog-edit-group").data("id");
 	var group_name = $(".dialog-edit-group .input-group_name").val().trim();
 	if (group_name != "") {
-		$.ajax({
-			url: '<?= base_url("user/updateGroup") ?>',
-			data: {
-				group_id: group_id,
-				group_name: group_name
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getMyGroups();
-				} else {
-					alert(result);
-				}
+		var data = {
+			group_id: group_id,
+			group_name: group_name
+		};
+		ajaxCall("<?= base_url("user/updateGroup") ?>", data, function(result) {
+			if (result == "success") {
+				closeDialog();
+				getMyGroups();
+			} else {
+				alert(result);
 			}
 		});
 	} else {
@@ -204,22 +198,12 @@ function updateGroup() {
 function insertGroup() {
 	var group_name = $(".dialog-tambah-group .input-group_name").val().trim();
 	if (group_name != "") {
-		$.ajax({
-			url: '<?= base_url("user/insertGroup") ?>',
-			data: {
-				group_name: group_name
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getMyGroups();
-				} else {
-					alert(result);
-				}
+		ajaxCall("<?= base_url("user/insertGroup") ?>", {group_name: group_name}, function(result) {
+			if (result == "success") {
+				closeDialog();
+				getMyGroups();
+			} else {
+				alert(result);
 			}
 		});
 	} else {
@@ -228,17 +212,10 @@ function insertGroup() {
 }
 
 function getMyGroups() {
-	$.ajax({
-		url: '<?= base_url("user/getMyGroups") ?>',
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(json) {
-			$(".tbody-group").html("");
-			var result = jQuery.parseJSON(json);
-			addGroupsToTable(result);
-		}
+	ajaxCall("<?= base_url("user/getMyGroups") ?>", null, function(json) {
+		$(".tbody-group").html("");
+		var result = jQuery.parseJSON(json);
+		addGroupsToTable(result);
 	});
 }
 
@@ -266,7 +243,6 @@ function addGroupsToTable(result) {
 	}
 	$(".tbody-group").html("");
 	$(".tbody-group").html(element);
-	
 	
 	$(".input-group_id").html("");
 	$(".input-group_id").html(option);
