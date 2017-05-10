@@ -225,7 +225,6 @@
 					<div class="form-item form-tanggal-kirim-awal">
 						<div class="form-item-label">Tanggal Kirim</div>
 						<input type="text" name="tanggal-kirim-awal" class="input-tanggal-kirim-awal" placeholder="" />
-						
 					</div>
 					<div class="form-item form-tanggal-kirim-akhir">
 						<div class="form-item-label">sampai dengan</div>
@@ -279,6 +278,8 @@
    }
    
 $(function() {
+	$(".datepicker").datepicker();
+	
 	$(document).on("keypress", function(e) {
 		if (e.which == 13) { //ENTER
 			e.preventDefault();
@@ -301,9 +302,9 @@ $(function() {
 		var from_latlng = $("#location_from_latlng").val();
 	});
 	
-	$( ".input-tanggal-kirim-awal, .input-tanggal-kirim-akhir, .input-tanggal-deadline" ).datepicker({
+	/*$( ".input-tanggal-kirim-awal, .input-tanggal-kirim-akhir, .input-tanggal-deadline" ).datepicker({
 		dateFormat: "yy-mm-dd"
-	});
+	});*/
 
 });
 	

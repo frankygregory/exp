@@ -1,0 +1,104 @@
+.datepicker {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 500px;
+	height: 250px;
+	border: 1px solid #BDBDBD;
+	padding: 5px;
+	background-color: white;
+}
+
+.datepicker-bulan-container {
+	width: 50%;
+	float: left;
+	position: relative;
+}
+
+.datepicker-bulan-title {
+	height: 35px;
+	padding-top: 5px;
+	text-align: center;
+	font-size: 14pt;
+	font-weight: bold;
+	background-color: #2196F3;
+	color: white;
+}
+
+.datepicker-hari-container {
+	padding: 5px 10px;
+}
+
+.datepicker-hari-nama {
+	display: inline-block;
+	width: 12%;
+	text-align: center;
+	color: #1565C0;
+	font-weight: bold;
+}
+
+.datepicker-hari-nama[data-value="0"] {
+	color: #C62828;
+}
+
+.datepicker-tanggal-container {
+	padding: 0px 10px;
+}
+
+.datepicker-row {
+	
+}
+
+.datepicker-tanggal {
+	display: inline-block;
+	width: 12%;
+	height: 25px;
+	margin-right: 4px;
+	font-size: 11pt;
+	text-align: center;
+	color: #1565C0;
+	font-weight: bold;
+	padding-top: 4px;
+	background-color: #F5F5F5;
+	overflow: hidden;
+}
+
+.datepicker-tanggal:first-child {
+	color: #C62828;
+}
+
+.datepicker-tanggal[data-today="1"] {
+	background-color: #03A9F4;
+	color: white;
+}
+
+.datepicker-tanggal[data-disabled="1"] {
+	background-color: white;
+	opacity: 0.3;
+}
+
+.datepicker-tanggal[data-current-month="0"] {
+	visibility: hidden;
+}
+
+.datepicker-tanggal:not([data-current-month="0"]) {
+	cursor: pointer;
+}
+
+.next-month-icon {
+	position: absolute;
+	right: 0;
+	top: 0;
+	cursor: pointer;
+}
+
+.prev-month-icon {
+	position: absolute;
+	left: 0;
+	top: 0;
+	cursor: pointer;
+}
+
+.next-month-icon:hover, .prev-month-icon:hover {
+	background-color: rgba(0, 0, 0, 0.2);
+}

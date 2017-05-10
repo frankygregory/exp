@@ -8,6 +8,7 @@ class Kirim extends MY_Controller
     {
         parent::__construct();
 		$this->load->model("Kirim_model");
+		$this->loadModule("datepicker");
     }
 
     public function index()

@@ -20,9 +20,10 @@
 	<link href="<?=base_url()?>assets/template/css/top.css" rel="stylesheet" media="(orientation: landscape)">
 	<link href="<?=base_url()?>assets/template/css/top - portrait.css" rel="stylesheet" media="(orientation: portrait)">
 	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css" rel="stylesheet">
-	<link href="<?=base_url()?>assets/panel/jqueryui/jquery-ui.datetimepicker.min.css" rel="stylesheet" >
+	
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
-	<script src="<?= base_url('assets/panel/jqueryui/jquery-ui.datetimepicker.min.js')?>"></script>
+	<!--<link href="<?//=base_url()?>assets/panel/jqueryui/jquery-ui.datetimepicker.min.css" rel="stylesheet" >
+	<script src="<?//= base_url('assets/panel/jqueryui/jquery-ui.datetimepicker.min.js')?>"></script>-->
 	<?= $modules ?>
 </head>
 <body>
