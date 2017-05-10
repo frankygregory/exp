@@ -1,7 +1,7 @@
 .datepicker {
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 50;
+	left: 100;
 	width: 500px;
 	height: 250px;
 	border: 1px solid #BDBDBD;
