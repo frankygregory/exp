@@ -278,7 +278,9 @@
    }
    
 $(function() {
-	$(".datepicker").datepicker();
+	$(".input-tanggal-kirim-awal").datepicker();
+	$(".input-tanggal-kirim-akhir").datepicker();
+	$(".input-tanggal-deadline").datepicker();
 	
 	$(document).on("keypress", function(e) {
 		if (e.which == 13) { //ENTER

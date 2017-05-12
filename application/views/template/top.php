@@ -22,8 +22,7 @@
 	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css" rel="stylesheet">
 	
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
-	<!--<link href="<?//=base_url()?>assets/panel/jqueryui/jquery-ui.datetimepicker.min.css" rel="stylesheet" >
-	<script src="<?//= base_url('assets/panel/jqueryui/jquery-ui.datetimepicker.min.js')?>"></script>-->
+	<script src="<?=base_url('assets/panel/js/velocity.min.js')?>"></script>
 	<?= $modules ?>
 </head>
 <body>
