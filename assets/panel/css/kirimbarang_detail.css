@@ -51,6 +51,10 @@ td {
 	width: 120px;
 }
 
+.shipment_picture {
+	width: 100%;
+}
+
 #map-asal {
 	border: 1px solid black;
 }

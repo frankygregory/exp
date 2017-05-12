@@ -92,6 +92,9 @@
 			</div>
 		</div>
 		<div class="section-1b">
+			<div class="unage-container">
+				<img class="shipment_picture" src="<?= base_url("assets/panel/images/") . $shipment_pictures ?>" />
+			</div>
 			<div class="asal">
 				<div class="asal-title">Lokasi</div>
 				<table>
@@ -380,9 +383,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		isNumber(e);
 	});
 	
-	$( ".input-bidding-pickupdate" ).datepicker({
-		dateFormat: "yy-mm-dd"
-	});
+	$( ".input-bidding-pickupdate" ).datepicker();
 	
 	$(document).on("click", ".btn-kirim-penawaran", function() {
 		kirimPenawaran();
@@ -653,6 +654,13 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 	}, function(response, status) {
 		if (status === "OK") {
 			directionsDisplay.setDirections(response);
+			var result = "";
+			for (var p in response) {
+				if ( response.hasOwnProperty(p) ) {
+					result += p + " , " + response[p] + "\n";
+				} 
+			}
+			alert(result);
 		} else {
 			alert(status);
 		}

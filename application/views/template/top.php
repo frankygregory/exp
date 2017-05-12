@@ -87,6 +87,7 @@
 		</div>
 		<div class="container-content">
 <script>
+String.prototype.padLeft = function(l,c) {return Array(l-this.length+1).join(c||" ")+this}
 var dialog = {
 	shown: false
 };
