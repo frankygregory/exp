@@ -92,26 +92,27 @@
 			</div>
 		</div>
 		<div class="section-1b">
-			<div class="unage-container">
-				<img class="shipment_picture" src="<?= base_url("assets/panel/images/") . $shipment_pictures ?>" />
-			</div>
+			
 			<div class="asal">
 				<div class="asal-title">Lokasi</div>
 				<table>
 					<tbody>
 						<tr>
-							<td class="td-address-label">Nama Lokasi</td>
+							<td class="td-address-label">Asal</td>
 							<td class="td-titikdua">:</td>
-							<td><?= $location_from_name ?></td>
+							<td><?= $location_from_city ?></td>
 						</tr>
 						<tr>
-							<td class="td-address-label">Alamat Lokasi</td>
+							<td class="td-address-label">Tujuan</td>
 							<td class="td-titikdua">:</td>
-							<td><?= $location_from_address ?></td>
+							<td><?= $location_to_city ?></td>
 						</tr>
 					</tbody>
 				</table>
 				<div class="form-group" id="map_asal" style="width: 100%; height: 200px"></div>
+			</div>
+			<div class="unage-container">
+				<img class="shipment_picture" src="<?= base_url("assets/panel/images/") . $shipment_pictures ?>" />
 			</div>
 		</div>
 	
@@ -654,13 +655,6 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 	}, function(response, status) {
 		if (status === "OK") {
 			directionsDisplay.setDirections(response);
-			var result = "";
-			for (var p in response) {
-				if ( response.hasOwnProperty(p) ) {
-					result += p + " , " + response[p] + "\n";
-				} 
-			}
-			alert(result);
 		} else {
 			alert(status);
 		}

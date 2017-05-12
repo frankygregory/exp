@@ -52,6 +52,7 @@
 						<div class="form-item-error"></div>
 						<input type="text" class="" id="location_from_address" name="location_from_address" value="<?= $location_from_address ?>" />
 						<input type="hidden" name="location_from_name" id="location_from_name" value="" />
+						<input type="hidden" name="location_from_city" id="location_from_city" value="" />
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Detail Lokasi</div>
@@ -80,6 +81,7 @@
 						<div class="form-item-error"></div>
 						<input type="text" class="" id="location_to_address" name="location_to_address" value="<?= $location_to_address ?>" />
 						<input type="hidden" name="location_to_name" id="location_to_name" value="" />
+						<input type="hidden" name="location_to_city" id="location_to_city" value="" />
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Detail Lokasi</div>
@@ -304,10 +306,6 @@ $(function() {
 		var from_latlng = $("#location_from_latlng").val();
 	});
 	
-	/*$( ".input-tanggal-kirim-awal, .input-tanggal-kirim-akhir, .input-tanggal-deadline" ).datepicker({
-		dateFormat: "yy-mm-dd"
-	});*/
-
 });
 	
 function addItem() {
@@ -459,7 +457,21 @@ function initialize() {
 	
 	autocomplete_asal.addListener('place_changed', function() {
 		var place = autocomplete_asal.getPlace();
+		var city = "";
+		var address_components = place.address_components;
+		for (var i in address_components) {
+			if ( address_components.hasOwnProperty(i) ) {
+				var types = address_components[i].types;
+				for (var j in types) {
+					if (types[j] == "administrative_area_level_2") {
+						city = address_components[i].long_name;
+					}
+				}
+			}
+		}
+		
 		$("#location_from_name").val(place.name);
+		$("#location_from_city").val(city);
 		var latlng = place.geometry.location;
 		get_lat_long('location', latlng, "location_from_latlng");
 		
@@ -476,7 +488,21 @@ function initialize() {
 	
 	autocomplete_tujuan.addListener('place_changed', function() {
 		var place = autocomplete_tujuan.getPlace();
+		var city = "";
+		var address_components = place.address_components;
+		for (var i in address_components) {
+			if ( address_components.hasOwnProperty(i) ) {
+				var types = address_components[i].types;
+				for (var j in types) {
+					if (types[j] == "administrative_area_level_2") {
+						city = address_components[i].long_name;
+					}
+				}
+			}
+		}
+		
 		$("#location_to_name").val(place.name);
+		$("#location_to_city").val(city);
 		var latlng = place.geometry.location;
 		get_lat_long('location', latlng, "location_to_latlng");
 		
@@ -600,7 +626,7 @@ function initMap() {
 }
 
 function get_lat_long(mode, value, div) {
-	var lat, lng;
+	var lat, lng, city;
 	if (mode == "location") {
 		lat = value.lat();
 		lng = value.lng();

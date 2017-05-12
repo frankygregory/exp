@@ -17,13 +17,8 @@
         <input type="text" name="username" placeholder="Username">
         <?=form_error('password')?>
         <input type="password" name="password" placeholder="Password">
-        <div class="row well">
-            <div class="col-sm-6"><?=$img;?></div>
-            <div class="col-sm-6"><input type="text" name="captcha" id="captcha" placeholder="Type code"></div>
-        </div>
         <input type="submit" name="login" class="login loginmodal-submit" value="Login">
     </form>
-
     <div class="login-help">
         <a href="<?=base_url().'register/';?>">Register</a> - <a href="#">Forgot Password</a>
     </div>

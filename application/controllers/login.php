@@ -57,6 +57,12 @@ class Login extends CI_Controller
 
     public function doLogin()
     {
+		$ip = getenv('HTTP_CLIENT_IP')?:getenv('HTTP_X_FORWARDED_FOR')?:getenv('HTTP_X_FORWARDED')?:getenv('HTTP_FORWARDED_FOR')?:getenv('HTTP_FORWARDED')?:getenv('REMOTE_ADDR');
+		$geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=" . $ip));
+		$location = $geo["geoplugin_city"] . ";" . $geo["geoplugin_region"] . ";" . $geo["geoplugin_countryName"];
+		$browser = get_browser();
+		$browser_name = $browser["browser_name_pattern"] . ";" . $browser["parent"] . ";" . $browser["platform"] . ";" . $browser["browser"] . ";" . $browser["version"];
+		
 		if ($this->form_validation->run('login') == FALSE) {
 			$data = array(
 				'title' => 'Login Yukirim',
