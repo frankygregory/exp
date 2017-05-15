@@ -100,6 +100,7 @@
 					<td>Nama Alat</td>
 					<td>Keterangan</td>
 					<td>Email</td>
+					<td>Ketersediaan</td>
 					<td>Status</td>
 					<td>Action</td>
 				</tr>
@@ -300,6 +301,10 @@ $(function() {
 	}
 	
 	function addAlatToTable(no, result) {
+		var ketersediaan = "Tersedia";
+		if (result.shipment_id != "") {
+			ketersediaan = result.shipment_id;
+		}
 		
 		var aktifDisabled = "disabled", tidakAktifDisabled = "";
 		if (result.device_status == 0) {
@@ -313,7 +318,7 @@ $(function() {
 		var btnEdit = "<button class='btn-default btn-edit' data-id='" + result.device_id + "'>Edit</button>";
 		var btnDelete = "<button class='btn-negative btn-delete' data-id='" + result.device_id + "'>Delete</button>";
 		
-		var element = "<tr class='tr-alat' data-id='" + result.device_id + "'><td>" + no + "</td><td class='td-name'>" + result.device_name + "</td><td class='td-information'>" + result.device_information + "</td><td class='td-email'>" + result.device_email + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
+		var element = "<tr class='tr-alat' data-id='" + result.device_id + "'><td>" + no + "</td><td class='td-name'>" + result.device_name + "</td><td class='td-information'>" + result.device_information + "</td><td class='td-email'>" + result.device_email + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
 		$(".tbody-alat").append(element);
 	}
 	

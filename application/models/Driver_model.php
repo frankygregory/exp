@@ -49,8 +49,15 @@ class Driver_model extends CI_Model
 	}
 	
 	public function getDriverByUserId($user_id) {
-		$this->db->where("created_by", $user_id);
-		return $this->db->get("m_driver")->result();
+		$query = $this->db->query("
+			SELECT m.*, COALESCE(d.shipment_id, '') AS shipment_id
+			FROM `m_driver` m
+			LEFT JOIN `m_driver_details` d
+			ON m.driver_id = d.driver_id AND d.driver_details_status = 1
+			WHERE m.user_id = '" . $user_id . "'
+			GROUP BY m.driver_id
+		");
+		return $query->result();
 	}
 	
 	public function deleteDriver($driver_id) {

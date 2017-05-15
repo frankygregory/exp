@@ -5,12 +5,10 @@ class Login_model extends CI_Model{
         parent::__construct();
     }
 
-    public function login($username, $password) {
-		$password = md5($password);
+    public function login($data) {
+		$data["password"] = md5($data["password"]);
         $query = $this->db->query(
-			"SELECT u.*, ug.group_id
-			FROM m_user u, m_user_group ug
-			WHERE u.username = '" . $username . "' AND u.password = '" . $password . "' AND ug.user_id = u.user_id"
+			"CALL try_login('" . $data["username"] . "', '" . $data["password"] . "', '" . $data["ip"] . "', '" . $data["location"] . "', '" . $data["browser"] . "');"
 		);
 		return $query->result_array();
     }

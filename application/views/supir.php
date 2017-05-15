@@ -326,8 +326,8 @@ $(function() {
 	
 	function addSupirToTable(no, result) {
 		var ketersediaan = "Tersedia";
-		if (result.driver_in_use == 1) {
-			ketersediaan = "Sedang Digunakan";
+		if (result.shipment_id != "") {
+			ketersediaan = result.shipment_id;
 		}
 		
 		if (result.driver_rating == null) {

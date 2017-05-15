@@ -303,8 +303,8 @@ $(function() {
 	
 	function addKendaraanToTable(no, result) {
 		var ketersediaan = "Tersedia";
-		if (result.vehicle_in_use == 1) {
-			ketersediaan = "Sedang Digunakan";
+		if (result.shipment_id != "") {
+			ketersediaan = result.shipment_id;
 		}
 		
 		var aktifDisabled = "disabled", tidakAktifDisabled = "";

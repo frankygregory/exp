@@ -47,8 +47,15 @@ class Alat_model extends CI_Model
 	}
 	
 	public function getAlatByUserId($user_id) {
-		$this->db->where("created_by", $user_id);
-		return $this->db->get("m_device_customer")->result();
+		$query = $this->db->query("
+			SELECT m.*, COALESCE(d.shipment_id, '') AS shipment_id
+			FROM `m_device_customer` m
+			LEFT JOIN `m_device_details` d
+			ON m.device_id = d.device_id AND d.device_details_status = 1
+			WHERE m.user_id = '" . $user_id . "'
+			GROUP BY m.device_id
+		");
+		return $query->result();
 	}
 	
 	public function deleteAlat($device_id) {

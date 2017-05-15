@@ -46,8 +46,15 @@ class Kendaraan_model extends CI_Model
 	}
 	
 	public function getKendaraanByUserId($user_id) {
-		$this->db->where("created_by", $user_id);
-		return $this->db->get("m_vehicle")->result();
+		$query = $this->db->query("
+			SELECT m.*, COALESCE(d.shipment_id, '') AS shipment_id
+			FROM `m_vehicle` m
+			LEFT JOIN `m_vehicle_details` d
+			ON m.vehicle_id = d.vehicle_id AND d.vehicle_details_status = 1
+			WHERE m.user_id = '" . $user_id . "'
+			GROUP BY m.vehicle_id
+		");
+		return $query->result();
 	}
 	
 	public function deleteKendaraan($vehicle_id) {

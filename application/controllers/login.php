@@ -58,10 +58,11 @@ class Login extends CI_Controller
     public function doLogin()
     {
 		$ip = getenv('HTTP_CLIENT_IP')?:getenv('HTTP_X_FORWARDED_FOR')?:getenv('HTTP_X_FORWARDED')?:getenv('HTTP_FORWARDED_FOR')?:getenv('HTTP_FORWARDED')?:getenv('REMOTE_ADDR');
-		$geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=" . $ip));
-		$location = $geo["geoplugin_city"] . ";" . $geo["geoplugin_region"] . ";" . $geo["geoplugin_countryName"];
+		//$geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=" . $ip));
+		//$location = $geo["geoplugin_city"] . ";" . $geo["geoplugin_region"] . ";" . $geo["geoplugin_countryName"];
+		$location = "";
 		$browser = get_browser();
-		$browser_name = $browser["browser_name_pattern"] . ";" . $browser["parent"] . ";" . $browser["platform"] . ";" . $browser["browser"] . ";" . $browser["version"];
+		$browser_name = $browser->browser_name_pattern . ";" . $browser->platform . ";" . $browser->browser . ";" . $browser->version;
 		
 		if ($this->form_validation->run('login') == FALSE) {
 			$data = array(
@@ -78,26 +79,35 @@ class Login extends CI_Controller
 				$this->view('front/login', 'Isian harus huruf atau angka');
 			} else {
 				if ((strlen($username) > 0) OR (strlen($password) > 0)) {
-					$user = $this->Login_model->login($username, $password);
+					$insertData = array(
+						"username" => $username,
+						"password" => $password,
+						"ip" => $ip,
+						"location" => $location,
+						"browser" => $browser_name
+					);
+					$user = $this->Login_model->login($insertData);
 					if (sizeof($user) > 0) {
-						$this->setuserdata(
-							$user[0]['user_id'],
-							$user[0]['username'],
-							$user[0]['user_fullname'],
-							$user[0]['group_id'],
-							$user[0]['user_level'],
-							$user[0]['role_id'],
-							'menu',
-							'dashboard'
-						);
-						redirect('dashboard');
-					} else {
-						$data = array(
-							'title' => 'Login Yukirim',
-							'error' => 'Username / Password salah!!',
-							'img' => $this->create_captcha(),
-						);
+						if ($user[0]["result"] == "false") {
+							$data = array(
+								'title' => 'Login Yukirim',
+								'error' => 'Username / Password salah!!',
+								'img' => $this->create_captcha(),
+							);
 						$this->load->view('front/login', $data);
+						} else {
+							$this->setuserdata(
+								$user[0]['user_id'],
+								$user[0]['username'],
+								$user[0]['user_fullname'],
+								$user[0]['group_id'],
+								$user[0]['user_level'],
+								$user[0]['role_id'],
+								'menu',
+								'dashboard'
+							);
+							redirect('dashboard');
+						}
 					}
 				}
 			}
