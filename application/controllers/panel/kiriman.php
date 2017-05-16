@@ -30,11 +30,59 @@ class Kiriman extends MY_Controller
 	public function getKirimanSaya() {
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getKirimanSaya($user_id);
+		echo json_encode($kiriman);
+	}
+	
+	public function getOpenKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_model->getOpenKiriman($user_id);
 		$iLength = sizeof($kiriman);
-		 for ($i = 0; $i < $iLength; $i++) {
-			 $berakhir = $kiriman[$i]->berakhir;
-			 $kiriman[$i]->berakhir = $this->secondsToTime($berakhir);
-		 }
+		for ($i = 0; $i < $iLength; $i++) {
+			$berakhir = $kiriman[$i]->berakhir;
+			$kiriman[$i]->berakhir = $this->secondsToTime($berakhir);
+		}
+		echo json_encode($kiriman);
+	}
+	
+	public function getPendingKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_model->getPendingKiriman($user_id);
+		echo json_encode($kiriman);
+	}
+	
+	public function getPesananKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_model->getPesananKiriman($user_id);
+		echo json_encode($kiriman);
+	}
+	
+	public function getDikirimKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_model->getDikirimKiriman($user_id);
+		echo json_encode($kiriman);
+	}
+	
+	public function getDiambilKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_model->getDiambilKiriman($user_id);
+		echo json_encode($kiriman);
+	}
+	
+	public function getDiterimaKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_model->getDiterimaKiriman($user_id);
+		echo json_encode($kiriman);
+	}
+	
+	public function getSelesaiKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_model->getSelesaiKiriman($user_id);
+		echo json_encode($kiriman);
+	}
+	
+	public function getCancelKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_model->getCancelKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	

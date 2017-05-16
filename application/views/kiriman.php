@@ -167,7 +167,7 @@
 							<td>Asal</td>
 							<td>Tujuan</td>
 							<td>Jarak</td>
-							<td>Cancel</td>
+							<td>Cancel By</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -183,7 +183,34 @@
 <script>
 $(function() {
 	var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-	getKirimanSaya();
+	var kirimanUrl = [];
+	kirimanUrl[1] = "<?= base_url("kiriman-saya/getOpenKiriman") ?>";
+	kirimanUrl[2] = "<?= base_url("kiriman-saya/getPendingKiriman") ?>";
+	kirimanUrl[3] = "<?= base_url("kiriman-saya/getPesananKiriman") ?>";
+	kirimanUrl[4] = "<?= base_url("kiriman-saya/getDikirimKiriman") ?>";
+	kirimanUrl[5] = "<?= base_url("kiriman-saya/getDiambilKiriman") ?>";
+	kirimanUrl[6] = "<?= base_url("kiriman-saya/getDiterimaKiriman") ?>";
+	kirimanUrl[7] = "<?= base_url("kiriman-saya/getSelesaiKiriman") ?>";
+	kirimanUrl[8] = "<?= base_url("kiriman-saya/getCancelKiriman") ?>";
+	
+	var kirimanTabs = [];
+	kirimanTabs[1] = "open";
+	kirimanTabs[2] = "pending";
+	kirimanTabs[3] = "pesanan";
+	kirimanTabs[4] = "dikirim";
+	kirimanTabs[5] = "diambil";
+	kirimanTabs[6] = "diterima";
+	kirimanTabs[7] = "selesai";
+	kirimanTabs[8] = "cancel";
+	
+	getKirimanCount();
+	getKiriman(kirimanUrl[1], 1, "open");
+	
+	$(".tabs-item").on("click", function() {
+		var tabsNumber = $(this).data("tabs-number");
+		getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
+		
+	});
 	
 	$(document).on("click", ".btn-submit-rating", function() {
 		submitRating(this);
@@ -215,7 +242,9 @@ $(function() {
 			success: function(result) {
 				if (result == "success") {
 					closeDialog();
-					getKirimanSaya();
+					getKirimanCount();
+					var tabsNumber = $(".tabs-item.active").data("tabs-number");
+					getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
 				} else {
 					alert(result);
 				}
@@ -241,7 +270,9 @@ $(function() {
 			},
 			success: function(result) {
 				if (result == "success") {
-					getKirimanSaya();
+					getKirimanCount();
+					var tabsNumber = $(".tabs-item.active").data("tabs-number");
+					getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
 				} else {
 					alert(result);
 				}
@@ -249,7 +280,7 @@ $(function() {
 		});
 	}
 	
-	function getKirimanSaya() {
+	function getKirimanCount() {
 		$.ajax({
 			url: '<?= base_url("kiriman-saya/getKirimanSaya") ?>',
 			type: 'POST',
@@ -258,49 +289,78 @@ $(function() {
 			},
 			success: function(json) {
 				var result = jQuery.parseJSON(json);
-				addKirimanToTable(result);
+				assignKirimanCount(result);
 			}
 		});
 	}
 	
-	function addKirimanToTable(result) {
-		var iLength = result.length;
-		var element = {
-			"open": {
-				count: 0,
-				value: ""
-			},
-			"pending": {
-				count: 0,
-				value: ""
-			},
-			"pesanan": {
-				count: 0,
-				value: ""
-			},
-			"dikirim": {
-				count: 0,
-				value: ""
-			},
-			"diambil": {
-				count: 0,
-				value: ""
-			},
-			"diterima": {
-				count: 0,
-				value: ""
-			},
-			"selesai": {
-				count: 0,
-				value: ""
-			},
-			"cancel": {
-				count: 0,
-				value: ""
-			}
+	function assignKirimanCount(result) {
+		var tabs = {
+			t1: 0,
+			t2: 0,
+			t3: 0,
+			t4: 0,
+			t5: 0,
+			t6: 0,
+			t7: 0,
+			t8: 0
 		};
 		
-		var tab = "";
+		for (var i = 0; i < result.length; i++) {
+			switch (result[i].shipment_status) {
+				case "-1":
+					tabs.t1= result[i].count;
+					break;
+				case "0":
+					tabs.t2 = result[i].count;
+					break;
+				case "1":
+					tabs.t2 = result[i].count;
+					break;
+				case "2":
+					tabs.t3 = result[i].count;
+					break;
+				case "3":
+					tabs.t4 = result[i].count;
+					break;
+				case "4":
+					tabs.t5 = result[i].count;
+					break;
+				case "5":
+					tabs.t6 = result[i].count;
+					break;
+				case "6":
+					tabs.t7 = result[i].count;
+					break;
+				case "7":
+					tabs.t8 = result[i].count;
+					break;
+			}
+		}
+		
+		for (var i = 1; i <= 8; i++) {
+			updateTabsItemCount(i, tabs["t" + i]);
+		}
+	}
+	
+	function getKiriman(url, tabsNumber, tabs) {
+		$.ajax({
+			url: url,
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(json) {
+				var result = jQuery.parseJSON(json);
+				addKirimanToTable(result, tabsNumber, tabs);
+			}
+		});
+	}
+	
+	function addKirimanToTable(result, tabsNumber, tab) {
+		var iLength = result.length;
+		var element = "";
+		
 		for (var i = 0; i < iLength; i++) {
 			var date_from = new Date(result[i].shipment_delivery_date_from);
 			var fullDateFrom = date_from.getDate() + " " + month[date_from.getMonth()] + " " + date_from.getFullYear();
@@ -312,68 +372,40 @@ $(function() {
 			var cancelBy = "";
 			var ratingSection = "";
 			var action = "<td><button class='btn-negative btn-cancel-transaction'>Batalkan Kiriman</button></td>";
-			switch (result[i].shipment_status) {
-				case "-1":
-					tab = "open";
+			switch (tab) {
+				case "open":
 					berakhir = "<td class='td-berakhir'>" + result[i].berakhir + "</td>";
 					break;
-				case "0":
-					tab = "pending";
+				case "pesanan":
+					additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
 					break;
-				case "1":
-					tab = "pending";
-					break;
-				case "2":
-					tab = "pesanan";
-					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
-					break;
-				case "3":
+				case "dikirim":
 					tab = "dikirim";
-					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
+					additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
 					break;
-				case "4":
-					tab = "diambil";
-					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
+				case "diambil":
+					additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
 					break;
-				case "5":
-					tab = "diterima";
-					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
+				case "diterima":
+					additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
 					ratingSection = "<td><div class='rating-section'>" + getRatingJs() + "<textarea class='input-rating-feedback'></textarea><button class='btn-default btn-submit-rating'>Submit</button></div></td>";
 					action = "";
 					break;
-				case "6":
-					tab = "selesai";
-					additionalTd = "<td>" + result[i].driver_name + "</td><td>" + result[i].vehicle_name + "</td><td>" + result[i].device_name + "</td>";
+				case "selesai":
+					additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
 					action = "";
 					break;
-				case "7":
-					tab = "cancel";
+				case "cancel":
 					action = "";
-					cancelBy = "<td>" + result[i].cancel_by + "</td>";
+					cancelBy = "<td>" + result[i].cancel_username + "</td>";
 					break;
 			}
 			
-			element[tab].count++;
-			element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + additionalTd + berakhir + ratingSection + action + cancelBy + "</tr>";
+			element += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + additionalTd + berakhir + ratingSection + action + cancelBy + "</tr>";
 		}
 		
-		$(".tbody-kiriman").html("");
-		$(".tabs-content[data-tabs-number='1'] .tbody-kiriman").append(element["open"].value);
-		$(".tabs-content[data-tabs-number='2'] .tbody-kiriman").append(element["pending"].value);
-		$(".tabs-content[data-tabs-number='3'] .tbody-kiriman").append(element["pesanan"].value);
-		$(".tabs-content[data-tabs-number='4'] .tbody-kiriman").append(element["dikirim"].value);
-		$(".tabs-content[data-tabs-number='5'] .tbody-kiriman").append(element["diambil"].value);
-		$(".tabs-content[data-tabs-number='6'] .tbody-kiriman").append(element["diterima"].value);
-		$(".tabs-content[data-tabs-number='7'] .tbody-kiriman").append(element["selesai"].value);
-		$(".tabs-content[data-tabs-number='8'] .tbody-kiriman").append(element["cancel"].value);
-		updateTabsItemCount(1, element["open"].count);
-		updateTabsItemCount(2, element["pending"].count);
-		updateTabsItemCount(3, element["pesanan"].count);
-		updateTabsItemCount(4, element["dikirim"].count);
-		updateTabsItemCount(5, element["diambil"].count);
-		updateTabsItemCount(6, element["diterima"].count);
-		updateTabsItemCount(7, element["selesai"].count);
-		updateTabsItemCount(8, element["cancel"].count);
+		$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");
+		$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").append(element);
 	}
 });
 </script>
