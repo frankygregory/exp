@@ -6,9 +6,6 @@ class Kiriman_ekspedisi extends MY_Controller
     public function __construct(){
         parent::__construct();
         $this->load->model("Kiriman_ekspedisi_model");
-		$this->load->model("Driver_model");
-		$this->load->model("Kendaraan_model");
-		$this->load->model("Alat_model");
 		$this->loadModule("tabs");
     }
 
@@ -22,20 +19,74 @@ class Kiriman_ekspedisi extends MY_Controller
         parent::template('kiriman_ekspedisi', $data);
 	}
 	
+	public function getDealKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_ekspedisi_model->getDealKiriman($user_id);
+		echo json_encode($kiriman);
+	}
+	
+	public function getPendingKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_ekspedisi_model->getPendingKiriman($user_id);
+		echo json_encode($kiriman);
+	}
+	
+	public function getPesananKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_ekspedisi_model->getPesananKiriman($user_id);
+		echo json_encode($kiriman);
+	}
+	
+	public function getDikirimKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_ekspedisi_model->getDikirimKiriman($user_id);
+		echo json_encode($kiriman);
+	}
+	
+	public function getDiambilKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_ekspedisi_model->getDiambilKiriman($user_id);
+		echo json_encode($kiriman);
+	}
+	public function getDiterimaKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_ekspedisi_model->getDiterimaKiriman($user_id);
+		echo json_encode($kiriman);
+	}
+	
+	public function getSelesaiKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_ekspedisi_model->getSelesaiKiriman($user_id);
+		$iLength = sizeof($kiriman);
+		for ($i = 0; $i < $iLength; $i++) {
+			$waktu = $kiriman[$i]->waktu_kiriman;
+			$kiriman[$i]->waktu_kiriman = $this->secondsToDay($waktu);
+			$waktu = $kiriman[$i]->total_waktu;
+			$kiriman[$i]->total_waktu = $this->secondsToDay($waktu);
+		}
+		echo json_encode($kiriman);
+	}
+	public function getCancelKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_ekspedisi_model->getCancelKiriman($user_id);
+		echo json_encode($kiriman);
+	}
+	
 	function secondsToTime($seconds) {
 		$dtF = new \DateTime('@0');
 		$dtT = new \DateTime("@$seconds");
 		return $dtF->diff($dtT)->format('%a hari, %h jam, %i menit');
 	}
 	
+	function secondsToDay($seconds) {
+		$dtF = new \DateTime('@0');
+		$dtT = new \DateTime("@$seconds");
+		return $dtF->diff($dtT)->format('%a');
+	}
+		
 	public function getKirimanSaya() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_model->getKiriman($user_id);
-		$iLength = sizeof($kiriman);
-		for ($i = 0; $i < $iLength; $i++) {
-			$berakhir = $kiriman[$i]->berakhir;
-			$kiriman[$i]->berakhir = $this->secondsToTime($berakhir);
-		}
+		$kiriman = $this->Kiriman_ekspedisi_model->getKirimanCount($user_id);
 		echo json_encode($kiriman);
 	}
 	
@@ -123,19 +174,19 @@ class Kiriman_ekspedisi extends MY_Controller
 	
 	public function getSupir() {
 		$user_id = $this->session->userdata("user_id");
-		$driver = $this->Driver_model->getDriverByUserId($user_id);
+		$driver = $this->Kiriman_ekspedisi_model->getDriverAktif($user_id);
 		echo json_encode($driver);
 	}
 	
 	public function getKendaraan() {
 		$user_id = $this->session->userdata("user_id");
-		$vehicle = $this->Kendaraan_model->getKendaraanByUserId($user_id);
+		$vehicle = $this->Kiriman_ekspedisi_model->getKendaraanAktif($user_id);
 		echo json_encode($vehicle);
 	}
 	
 	public function getAlat() {
 		$user_id = $this->session->userdata("user_id");
-		$device = $this->Alat_model->getAlatByUserId($user_id);
+		$device = $this->Kiriman_ekspedisi_model->getAlatAktif($user_id);
 		echo json_encode($device);
 	}
 }

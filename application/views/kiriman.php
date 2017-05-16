@@ -152,6 +152,8 @@
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
+							<td>Waktu Kiriman</td>
+							<td>Total Waktu</td>
 						</tr>
 					</thead>
 					<tbody class="tbody-kiriman">
@@ -372,6 +374,7 @@ $(function() {
 			var cancelBy = "";
 			var ratingSection = "";
 			var action = "<td><button class='btn-negative btn-cancel-transaction'>Batalkan Kiriman</button></td>";
+			var waktu = "";
 			switch (tab) {
 				case "open":
 					berakhir = "<td class='td-berakhir'>" + result[i].berakhir + "</td>";
@@ -394,6 +397,7 @@ $(function() {
 				case "selesai":
 					additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
 					action = "";
+					waktu = "<td>" + result[i].waktu_kiriman + "</td><td>" + result[i].total_waktu + "</td>";
 					break;
 				case "cancel":
 					action = "";
@@ -401,7 +405,7 @@ $(function() {
 					break;
 			}
 			
-			element += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + additionalTd + berakhir + ratingSection + action + cancelBy + "</tr>";
+			element += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].shipment_price) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + additionalTd + berakhir + ratingSection + action + waktu + cancelBy + "</tr>";
 		}
 		
 		$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");

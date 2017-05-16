@@ -27,6 +27,12 @@ class Kiriman extends MY_Controller
 		return $dtF->diff($dtT)->format('%a hari, %h jam, %i menit');
 	}
 	
+	function secondsToDay($seconds) {
+		$dtF = new \DateTime('@0');
+		$dtT = new \DateTime("@$seconds");
+		return $dtF->diff($dtT)->format('%a');
+	}
+	
 	public function getKirimanSaya() {
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getKirimanSaya($user_id);
@@ -77,6 +83,13 @@ class Kiriman extends MY_Controller
 	public function getSelesaiKiriman() {
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getSelesaiKiriman($user_id);
+		$iLength = sizeof($kiriman);
+		for ($i = 0; $i < $iLength; $i++) {
+			$waktu = $kiriman[$i]->waktu_kiriman;
+			$kiriman[$i]->waktu_kiriman = $this->secondsToDay($waktu);
+			$waktu = $kiriman[$i]->total_waktu;
+			$kiriman[$i]->total_waktu = $this->secondsToDay($waktu);
+		}
 		echo json_encode($kiriman);
 	}
 	
