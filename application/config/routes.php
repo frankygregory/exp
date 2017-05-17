@@ -72,6 +72,7 @@ $route['kirim'] = 'panel/kirim';
 $route['kirim/getKiriman'] = 'panel/kirim/getKiriman';
 $route['kirim/private'] = 'panel/kirim/privates';
 $route['kirim/public'] = 'panel/kirim/publics';
+$route['kirim/getSavedLocation'] = 'panel/kirim/getSavedLocation';
 $route['kirim/kirimPertanyaan'] = 'panel/kirim/kirimPertanyaan';
 $route['kirim/jawabPertanyaan'] = 'panel/kirim/jawabPertanyaan';
 $route['kirim/penawaran'] = 'panel/kirim/penawaran';

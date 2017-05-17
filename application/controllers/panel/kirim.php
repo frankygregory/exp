@@ -203,7 +203,12 @@ class Kirim extends MY_Controller
         parent::template('kirimbarang_detail', $data);
     }
 
-
+	public function getSavedLocation() {
+		$user_id = $this->session->userdata("user_id");
+		$fromto = $this->input->post("fromto");
+		$locations = $this->Kirim_model->getSavedLocation($user_id, $fromto);
+		echo json_encode($locations);
+	}
 
     public function doKirimBarang()
     {

@@ -41,6 +41,12 @@ class Kirim_model extends CI_Model
 		return $query->result_array();
 	}
 	
+	public function getSavedLocation($user_id, $fromto) {
+		$this->db->where("user_id", $user_id);
+		$this->db->where($fromto, 1);
+		return $this->db->get("m_location")->result();
+	}
+	
 	public function insertQuestions($data) {
 		$insertData = array(
 			"questions_text" => $data["questions_text"],

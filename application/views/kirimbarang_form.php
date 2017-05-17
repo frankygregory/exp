@@ -48,7 +48,11 @@
 				</div>
 				<div class="section-asal-form">
 					<div class="form-item">
-						<div class="form-item-label">Lokasi Asal <a class="saved-location">Pilih Lokasi yang sudah didaftarkan</a></div>
+						<div class="form-item-label">Lokasi Asal
+							<a class="saved-location" data-fromto="location_from">Pilih Lokasi yang sudah didaftarkan</a>
+							<div class="saved-location-container">
+							</div>
+						</div>
 						<div class="form-item-error"></div>
 						<input type="text" class="" id="location_from_address" name="location_from_address" value="<?= $location_from_address ?>" />
 						<input type="hidden" name="location_from_name" id="location_from_name" value="" />
@@ -77,7 +81,11 @@
 				</div>
 				<div class="section-tujuan-form">
 					<div class="form-item">
-						<div class="form-item-label">Lokasi Tujuan <a class="saved-location">Pilih Lokasi yang sudah didaftarkan</a></div>
+						<div class="form-item-label">Lokasi Tujuan
+							<a class="saved-location" data-fromto="location_to">Pilih Lokasi yang sudah didaftarkan</a>
+							<div class="saved-location-container">	
+							</div>
+						</div>
 						<div class="form-item-error"></div>
 						<input type="text" class="" id="location_to_address" name="location_to_address" value="<?= $location_to_address ?>" />
 						<input type="hidden" name="location_to_name" id="location_to_name" value="" />
@@ -279,6 +287,8 @@
 	   changed: false
    }
    
+   var geocoder;
+   
 $(function() {
 	$(".input-tanggal-kirim-awal").datepicker();
 	$(".input-tanggal-kirim-akhir").datepicker();
@@ -288,6 +298,36 @@ $(function() {
 		if (e.which == 13) { //ENTER
 			e.preventDefault();
 		}
+	});
+	
+	$(".saved-location").on("click", function(e) {
+		toggleSavedLocation(this);
+		e.stopPropagation();
+	});
+	
+	$(document).on("click", function(e) {
+		if ($(e.target).attr("class") !== "saved-location-container") {
+			$(".saved-location-container").css("display", "none");
+		}
+	});
+	
+	$(document).on("click", ".saved-location-item", function() {
+		var fromto = $(this).data("fromto");
+		var name = $(this).html();
+		var lat = $(this).data("lat");
+		var lng = $(this).data("lng");
+		var latlng = new google.maps.LatLng(lat,lng);
+		geocoder.geocode({'location': latlng}, function(results, status) {
+			if (status === "OK") {
+				var city = getCityFromPlace(results[0]);
+				var formatted_address = results[0].formatted_address;
+				
+				$("#location_" + fromto + "_address").val(name + ", " + formatted_address);
+				$("#location_" + fromto + "_name").val(name);
+				$("#location_" + fromto + "_city").val(city);
+				get_lat_long('location', latlng, "location_" + fromto + "_latlng");
+			}
+		});
 	});
 	
 	$(".input-gambar").on("change", function() {
@@ -307,6 +347,35 @@ $(function() {
 	});
 	
 });
+
+function toggleSavedLocation(element) {
+	var container = $(element).next();
+	if ($(container).css("display") == "none") {
+		$(container).css("display", "block");
+		var fromto = $(element).data("fromto");
+		var itemFromto = "from";
+		if (fromto == "location_to") {
+			itemFromto = "to";
+		}
+		ajaxCall("<?= base_url("kirim/getSavedLocation") ?>", {fromto: fromto}, function(json) {
+			var result = jQuery.parseJSON(json);
+			var item = "";
+			var iLength = result.length;
+			for (var i = 0; i < iLength; i++) {
+				item += "<div class='saved-location-item' data-fromto='" + itemFromto + "' data-lat='" + result[i].location_lat + "' data-lng='" + result[i].location_lng + "'>" + result[i].location_name + "</div>";
+			}
+			
+			if (iLength == 0) {
+				item = "<div class='saved-location-empty-state'>Tidak ada lokasi yang didaftarkan</div>";
+			}
+			
+			$(container).html("");
+			$(container).append(item);
+		});
+	} else {
+		$(container).css("display", "none");
+	}
+}
 	
 function addItem() {
 	valid = true;
@@ -439,7 +508,7 @@ function showErrors() {
 	$(".error[data-type='berat']").html(error.berat);
 }
 
-var map_asal,map_tujuan;
+var map_asal,map_tujuan, placeService;
 var marker_asal,marker_tujuan;
 var autocomplete_asal, autocomplete_tujuan;
 var center_from = {lat: 0, lng: 0};
@@ -457,18 +526,7 @@ function initialize() {
 	
 	autocomplete_asal.addListener('place_changed', function() {
 		var place = autocomplete_asal.getPlace();
-		var city = "";
-		var address_components = place.address_components;
-		for (var i in address_components) {
-			if ( address_components.hasOwnProperty(i) ) {
-				var types = address_components[i].types;
-				for (var j in types) {
-					if (types[j] == "administrative_area_level_2") {
-						city = address_components[i].long_name;
-					}
-				}
-			}
-		}
+		var city = getCityFromPlace(place);
 		
 		$("#location_from_name").val(place.name);
 		$("#location_from_city").val(city);
@@ -518,6 +576,22 @@ function initialize() {
 	});
 }
 
+function getCityFromPlace(place) {
+	var city = "";
+	var address_components = place.address_components;
+	for (var i in address_components) {
+		if ( address_components.hasOwnProperty(i) ) {
+			var types = address_components[i].types;
+			for (var j in types) {
+				if (types[j] == "administrative_area_level_2") {
+					city = address_components[i].long_name;
+				}
+			}
+		}
+	}
+	return city;
+}
+
 function callDistanceMatrixService(from_latlng, to_latlng) {
 	var distanceMatrix = new google.maps.DistanceMatrixService();
 	distanceMatrix.getDistanceMatrix({
@@ -544,6 +618,7 @@ function distanceMatrixCallback(response, status) {
 }
 
 function initMap() {
+	geocoder = new google.maps.Geocoder;
 	latlng = "<?=$location_from_latlng;?>";
 	if (latlng.length>0) {
 		lat = latlng.substr(0,latlng.indexOf(",")-1)*1;
@@ -564,6 +639,8 @@ function initMap() {
 	  disableDefaultUI: true,
 	  zoom: 17
 	});
+	
+	placeService = new google.maps.places.PlacesService(map_asal);
 
 	marker_asal = new google.maps.Marker({
 		position: center_from,
@@ -680,48 +757,13 @@ $("#location_to_address").on("focusout", function() {
 	location_to_address.changed = false;
 });
 
-$("#location_from_latlng").on("change",function() {
-	latlng = $("#location_from_latlng").val();
-	lat = substr(latlng,0,strpos(latlng,",")-1)*1;
-	lng = substr(latlng,strpos(latlng," ")+1)*1;
-	marker_asal.setPosition( new google.maps.LatLng(lat,lng) );
-	map_asal.panTo( new google.maps.LatLng(lat,lng) );
-});
-
-$("#location_to_latlng").change(function() {
-	latlng = $("#location_to_latlng").val();
-	lat = substr(latlng,0,strpos(latlng,",")-1)*1;
-	lng = substr(latlng,strpos(latlng," ")+1)*1;
-	marker_tujuan.setPosition( new google.maps.LatLng(lat,lng) );
-	map_tujuan.panTo( new google.maps.LatLng(lat,lng) );
-});
-
-$(".location_history").change(function() {
-	str = $(this).val();
-	sContact = str.substr(0,str.indexOf('###'));
-	str = str.substr(str.indexOf('###')+3);
-	sAddr = str.substr(0,str.indexOf('###'));
-	str = str.substr(str.indexOf('###')+3);
-	sDetail = str.substr(0,str.indexOf('###'));
-	str = str.substr(str.indexOf('###')+3);
-	sLat = str.substr(0,str.indexOf('###'));
-	sLng = str.substr(str.indexOf('###')+3);
-
-	if ($(this).attr('name')=='history_first_place') {
-		$('#location_from_contact').val(sContact);
-		$('#location_from_address').val(sAddr);
-		$('#location_from_name').val(sDetail);
-		$('#location_from_latlng').val(sLat+','+sLng);
-		$("#location_from_address").change();
-	}
-	else if ($(this).attr('name')=='history_last_place') {
-		$('#location_to_contact').val(sContact);
-		$('#location_to_address').val(sAddr);
-		$('#location_to_name').val(sDetail);
-		$('#location_to_latlng').val(sLat+','+sLng);
-		$("#location_to_address").change();
-	}
-});
+function setMarkerFromLatlng() {
+	latlng = $("#location_latlng").val();
+	lat = latlng.substring(0, latlng.indexOf(","));
+	lng = latlng.substring(latlng.indexOf(" "), latlng.length - 1);
+	marker.setPosition( new google.maps.LatLng(lat,lng) );
+	map.panTo( new google.maps.LatLng(lat,lng) );
+}
 </script>
 
 </div>
