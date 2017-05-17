@@ -130,7 +130,10 @@ $route["kendaraan/toggleKendaraanAktif"] = "panel/kendaraan/toggleKendaraanAktif
 $route["kendaraan/deleteKendaraan"] = "panel/kendaraan/deleteKendaraan";
 
 $route['lokasi'] = 'panel/lokasi';
-$route['lokasi/(:any)'] = 'panel/lokasi/$1/$2';
+$route['lokasi/getMyLocation'] = 'panel/lokasi/getMyLocation';
+$route['lokasi/addLocation'] = 'panel/lokasi/addLocation';
+$route['lokasi/updateLocation'] = 'panel/lokasi/updateLocation';
+$route['lokasi/deleteLocation'] = 'panel/lokasi/deleteLocation';
 $route['rekanan'] = 'panel/rekanan';
 $route['rekanan/(:any)'] = 'panel/rekanan/$1/$2';
 $route['report'] = 'panel/report';

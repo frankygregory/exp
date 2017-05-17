@@ -59,6 +59,9 @@
 			<a href="<?= base_url("kiriman-saya") ?>">
 				<div>Kiriman Saya</div>
 			</a>
+			<a href="<?= base_url("lokasi") ?>">
+				<div>Lokasi</div>
+			</a>
 <?php	}	?>
 	<?php
 		if ($this->session->userdata("role_id") == 2) { ?>

@@ -1,0 +1,23 @@
+.btn-tambah {
+	margin-bottom: 20px;
+}
+
+.dialog {
+	
+}
+
+.dialog-tambah, .dialog-edit {
+	width: 700px;
+}
+
+.dialog-header {
+	
+}
+
+.dialog-footer {
+	
+}
+
+.btn-submit-tambah, .btn-submit-edit, .btn-batal, .btn-submit-delete {
+	float: right;
+}
