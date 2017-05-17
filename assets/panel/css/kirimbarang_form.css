@@ -47,7 +47,7 @@
 }
 
 .saved-location-container:hover {
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 .saved-location-item {

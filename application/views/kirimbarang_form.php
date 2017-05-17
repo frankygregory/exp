@@ -642,6 +642,7 @@ function initMap() {
 	  center: center_from,
 	  streetViewControl: false,
 	  disableDefaultUI: true,
+	  scrollwheel: false,
 	  zoom: 17
 	});
 	
@@ -675,6 +676,7 @@ function initMap() {
 	  center: center_to,
 	  streetViewControl: false,
 	  disableDefaultUI: true,
+	  scrollwheel: false,
 	  zoom: 17
 	});
 

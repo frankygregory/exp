@@ -5,11 +5,11 @@
 	<div class="subsection-filter">
 		<div class="subsection-title">Filter</div>
 		<div class="form-item">
-			<div class="form-item-label">Lokasi Asal</div>
+			<div class="form-item-label">Kota Asal</div>
 			<input type="text" class="input" />
 		</div>
 		<div class="form-item">
-			<div class="form-item-label">Lokasi Tujuan</div>
+			<div class="form-item-label">Kota Tujuan</div>
 			<input type="text" class="input" />
 		</div>
 		<div class="form-item form-item-jarak">
@@ -94,7 +94,7 @@ $(function() {
 		var date_to = new Date(result.shipment_delivery_date_to);
 		var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear();
 		
-		var element = "<tr class='tr-kiriman' data-id='" + result.shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result.shipment_id + "'>" + result.shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result.shipment_pictures + "' /></td><td class='td-price'>Bid : " + result.bidding_count + "<br>Low : " + addCommas(result.shipment_price) + " IDR</td><td class='td-asal'>" + result.location_from_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result.location_to_name + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + parseInt(result.shipment_length) + " Km</td><td class='td-berakhir'>" + result.berakhir + "</td></td></tr>";
+		var element = "<tr class='tr-kiriman' data-id='" + result.shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result.shipment_id + "'>" + result.shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result.shipment_pictures + "' /></td><td class='td-price'>Bid : " + result.bidding_count + "<br>Low : " + addCommas(result.shipment_price) + " IDR</td><td class='td-asal'>" + result.location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result.location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + parseInt(result.shipment_length) + " Km</td><td class='td-berakhir'>" + result.berakhir + "</td></td></tr>";
 		$(".tbody-kiriman").append(element);
 	}
 	
