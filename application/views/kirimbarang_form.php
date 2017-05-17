@@ -61,12 +61,12 @@
 					<div class="form-item">
 						<div class="form-item-label">Detail Lokasi</div>
 						<div class="form-item-error"></div>
-						<textarea rows="3" class="input-asal-detail" name="location_from_detail" ></textarea>
+						<textarea rows="3" class="input-asal-detail" name="location_from_detail" id="location_from_detail" ></textarea>
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Kontak</div>
 						<div class="form-item-error"></div>
-						<input type="text" class="input-asal-kontak" name="location_from_contact" value="<?= $location_from_contact ?>" />
+						<input type="text" class="input-asal-kontak" name="location_from_contact" id="location_from_contact" value="<?= $location_from_contact ?>" />
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Peta Lokasi</div>
@@ -94,12 +94,12 @@
 					<div class="form-item">
 						<div class="form-item-label">Detail Lokasi</div>
 						<div class="form-item-error"></div>
-						<textarea rows="3" class="input-tujuan-detail" name="location_to_detail" ></textarea>
+						<textarea rows="3" class="input-tujuan-detail" name="location_to_detail" id="location_to_detail" ></textarea>
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Kontak</div>
 						<div class="form-item-error"></div>
-						<input type="text" class="input-tujuan-kontak" name="location_to_contact" value="<?= $location_to_contact ?>" />
+						<input type="text" class="input-tujuan-kontak" name="location_to_contact" id="location_to_contact" value="<?= $location_to_contact ?>" />
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Peta Lokasi</div>
@@ -313,10 +313,13 @@ $(function() {
 	
 	$(document).on("click", ".saved-location-item", function() {
 		var fromto = $(this).data("fromto");
+		var detail = $(this).data("detail");
+		var contact = $(this).data("contact");
 		var name = $(this).html();
 		var lat = $(this).data("lat");
 		var lng = $(this).data("lng");
 		var latlng = new google.maps.LatLng(lat,lng);
+		
 		geocoder.geocode({'location': latlng}, function(results, status) {
 			if (status === "OK") {
 				var city = getCityFromPlace(results[0]);
@@ -325,6 +328,8 @@ $(function() {
 				$("#location_" + fromto + "_address").val(name + ", " + formatted_address);
 				$("#location_" + fromto + "_name").val(name);
 				$("#location_" + fromto + "_city").val(city);
+				$("#location_" + fromto + "_detail").val(detail);
+				$("#location_" + fromto + "_contact").val(contact);
 				get_lat_long('location', latlng, "location_" + fromto + "_latlng");
 			}
 		});
@@ -362,7 +367,7 @@ function toggleSavedLocation(element) {
 			var item = "";
 			var iLength = result.length;
 			for (var i = 0; i < iLength; i++) {
-				item += "<div class='saved-location-item' data-fromto='" + itemFromto + "' data-lat='" + result[i].location_lat + "' data-lng='" + result[i].location_lng + "'>" + result[i].location_name + "</div>";
+				item += "<div class='saved-location-item' data-detail='" + result[i].location_detail + "' data-contact='" + result[i].location_contact + "' data-fromto='" + itemFromto + "' data-lat='" + result[i].location_lat + "' data-lng='" + result[i].location_lng + "'>" + result[i].location_name + "</div>";
 			}
 			
 			if (iLength == 0) {
