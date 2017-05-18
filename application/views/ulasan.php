@@ -29,7 +29,7 @@ function getMyFeedback() {
 			element += '<tbody>';
 			element += '<tr>';
 			element += '<td class="td-label">Rating</td>';
-			element += '<td>' + result[i].user_rating_number + '/5</td>';
+			element += '<td>' + getRatingJs("", true, result[i].user_rating_number) + result[i].user_rating_number + '/5</td>';
 			element += '</tr>';
 			element += '<tr>';
 			element += '<td class="td-label">Oleh</td>';

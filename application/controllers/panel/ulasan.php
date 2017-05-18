@@ -8,6 +8,7 @@ class Ulasan extends MY_Controller
     {
         parent::__construct();
 		$this->load->model("Ulasan_model");
+		$this->loadModule("rating");
     }
 
     public function index()
