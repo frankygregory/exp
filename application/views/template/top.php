@@ -62,6 +62,9 @@
 			<a href="<?= base_url("lokasi") ?>">
 				<div>Lokasi</div>
 			</a>
+			<a href="<?= base_url("user") ?>">
+				<div class="">User</div>
+			</a>
 <?php	}	?>
 	<?php
 		if ($this->session->userdata("role_id") == 2) { ?>
@@ -80,10 +83,13 @@
 			<a href="<?= base_url("alat") ?>">
 				<div class="">Alat</div>
 			</a>
-<?php	}	?>
 			<a href="<?= base_url("user") ?>">
 				<div class="">User</div>
 			</a>
+			<a href="<?= base_url("ulasan") ?>">
+				<div class="">Ulasan</div>
+			</a>
+<?php	}	?>
 			<a href="<?= base_url("statistik") ?>">
 				<div class="">Statistik</div>
 			</a>

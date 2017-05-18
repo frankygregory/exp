@@ -1,0 +1,47 @@
+.feedback-item {
+	width: 80%;
+	overflow: auto;
+	position: relative;
+	box-shadow: 0 0 5px #AAA;
+	border-radius: 3px;
+	margin-bottom: 20px;
+}
+
+.feedback-item-left {
+	width: 25%;
+	float: left;
+	padding: 10px 10px 0;
+}
+
+.feedback-item-left table td {
+	padding: 5px;
+}
+
+.feedback-item-left .td-label {
+	text-align: right;
+	width: 70px;
+}
+
+.feedback-item-left .td-value {
+	color: #1976D2;
+}
+
+.feedback-item-right {
+	float: left;
+	position: relative;
+	width: 75%;
+	border-left: 1px solid #CCC;
+}
+
+.feedback-text {
+	margin: 20px 20px 0;
+	padding-bottom: 40px;
+	min-height: 90px;
+}
+
+.feedback-datetime {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	color: #888;
+}
