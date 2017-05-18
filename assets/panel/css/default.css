@@ -189,3 +189,46 @@ table.table tbody tr:nth-child(even) {
 .dialog-footer button:nth-child(n+2) {
 	margin-right: 10px;
 }
+
+.datalist {
+	display: none;
+	position: absolute;
+	background-color: white;
+	width: 300px;
+	min-height: 70px;
+	max-height: 300px;
+	margin-top: 5px;
+	box-shadow: 0 0 10px #777777;
+	border-radius: 3px;
+	padding: 10px 0;
+	overflow: hidden;
+	font-weight: normal;
+}
+
+.datalist:hover {
+	overflow-y: auto;
+}
+
+.datalist-item {
+	padding: 15px 10px;
+	cursor: pointer;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.datalist-item:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.datalist-empty-state {
+	width: 100%;
+	height: 70px;
+	margin-top: -10px;
+	margin-bottom: -10px;
+	background-color: #EEE;
+	color: #555;
+	text-align: center;
+	padding-top: 20px;
+	font-size: 14pt;
+}

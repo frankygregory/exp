@@ -35,14 +35,45 @@ class Kirim extends MY_Controller
 	}
 	
 	public function getKiriman() {
+		$location_from_city = $this->input->post("keyword_from");
+		$location_to_city = $this->input->post("keyword_to");
+		$shipment_length_min = $this->input->post("shipment_length_min");
+		$shipment_length_max = $this->input->post("shipment_length_max");
+		$lowest_bid = $this->input->post("lowest_bid");
 		$order_by = $this->input->post("order_by");
-		$kirim = $this->Kirim_model->getListKirimanUmum($order_by);
+		
+		$data = array(
+			"location_from_city" => $location_from_city,
+			"location_to_city" => $location_to_city,
+			"shipment_length_min" => $shipment_length_min,
+			"shipment_length_max" => $shipment_length_max,
+			"lowest_bid" => $lowest_bid,
+			"order_by" => $order_by
+		);
+		$kirim = $this->Kirim_model->getListKirimanUmum($data);
 		$iLength = sizeof($kirim);
 		for ($i = 0; $i < $iLength; $i++) {
 			$berakhir = $kirim[$i]->berakhir;
 			$kirim[$i]->berakhir = $this->secondsToTime($berakhir);
 		}
 		echo json_encode($kirim);
+	}
+	
+	public function getKota() {
+		$fromto = $this->input->post("fromto");
+		$keyword = $this->input->post("keyword");
+		$kota;
+		if ($fromto == "from") {
+			$kota = $this->Kirim_model->getFromKota($keyword);
+		} else {
+			$kota = $this->Kirim_model->getToKota($keyword);
+		}
+		echo json_encode($kota);
+	}
+	
+	public function getRangeHarga() {
+		$range = $this->Kirim_model->getRangeHarga();
+		echo json_encode($range);
 	}
 
     public function privates()
