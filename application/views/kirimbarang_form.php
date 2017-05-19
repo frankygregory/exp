@@ -110,8 +110,29 @@
 			</div>
 			<input type="hidden" id="shipment_length" name="shipment_length" value="" />
 		</div>
+		<div class="section-4">
+			<div class="section-title">3 | List Barang</div>
+			<div class="section-4-content">
+				<input type="hidden" class="detail-count" name="detail-count" value="0" />
+				<table class="section-4-table table">
+					<thead>
+						<tr>
+							<td>Nama</td>
+							<td>Qty</td>
+							<td>Deskripsi</td>
+							<td>Dimensi</td>
+							<td>Kubikasi</td>
+							<td>Berat</td>
+							<td>Action</td>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
 		<div class="section-3">
-			<div class="section-title">3 | Tambah Barang</div>
+			<div class="section-title">4 | Tambah Barang</div>
 			<div class="section-3-content">
 				<div class="form-item form-nama-barang">
 					<div class="form-item-label">Nama Barang
@@ -133,7 +154,7 @@
 					<textarea rows="3" class="input-deskripsi-barang" name="item_desc" ></textarea>
 				</div>
 				<div class="pilihan-container">
-					<div class="pilihan-dimensi pilihan">
+					<div class="pilihan-dimensi pilihan" data-checked="1">
 						<label class="label-pilihan">
 							<input type="radio" name="pilihan" value="dimensi" checked="checked"/> Dimensi
 						</label>
@@ -204,30 +225,10 @@
 			</div>
 			<div class="section-3-buttons">
 				<button type="button" class="section-btn btn-positive btn-tambah-item" onclick="addItem()">Tambah Item</button>
-				<button type="button" class="section-btn btn-neutral btn-reset">Reset</button>
+				<button type="button" class="section-btn btn-neutral btn-reset" onclick="clearTambahBarang()">Reset</button>
 			</div>
 		</div>
-		<div class="section-4">
-			<div class="section-title">4 | List Barang</div>
-			<div class="section-4-content">
-				<input type="hidden" class="detail-count" name="detail-count" value="0" />
-				<table class="section-4-table table">
-					<thead>
-						<tr>
-							<td>Nama</td>
-							<td>Qty</td>
-							<td>Deskripsi</td>
-							<td>Dimensi</td>
-							<td>Kubikasi</td>
-							<td>Berat</td>
-							<td>Action</td>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
-			</div>
-		</div>
+		
 		<div class="section-5">
 			<div class="section-title">5 | Tentukan Tanggal</div>
 			<div class="section-5-content">
@@ -254,11 +255,11 @@
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Tipe Penawaran</div>
-						<label>
-							<input type="radio" class="" name="shipment_type" value="1" checked="checked" /> Terbuka
+						<label class="label-shipment-type">
+							<input type="radio" class="radio-shipment-type" name="shipment_type" value="1" checked="checked" /> Terbuka
 						</label>
-						<label>
-							<input type="radio" class="" name="shipment_type" value="2" /> Tertutup
+						<label class="label-shipment-type">
+							<input type="radio" class="radio-shipment-type" name="shipment_type" value="2" /> Tertutup
 						</label>
 					</div>
 				</div>
@@ -298,6 +299,11 @@ $(function() {
 		if (e.which == 13) { //ENTER
 			e.preventDefault();
 		}
+	});
+	
+	$("input[type='radio'][name='pilihan']").on("change", function() {
+		$(".pilihan").removeAttr("data-checked");
+		$(this).closest(".pilihan").attr("data-checked", "1");
 	});
 	
 	$(".saved-location").on("click", function(e) {
@@ -341,6 +347,11 @@ $(function() {
 			$(".image-preview").attr("src", e.target.result);
 		};
 		reader.readAsDataURL($(this)[0].files[0]);
+	});
+	
+	$(document).on("click", "table .btn-remove-item", function() {
+		var no = $(this).data("no");
+		$(".section-4-table tr[data-no='" + no + "']").remove();
 	});
 	
 	$("input[data-type='number']").on("keydown", function(e) {
@@ -472,7 +483,9 @@ function addItem() {
 			input_berat_satuan = "<input type='hidden' value='" + berat_satuan + "' name='item-berat-satuan-" + count + "' />";
 		}
 		
-		$(".section-4-table tbody").append("<tr><td>" + nama + input_nama + "</td><td>" + qty + input_qty + "</td><td>" + deskripsi + input_deskripsi + "</td><td>" + select_dimensi + input_panjang + input_lebar + input_tinggi + input_dimensi_satuan + "</td><td>" + select_kubikasi + input_kubikasi + input_kubikasi_satuan + "</td><td>" + select_berat + input_berat + input_berat_satuan + "</td><td></td></tr>");
+		var btnRemove = "<button type='button' class='btn-negative btn-remove-item' data-no='" + (count + 1) + "'>Remove</button>";
+		
+		$(".section-4-table tbody").append("<tr data-no='" + (count + 1) + "'><td>" + nama + input_nama + "</td><td>" + qty + input_qty + "</td><td>" + deskripsi + input_deskripsi + "</td><td>" + select_dimensi + input_panjang + input_lebar + input_tinggi + input_dimensi_satuan + "</td><td>" + select_kubikasi + input_kubikasi + input_kubikasi_satuan + "</td><td>" + select_berat + input_berat + input_berat_satuan + "</td><td>" + btnRemove + "</td></tr>");
 		
 		$(".detail-count").val((count + 1));
 		

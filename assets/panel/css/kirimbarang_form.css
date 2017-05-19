@@ -135,6 +135,14 @@
 	border: 1px solid #2196F3;
 }
 
+.pilihan:not([data-checked="1"]) {
+	opacity: 0.5;
+}
+
+.pilihan:hover {
+	opacity: 1;
+}
+
 .pilihan-dimensi {
 	width: 47%;
 }
@@ -239,8 +247,8 @@
 	width: 200px;
 }
 
-.form-tanggal-kirim-akhir {
-	
+.form-tanggal-kirim-awal {
+	margin-right: 10px;
 }
 
 .form-deadline {
@@ -250,6 +258,10 @@
 
 .form-item-harga {
 	width: 50%;
+}
+
+.label-shipment-type {
+	margin-right: 15px;
 }
 
 .btn-submit {

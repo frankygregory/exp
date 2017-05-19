@@ -105,7 +105,7 @@ $(function() {
 		getKiriman();
 	});
 	
-	$(".input-jarak-min, .input-jarak-max").on("keypress", function() {
+	$(".input-jarak-min, .input-jarak-max, .input-lowest-bid").on("keypress", function(e) {
 		if (e.which == 13) {
 			$(this).blur();
 		}

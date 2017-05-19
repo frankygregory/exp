@@ -92,10 +92,12 @@
 			</div>
 		</div>
 		<div class="section-1b">
-			
+			<div class="image-container">
+				<img class="shipment_picture" src="<?= base_url("assets/panel/images/") . $shipment_pictures ?>" />
+			</div>
 			<div class="asal">
 				<div class="asal-title">Lokasi</div>
-				<table>
+				<table class="table-lokasi">
 					<tbody>
 						<tr>
 							<td class="td-address-label">Asal</td>
@@ -111,9 +113,7 @@
 				</table>
 				<div class="form-group" id="map_asal" style="width: 100%; height: 200px"></div>
 			</div>
-			<div class="unage-container">
-				<img class="shipment_picture" src="<?= base_url("assets/panel/images/") . $shipment_pictures ?>" />
-			</div>
+			
 		</div>
 	
 		
@@ -570,6 +570,10 @@ function addDiscussionToTable(result) {
 		}
 		<?= $detailJawabPertanyaan ?>
 		element += "</div>";
+	}
+	
+	if (iLength == 0) {
+		element += "<div class='empty-state discussions-empty-state'>Tidak ada diskusi</div>";
 	}
 	
 	$(".discussions").html("");

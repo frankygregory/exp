@@ -8,7 +8,6 @@
     </style>
 </head>
 <body>
-
 <div class="loginmodal-container">
     <h1>Login Yukirim</h1><br>
     <div class="error_prefix"><?=$error;?></div>

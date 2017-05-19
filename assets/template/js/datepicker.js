@@ -24,17 +24,17 @@ var datepickerMonthNames = ["January", "February", "March", "April", "May", "Jun
 			}
 		});
 		
-		$(datepickerElement).find(".datepicker-tanggal:not([data-disabled='1'])").on("click", function() {
+		$(datepickerElement).on("click", ".datepicker-tanggal:not([data-disabled='1'])", function() {
 			var value = $(this).data("value");
 			$(thisElement).val(value);
 			datepickerHide(datepickerElement);
 		});
 		
-		$(datepickerElement).on("click", ".next-month-icon", function() {
+		$(datepickerElement).on("click", ".next-month-icon:not([data-disabled='1'])", function() {
 			datepickerNextMonth(datepickerElement);
 		});
 		
-		$(datepickerElement).on("click", ".prev-month-icon", function() {
+		$(datepickerElement).on("click", ".prev-month-icon:not([data-disabled='1'])", function() {
 			datepickerPrevMonth(datepickerElement);
 		});
 	};
@@ -84,9 +84,26 @@ function changeMonth(datepickerElement, currentYear, currentMonth) {
 	var month = date.getMonth();
 	var year = date.getFullYear();
 	var secondDate = new Date(currentYear, currentMonth + 1, 1);
+	var month2 = secondDate.getMonth();
+	var year2 = secondDate.getFullYear();
 	
-	var firstMonth = datepickerAssignDate(date, false);
-	var secondMonth = datepickerAssignDate(secondDate, false);
+	var isThisMonth = false;
+	if (month == new Date().getMonth() && year == new Date().getFullYear()) {
+		isThisMonth = true;
+		date = new Date();
+		$(datepickerElement).find(".prev-month-icon").attr("data-disabled", "1");
+	} else {
+		$(datepickerElement).find(".prev-month-icon").removeAttr("data-disabled");
+	}
+	
+	var firstMonth = datepickerAssignDate(date, isThisMonth);
+	
+	var isThisMonth2 = false;
+	if (month2 == new Date().getMonth() && year2 == new Date().getFullYear()) {
+		isThisMonth2 = true;
+		secondDate = new Date();
+	}
+	var secondMonth = datepickerAssignDate(secondDate, isThisMonth2);
 	
 	$(datepickerElement).find(".datepicker-bulan-title-name.first-month").html(datepickerMonthNames[month] + " " + year);
 	$(datepickerElement).find(".datepicker-bulan-title-name.second-month").html(datepickerMonthNames[month + 1] + " " + year);
@@ -95,6 +112,16 @@ function changeMonth(datepickerElement, currentYear, currentMonth) {
 	
 	$(datepickerElement).data("current-month", date.getMonth());
 	$(datepickerElement).data("current-year", date.getFullYear());
+	
+	if (isThisMonth || isThisMonth2) {
+		var monthPosition = "first";
+		if (month % 2 == 1) {
+			monthPosition = "second";
+		}
+		
+		var today = new Date().getDate();
+		$(datepickerElement).find(".datepicker-tanggal-container." + monthPosition + "-month .datepicker-tanggal[data-date-of-month='" + today + "']").attr("data-today", "1");
+	}
 }
 
 function datepickerInitialize(thisClass, thisElement) {
@@ -118,6 +145,7 @@ function datepickerInitialize(thisClass, thisElement) {
 	
 	$(".container-content").append(element);
 	$(".datepicker[data-class='" + thisClass + "'] .datepicker-tanggal-container." + monthPosition + "-month .datepicker-tanggal[data-date-of-month='" + today + "']").attr("data-today", "1");
+	$(".datepicker[data-class='" + thisClass + "'] .prev-month-icon").attr("data-disabled", "1");
 }
 
 function datepickerAssignDate(date, thisMonth) {
@@ -152,7 +180,7 @@ function datepickerAssignDateForMonth(today, month, year, tgl1Day, tglMax, thisM
 			}
 		}
 		element += "</div>";
-		for (var i = 1; i < 5; i++) {
+		for (var i = 1; i < 6; i++) {
 			element += '<div class="datepicker-tanggal-row">';
 			for (var j = 0; j < 7; j++) {
 				var value = year + "-" + (month + 1) + "-" + ctrDate;
@@ -181,7 +209,7 @@ function datepickerAssignDateForMonth(today, month, year, tgl1Day, tglMax, thisM
 			}
 		}
 		element += "</div>";
-		for (var i = 1; i < 5; i++) {
+		for (var i = 1; i < 6; i++) {
 			element += '<div class="datepicker-tanggal-row">';
 			for (var j = 0; j < 7; j++) {
 				var value = year + "-" + (month + 1) + "-" + ctrDate;

@@ -1,5 +1,37 @@
+.section-1 {
+	overflow: auto;
+	margin-bottom: 50px;
+}
+
+.rating-total {
+	text-align: center;
+	font-size: 14pt;
+}
+
+.rating-total-number {
+	width: 100px;
+	height: 100px;
+	padding-top: 25px;
+	font-size: 28pt;
+	display: inline-block;
+	border: 1px solid black;
+	border-radius: 100%;
+}
+
+.sort {
+	float: right;
+	margin-right: 10%;
+	width: 250px;
+	overflow: auto;
+	margin-bottom: 50px;
+}
+
+.select-sort {
+	width: 180px;
+}
+
 .feedback-item {
-	width: 80%;
+	width: 90%;
 	overflow: auto;
 	position: relative;
 	box-shadow: 0 0 5px #AAA;
@@ -26,8 +58,19 @@
 	color: #1976D2;
 }
 
-.stars .star {
+.stars-container {
+	float: left;
+	width: 90px;
+	margin-top: 8px;
 	
+}
+
+.star {
+	fill: #FFD600;
+}
+
+.rating-number {
+	font-size: 20pt;
 }
 
 .feedback-item-right {
@@ -40,7 +83,7 @@
 .feedback-text {
 	margin: 20px 20px 0;
 	padding-bottom: 40px;
-	min-height: 90px;
+	min-height: 100px;
 }
 
 .feedback-datetime {
@@ -48,4 +91,9 @@
 	bottom: 10px;
 	right: 10px;
 	color: #888;
+}
+
+.btn-balas {
+	float: right;
+	margin-top: -100px;
 }

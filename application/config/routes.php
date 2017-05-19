@@ -153,6 +153,7 @@ $route['user/getMyGroups'] = 'panel/user/getMyGroups';
 $route['user/insertGroup'] = 'panel/user/insertGroup';
 $route['user/updateGroup'] = 'panel/user/updateGroup';
 $route['ulasan'] = 'panel/ulasan';
+$route['ulasan/getMyRating'] = 'panel/ulasan/getMyRating';
 $route['ulasan/getMyFeedback'] = 'panel/ulasan/getMyFeedback';
 $route['statistik'] = 'panel/statistik';
 $route['statistik/getStatistikKiriman'] = 'panel/statistik/getStatistikKiriman';

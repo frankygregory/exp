@@ -83,24 +83,39 @@
 	visibility: hidden;
 }
 
-.datepicker-tanggal:not([data-current-month="0"]) {
+.datepicker-tanggal:not([data-current-month="0"]):not([data-disabled="1"]) {
 	cursor: pointer;
+}
+
+.datepicker-tanggal:not([data-current-month="0"]):not([data-disabled="1"]):hover {
+	border: 1px solid black;
+	padding-top: 3px;
+}
+
+.datepicker-tanggal[data-disabled="1"] {
+	cursor: default;
 }
 
 .next-month-icon {
 	position: absolute;
 	right: 0;
 	top: 0;
-	cursor: pointer;
 }
 
 .prev-month-icon {
 	position: absolute;
 	left: 0;
 	top: 0;
+}
+
+.next-month-icon:not([data-disabled="1"]), .prev-month-icon:not([data-disabled="1"]) {
 	cursor: pointer;
 }
 
-.next-month-icon:hover, .prev-month-icon:hover {
+.next-month-icon[data-disabled="1"], .prev-month-icon[data-disabled="1"] {
+	display: none;
+}
+
+.next-month-icon:not([data-disabled="1"]):hover, .prev-month-icon:not([data-disabled="1"]):hover {
 	background-color: rgba(0, 0, 0, 0.2);
 }

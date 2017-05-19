@@ -58,11 +58,11 @@ class Login extends CI_Controller
     public function doLogin()
     {
 		$ip = getenv('HTTP_CLIENT_IP')?:getenv('HTTP_X_FORWARDED_FOR')?:getenv('HTTP_X_FORWARDED')?:getenv('HTTP_FORWARDED_FOR')?:getenv('HTTP_FORWARDED')?:getenv('REMOTE_ADDR');
-		//$geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=" . $ip));
-		//$location = $geo["geoplugin_city"] . ";" . $geo["geoplugin_region"] . ";" . $geo["geoplugin_countryName"];
-		$location = "";
-		$browser = get_browser();
-		$browser_name = $browser->browser_name_pattern . ";" . $browser->platform . ";" . $browser->browser . ";" . $browser->version;
+		$geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=" . $ip));
+		$location = $geo["geoplugin_city"] . ";" . $geo["geoplugin_region"] . ";" . $geo["geoplugin_countryName"];
+		//$location = "";
+		//$browser = get_browser();
+		//$browser_name = $browser->browser_name_pattern . ";" . $browser->platform . ";" . $browser->browser . ";" . $browser->version;
 		
 		if ($this->form_validation->run('login') == FALSE) {
 			$data = array(
@@ -84,7 +84,7 @@ class Login extends CI_Controller
 						"password" => $password,
 						"ip" => $ip,
 						"location" => $location,
-						"browser" => $browser_name
+						"browser" => $_SERVER["HTTP_USER_AGENT"]
 					);
 					$user = $this->Login_model->login($insertData);
 					if (sizeof($user) > 0) {
