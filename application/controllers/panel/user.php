@@ -9,14 +9,30 @@ class User extends MY_Controller
 		$this->load->model("User_model");
     }
 	
-	function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+	/*function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
 		$str = '';
 		$max = mb_strlen($keyspace, '8bit') - 1;
 		for ($i = 0; $i < $length; ++$i) {
 			$str .= $keyspace[random_int(0, $max)];
 		}
 		return $str;
-	}
+	}*/
+	
+	function random_str($qtd){ 
+		//Under the string $Caracteres you write all the characters you want to be used to randomly generate the code. 
+		$Caracteres = 'ABCDEFGHIJKLMOPQRSTUVXWYZ0123456789'; 
+		$QuantidadeCaracteres = strlen($Caracteres); 
+		$QuantidadeCaracteres--; 
+
+		$Hash=NULL; 
+			for($x=1;$x<=$qtd;$x++){ 
+				$Posicao = rand(0,$QuantidadeCaracteres); 
+				$Hash .= substr($Caracteres,$Posicao,1); 
+			} 
+
+		//return $Hash; 
+		return "123456";
+	} 
 
     public function index()
     {
@@ -27,6 +43,19 @@ class User extends MY_Controller
 
         parent::template('user', $data);
     }
+	
+	public function getUser() {
+		$user_level = $this->session->userdata("user_level");
+		$group_ids = $this->session->userdata("group_ids");
+		$user_id = $this->session->userdata("user_id");
+		$data = array(
+			"user_level" => $user_level,
+			"group_ids" => $group_ids,
+			"user_id" => $user_id
+		);
+		$users = $this->User_model->getOtherUser($data);
+		echo json_encode($users);
+	}
 	
 	public function getMyGroups() {
 		$user_id = $this->session->userdata("user_id");
@@ -71,8 +100,14 @@ class User extends MY_Controller
 	public function addOtherUser() {
 		$username = $this->input->post("username");
 		$user_email = $this->input->post("user_email");
+		$user_fullname = $this->input->post("user_fullname");
 		$group_ids = $this->input->post("group_ids");
 		$user_level = $this->input->post("user_level");
+		if ($user_level == "super") {
+			$user_level = 2;
+		} else {
+			$user_level = 3;
+		}
 		$role_id = $this->session->userdata("role_id");
 		$type_id = $this->session->userdata("type_id");
 		$user_id_ref = $this->session->userdata("user_id");
@@ -86,7 +121,8 @@ class User extends MY_Controller
 			"role_id" => $role_id,
 			"type_id" => $type_id,
 			"user_id_ref" => $user_id_ref,
-			"password" => $password
+			"password" => $password,
+			"user_fullname" => $user_fullname
 		);
 		
 		$affected_rows = $this->User_model->add_other_user($data);

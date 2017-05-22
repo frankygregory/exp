@@ -14,13 +14,13 @@ class Home extends CI_Controller
     public function index()
     {
         $data = array(
-            'title' => 'Home',
-            'active' => array('active', '', '', ''),
+            'title' => 'home',
+            'page_name' => "home",
         );
 
         $msg = '';
         $this->session->set_flashdata('msg', $msg);
-
+		
         $this->load->view('front/home', $data);
     }
 

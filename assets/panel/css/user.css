@@ -11,6 +11,10 @@ label {
 	cursor: pointer;
 }
 
+.label-checkbox-group {
+	display: block;
+}
+
 .label-radio {
 	margin-right: 15px;
 }

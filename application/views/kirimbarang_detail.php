@@ -144,7 +144,7 @@
 							<td class="td-label">Harga</td>
 							<td class="td-titikdua"> : </td>
 							<td>
-								<input type="text" class="input-bidding-price" data-type="number" />
+								<input type="text" class="input-bidding-price" data-type="number" maxlength="11"/>
 								<div class="error penawaran-error error-bidding-price"></div>
 							</td>
 						</tr>
@@ -374,6 +374,10 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	
 	$(document).on("click", ".btn-tawar", function() {
 		showDetailPenawaran(this);
+	});
+	
+	$(".input-bidding-price").on("keydown", function(e) {
+		isNumber(e);
 	});
 	
 	$(document).on("click", ".btn-batal-kirim-penawaran", function() {

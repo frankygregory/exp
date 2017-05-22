@@ -4,6 +4,7 @@
 	outline: 0;
 	font-size: 12pt;
 	box-sizing: border-box;
+	font-family: roboto-regular;
 }
 
 input[type="text"], input[type="password"] {

@@ -1,0 +1,79 @@
+.header {
+	width: 100vw;
+	height: 70px;
+	position: fixed;
+	color: white;
+	top: 0;
+	z-index: 1000;
+}
+
+.logo {
+	float: left;
+	margin-top: 25px;
+	margin-left: 30px;
+	font-size: 24pt;
+	font-weight: bold;
+}
+
+.header-right {
+	float: right;
+	margin-right: 100px;
+}
+
+.header-menu {
+	display: inline-block;
+	font-size: 16pt;
+	margin-top: 30px;
+	margin-right: 50px;
+}
+
+.bottom-line {
+	opacity: 0;
+	width: 100%;
+	height: 5px;
+	background-color: #FFFF00;
+}
+
+.header-menu:hover > .bottom-line {
+	opacity: 1;
+}
+
+.section-1 {
+	width: 100%;
+	height: 100vh;
+	position: relative;
+}
+
+.background-image {
+	width: 100%;
+	height: 100%;
+	background-image: url("assets/front/images/background.jpg");
+	filter: brightness(30%);
+}
+
+.section-1-title {
+	position: absolute;
+	width: 100%;
+	bottom: 20vh;
+	left: 0;
+	color: white;
+	text-align: center;
+}
+
+.title-text {
+	font-size: 70pt;
+	font-weight: bold;
+}
+
+.cursor {
+	font-size: 70pt;
+}
+
+.title-description {
+	font-size: 28pt;
+}
+
+.section-2 {
+	width: 100%;
+	height: 100vh;
+}

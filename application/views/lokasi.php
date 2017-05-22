@@ -13,12 +13,13 @@
 						<td class="">Nama Lokasi</td>
 						<td>
 							<input type="text" class="input-nama" id="location_address" />
+							<div class="error"></div>
 							<input type="hidden" name="location_name" id="location_name" value="" />
 							<input type="hidden" name="location_city" id="location_city" value="" />
 						</td>
 					</tr>
 					<tr>
-						<td>Google Map</td>
+						<td></td>
 						<td class="td-map">
 							<div id="map" style="width: 100%; height: 200px"></div>
 							<input type="hidden" id="location_latlng" name="location_latlng" value="" />
@@ -26,20 +27,26 @@
 					</tr>
 					<tr>
 						<td class="">Detail Lokasi</td>
-						<td><textarea class="input-detail" id="location_detail"></textarea></td>
+						<td>
+							<textarea class="input-detail" id="location_detail"></textarea>
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Kontak</td>
-						<td><input type="text" class="input-kontak" id="location_contact" /></td>
+						<td>
+							<input type="text" class="input-kontak" id="location_contact" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Jenis</td>
 						<td>
+							<label class="label-asal">
+								<input type="checkbox" class="input-asal" id="location_from" checked="checked" /> Asal
+							</label class="label-tujuan">
 							<label>
-								<input type="checkbox" class="input-asal" id="location_from" /> Asal
-							</label>
-							<label>
-								<input type="checkbox" class="input-tujuan" id="location_to" /> Tujuan
+								<input type="checkbox" class="input-tujuan" id="location_to" checked="checked" /> Tujuan
 							</label>
 						</td>
 					</tr>
@@ -104,6 +111,7 @@ $(function() {
 		$(".dialog-tambah .btn-submit-tambah").css("display", "block");
 		$(".dialog-tambah .btn-submit-edit").css("display", "none");
 		$(".dialog-tambah .btn-batal").css("display", "none");
+		clearErrors();
 		showDialog(".dialog-tambah");
 		$(".dialog-tambah .input-nama").select();
 		google.maps.event.trigger(map, 'resize');
@@ -210,13 +218,34 @@ function updateLocation() {
 	});
 }
 
+function cekInputError(location_address, location_detail, location_contact) {
+	var valid = true;
+		if (location_address == "") {
+			valid = false;
+			$("#location_address").next().html("Nama lokasi harus diisi");
+		}
+		if (location_detail == "") {
+			valid = false;
+			$("#location_detail").next().html("Detail lokasi harus diisi");
+		}
+		if (location_contact == "") {
+			valid = false;
+			$("#location_contact").next().html("Kontak harus diisi");
+		}
+	return valid;
+}
+
+function clearErrors() {
+	$(".error").html("");
+}
+
 function addLocation() {
 	var location_name = $("#location_name").val();
-	var location_address = $("#location_address").val();
+	var location_address = $("#location_address").val().trim();
 	var location_city = $("#location_city").val();
 	var location_latlng = $("#location_latlng").val();
-	var location_detail = $("#location_detail").val();
-	var location_contact = $("#location_contact").val();
+	var location_detail = $("#location_detail").val().trim();
+	var location_contact = $("#location_contact").val().trim();
 	var location_from = 0, location_to = 0;
 	if ($("#location_from").is(":checked")) {
 		location_from = 1;
@@ -225,21 +254,24 @@ function addLocation() {
 		location_to = 1;
 	}
 	
-	var data = {
-		location_name: location_name,
-		location_address: location_address,
-		location_city: location_city,
-		location_latlng: location_latlng,
-		location_detail: location_detail,
-		location_contact: location_contact,
-		location_from: location_from,
-		location_to: location_to
-	};
-	
-	ajaxCall("lokasi/addLocation", data, function(result) {
-		closeDialog();
-		getMyLocation();
-	});
+	clearErrors();
+	var valid = cekInputError(location_address, location_detail, location_contact);
+	if (valid) {
+		var data = {
+			location_name: location_name,
+			location_address: location_address,
+			location_city: location_city,
+			location_latlng: location_latlng,
+			location_detail: location_detail,
+			location_contact: location_contact,
+			location_from: location_from,
+			location_to: location_to
+		};
+		ajaxCall("lokasi/addLocation", data, function(result) {
+			closeDialog();
+			getMyLocation();
+		});
+	}
 }
 
 function getMyLocation() {

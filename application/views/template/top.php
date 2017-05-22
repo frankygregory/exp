@@ -83,9 +83,11 @@
 			<a href="<?= base_url("alat") ?>">
 				<div class="">Alat</div>
 			</a>
-			<a href="<?= base_url("user") ?>">
-				<div class="">User</div>
-			</a>
+	<?php	if ($this->session->userdata("user_level") != 3) { ?>
+				<a href="<?= base_url("user") ?>">
+					<div class="">User</div>
+				</a>
+	<?php	}	?>
 			<a href="<?= base_url("ulasan") ?>">
 				<div class="">Ulasan</div>
 			</a>

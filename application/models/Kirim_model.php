@@ -84,7 +84,6 @@ class Kirim_model extends CI_Model
 			"questions_text" => $data["questions_text"],
 			"user_id" => $data["user_id"],
 			"shipment_id" => $data["shipment_id"],
-			"group_id" => $data["group_id"],
 			"created_by" => $data["user_id"],
 			"modified_by" => $data["user_id"]
 		);

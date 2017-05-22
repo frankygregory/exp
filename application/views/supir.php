@@ -11,15 +11,24 @@
 				<tbody>
 					<tr>
 						<td class="">Nama Driver</td>
-						<td><input type="text" class="input-nama" /></td>
+						<td>
+							<input type="text" class="input-nama" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Alamat Driver</td>
-						<td><input type="text" class="input-alamat" /></td>
+						<td>
+							<input type="text" class="input-alamat" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">No. HP</td>
-						<td><input type="text" class="input-hp" maxlength="12" /></td>
+						<td>
+							<input type="text" class="input-hp" maxlength="12" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Keterangan</td>
@@ -52,15 +61,24 @@
 				<tbody>
 					<tr>
 						<td class="">Nama Driver</td>
-						<td><input type="text" class="input-nama" /></td>
+						<td>
+							<input type="text" class="input-nama" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Alamat Driver</td>
-						<td><input type="text" class="input-alamat" /></td>
+						<td>
+							<input type="text" class="input-alamat" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">No. HP</td>
-						<td><input type="text" class="input-hp" maxlength="12" /></td>
+						<td>
+							<input type="text" class="input-hp" maxlength="12" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Keterangan</td>
@@ -131,6 +149,7 @@ $(function() {
 	getSupir();
 	
 	$(".btn-tambah").on("click", function() {
+		clearErrors();
 		showDialog(".dialog-tambah");
 		$(".dialog-tambah .input-nama").select();
 	});
@@ -139,7 +158,12 @@ $(function() {
 		tambahSupir();
 	});
 	
+	$(".input-hp").on("keydown", function(e) {
+		isNumber(e);
+	});
+	
 	$(document).on("click", ".btn-edit", function() {
+		clearErrors();
 		editSupir(this);
 	});
 	
@@ -162,90 +186,115 @@ $(function() {
 	$(".btn-submit-delete").on("click", function() {
 		deleteSupir(this);
 	});
-	
-	function deleteSupir(element) {
-		var driver_id = $(".dialog-konfirmasi-delete").data("id");
-		$.ajax({
-			url: '<?= base_url("supir/deleteSupir") ?>',
-			data: {
-				submit_delete: true,
-				driver_id: driver_id
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				valid = false;
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getSupir();
-				} else {
-					alert(result);
-				}
+});
+
+function deleteSupir(element) {
+	var driver_id = $(".dialog-konfirmasi-delete").data("id");
+	$.ajax({
+		url: '<?= base_url("supir/deleteSupir") ?>',
+		data: {
+			submit_delete: true,
+			driver_id: driver_id
+		},
+		type: 'POST',
+		error: function(jqXHR, exception) {
+			valid = false;
+			alert(jqXHR + " : " + jqXHR.responseText);
+		},
+		success: function(result) {
+			if (result == "success") {
+				closeDialog();
+				getSupir();
+			} else {
+				alert(result);
 			}
-		});
-	}
-	
-	function toggleDriverAktif(element) {
-		var driver_id = $(element).closest(".tr-supir").data("id");
-		var driver_status = $(element).data("value");
-		
-		$.ajax({
-			url: '<?= base_url("supir/toggleSupirAktif") ?>',
-			data: {
-				driver_id: driver_id,
-				driver_status: driver_status
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				valid = false;
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getSupir();
-				} else {
-					alert(result);
-				}
-			}
-		});
-	}
-	
-	function editSupir(element) {
-		var id = $(element).data("id");
-		
-		var driver_name = $(".tr-supir[data-id='" + id + "'] .td-name").html();
-		var driver_address = $(".tr-supir[data-id='" + id + "'] .td-address").html();
-		var driver_handphone = $(".tr-supir[data-id='" + id + "'] .td-handphone").html();
-		var driver_information = $(".tr-supir[data-id='" + id + "'] .td-information").html();
-		var driver_status = $(".tr-supir[data-id='" + id + "'] .btn-aktif").prop("disabled");
-		
-		if (driver_status) {
-			driver_status = "1";
-		} else {
-			driver_status = "0";
 		}
-		
-		$(".dialog-edit").data("id", id);
-		$(".dialog-edit .input-nama").val(driver_name);
-		$(".dialog-edit .input-alamat").val(driver_address);
-		$(".dialog-edit .input-hp").val(driver_handphone);
-		$(".dialog-edit .input-keterangan").val(driver_information);
-		$(".dialog-edit .input-status").val(driver_status);
-		
-		showDialog(".dialog-edit");
+	});
+}
+
+function toggleDriverAktif(element) {
+	var driver_id = $(element).closest(".tr-supir").data("id");
+	var driver_status = $(element).data("value");
+	
+	$.ajax({
+		url: '<?= base_url("supir/toggleSupirAktif") ?>',
+		data: {
+			driver_id: driver_id,
+			driver_status: driver_status
+		},
+		type: 'POST',
+		error: function(jqXHR, exception) {
+			valid = false;
+			alert(jqXHR + " : " + jqXHR.responseText);
+		},
+		success: function(result) {
+			if (result == "success") {
+				closeDialog();
+				getSupir();
+			} else {
+				alert(result);
+			}
+		}
+	});
+}
+
+function clearErrors() {
+	$(".error").html("");
+}
+
+function cekInputError(driver_name, driver_address, driver_handphone) {
+	clearErrors();
+	var valid = true;
+	if (driver_name == "") {
+		valid = false;
+		$(".input-nama").next().html("Nama supir harus diisi");
+	}
+	if (driver_address == "") {
+		valid = false;
+		$(".input-alamat").next().html("Alamat supir harus diisi");
+	}
+	if (driver_handphone == "") {
+		valid = false;
+		$(".input-hp").next().html("No. HP supir harus diisi");
+	}
+	return valid;
+}
+
+function editSupir(element) {
+	var id = $(element).data("id");
+	
+	var driver_name = $(".tr-supir[data-id='" + id + "'] .td-name").html();
+	var driver_address = $(".tr-supir[data-id='" + id + "'] .td-address").html();
+	var driver_handphone = $(".tr-supir[data-id='" + id + "'] .td-handphone").html();
+	var driver_information = $(".tr-supir[data-id='" + id + "'] .td-information").html();
+	var driver_status = $(".tr-supir[data-id='" + id + "'] .btn-aktif").prop("disabled");
+	
+	if (driver_status) {
+		driver_status = "1";
+	} else {
+		driver_status = "0";
 	}
 	
-	function updateSupir() {
-		var driver_id = $(".dialog-edit").data("id");
-		var driver_name = $(".dialog-edit .input-nama").val();
-		var driver_handphone = $(".dialog-edit .input-hp").val();
-		var driver_address = $(".dialog-edit .input-alamat").val();
-		var driver_information = $(".dialog-edit .input-keterangan").val();
-		var driver_status = $(".dialog-edit .input-status").val();
-		
+	$(".dialog-edit").data("id", id);
+	$(".dialog-edit .input-nama").val(driver_name);
+	$(".dialog-edit .input-alamat").val(driver_address);
+	$(".dialog-edit .input-hp").val(driver_handphone);
+	$(".dialog-edit .input-keterangan").val(driver_information);
+	$(".dialog-edit .input-status").val(driver_status);
+	
+	showDialog(".dialog-edit");
+}
+
+function updateSupir() {
+	var driver_id = $(".dialog-edit").data("id");
+	var driver_name = $(".dialog-edit .input-nama").val().trim();
+	var driver_handphone = $(".dialog-edit .input-hp").val().trim();
+	var driver_address = $(".dialog-edit .input-alamat").val().trim();
+	var driver_information = $(".dialog-edit .input-keterangan").val().trim();
+	var driver_status = $(".dialog-edit .input-status").val();
+	
+	var valid = cekInputError(driver_name, driver_address, driver_handphone);
+	if (valid) {
 		$.ajax({
 			url: '<?= base_url("supir/updateSupir") ?>',
 			data: {
@@ -272,14 +321,17 @@ $(function() {
 			}
 		});
 	}
+}
+
+function tambahSupir() {
+	var driver_name = $(".dialog-tambah .input-nama").val().trim();
+	var driver_handphone = $(".dialog-tambah .input-hp").val().trim();
+	var driver_address = $(".dialog-tambah .input-alamat").val().trim();
+	var driver_information = $(".dialog-tambah .input-keterangan").val().trim();
+	var driver_status = $(".dialog-tambah .input-status").val();
 	
-	function tambahSupir() {
-		var driver_name = $(".dialog-tambah .input-nama").val();
-		var driver_handphone = $(".dialog-tambah .input-hp").val();
-		var driver_address = $(".dialog-tambah .input-alamat").val();
-		var driver_information = $(".dialog-tambah .input-keterangan").val();
-		var driver_status = $(".dialog-tambah .input-status").val();
-		
+	var valid = cekInputError(driver_name, driver_address, driver_handphone);
+	if (valid) {
 		$.ajax({
 			url: '<?= base_url("supir/tambahSupir") ?>',
 			data: {
@@ -305,50 +357,49 @@ $(function() {
 			}
 		});
 	}
-	
-	function getSupir() {
-		$.ajax({
-			url: '<?= base_url("supir/getSupir") ?>',
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				valid = false;
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(json) {
-				$(".tbody-supir").html("");
-				var result = jQuery.parseJSON(json);
-				for (var i = 0; i < result.length; i++) {
-					addSupirToTable((i + 1), result[i]);
-				}
+}
+
+function getSupir() {
+	$.ajax({
+		url: '<?= base_url("supir/getSupir") ?>',
+		type: 'POST',
+		error: function(jqXHR, exception) {
+			valid = false;
+			alert(jqXHR + " : " + jqXHR.responseText);
+		},
+		success: function(json) {
+			$(".tbody-supir").html("");
+			var result = jQuery.parseJSON(json);
+			for (var i = 0; i < result.length; i++) {
+				addSupirToTable((i + 1), result[i]);
 			}
-		});
+		}
+	});
+}
+
+function addSupirToTable(no, result) {
+	var ketersediaan = "Tersedia";
+	if (result.shipment_id != "") {
+		ketersediaan = result.shipment_id;
 	}
 	
-	function addSupirToTable(no, result) {
-		var ketersediaan = "Tersedia";
-		if (result.shipment_id != "") {
-			ketersediaan = result.shipment_id;
-		}
-		
-		if (result.driver_rating == null) {
-			result.driver_rating = "Unrated";
-		}
-		
-		var aktifDisabled = "disabled", tidakAktifDisabled = "";
-		if (result.driver_status == 0) {
-			aktifDisabled = "";
-			tidakAktifDisabled = "disabled";
-		}
-		
-		var btnAktif = "<button class='btn-default btn-toggle btn-aktif' data-value='1' " + aktifDisabled + ">Aktif</button>";
-		var btnTidakAktif = "<button class='btn-default btn-toggle btn-tidak-aktif' data-value='0' " + tidakAktifDisabled + ">Tidak Aktif</button>";
-		
-		var btnEdit = "<button class='btn-default btn-edit' data-id='" + result.driver_id + "'>Edit</button>";
-		var btnDelete = "<button class='btn-negative btn-delete' data-id='" + result.driver_id + "'>Delete</button>";
-		
-		var element = "<tr class='tr-supir' data-id='" + result.driver_id + "'><td>" + no + "</td><td class='td-name'>" + result.driver_name + "</td><td class='td-handphone'>" + result.driver_handphone + "</td><td class='td-address'>" + result.driver_address + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td>" + result.driver_rating + "</td><td>" + result.driver_jumlah_transaksi + "</td><td class='td-information'>" + result.driver_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
-		$(".tbody-supir").append(element);
+	if (result.driver_rating == null) {
+		result.driver_rating = "Unrated";
 	}
 	
-});
+	var aktifDisabled = "disabled", tidakAktifDisabled = "";
+	if (result.driver_status == 0) {
+		aktifDisabled = "";
+		tidakAktifDisabled = "disabled";
+	}
+	
+	var btnAktif = "<button class='btn-default btn-toggle btn-aktif' data-value='1' " + aktifDisabled + ">Aktif</button>";
+	var btnTidakAktif = "<button class='btn-default btn-toggle btn-tidak-aktif' data-value='0' " + tidakAktifDisabled + ">Tidak Aktif</button>";
+	
+	var btnEdit = "<button class='btn-default btn-edit' data-id='" + result.driver_id + "'>Edit</button>";
+	var btnDelete = "<button class='btn-negative btn-delete' data-id='" + result.driver_id + "'>Delete</button>";
+	
+	var element = "<tr class='tr-supir' data-id='" + result.driver_id + "'><td>" + no + "</td><td class='td-name'>" + result.driver_name + "</td><td class='td-handphone'>" + result.driver_handphone + "</td><td class='td-address'>" + result.driver_address + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td>" + result.driver_rating + "</td><td>" + result.driver_jumlah_transaksi + "</td><td class='td-information'>" + result.driver_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
+	$(".tbody-supir").append(element);
+}
 </script>

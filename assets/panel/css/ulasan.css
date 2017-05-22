@@ -1,6 +1,7 @@
 .section-1 {
 	overflow: auto;
 	margin-bottom: 50px;
+	padding-right: 10%;
 }
 
 .rating-total {

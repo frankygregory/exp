@@ -2,20 +2,12 @@
 	margin-bottom: 20px;
 }
 
-.dialog {
-	
-}
-
 .dialog-tambah, .dialog-edit {
 	width: 700px;
 }
 
-.dialog-header {
-	
-}
-
-.dialog-footer {
-	
+.label-asal {
+	margin-right: 15px;
 }
 
 .btn-submit-tambah, .btn-submit-edit, .btn-batal, .btn-submit-delete {

@@ -11,15 +11,15 @@
 				<tbody>
 					<tr>
 						<td class="">Username</td>
-						<td><input type="text" class="input-username" /></td>
+						<td><input type="text" class="input-insert-username" /></td>
 					</tr>
 					<tr>
 						<td class="">Email</td>
-						<td><input type="text" class="input-user_email" maxlength="12" /></td>
+						<td><input type="text" class="input-insert-user_email" maxlength="40" /></td>
 					</tr>
 					<tr>
 						<td class="">Nama</td>
-						<td><input type="text" class="input-user_fullname" /></td>
+						<td><input type="text" class="input-insert-user_fullname" /></td>
 					</tr>
 					<tr>
 						<td class="">Group</td>
@@ -28,8 +28,8 @@
 					<tr>
 						<td class="">Level</td>
 						<td>
-							<label class="label-radio"><input type="radio" name="user_level" class="input-user_level" value="super" checked="checked" />Super Admin</label>
-							<label class="label-radio"><input type="radio" name="user_level" class="input-user_level" value="admin" />Admin</label>
+							<label class="label-radio"><input type="radio" name="user_level" class="input-insert-user_level" value="super" checked="checked" />Super Admin</label>
+							<label class="label-radio"><input type="radio" name="user_level" class="input-insert-user_level" value="admin" />Admin</label>
 						</td>
 					</tr>
 				</tbody>
@@ -108,8 +108,7 @@
 					<td>Nama</td>
 					<td>Email</td>
 					<td>Group</td>
-					<td>Super Admin</td>
-					<td>Admin</td>
+					<td>Level</td>
 					<td>Status</td>
 					<td>Action</td>
 				</tr>
@@ -139,11 +138,16 @@
 
 <script type="text/javascript">
 $(function() {
+	getUser();
 	getMyGroups();
 	
 	$(".btn-tambah-user").on("click", function() {
 		clearAllErrors();
 		showDialog(".dialog-tambah-user");
+	});
+	
+	$(".btn-submit-tambah-user").on("click", function() {
+		insertUser();
 	});
 	
 	$(".btn-tambah-group").on("click", function() {
@@ -172,6 +176,83 @@ $(function() {
 
 function clearAllErrors() {
 	$(".error").html("");
+}
+
+function insertUser() {
+	var username = $(".input-insert-username").val();
+	var user_email = $(".input-insert-user_email").val();
+	var user_fullname = $(".input-insert-user_fullname").val();
+	var group_ids = "";
+	$(".input-insert-user_group_id[type='checkbox']:checked").each(function() {
+		var group_id = $(this).val();
+		if (group_ids != "") {
+			group_ids += ";";
+		}
+		group_ids += group_id;
+	});
+	var user_level = $(".input-insert-user_level:checked").val();
+	
+	var data = {
+		username: username,
+		user_email: user_email,
+		user_fullname: user_fullname,
+		group_ids: group_ids,
+		user_level: user_level
+	};
+	
+	ajaxCall("<?= base_url("user/addOtherUser") ?>", data, function(result) {
+		if (result == "success") {
+			closeDialog();
+			getUser();
+		}
+	});
+}
+
+function getUser() {
+	ajaxCall("<?= base_url("user/getUser") ?>", null, function(json) {
+		var result = jQuery.parseJSON(json);
+		addUserToTable(result);
+	});
+}
+
+function addUserToTable(result) {
+	var element = "";
+	var iLength = result.length;
+	for (var i = 0; i < iLength; i++) {
+		var group_names = "";
+		var group_name = result[i].group_names.split(";");
+		group_names += group_name[0];
+		for (var j = 1; j < group_name.length; j++) {
+			group_names += ", " + group_name[j];
+		}
+		
+		var superAdminChecked = "", adminChecked = "";
+		if (result[i].user_level == 2) {
+			superAdminChecked = " checked";
+		} else if (result[i].user_level == 3) {
+			adminChecked = " checked";
+		}
+		var tdUserLevel = "<label><input type='radio' val='super'" + superAdminChecked + " /> Super Admin</label>";
+		tdUserLevel += "<label><input type='radio' val='admin'" + adminChecked + " /> Super Admin</label>";
+		
+		var status = "aktif";
+		if (result[i].status_userGroup == 0) {
+			status = "tidak aktif";
+		}
+		
+		element += "<tr class='tr-user' data-id='" + result[i].user_id + "'>";
+		element += "<td>" + (i + 1) + "</td>";
+		element += "<td class='td-user_fullname'>" + result[i].user_fullname + "</td>";
+		element += "<td class='td-user_email'>" + result[i].user_email + "</td>";
+		element += "<td>" + group_names + "</td>";
+		element += "<td class='td-user_group_ids'>" + tdUserLevel + "</td>";
+		element += "<td>" + status + "</td>";
+		element += "<td></td>";
+		element += "</tr>";
+	}
+	
+	$(".tbody-user").html("");
+	$(".tbody-user").append(element);
 }
 
 function updateGroup() {
@@ -221,7 +302,7 @@ function getMyGroups() {
 
 function addGroupsToTable(result) {
 	var element = "";
-	var option = "";
+	var checkbox = "";
 	var group_name = "";
 	var iLength = result.length;
 	var btnDelete = "<button class='btn-negative btn-delete'>Delete</button>";
@@ -239,12 +320,12 @@ function addGroupsToTable(result) {
 		element += "<td><button class='btn-default btn-edit-group'>Edit</button>" + btnDelete + "</td>";
 		element += "</tr>";
 		
-		option += "<option value='" + result[i].group_id + "'>" + group_name + "</option>";
+		checkbox += "<label class='label-checkbox-group'><input type='checkbox' class='input-insert-user_group_id' value='" + result[i].group_id + "' /> " + group_name + "</label>";
 	}
 	$(".tbody-group").html("");
 	$(".tbody-group").html(element);
 	
-	$(".input-group_id").html("");
-	$(".input-group_id").html(option);
+	$(".td-grup").html("");
+	$(".td-grup").html(checkbox);
 }
 </script>

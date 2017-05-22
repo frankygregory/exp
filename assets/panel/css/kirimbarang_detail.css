@@ -36,10 +36,12 @@ td {
 
 .td-label {
 	text-align: right;
+	padding-top: 17px;
 }
 
 .td-titikdua {
 	width: 10px;
+	padding-top: 17px;
 }
 
 .asal {
@@ -206,6 +208,10 @@ td.td-label {
 
 td.td-titikdua {
 	width: 10px;
+}
+
+.input-bidding-price {
+	width: 150px !important;
 }
 
 td.td-harga {

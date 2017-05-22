@@ -11,15 +11,23 @@
 				<tbody>
 					<tr>
 						<td class="">Nama Alat</td>
-						<td><input type="text" class="input-nama" /></td>
+						<td>
+							<input type="text" class="input-nama" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Keterangan</td>
-						<td><input type="text" class="input-keterangan" /></td>
+						<td>
+							<input type="text" class="input-keterangan" />
+						</td>
 					</tr>
 					<tr>
 						<td class="">Email</td>
-						<td><input type="text" class="input-email" /></td>
+						<td>
+							<input type="text" class="input-email" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Status</td>
@@ -48,7 +56,10 @@
 				<tbody>
 					<tr>
 						<td class="">Nama Alat</td>
-						<td><input type="text" class="input-nama" /></td>
+						<td>
+							<input type="text" class="input-nama" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Keterangan</td>
@@ -56,7 +67,10 @@
 					</tr>
 					<tr>
 						<td class="">Email</td>
-						<td><input type="text" class="input-email" /></td>
+						<td>
+							<input type="text" class="input-email" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Status</td>
@@ -120,6 +134,7 @@ $(function() {
 	getAlat();
 	
 	$(".btn-tambah").on("click", function() {
+		clearErrors();
 		showDialog(".dialog-tambah");
 		$(".dialog-tambah .input-nama").select();
 	});
@@ -129,6 +144,7 @@ $(function() {
 	});
 	
 	$(document).on("click", ".btn-edit", function() {
+		clearErrors();
 		editAlat(this);
 	});
 	
@@ -202,6 +218,24 @@ function toggleAlatAktif(element) {
 	});
 }
 
+function clearErrors() {
+	$(".error").html("");
+}
+
+function cekInputError(device_name, device_email) {
+	clearErrors();
+	var valid = true;
+	if (device_name == "") {
+		valid = false;
+		$(".input-nama").next().html("Nama alat harus diisi");
+	}
+	if (device_email == "") {
+		valid = false;
+		$(".input-email").next().html("Email harus diisi");
+	}
+	return valid;
+}
+
 function editAlat(element) {
 	var id = $(element).data("id");
 	
@@ -232,29 +266,32 @@ function updateAlat() {
 	var device_information = $(".dialog-edit .input-keterangan").val();
 	var driver_status = $(".dialog-edit .input-status").val();
 	
-	$.ajax({
-		url: '<?= base_url("alat/updateAlat") ?>',
-		data: {
-			submit_update: true,
-			device_id: device_id,
-			device_name: device_name,
-			device_email: device_email,
-			device_information: device_information,
-			driver_status: driver_status
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(result) {
-			if (result == "success") {
-				closeDialog();
-				getAlat();
-			} else {
-				alert(result);
+	var valid = cekInputError(device_name, device_email);
+	if (valid) {
+		$.ajax({
+			url: '<?= base_url("alat/updateAlat") ?>',
+			data: {
+				submit_update: true,
+				device_id: device_id,
+				device_name: device_name,
+				device_email: device_email,
+				device_information: device_information,
+				driver_status: driver_status
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getAlat();
+				} else {
+					alert(result);
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 function tambahAlat() {
@@ -263,26 +300,29 @@ function tambahAlat() {
 	var device_information = $(".dialog-tambah .input-keterangan").val();
 	var device_status = $(".dialog-tambah .input-status").val();
 	
-	$.ajax({
-		url: '<?= base_url("alat/tambahAlat") ?>',
-		data: {
-			submit_tambah: true,
-			device_name: device_name,
-			device_email: device_email,
-			device_information: device_information,
-			device_status: device_status
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(result) {
-			if (result == "success") {
-				closeDialog();
-				getAlat();
+	var valid = cekInputError(device_name, device_email);
+	if (valid) {
+		$.ajax({
+			url: '<?= base_url("alat/tambahAlat") ?>',
+			data: {
+				submit_tambah: true,
+				device_name: device_name,
+				device_email: device_email,
+				device_information: device_information,
+				device_status: device_status
+			},
+			type: 'POST',
+			error: function(jqXHR, exception) {
+				alert(jqXHR + " : " + jqXHR.responseText);
+			},
+			success: function(result) {
+				if (result == "success") {
+					closeDialog();
+					getAlat();
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 function getAlat() {
