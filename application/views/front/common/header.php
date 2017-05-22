@@ -28,7 +28,7 @@
 <div class="header">
 	<div class="logo">Yukirim</div>
 	<div class="header-right">
-		<a href="#" class="header-menu">About Us
+		<a href="<?= base_url("login") ?>" class="header-menu">Login
 			<div class="bottom-line"></div>
 		</a>
 		<a href="#" class="header-menu">What we do

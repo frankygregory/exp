@@ -23,6 +23,10 @@ label {
 	margin-right: 5px;
 }
 
+.label-user-super-admin {
+	margin-right: 15px;
+}
+
 .btn-submit-tambah, .btn-submit-edit, .btn-batal, .btn-submit-delete {
 	float: right;
 }

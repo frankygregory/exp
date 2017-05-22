@@ -76,7 +76,6 @@ function getMyFeedback() {
 			element += '</div>';
 			element += '<div class="feedback-datetime">Reviewed on : ' + result[i].created_date + '</div>';
 			element += '</div>';
-			element += "<button class='btn-default btn-balas'>Balasan</button>";
 		}
 		
 		$(".feedback-section").html("");

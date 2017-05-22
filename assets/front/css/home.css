@@ -138,7 +138,7 @@
 }
 
 .section-4-content {
-	width: 780px;
+	width: 770px;
 	margin: 0 auto;
 }
 
@@ -153,7 +153,7 @@
 .section-4-step-left, .section-4-step-right {
 	width: 320px;
 	min-height: 1px;
-	padding: 20px 10px 0;
+	padding: 15px 10px 0;
 }
 
 .section-4-step-left {
@@ -165,8 +165,8 @@
 }
 
 .section-4-step-icon {
-	width: 80px;
-	height: 80px;
+	width: 70px;
+	height: 70px;
 	background-size: 60%;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -181,7 +181,7 @@
 	font-size: 28pt;
 	font-weight: bold;
 	float: left;
-	margin-top: 17px;
+	margin-top: 12px;
 }
 
 .step-number.right {
@@ -189,12 +189,12 @@
 }
 
 .section-4-step.step-3 .section-4-step-right {
-	padding-top: 28px;
+	padding-top: 23px;
 }
 
 .section-4-vertical-line {
 	width: 1px;
-	height: 30px;
-	background-color: black;
-	margin: 20px auto;
+	height: 25px;
+	background-color: #999;
+	margin: 10px auto;
 }

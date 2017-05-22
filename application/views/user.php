@@ -11,19 +11,30 @@
 				<tbody>
 					<tr>
 						<td class="">Username</td>
-						<td><input type="text" class="input-insert-username" /></td>
+						<td>
+							<input type="text" class="input-insert-username" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Email</td>
-						<td><input type="text" class="input-insert-user_email" maxlength="40" /></td>
+						<td>
+							<input type="text" class="input-insert-user_email" maxlength="40" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Nama</td>
-						<td><input type="text" class="input-insert-user_fullname" /></td>
+						<td>
+							<input type="text" class="input-insert-user_fullname" />
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Group</td>
-						<td class="td-grup"></td>
+						<td class="td-insert-grup">
+							<div class="error"></div>
+						</td>
 					</tr>
 					<tr>
 						<td class="">Level</td>
@@ -178,10 +189,32 @@ function clearAllErrors() {
 	$(".error").html("");
 }
 
+function cekUserInputError(username, user_email, user_fullname, group_ids) {
+	clearAllErrors();
+	var valid = true;
+	if (username == "") {
+		valid = false;
+		$(".input-insert-username").next().html("Username harus diisi");
+	}
+	if (user_email == "") {
+		valid = false;
+		$(".input-insert-user_email").next().html("Email harus diisi");
+	}
+	if (user_fullname == "") {
+		valid = false;
+		$(".input-insert-user_fullname").next().html("Nama harus diisi");
+	}
+	if (group_ids == "") {
+		valid = false;
+		$(".td-insert-grup .error").html("User minimal harus berada pada 1 group");
+	}
+	return valid;
+}
+
 function insertUser() {
-	var username = $(".input-insert-username").val();
-	var user_email = $(".input-insert-user_email").val();
-	var user_fullname = $(".input-insert-user_fullname").val();
+	var username = $(".input-insert-username").val().trim();
+	var user_email = $(".input-insert-user_email").val().trim();
+	var user_fullname = $(".input-insert-user_fullname").val().trim();
 	var group_ids = "";
 	$(".input-insert-user_group_id[type='checkbox']:checked").each(function() {
 		var group_id = $(this).val();
@@ -192,20 +225,23 @@ function insertUser() {
 	});
 	var user_level = $(".input-insert-user_level:checked").val();
 	
-	var data = {
-		username: username,
-		user_email: user_email,
-		user_fullname: user_fullname,
-		group_ids: group_ids,
-		user_level: user_level
-	};
-	
-	ajaxCall("<?= base_url("user/addOtherUser") ?>", data, function(result) {
-		if (result == "success") {
-			closeDialog();
-			getUser();
-		}
-	});
+	var valid = cekUserInputError(username, user_email, user_fullname, group_ids);
+	if (valid) {
+		var data = {
+			username: username,
+			user_email: user_email,
+			user_fullname: user_fullname,
+			group_ids: group_ids,
+			user_level: user_level
+		};
+		
+		ajaxCall("<?= base_url("user/addOtherUser") ?>", data, function(result) {
+			if (result == "success") {
+				closeDialog();
+				getUser();
+			}
+		});
+	}
 }
 
 function getUser() {
@@ -232,8 +268,8 @@ function addUserToTable(result) {
 		} else if (result[i].user_level == 3) {
 			adminChecked = " checked";
 		}
-		var tdUserLevel = "<label><input type='radio' val='super'" + superAdminChecked + " /> Super Admin</label>";
-		tdUserLevel += "<label><input type='radio' val='admin'" + adminChecked + " /> Super Admin</label>";
+		var tdUserLevel = "<label class='label-user-super-admin'><input type='radio' name='user-level' val='super'" + superAdminChecked + " /> Super Admin</label>";
+		tdUserLevel += "<label class='label-user-admin'><input type='radio' name='user-level' val='admin'" + adminChecked + " /> Admin</label>";
 		
 		var status = "aktif";
 		if (result[i].status_userGroup == 0) {
@@ -325,7 +361,8 @@ function addGroupsToTable(result) {
 	$(".tbody-group").html("");
 	$(".tbody-group").html(element);
 	
-	$(".td-grup").html("");
-	$(".td-grup").html(checkbox);
+	$(".td-insert-grup").html("");
+	$(".td-insert-grup").html(checkbox);
+	$(".td-insert-grup").append("<div class='error'></div>");
 }
 </script>
