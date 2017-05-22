@@ -1,0 +1,67 @@
+.header {
+	width: 100vw;
+	height: 70px;
+	position: fixed;
+	color: white;
+	top: 0;
+	z-index: 1000;
+}
+
+.header.scroll {
+	color: black;
+	animation-name: header-scroll;
+	animation-duration: 0.2s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+@keyframes header-scroll {
+	to {
+		background-color: #FFFF00;
+	}
+}
+
+.header.scroll .header-menu:link, .header.scroll .header-menu:visited {
+	color: black;
+}
+
+.header.scroll .bottom-line {
+	background-color: black;
+}
+
+.logo {
+	float: left;
+	margin-top: 15px;
+	margin-left: 30px;
+	font-size: 24pt;
+}
+
+.header-right {
+	display: block;
+	float: right;
+	margin-right: 5vw;
+}
+
+.header-menu {
+	display: inline-block;
+	font-size: 16pt;
+	margin-top: 20px;
+	margin-right: 50px;
+}
+
+.header-menu:link, .header-menu:visited {
+	color: white;
+	text-decoration: none;
+}
+
+.bottom-line {
+	opacity: 0;
+	width: 100%;
+	height: 5px;
+	background-color: #FFFF00;
+	transition: all 0.2s;
+}
+
+.header-menu:hover > .bottom-line {
+	opacity: 1;
+}

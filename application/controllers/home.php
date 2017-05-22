@@ -20,8 +20,9 @@ class Home extends CI_Controller
 
         $msg = '';
         $this->session->set_flashdata('msg', $msg);
-		
+		$this->load->view('front/common/header', $data);
         $this->load->view('front/home', $data);
+		$this->load->view('front/common/footer', $data);
     }
 
     public function contact()

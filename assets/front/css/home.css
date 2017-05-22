@@ -1,54 +1,27 @@
-.header {
-	width: 100vw;
-	height: 70px;
-	position: fixed;
-	color: white;
-	top: 0;
-	z-index: 1000;
-}
-
-.logo {
-	float: left;
-	margin-top: 25px;
-	margin-left: 30px;
-	font-size: 24pt;
-	font-weight: bold;
-}
-
-.header-right {
-	float: right;
-	margin-right: 100px;
-}
-
-.header-menu {
-	display: inline-block;
-	font-size: 16pt;
-	margin-top: 30px;
-	margin-right: 50px;
-}
-
-.bottom-line {
-	opacity: 0;
-	width: 100%;
-	height: 5px;
-	background-color: #FFFF00;
-}
-
-.header-menu:hover > .bottom-line {
-	opacity: 1;
-}
-
 .section-1 {
 	width: 100%;
 	height: 100vh;
 	position: relative;
 }
 
+.image-container {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
 .background-image {
 	width: 100%;
 	height: 100%;
-	background-image: url("assets/front/images/background.jpg");
 	filter: brightness(30%);
+}
+
+.image-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .section-1-title {
@@ -67,6 +40,16 @@
 
 .cursor {
 	font-size: 70pt;
+	animation-name: cursor;
+	animation-duration: 0.5s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+@keyframes cursor {
+	to {
+		opacity: 0;
+	}
 }
 
 .title-description {
@@ -75,5 +58,143 @@
 
 .section-2 {
 	width: 100%;
-	height: 100vh;
+	max-width: 1160px;
+	overflow-y: auto;
+	margin: 0 auto;
+	padding: 15vh 0;
+}
+
+.section-2-title {
+	font-size: 40pt;
+	margin-bottom: 20px;
+}
+
+.section-2-description {
+	color: #757575;
+	font-size: 14pt;
+}
+
+.section-3 {
+	width: 100%;
+	overflow-y: auto;
+	margin: 0 auto;
+	padding: 10vh 0;
+	background-color: #FFFF00;
+}
+
+.section-3-inner {
+	width: 600px;
+	margin: 0 auto;
+}
+
+.section-3-title {
+	font-size: 40pt;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.mengapa-item {
+	clear: both;
+	overflow: auto;
+	margin-bottom: 10px;
+}
+
+.mengapa-item-left {
+	float: left;
+	width: 100px;
+	height: 90px;
+	background-size: 60px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.mengapa-item-title {
+	font-size: 14pt;
+	font-weight: bold;
+	margin-bottom: 5px;
+	padding-top: 15px;
+}
+
+.mengapa-item-1 .mengapa-item-title {
+	padding-top: 13px;
+}
+
+.mengapa-item-description {
+	font-size: 12pt;
+}
+
+.section-4 {
+	width: 100%;
+	max-width: 1160px;
+	overflow-y: auto;
+	margin: 0 auto;
+	padding: 10vh 0;
+}
+
+.section-4-title {
+	font-size: 40pt;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.section-4-content {
+	width: 780px;
+	margin: 0 auto;
+}
+
+.section-4-step {
+	overflow: auto;
+}
+
+.section-4-step-left, .section-4-step-icon, .section-4-step-right {
+	float: left;
+}
+
+.section-4-step-left, .section-4-step-right {
+	width: 320px;
+	min-height: 1px;
+	padding: 20px 10px 0;
+}
+
+.section-4-step-left {
+	padding-left: 0;
+}
+
+.section-4-step-right: {
+	padding-right: 0;
+}
+
+.section-4-step-icon {
+	width: 80px;
+	height: 80px;
+	background-size: 60%;
+	background-repeat: no-repeat;
+	background-position: center;
+	border-radius: 100%;
+	border: 2px solid black;
+}
+
+.step-number {
+	display: inline-block;
+	width: 30px;
+	min-height: 1px;
+	font-size: 28pt;
+	font-weight: bold;
+	float: left;
+	margin-top: 17px;
+}
+
+.step-number.right {
+	text-align: right;
+}
+
+.section-4-step.step-3 .section-4-step-right {
+	padding-top: 28px;
+}
+
+.section-4-vertical-line {
+	width: 1px;
+	height: 30px;
+	background-color: black;
+	margin: 20px auto;
 }
