@@ -53,15 +53,18 @@ class Driver_model extends CI_Model
 			FROM `m_driver` m
 			LEFT JOIN `m_driver_details` d
 			ON m.driver_id = d.driver_id AND d.driver_details_status = 1
-			WHERE m.user_id = '" . $user_id . "'
+			WHERE m.user_id = '" . $user_id . "' AND m.driver_status != -1
 			GROUP BY m.driver_id
 		");
 		return $query->result();
 	}
 	
-	public function deleteDriver($driver_id) {
-		$this->db->where("driver_id", $driver_id);
-		$this->db->delete("m_driver");
-		return $this->db->affected_rows();
+	public function deleteDriver($driver_id, $user_id) {
+		$query = $this->db->query("
+			UPDATE `m_driver`
+			SET driver_status = -1, modified_by = '" . $user_id . "'
+			WHERE driver_id = '" . $driver_id . "'
+		");
+		return 1;
 	}
 }

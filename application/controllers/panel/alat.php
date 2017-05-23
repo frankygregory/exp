@@ -102,7 +102,8 @@ class Alat extends MY_Controller
 	
 	public function deleteAlat() {
 		$device_id = $this->input->post("device_id");
-		$affected_rows = $this->Alat_model->deleteAlat($device_id);
+		$user_id = $this->session->userdata("user_id");
+		$affected_rows = $this->Alat_model->deleteAlat($device_id, $user_id);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {

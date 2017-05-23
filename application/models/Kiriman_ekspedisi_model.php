@@ -155,7 +155,7 @@ class Kiriman_ekspedisi_model extends CI_Model
 			FROM `m_vehicle` m
 			LEFT JOIN `m_vehicle_details` d
 			ON m.vehicle_id = d.vehicle_id AND d.vehicle_details_status = 1
-			WHERE m.user_id = '" . $user_id . "' AND COALESCE(d.shipment_id, '') = ''
+			WHERE m.user_id = '" . $user_id . "' AND COALESCE(d.shipment_id, '') = '' AND m.vehicle_status = 1
 			GROUP BY m.vehicle_id
 		");
 		return $query->result();
@@ -167,7 +167,7 @@ class Kiriman_ekspedisi_model extends CI_Model
 			FROM `m_driver` m
 			LEFT JOIN `m_driver_details` d
 			ON m.driver_id = d.driver_id AND d.driver_details_status = 1
-			WHERE m.user_id = '" . $user_id . "' AND COALESCE(d.shipment_id, '') = ''
+			WHERE m.user_id = '" . $user_id . "' AND COALESCE(d.shipment_id, '') = '' AND m.driver_status = 1
 			GROUP BY m.driver_id
 		");
 		return $query->result();
@@ -179,7 +179,7 @@ class Kiriman_ekspedisi_model extends CI_Model
 			FROM `m_device_customer` m
 			LEFT JOIN `m_device_details` d
 			ON m.device_id = d.device_id AND d.device_details_status = 1
-			WHERE m.user_id = '" . $user_id . "' AND COALESCE(d.shipment_id, '') = ''
+			WHERE m.user_id = '" . $user_id . "' AND COALESCE(d.shipment_id, '') = '' AND m.device_status = 1
 			GROUP BY m.device_id
 		");
 		return $query->result();

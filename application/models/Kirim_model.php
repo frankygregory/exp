@@ -75,6 +75,7 @@ class Kirim_model extends CI_Model
 	
 	public function getSavedLocation($user_id, $fromto) {
 		$this->db->where("user_id", $user_id);
+		$this->db->where("location_status", 1);
 		$this->db->where($fromto, 1);
 		return $this->db->get("m_location")->result();
 	}

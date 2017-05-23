@@ -50,15 +50,18 @@ class Kendaraan_model extends CI_Model
 			FROM `m_vehicle` m
 			LEFT JOIN `m_vehicle_details` d
 			ON m.vehicle_id = d.vehicle_id AND d.vehicle_details_status = 1
-			WHERE m.user_id = '" . $user_id . "'
+			WHERE m.user_id = '" . $user_id . "' AND m.vehicle_status != -1
 			GROUP BY m.vehicle_id
 		");
 		return $query->result();
 	}
 	
-	public function deleteKendaraan($vehicle_id) {
-		$this->db->where("vehicle_id", $vehicle_id);
-		$this->db->delete("m_vehicle");
-		return $this->db->affected_rows();
+	public function deleteKendaraan($vehicle_id, $user_id) {
+		$query = $this->db->query("
+			UPDATE `m_vehicle`
+			SET vehicle_status = -1, modified_by = '" . $user_id . "'
+			WHERE vehicle_id = '" . $vehicle_id . "'
+		");
+		return 1;
 	}
 }

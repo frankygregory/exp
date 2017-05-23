@@ -111,7 +111,8 @@ class Supir extends MY_Controller
 	
 	public function deleteSupir() {
 		$driver_id = $this->input->post("driver_id");
-		$affected_rows = $this->Driver_model->deleteDriver($driver_id);
+		$user_id = $this->session->userdata("user_id");
+		$affected_rows = $this->Driver_model->deleteDriver($driver_id, $user_id);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {

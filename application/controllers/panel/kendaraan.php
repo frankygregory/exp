@@ -114,7 +114,8 @@ class Kendaraan extends MY_Controller
 		$submit_delete = $this->input->post("submit_delete");
 		if ($submit_delete != null) {
 			$vehicle_id = $this->input->post("vehicle_id");
-			$affected_rows = $this->Kendaraan_model->deleteKendaraan($vehicle_id);
+			$user_id = $this->session->userdata("user_id");
+			$affected_rows = $this->Kendaraan_model->deleteKendaraan($vehicle_id, $user_id);
 			if ($affected_rows > 0) {
 				echo "success";
 			} else {

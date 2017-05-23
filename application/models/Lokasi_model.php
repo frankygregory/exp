@@ -11,7 +11,7 @@ class Lokasi_model extends CI_Model
 		$query = $this->db->query("
 			SELECT location_id, location_name, location_address, location_city, location_lat, location_lng, location_detail, location_contact, location_from, location_to
 			FROM `m_location`
-			WHERE user_id = '" . $user_id . "';
+			WHERE user_id = '" . $user_id . "' AND location_status != -1;
 		");
 		return $query->result();
 	}
@@ -53,9 +53,11 @@ class Lokasi_model extends CI_Model
 		return $this->db->affected_rows();
 	}
 	
-	public function deleteLocation($location_id) {
-		$this->db->where("location_id", $location_id);
-		$this->db->delete("m_location");
-		return $this->db->affected_rows();
+	public function deleteLocation($location_id, $user_id) {
+		$query = $this->db->query("
+			UPDATE `m_location`
+			SET location_status = -1, modified_by = '" . $user_id . "'
+			WHERE location_id = '" . $location_id . "'
+		");
 	}
 }

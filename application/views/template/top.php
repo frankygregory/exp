@@ -62,9 +62,11 @@
 			<a href="<?= base_url("lokasi") ?>">
 				<div>Lokasi</div>
 			</a>
-			<a href="<?= base_url("user") ?>">
-				<div class="">User</div>
-			</a>
+	<?php	if ($this->session->userdata("user_level") != 3) { ?>
+				<a href="<?= base_url("user") ?>">
+					<div class="">User</div>
+				</a>
+	<?php	}	?>
 <?php	}	?>
 	<?php
 		if ($this->session->userdata("role_id") == 2) { ?>

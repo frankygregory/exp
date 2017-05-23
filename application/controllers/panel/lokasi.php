@@ -94,7 +94,8 @@ class Lokasi extends MY_Controller
 	
 	public function deleteLocation() {
 		$location_id = $this->input->post("location_id");
-		$affected_rows = $this->Lokasi_model->deleteLocation($location_id);
+		$user_id = $this->session->userdata("user_id");
+		$affected_rows = $this->Lokasi_model->deleteLocation($location_id, $user_id);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {

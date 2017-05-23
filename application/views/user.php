@@ -89,6 +89,20 @@
 	</div>
 </div>
 <div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-delete-group">
+		<div class="dialog-header">
+			<div class="dialog-title">Delete Group</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-negative btn-submit-delete-group">Delete Group</button>
+			<button type="button" class="btn-neutral btn-batal">Batal</button>
+		</div>
+	</div>
+</div>
+<div class="dialog-background">
 	<div class="dialog dialog-edit-group">
 		<div class="dialog-header">
 			<div class="dialog-title"></div>
@@ -184,6 +198,15 @@ $(function() {
 		$(".dialog-edit-group input.input-group_name").val(group_name);
 		showDialog(".dialog-edit-group");
 	});
+	
+	$(document).on("click", ".btn-delete-group", function() {
+		var group_id = $(this).closest(".tr-group").data("id");
+		var group_name = $(this).closest(".tr-group").data("name");
+		
+		$(".dialog-konfirmasi-delete-group").data("id", group_id);
+		$(".dialog-konfirmasi-delete-group .dialog-body").html("Delete group " + group_name + "?");
+		showDialog(".dialog-konfirmasi-delete-group");
+	});
 });
 
 function clearAllErrors() {
@@ -261,36 +284,38 @@ function addUserToTable(result) {
 	var element = "";
 	var iLength = result.length;
 	for (var i = 0; i < iLength; i++) {
-		var group_names = "";
-		var group_name = result[i].group_names.split(";");
-		group_names += group_name[0];
-		for (var j = 1; j < group_name.length; j++) {
-			group_names += ", " + group_name[j];
+		if (result[i].user_id != null) {
+			var group_names = "";
+			var group_name = result[i].group_names.split(";");
+			group_names += group_name[0];
+			for (var j = 1; j < group_name.length; j++) {
+				group_names += ", " + group_name[j];
+			}
+			
+			var superAdminChecked = "", adminChecked = "";
+			if (result[i].user_level == 2) {
+				superAdminChecked = " checked";
+			} else if (result[i].user_level == 3) {
+				adminChecked = " checked";
+			}
+			var tdUserLevel = "<label class='label-user-super-admin'><input type='radio' name='user-level' val='super'" + superAdminChecked + " /> Super Admin</label>";
+			tdUserLevel += "<label class='label-user-admin'><input type='radio' name='user-level' val='admin'" + adminChecked + " /> Admin</label>";
+			
+			var status = "aktif";
+			if (result[i].status_userGroup == 0) {
+				status = "tidak aktif";
+			}
+			
+			element += "<tr class='tr-user' data-id='" + result[i].user_id + "'>";
+			element += "<td>" + (i + 1) + "</td>";
+			element += "<td class='td-user_fullname'>" + result[i].user_fullname + "</td>";
+			element += "<td class='td-user_email'>" + result[i].user_email + "</td>";
+			element += "<td>" + group_names + "</td>";
+			element += "<td class='td-user_group_ids'>" + tdUserLevel + "</td>";
+			element += "<td>" + status + "</td>";
+			element += "<td></td>";
+			element += "</tr>";
 		}
-		
-		var superAdminChecked = "", adminChecked = "";
-		if (result[i].user_level == 2) {
-			superAdminChecked = " checked";
-		} else if (result[i].user_level == 3) {
-			adminChecked = " checked";
-		}
-		var tdUserLevel = "<label class='label-user-super-admin'><input type='radio' name='user-level' val='super'" + superAdminChecked + " /> Super Admin</label>";
-		tdUserLevel += "<label class='label-user-admin'><input type='radio' name='user-level' val='admin'" + adminChecked + " /> Admin</label>";
-		
-		var status = "aktif";
-		if (result[i].status_userGroup == 0) {
-			status = "tidak aktif";
-		}
-		
-		element += "<tr class='tr-user' data-id='" + result[i].user_id + "'>";
-		element += "<td>" + (i + 1) + "</td>";
-		element += "<td class='td-user_fullname'>" + result[i].user_fullname + "</td>";
-		element += "<td class='td-user_email'>" + result[i].user_email + "</td>";
-		element += "<td>" + group_names + "</td>";
-		element += "<td class='td-user_group_ids'>" + tdUserLevel + "</td>";
-		element += "<td>" + status + "</td>";
-		element += "<td></td>";
-		element += "</tr>";
 	}
 	
 	$(".tbody-user").html("");
@@ -347,7 +372,7 @@ function addGroupsToTable(result) {
 	var checkbox = "";
 	var group_name = "";
 	var iLength = result.length;
-	var btnDelete = "<button class='btn-negative btn-delete'>Delete</button>";
+	var btnDelete = "<button class='btn-negative btn-delete-group'>Delete</button>";
 	if (iLength == 1) {
 		btnDelete = "";
 	}
@@ -356,7 +381,7 @@ function addGroupsToTable(result) {
 		if (group_name == "") {
 			group_name = "default";
 		}
-		element += "<tr class='tr-group' data-id='" + result[i].group_id + "'>";
+		element += "<tr class='tr-group' data-id='" + result[i].group_id + "' data-name='" + group_name + "'>";
 		element += "<td>" + (i + 1) + "</td>";
 		element += "<td class='td-group_name'>" + group_name + "</td>";
 		element += "<td><button class='btn-default btn-edit-group'>Edit</button>" + btnDelete + "</td>";

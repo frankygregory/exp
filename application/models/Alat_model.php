@@ -51,15 +51,18 @@ class Alat_model extends CI_Model
 			FROM `m_device_customer` m
 			LEFT JOIN `m_device_details` d
 			ON m.device_id = d.device_id AND d.device_details_status = 1
-			WHERE m.user_id = '" . $user_id . "'
+			WHERE m.user_id = '" . $user_id . "' AND m.device_status != -1
 			GROUP BY m.device_id
 		");
 		return $query->result();
 	}
 	
-	public function deleteAlat($device_id) {
-		$this->db->where("device_id", $device_id);
-		$this->db->delete("m_device_customer");
-		return $this->db->affected_rows();
+	public function deleteAlat($device_id, $user_id) {
+		$query = $this->db->query("
+			UPDATE `m_device_customer`
+			SET device_status = -1, modified_by = '" . $user_id . "'
+			WHERE device_id = '" . $device_id . "'
+		");
+		return 1;
 	}
 }
