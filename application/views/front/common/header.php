@@ -28,38 +28,21 @@
 <div class="header">
 	<div class="logo">Yukirim</div>
 	<div class="header-right">
-		<a href="<?= base_url("login") ?>" class="header-menu">Login
-			<div class="bottom-line"></div>
-		</a>
-		<a href="#" class="header-menu">What we do
+		<a href="#" class="header-menu">List Kiriman
 			<div class="bottom-line"></div>
 		</a>
 		<a href="#" class="header-menu">Contact Us
 			<div class="bottom-line"></div>
 		</a>
+		<a href="<?= base_url("register") ?>" class="header-menu">Daftar
+			<div class="bottom-line"></div>
+		</a>
+		<a href="<?= base_url("login") ?>" class="header-menu">Login
+			<div class="bottom-line"></div>
+		</a>
 	</div>
 </div>
 <script>
-var hasChangedColor = false;
-$(function() {
-	checkHeaderColor();
-	
-	$(document).on("scroll", function() {
-		checkHeaderColor();
-	});
-});
 
-function checkHeaderColor() {
-	var scrollTop = $(document).scrollTop();
-	if (scrollTop > 0) {
-		if (!hasChangedColor) {
-			hasChangedColor = true;
-			$(".header").addClass("scroll");
-		}
-	} else {
-		hasChangedColor = false;
-		$(".header").removeClass("scroll");
-	}
-}
 </script>
 <div class="container">

@@ -108,6 +108,7 @@ class Kiriman_ekspedisi extends MY_Controller
 	public function submitPesan() {
 		$shipment_id = $this->input->post("shipment_id");
 		$user_id = $this->session->userdata("user_id");
+		$shipment_jenis_muatan = $this->input->post("jenis_muatan");
 		$driver_id = $this->input->post("driver_id");
 		$vehicle_id = $this->input->post("vehicle_id");
 		$device_id = $this->input->post("device_id");
@@ -115,6 +116,7 @@ class Kiriman_ekspedisi extends MY_Controller
 		$data = array(
 			"shipment_id" => $shipment_id,
 			"user_id" => $user_id,
+			"shipment_jenis_muatan" => $shipment_jenis_muatan,
 			"driver_id" => $driver_id,
 			"vehicle_id" => $vehicle_id,
 			"device_id" => $device_id
@@ -165,6 +167,21 @@ class Kiriman_ekspedisi extends MY_Controller
 			"user_id" => $user_id
 		);
 		$affected_rows = $this->Kiriman_ekspedisi_model->submitTerima($data);
+		if ($affected_rows > 0) {
+			echo "success";
+		} else {
+			echo "no rows affected. WHY??";
+		}
+	}
+	
+	public function cancelShipment() {
+		$shipment_id = $this->input->post("shipment_id");
+		$user_id = $this->session->userdata("user_id");
+		$data = array(
+			"shipment_id" => $shipment_id,
+			"user_id" => $user_id
+		);
+		$affected_rows = $this->Kiriman_ekspedisi_model->cancelShipment($data);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {

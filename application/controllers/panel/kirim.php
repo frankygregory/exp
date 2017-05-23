@@ -275,7 +275,6 @@ class Kirim extends MY_Controller
 				$ship_status = -1;
 				
 				$user_id = $this->session->userdata('user_id');
-				$group_id = $this->session->userdata('group_id');
 				
 				$data = array(
 					'shipment_title' => $this->input->post('shipment_title'),
@@ -303,7 +302,6 @@ class Kirim extends MY_Controller
 					'shipment_price' => $this->input->post('shipment_price'),
 					'shipment_status' => $ship_status,
 					'shipment_type' => $this->input->post('shipment_type'),
-					'group_id' => $group_id,
 					'user_id' => $user_id,
 					'created_by' => $user_id,
 					'modified_by' => $user_id
@@ -391,15 +389,13 @@ class Kirim extends MY_Controller
 			$bidding_information = $this->input->post("bidding_information");
 			$shipment_id = $this->input->post("shipment_id");
 			$user_id = $this->session->userdata("user_id");
-			$group_id = $this->session->userdata("group_id");
 			
 			$data = array(
 				"bidding_price" => $bidding_price,
 				"bidding_pickupdate" => $bidding_pickupdate,
 				"bidding_information" => $bidding_information,
 				"shipment_id" => $shipment_id,
-				"user_id" => $user_id,
-				"group_id" => $group_id
+				"user_id" => $user_id
 			);
 			
 			$affected_rows = $this->Kirim_model->doBidding($data);
@@ -440,13 +436,11 @@ class Kirim extends MY_Controller
 			$questions_text = $this->input->post("questions_text");
 			$shipment_id = $this->input->post("shipment_id");
 			$user_id = $this->session->userdata("user_id");
-			$group_id = $this->session->userdata("group_id");
 			
 			$insertData = array(
 				"questions_text" => $questions_text,
 				"shipment_id" => $shipment_id,
-				"user_id" => $user_id,
-				"group_id" => $group_id
+				"user_id" => $user_id
 			);
 			
 			$affected_rows = $this->Kirim_model->insertQuestions($insertData);

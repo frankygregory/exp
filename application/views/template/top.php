@@ -176,7 +176,7 @@ function closeDialog() {
 	$(".dialog").css("display", "none");
 	dialog.shown = false;
 	
-	$(".dialog input, .dialog textarea").val("");
+	$(".dialog input[type='text'], .dialog input[type='password'], .dialog textarea").val("");
 	if ($("select").length > 0) {
 		$("select")[0].selectedIndex = 0;
 	}

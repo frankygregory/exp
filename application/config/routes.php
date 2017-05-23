@@ -106,6 +106,7 @@ $route['kiriman-ekspedisi/submitPesan'] = 'panel/kiriman_ekspedisi/submitPesan';
 $route['kiriman-ekspedisi/submitKirim'] = 'panel/kiriman_ekspedisi/submitKirim';
 $route['kiriman-ekspedisi/submitAmbil'] = 'panel/kiriman_ekspedisi/submitAmbil';
 $route['kiriman-ekspedisi/submitTerima'] = 'panel/kiriman_ekspedisi/submitTerima';
+$route['kiriman-ekspedisi/cancelShipment'] = 'panel/kiriman_ekspedisi/cancelShipment';
 $route["kiriman-ekspedisi/getDealKiriman"] = 'panel/kiriman_ekspedisi/getDealKiriman';
 $route["kiriman-ekspedisi/getPendingKiriman"] = 'panel/kiriman_ekspedisi/getPendingKiriman';
 $route["kiriman-ekspedisi/getPesananKiriman"] = 'panel/kiriman_ekspedisi/getPesananKiriman';

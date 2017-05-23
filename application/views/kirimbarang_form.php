@@ -585,8 +585,8 @@ function initialize() {
 		var from_address = $("#location_from_address").val();
 		if (from_address != "") {
 			var from_latlng = $("#location_from_latlng").val().split(",");
-			var from_lat = parseFloat(to_latlng[0]);
-			var from_lng = parseFloat(to_latlng[1]);
+			var from_lat = parseFloat(from_latlng[0]);
+			var from_lng = parseFloat(from_latlng[1]);
 			
 			from_latlng = new google.maps.LatLng(from_lat, from_lng);
 			callDistanceMatrixService(latlng, from_latlng);
@@ -596,15 +596,13 @@ function initialize() {
 
 function getCityFromPlace(place) {
 	var city = "";
+	var text = "";
 	var address_components = place.address_components;
-	for (var i in address_components) {
-		if ( address_components.hasOwnProperty(i) ) {
-			var types = address_components[i].types;
-			for (var j in types) {
-				if (types[j] == "administrative_area_level_2") {
-					city = address_components[i].long_name;
-				}
-			}
+	for (var i = 0; i < address_components.length; i++) {
+		var ac = address_components[i];
+		if (ac.types.indexOf("administrative_area_level_2") >= 0) {
+			city = ac.long_name;
+			break;
 		}
 	}
 	return city;

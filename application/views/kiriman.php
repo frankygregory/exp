@@ -73,6 +73,7 @@
 							<td>Asal</td>
 							<td>Tujuan</td>
 							<td>Jarak</td>
+							<td>Jenis Muatan</td>
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
@@ -92,6 +93,7 @@
 							<td>Asal</td>
 							<td>Tujuan</td>
 							<td>Jarak</td>
+							<td>Jenis Muatan</td>
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
@@ -111,6 +113,7 @@
 							<td>Asal</td>
 							<td>Tujuan</td>
 							<td>Jarak</td>
+							<td>Jenis Muatan</td>
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
@@ -130,6 +133,7 @@
 							<td>Asal</td>
 							<td>Tujuan</td>
 							<td>Jarak</td>
+							<td>Jenis Muatan</td>
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
@@ -149,6 +153,7 @@
 							<td>Asal</td>
 							<td>Tujuan</td>
 							<td>Jarak</td>
+							<td>Jenis Muatan</td>
 							<td>Supir</td>
 							<td>Kendaraan</td>
 							<td>Lacak</td>
@@ -369,6 +374,14 @@ $(function() {
 			var date_to = new Date(result[i].shipment_delivery_date_to);
 			var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear();
 			
+			var jenis_muatan = "Penuh";
+			if (result[i].shipment_jenis_muatan == 0) {
+				jenis_muatan = "Parsial";
+			} else if (result[i].shipment_jenis_muatan == -1) {
+				jenis_muatan = "Undefined";
+			}
+			
+			var tdJenisMuatan = "<td class='td-jenis-muatan'>" + jenis_muatan + "</td>";
 			var additionalTd = "";
 			var berakhir = "";
 			var cancelBy = "";
@@ -378,6 +391,10 @@ $(function() {
 			switch (tab) {
 				case "open":
 					berakhir = "<td class='td-berakhir'>" + result[i].berakhir + "</td>";
+					tdJenisMuatan = "";
+					break;
+				case "pending":
+					tdJenisMuatan = "";
 					break;
 				case "pesanan":
 					additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
@@ -401,11 +418,12 @@ $(function() {
 					break;
 				case "cancel":
 					action = "";
+					tdJenisMuatan = "";
 					cancelBy = "<td>" + result[i].cancel_username + "</td>";
 					break;
 			}
 			
-			element += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + additionalTd + berakhir + ratingSection + action + waktu + cancelBy + "</tr>";
+			element += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + tdJenisMuatan + additionalTd + berakhir + ratingSection + action + waktu + cancelBy + "</tr>";
 		}
 		
 		$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");

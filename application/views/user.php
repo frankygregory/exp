@@ -154,6 +154,7 @@ $(function() {
 	
 	$(".btn-tambah-user").on("click", function() {
 		clearAllErrors();
+		$(".dialog-tambah-user input[type='checkbox']").prop("checked", false);
 		showDialog(".dialog-tambah-user");
 	});
 	
@@ -189,7 +190,7 @@ function clearAllErrors() {
 	$(".error").html("");
 }
 
-function cekUserInputError(username, user_email, user_fullname, group_ids) {
+function cekUserInputError(username, user_email, user_fullname, group_ids, user_level) {
 	clearAllErrors();
 	var valid = true;
 	if (username == "") {
@@ -207,6 +208,9 @@ function cekUserInputError(username, user_email, user_fullname, group_ids) {
 	if (group_ids == "") {
 		valid = false;
 		$(".td-insert-grup .error").html("User minimal harus berada pada 1 group");
+	} else if (user_level == "admin" && group_ids.indexOf(";") >= 0) {
+		valid = false;
+		$(".td-insert-grup .error").html("Admin hanya boleh berada pada 1 group");
 	}
 	return valid;
 }
@@ -216,16 +220,18 @@ function insertUser() {
 	var user_email = $(".input-insert-user_email").val().trim();
 	var user_fullname = $(".input-insert-user_fullname").val().trim();
 	var group_ids = "";
-	$(".input-insert-user_group_id[type='checkbox']:checked").each(function() {
-		var group_id = $(this).val();
-		if (group_ids != "") {
-			group_ids += ";";
+	$(".input-insert-user_group_id[type='checkbox']").each(function() {
+		if (this.checked) {
+			var group_id = $(this).val();
+			if (group_ids != "") {
+				group_ids += ";";
+			}
+			group_ids += group_id;
 		}
-		group_ids += group_id;
 	});
 	var user_level = $(".input-insert-user_level:checked").val();
 	
-	var valid = cekUserInputError(username, user_email, user_fullname, group_ids);
+	var valid = cekUserInputError(username, user_email, user_fullname, group_ids, user_level);
 	if (valid) {
 		var data = {
 			username: username,

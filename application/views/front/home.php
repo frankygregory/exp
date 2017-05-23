@@ -1,12 +1,16 @@
 <div class="content">
 	<div class="section-1">
 		<div class="image-container">
-			<img class="background-image" src="<?= base_url("assets/front/images/background.jpg") ?>" />
+			<div class="background-image" style="background-image:url('<?= base_url("assets/front/images/background2.jpg") ?>');" ></div>
 			<div class="image-wrapper"></div>
 		</div>
 		<div class="section-1-title">
-			<div class="title-text">Yukirim <span class="cursor">_</span></div>
-			<div class="title-description">kirim apapun dan kapanpun dengan mudah, cepat dan aman</div>
+			<div class="title-text">Yukirim</div>
+			<div class="title-description">Kirim apapun dan kapanpun : Mudah, Cepat, Aman</div>
+			<div class="section-1-buttons">
+				<button class="btn-pemilik" type="button" >Saya adalah Pemilik Barang</button>
+				<button class="btn-penerima" type="button" >Saya adalah Penerima Barang</button>
+			</div>
 		</div>
 	</div>
 	<div class="section-2">
@@ -21,28 +25,28 @@ Semua pengiriman dibuat transparan dan jelas dimana semuanya memberikan keuntung
 			<div class="section-3-title">Mengapa Yukirim.com?</div>
 			<div class="section-3-description">
 				<div class="mengapa-item mengapa-item-1">
-					<div class="mengapa-item-left" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
+					<div class="mengapa-item-icon" style="background-image: url('<?= base_url("assets/icons/runer-silhouette-running-fast.svg") ?>');"></div>
 					<div class="mengapa-item-right">
 						<div class="mengapa-item-title">Cepat dan mudah</div>
 						<div class="mengapa-item-description">Cukup isi lokasi dan barang yang mau dikirim dan Anda akan terhubung dengan begitu banyak penyedia jasa kiriman</div>
 					</div>
 				</div>
 				<div class="mengapa-item mengapa-item-2">
-					<div class="mengapa-item-left" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
+					<div class="mengapa-item-icon" style="background-image: url('<?= base_url("assets/icons/call-center-worker-with-headset.svg") ?>');"></div>
 					<div class="mengapa-item-right">
 						<div class="mengapa-item-title">Harga dan Layanan Terbaik</div>
 						<div class="mengapa-item-description">Sistem penawaran sehingga Anda dapat memilih layanan dan harga terbaik</div>
 					</div>
 				</div>
 				<div class="mengapa-item mengapa-item-3">
-					<div class="mengapa-item-left" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
+					<div class="mengapa-item-icon" style="background-image: url('<?= base_url("assets/icons/bubbles-drink-glass-container-with-a-straw.svg") ?>');"></div>
 					<div class="mengapa-item-right">
 						<div class="mengapa-item-title">Transparan</div>
 						<div class="mengapa-item-description">Bandingkan review dan rating berbagai penyedia jasa kiriman</div>
 					</div>
 				</div>
 				<div class="mengapa-item mengapa-item-4">
-					<div class="mengapa-item-left" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
+					<div class="mengapa-item-icon" style="background-image: url('<?= base_url("assets/icons/computer.svg") ?>');"></div>
 					<div class="mengapa-item-right">
 						<div class="mengapa-item-title">Otomasi dan Integrasi</div>
 						<div class="mengapa-item-description">Anda bisa langsung lihat dan lacak kiriman karena Anda terhubung langsung dengan penyedia jasa kiriman</div>
@@ -97,7 +101,37 @@ Semua pengiriman dibuat transparan dan jelas dimana semuanya memberikan keuntung
 	</div>
 </div>
 <script>
+var hasChangedColor = false;
+var section2Top = 0;
+
 $(function() {
+	initialize();
 	
+	$(window).on("resize", function() {
+		initialize();
+	});
+	
+	$(document).on("scroll", function() {
+		checkHeaderColor();
+	});
 });
+
+function initialize() {
+	section2Top = $(".section-2").offset().top;
+	checkHeaderColor();
+}
+
+function checkHeaderColor() {
+	var scrollTop = window.scrollY;
+	
+	if (scrollTop > section2Top - 40) {
+		if (!hasChangedColor) {
+			hasChangedColor = true;
+			$(".header").addClass("scroll");
+		}
+	} else {
+		hasChangedColor = false;
+		$(".header").removeClass("scroll");
+	}
+}
 </script>

@@ -345,7 +345,7 @@ function getAlat() {
 function addAlatToTable(no, result) {
 	var ketersediaan = "Tersedia";
 	if (result.shipment_id != "") {
-		ketersediaan = result.shipment_id;
+		ketersediaan = "<a href='<?= base_url("kirim/detail/") ?>" + result.shipment_id + " (No. Kirim)</a>";
 	}
 	
 	var aktifDisabled = "disabled", tidakAktifDisabled = "";
