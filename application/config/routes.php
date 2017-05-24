@@ -152,6 +152,7 @@ $route['user'] = 'panel/user';
 $route['user/(:any)'] = 'panel/user/$1/$2';
 $route['user/getUser'] = 'panel/user/getUser';
 $route['user/addOtherUser'] = 'panel/user/addOtherUser';
+$route['user/updateOtherUser'] = 'panel/user/updateOtherUser';
 $route['user/getMyGroups'] = 'panel/user/getMyGroups';
 $route['user/insertGroup'] = 'panel/user/insertGroup';
 $route['user/updateGroup'] = 'panel/user/updateGroup';

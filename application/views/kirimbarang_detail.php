@@ -211,11 +211,16 @@
 var map;
 var marker;
 var lat, lng, center_from;
+var location_from_lat = <?= $location_from_lat ?>;
+var location_from_lng = <?= $location_from_lng ?>;
+var location_to_lat = <?= $location_to_lat ?>;
+var location_to_lng = <?= $location_to_lng ?>;
+
+var data_shipment_id = <?= $shipment_id ?>;
 
 getDiscussions();
 getBiddingList();
 //getKendaraan();
-
 <?php
 $btnJawabPertanyaan = "";
 $detailJawabPertanyaan = "";
@@ -282,7 +287,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	
 	function setujuBidding(element) {
 		var bidding_id = $(element).closest(".dialog-konfirmasi-setuju").data("bidding_id");
-		var shipment_id = "<?= $shipment_id ?>";
+		var shipment_id = data_shipment_id;
 		var form = "<form action='<?= base_url("kirim/setujuPenawaran") ?>' method='POST'>";
 		var input_shipment = "<input type='hidden' name='shipment_id' value='" + shipment_id + "' />";
 		var input_bidding = "<input type='hidden' name='bidding_id' value='" + bidding_id + "' />";
@@ -303,21 +308,14 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		var answers_text = $(discussions_item).find("textarea").val();
 		
 		if (answers_text != "") {
-			$.ajax({
-				url: '<?= base_url("kirim/jawabPertanyaan") ?>',
-				data: {
-					submit_jawaban: true,
-					questions_id: questions_id,
-					answers_text: answers_text
-				},
-				type: 'POST',
-				error: function(jqXHR, exception) {
-					alert(jqXHR + " : " + jqXHR.responseText);
-				},
-				success: function(result) {
-					if (result == "success") {
-						getDiscussions();
-					}
+			var data = {
+				submit_jawaban: true,
+				questions_id: questions_id,
+				answers_text: answers_text
+			};
+			ajaxCall("<?= base_url("kirim/jawabPertanyaan") ?>", data, function(result) {
+				if (result == "success") {
+					getDiscussions();
 				}
 			});
 		} else {
@@ -341,21 +339,14 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		var bidding_id = $(element).data("bidding_id");
 		var bidding_reason = $(element).siblings(".input-alasan").val();
 		
-		$.ajax({
-			url: '<?= base_url("kirim/tolakPenawaran") ?>',
-			data: {
-				submit_tolak: true,
-				bidding_id: bidding_id,
-				bidding_reason: bidding_reason
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					getBiddingList();
-				}
+		var data = {
+			submit_tolak: true,
+			bidding_id: bidding_id,
+			bidding_reason: bidding_reason
+		};
+		ajaxCall("<?= base_url("kirim/tolakPenawaran") ?>", data, function(result) {
+			if (result == "success") {
+				getBiddingList();
 			}
 		});
 	}
@@ -369,7 +360,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		$(element).parent().css("display", "none");
 	}
 <?php
-} else if ($role_id == 2) { ?>
+} else if ($role_id == 2 && $shipment_status == -1) { ?>
 	var detailPenawaranShown = false;
 	
 	$(document).on("click", ".btn-tawar", function() {
@@ -400,25 +391,18 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	
 	function kirimPertanyaan() {
 		var questions_text = $(".input-pertanyaan").val();
-		var shipment_id = <?= $shipment_id ?>;
+		var shipment_id = data_shipment_id;
 		
 		if (questions_text != "") {
-			$.ajax({
-				url: '<?= base_url("kirim/kirimPertanyaan") ?>',
-				data: {
-					submit_pertanyaan: true,
-					questions_text: questions_text,
-					shipment_id: shipment_id
-				},
-				type: 'POST',
-				error: function(jqXHR, exception) {
-					alert(jqXHR + " : " + jqXHR.responseText);
-				},
-				success: function(result) {
-					if (result == "success") {
-						clearQuestion();
-						getDiscussions();
-					}
+			var data = {
+				submit_pertanyaan: true,
+				questions_text: questions_text,
+				shipment_id: shipment_id
+			};
+			ajaxCall("<?= base_url("kirim/kirimPertanyaan") ?>", data, function(result) {
+				if (result == "success") {
+					clearQuestion();
+					getDiscussions();
 				}
 			});
 		} else {
@@ -432,16 +416,9 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	}
 	
 	function getKendaraan() {
-		$.ajax({
-			url: '<?= base_url("kirim/getKendaraan") ?>',
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(json) {
-				var result = jQuery.parseJSON(json);
-				addKendaraanToOption(result);
-			}
+		ajaxCall("<?= base_url("kirim/getKendaraan") ?>", null, function(json) {
+			var result = jQuery.parseJSON(json);
+			addKendaraanToOption(result);
 		});
 	}
 	
@@ -482,27 +459,20 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		var valid = cekInputPenawaran(data);
 		
 		if (valid) {
-			var shipment_id = <?= $shipment_id ?>;
+			var shipment_id = data_shipment_id;
 			var user_id = <?= $user_id ?>;
-			$.ajax({
-				url: '<?= base_url("kirim/kirimPenawaran") ?>',
-				data: {
-					submit_bid: true,
-					bidding_price: bidding_price,
-					bidding_pickupdate: bidding_pickupdate,
-					bidding_information: bidding_information,
-					shipment_id: shipment_id,
-					user_id: user_id
-				},
-				type: 'POST',
-				error: function(jqXHR, exception) {
-					alert(jqXHR + " : " + jqXHR.responseText);
-				},
-				success: function(result) {
-					if (result == "success") {
-						hideDetailPenawaran();
-						getBiddingList();
-					}
+			data = {
+				submit_bid: true,
+				bidding_price: bidding_price,
+				bidding_pickupdate: bidding_pickupdate,
+				bidding_information: bidding_information,
+				shipment_id: shipment_id,
+				user_id: user_id
+			};
+			ajaxCall("<?= base_url("kirim/kirimPenawaran") ?>", data, function(result) {
+				if (result == "success") {
+					hideDetailPenawaran();
+					getBiddingList();
 				}
 			});
 		}
@@ -531,24 +501,16 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		$(".error").html("");
 	}
 	
-	$("input")
 <?php } ?>
 
 function getDiscussions() {
-	var shipment_id = <?= $shipment_id ?>;
-	$.ajax({
-		url: '<?= base_url("kirim/getDiscussions") ?>',
-		data: {			
-			shipment_id: shipment_id
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(json) {
-			var result = jQuery.parseJSON(json);
-			addDiscussionToTable(result);
-		}
+	var shipment_id = data_shipment_id;
+	var data = {
+		shipment_id: shipment_id
+	};
+	ajaxCall("<?= base_url("kirim/getDiscussions") ?>", data, function(json) {
+		var result = jQuery.parseJSON(json);
+		addDiscussionToTable(result);
 	});
 }
 
@@ -585,20 +547,13 @@ function addDiscussionToTable(result) {
 }
 
 function getBiddingList() {
-	var shipment_id = <?= $shipment_id ?>;
-	$.ajax({
-		url: '<?= base_url("kirim/getBiddingList") ?>',
-		data: {			
-			shipment_id: shipment_id
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(json) {
-			var result = jQuery.parseJSON(json);
-			addBiddingListToTable(result);
-		}
+	var shipment_id = data_shipment_id;
+	var data = {
+		shipment_id: shipment_id
+	};
+	ajaxCall("<?= base_url("kirim/getBiddingList") ?>", data, function(json) {
+		var result = jQuery.parseJSON(json);
+		addBiddingListToTable(result);
 	});
 }
 
@@ -631,8 +586,8 @@ function addBiddingListToTable(result) {
 }
 
 function initMap() {	
-	lat = <?= $location_from_lat ?>;
-	lng = <?= $location_from_lng ?>;
+	lat = location_from_lat;
+	lng = location_from_lng;
 	center_from = {lat: lat, lng: lng};
 	
 	map = new google.maps.Map(document.getElementById('map_asal'), {
@@ -657,8 +612,8 @@ function initMap() {
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 	directionsService.route({
-		origin: new google.maps.LatLng(<?= $location_from_lat ?>, <?= $location_from_lng ?>),
-		destination: new google.maps.LatLng(<?= $location_to_lat ?>, <?= $location_to_lng ?>),
+		origin: new google.maps.LatLng(location_from_lat, location_from_lng),
+		destination: new google.maps.LatLng(location_to_lat, location_to_lng),
 		travelMode: "DRIVING"
 	}, function(response, status) {
 		if (status === "OK") {

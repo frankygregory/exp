@@ -132,4 +132,33 @@ class User extends MY_Controller
 			echo "no rows affected. WHY??";
 		}
 	}
+	
+	public function updateOtherUser() {
+		$other_user_id = $this->input->post("user_id");
+		$other_user_fullname = $this->input->post("user_fullname");
+		$group_ids = $this->input->post("group_ids");
+		$other_user_level = $this->input->post("user_level");
+		if ($other_user_level == "super") {
+			$other_user_level = 2;
+		} else {
+			$other_user_level = 3;
+		}
+		$other_user_status = $this->input->post("user_status");
+		$user_id = $this->session->userdata("user_id");
+		
+		$data = array(
+			"other_user_id" => $other_user_id,
+			"other_user_fullname" => $other_user_fullname,
+			"group_ids" => $group_ids,
+			"other_user_level" => $other_user_level,
+			"other_user_status" => $other_user_status,
+			"user_id" => $user_id
+		);
+		$affected_rows = $this->User_model->updateUser($data);
+		if ($affected_rows > 0) {
+			echo "success";
+		} else {
+			echo "no rows affected. WHY??";
+		}
+	}
 }

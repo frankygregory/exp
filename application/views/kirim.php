@@ -165,26 +165,19 @@ function getKiriman() {
 	var keyword_from = $(".input-kota-asal").val();
 	var keyword_to = $(".input-kota-tujuan").val();
 	
-	$.ajax({
-		url: '<?= base_url("kirim/getKiriman") ?>',
-		data: {
-			keyword_from: keyword_from,
-			keyword_to: keyword_to,
-			shipment_length_min: jarak_min,
-			shipment_length_max: jarak_max,
-			lowest_bid: lowest_bid,
-			order_by: order_by
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(json) {
-			$(".tbody-kiriman").html("");
-			var result = jQuery.parseJSON(json);
-			for (var i = 0; i < result.length; i++) {
-				addKirimanToTable((i + 1), result[i]);
-			}
+	var data = {
+		keyword_from: keyword_from,
+		keyword_to: keyword_to,
+		shipment_length_min: jarak_min,
+		shipment_length_max: jarak_max,
+		lowest_bid: lowest_bid,
+		order_by: order_by
+	};
+	ajaxCall("<?= base_url("kirim/getKiriman") ?>", data, function(json) {
+		$(".tbody-kiriman").html("");
+		var result = jQuery.parseJSON(json);
+		for (var i = 0; i < result.length; i++) {
+			addKirimanToTable((i + 1), result[i]);
 		}
 	});
 }

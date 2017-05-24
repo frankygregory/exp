@@ -10,7 +10,7 @@ class User_model extends CI_Model{
     }
 	
 	public function getOtherUser($data) {
-		$str = "SELECT u.user_id, u.username, u.user_email, u.user_fullname, u.user_level, ug.status_userGroup, GROUP_CONCAT(g.group_id SEPARATOR ';') AS group_ids, GROUP_CONCAT(g.group_name SEPARATOR ';') AS group_names
+		$str = "SELECT u.user_id, u.username, u.user_email, u.user_fullname, u.user_level, u.user_status, GROUP_CONCAT(g.group_id SEPARATOR ';') AS group_ids, GROUP_CONCAT(g.group_name SEPARATOR ';') AS group_names
 			FROM `m_user` u, `m_user_group` ug
 			LEFT JOIN (SELECT g.group_id, g.group_name FROM `m_group` g) g
             ON g.group_id = ug.group_id
@@ -33,6 +33,11 @@ class User_model extends CI_Model{
 		return 1;
 	}
 	
+	public function updateUser($data) {
+		$query = $this->db->query("CALL update_other_user('" . $data["other_user_id"] . "', '" . $data["other_user_fullname"] . "', '" . $data["group_ids"] . "', '" . $data["other_user_level"] . "', '" . $data["other_user_status"] . "', '" . $data["user_id"] . "');");
+		return 1;
+	}
+	
 	public function getMyGroups($user_id) {
 		$this->db->where("user_id", $user_id);
 		return $this->db->get("m_group")->result();
@@ -52,5 +57,9 @@ class User_model extends CI_Model{
 	public function insertGroup($data) {
 		$this->db->query("CALL create_group('" . $data["group_name"] . "', '" . $data["user_id"] . "');");
 		return 1;
+	}
+	
+	public function deleteGroup($data) {
+		
 	}
 }

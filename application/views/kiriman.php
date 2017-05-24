@@ -237,24 +237,17 @@ $(function() {
 	
 	function cancelShipment() {
 		var shipment_id = $(".dialog-konfirmasi-cancel-transaction").data("id");
-		$.ajax({
-			url: '<?= base_url("kiriman-saya/cancelShipment") ?>',
-			data: {
-				shipment_id: shipment_id
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getKirimanCount();
-					var tabsNumber = $(".tabs-item.active").data("tabs-number");
-					getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
-				} else {
-					alert(result);
-				}
+		var data = {
+			shipment_id: shipment_id
+		};
+		ajaxCall("<?= base_url("kiriman-saya/cancelShipment") ?>", data, function(result) {
+			if (result == "success") {
+				closeDialog();
+				getKirimanCount();
+				var tabsNumber = $(".tabs-item.active").data("tabs-number");
+				getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
+			} else {
+				alert(result);
 			}
 		});
 	}
@@ -264,40 +257,26 @@ $(function() {
 		var shipment_rating_feedback = $(element).parent().find("textarea.input-rating-feedback").val();
 		var shipment_id = $(element).closest(".tr-kiriman").data("id");
 		
-		$.ajax({
-			url: '<?= base_url("kiriman-saya/submitRating") ?>',
-			data: {
-				shipment_id: shipment_id,
-				shipment_rating_number: shipment_rating_number,
-				shipment_rating_feedback: shipment_rating_feedback
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					getKirimanCount();
-					var tabsNumber = $(".tabs-item.active").data("tabs-number");
-					getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
-				} else {
-					alert(result);
-				}
+		var data = {
+			shipment_id: shipment_id,
+			shipment_rating_number: shipment_rating_number,
+			shipment_rating_feedback: shipment_rating_feedback
+		};
+		ajaxCall("<?= base_url("kiriman-saya/submitRating") ?>", data, function(result) {
+			if (result == "success") {
+				getKirimanCount();
+				var tabsNumber = $(".tabs-item.active").data("tabs-number");
+				getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
+			} else {
+				alert(result);
 			}
 		});
 	}
 	
 	function getKirimanCount() {
-		$.ajax({
-			url: '<?= base_url("kiriman-saya/getKirimanSaya") ?>',
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(json) {
-				var result = jQuery.parseJSON(json);
-				assignKirimanCount(result);
-			}
+		ajaxCall("<?= base_url("kiriman-saya/getKirimanSaya") ?>", null, function(json) {
+			var result = jQuery.parseJSON(json);
+			assignKirimanCount(result);
 		});
 	}
 	
@@ -351,16 +330,9 @@ $(function() {
 	}
 	
 	function getKiriman(url, tabsNumber, tabs) {
-		$.ajax({
-			url: url,
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(json) {
-				var result = jQuery.parseJSON(json);
-				addKirimanToTable(result, tabsNumber, tabs);
-			}
+		ajaxCall(url, null, function(json) {
+			var result = jQuery.parseJSON(json);
+			addKirimanToTable(result, tabsNumber, tabs);
 		});
 	}
 	

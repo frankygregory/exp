@@ -258,7 +258,6 @@ $(function() {
 
 function cancelShipment() {
 	var shipment_id = $(".dialog-konfirmasi-cancel-transaction").data("shipment_id");
-	
 	ajaxCall("<?= base_url("kiriman-ekspedisi/cancelShipment") ?>", {shipment_id: shipment_id}, function(result) {
 		if (result == "success") {
 			closeDialog();
@@ -268,136 +267,94 @@ function cancelShipment() {
 }
 
 function getKendaraan() {
-	$.ajax({
-		url: '<?= base_url("kiriman-ekspedisi/getKendaraan") ?>',
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(json) {
-			var result = jQuery.parseJSON(json);
+	ajaxCall("<?= base_url("kiriman-ekspedisi/getKendaraan") ?>", null, function(json) {
+		var result = jQuery.parseJSON(json);
 			
-			var element = "";
-			var iLength = result.length;
-			for (var i = 0; i < iLength; i++) {
-				kendaraan.push({
-					id: result[i].vehicle_id,
-					name: result[i].vehicle_name
-				});
-				element += "<option value='" + result[i].vehicle_id + "'>" + result[i].vehicle_name + "</option>";
-			}
-			$(".select-kendaraan").append(element);
+		var element = "";
+		var iLength = result.length;
+		for (var i = 0; i < iLength; i++) {
+			kendaraan.push({
+				id: result[i].vehicle_id,
+				name: result[i].vehicle_name
+			});
+			element += "<option value='" + result[i].vehicle_id + "'>" + result[i].vehicle_name + "</option>";
 		}
+		$(".select-kendaraan").append(element);
 	});
 }
 
 function getSupir() {
-	$.ajax({
-		url: '<?= base_url("kiriman-ekspedisi/getSupir") ?>',
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(json) {
-			var result = jQuery.parseJSON(json);
+	ajaxCall("<?= base_url("kiriman-ekspedisi/getSupir") ?>", null, function(json) {
+		var result = jQuery.parseJSON(json);
 			
-			var element = "";
-			var iLength = result.length;
-			for (var i = 0; i < iLength; i++) {
-				supir.push({
-					id: result[i].driver_id,
-					name: result[i].driver_name
-				});
-				element += "<option value='" + result[i].driver_id + "'>" + result[i].driver_name + "</option>";
-			}
-			$(".select-supir").append(element);
+		var element = "";
+		var iLength = result.length;
+		for (var i = 0; i < iLength; i++) {
+			supir.push({
+				id: result[i].driver_id,
+				name: result[i].driver_name
+			});
+			element += "<option value='" + result[i].driver_id + "'>" + result[i].driver_name + "</option>";
 		}
+		$(".select-supir").append(element);
 	});
 }
 
 function getAlat() {
-	$.ajax({
-		url: '<?= base_url("kiriman-ekspedisi/getAlat") ?>',
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(json) {
-			var result = jQuery.parseJSON(json);
+	ajaxCall("<?= base_url("kiriman-ekspedisi/getAlat") ?>", null, function(json) {
+		var result = jQuery.parseJSON(json);
 			
-			var element = "";
-			var iLength = result.length;
-			for (var i = 0; i < iLength; i++) {
-				alat.push({
-					id: result[i].device_id,
-					name: result[i].device_name
-				});
-				element += "<option value='" + result[i].device_id + "'>" + result[i].device_name + "</option>";
-			}
-			$(".select-alat").append(element);
+		var element = "";
+		var iLength = result.length;
+		for (var i = 0; i < iLength; i++) {
+			alat.push({
+				id: result[i].device_id,
+				name: result[i].device_name
+			});
+			element += "<option value='" + result[i].device_id + "'>" + result[i].device_name + "</option>";
 		}
+		$(".select-alat").append(element);
 	});
 }
 
 function submitTerima(element) {
 	var shipment_id = $(element).closest(".tr-kiriman").data("id");
-	$.ajax({
-		url: '<?= base_url("kiriman-ekspedisi/submitTerima") ?>',
-		data: {
-			shipment_id: shipment_id
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(result) {
-			if (result == "success") {
-				refreshData();
-			} else {
-				alert(result);
-			}
+	var data = {
+		shipment_id: shipment_id
+	};
+	ajaxCall("<?= base_url("kiriman-ekspedisi/submitTerima") ?>", data, function(result) {
+		if (result == "success") {
+			refreshData();
+		} else {
+			alert(result);
 		}
 	});
 }
 
 function submitAmbil(element) {
 	var shipment_id = $(element).closest(".tr-kiriman").data("id");
-	$.ajax({
-		url: '<?= base_url("kiriman-ekspedisi/submitAmbil") ?>',
-		data: {
-			shipment_id: shipment_id
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(result) {
-			if (result == "success") {
-				refreshData();
-			} else {
-				alert(result);
-			}
+	var data = {
+		shipment_id: shipment_id
+	};
+	ajaxCall("<?= base_url("kiriman-ekspedisi/submitAmbil") ?>", data, function(result) {
+		if (result == "success") {
+			refreshData();
+		} else {
+			alert(result);
 		}
 	});
 }
 
 function submitKirim(element) {
 	var shipment_id = $(element).closest(".tr-kiriman").data("id");
-	$.ajax({
-		url: '<?= base_url("kiriman-ekspedisi/submitKirim") ?>',
-		data: {
-			shipment_id: shipment_id
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(result) {
-			if (result == "success") {
-				refreshData();
-			} else {
-				alert(result);
-			}
+	var data = {
+		shipment_id: shipment_id
+	};
+	ajaxCall("<?= base_url("kiriman-ekspedisi/submitKirim") ?>", data, function(result) {
+		if (result == "success") {
+			refreshData();
+		} else {
+			alert(result);
 		}
 	});
 }
@@ -416,25 +373,18 @@ function submitPesan(element) {
 	} else if (device_id == "") {
 		alert("tidak ada alat yang dipilih");
 	} else {
-		$.ajax({
-			url: '<?= base_url("kiriman-ekspedisi/submitPesan") ?>',
-			data: {
-				shipment_id: shipment_id,
-				jenis_muatan: jenis_muatan,
-				driver_id: driver_id,
-				vehicle_id: vehicle_id,
-				device_id: device_id
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					refreshData();
-				} else {
-					alert(result);
-				}
+		var data = {
+			shipment_id: shipment_id,
+			jenis_muatan: jenis_muatan,
+			driver_id: driver_id,
+			vehicle_id: vehicle_id,
+			device_id: device_id
+		};
+		ajaxCall("<?= base_url("kiriman-ekspedisi/submitPesan") ?>", data, function(result) {
+			if (result == "success") {
+				refreshData();
+			} else {
+				alert(result);
 			}
 		});
 	}
@@ -442,21 +392,14 @@ function submitPesan(element) {
 
 function submitDeal(element) {
 	var shipment_id = $(element).closest(".tr-kiriman").data("id");
-	$.ajax({
-		url: '<?= base_url("kiriman-ekspedisi/submitDeal") ?>',
-		data: {
-			shipment_id: shipment_id
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(result) {
-			if (result == "success") {
-				refreshData();
-			} else {
-				alert(result);
-			}
+	var data = {
+		shipment_id: shipment_id
+	};
+	ajaxCall("<?= base_url("kiriman-ekspedisi/submitDeal") ?>", data, function(result) {
+		if (result == "success") {
+			refreshData();
+		} else {
+			alert(result);
 		}
 	});
 }
@@ -468,16 +411,9 @@ function refreshData() {
 }
 
 function getKirimanCount() {
-	$.ajax({
-		url: '<?= base_url("kiriman-ekspedisi/getKirimanSaya") ?>',
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(json) {
-			var result = jQuery.parseJSON(json);
-			assignKirimanCount(result);
-		}
+	ajaxCall("<?= base_url("kiriman-ekspedisi/getKirimanSaya") ?>", null, function(json) {
+		var result = jQuery.parseJSON(json);
+		assignKirimanCount(result);
 	});
 }
 
@@ -528,16 +464,9 @@ function assignKirimanCount(result) {
 }
 
 function getKiriman(url, tabsNumber, tabs) {
-	$.ajax({
-		url: url,
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(json) {
-			var result = jQuery.parseJSON(json);
-			addKirimanToTable(result, tabsNumber, tabs);
-		}
+	ajaxCall(url, null, function(json) {
+		var result = jQuery.parseJSON(json);
+		addKirimanToTable(result, tabsNumber, tabs);
 	});
 }
 
