@@ -190,24 +190,16 @@ $(function() {
 
 function deleteSupir(element) {
 	var driver_id = $(".dialog-konfirmasi-delete").data("id");
-	$.ajax({
-		url: '<?= base_url("supir/deleteSupir") ?>',
-		data: {
-			submit_delete: true,
-			driver_id: driver_id
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			valid = false;
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(result) {
-			if (result == "success") {
-				closeDialog();
-				getSupir();
-			} else {
-				alert(result);
-			}
+	var data = {
+		submit_delete: true,
+		driver_id: driver_id
+	};
+	ajaxCall("<?= base_url("supir/deleteSupir") ?>", data, function(result) {
+		if (result == "success") {
+			closeDialog();
+			getSupir();
+		} else {
+			alert(result);
 		}
 	});
 }
@@ -216,24 +208,16 @@ function toggleDriverAktif(element) {
 	var driver_id = $(element).closest(".tr-supir").data("id");
 	var driver_status = $(element).data("value");
 	
-	$.ajax({
-		url: '<?= base_url("supir/toggleSupirAktif") ?>',
-		data: {
-			driver_id: driver_id,
-			driver_status: driver_status
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			valid = false;
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(result) {
-			if (result == "success") {
-				closeDialog();
-				getSupir();
-			} else {
-				alert(result);
-			}
+	var data = {
+		driver_id: driver_id,
+		driver_status: driver_status
+	};
+	ajaxCall("<?= base_url("supir/toggleSupirAktif") ?>", data, function(result) {
+		if (result == "success") {
+			closeDialog();
+			getSupir();
+		} else {
+			alert(result);
 		}
 	});
 }
@@ -295,29 +279,21 @@ function updateSupir() {
 	
 	var valid = cekInputError(driver_name, driver_address, driver_handphone);
 	if (valid) {
-		$.ajax({
-			url: '<?= base_url("supir/updateSupir") ?>',
-			data: {
-				submit_update: true,
-				driver_id: driver_id,
-				driver_name: driver_name,
-				driver_handphone: driver_handphone,
-				driver_address: driver_address,
-				driver_information: driver_information,
-				driver_status: driver_status
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				valid = false;
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getSupir();
-				} else {
-					alert(result);
-				}
+		var data = {
+			submit_update: true,
+			driver_id: driver_id,
+			driver_name: driver_name,
+			driver_handphone: driver_handphone,
+			driver_address: driver_address,
+			driver_information: driver_information,
+			driver_status: driver_status
+		};
+		ajaxCall("<?= base_url("supir/updateSupir") ?>", data, function(result) {
+			if (result == "success") {
+				closeDialog();
+				getSupir();
+			} else {
+				alert(result);
 			}
 		});
 	}
@@ -332,47 +308,31 @@ function tambahSupir() {
 	
 	var valid = cekInputError(driver_name, driver_address, driver_handphone);
 	if (valid) {
-		$.ajax({
-			url: '<?= base_url("supir/tambahSupir") ?>',
-			data: {
-				submit_tambah: true,
-				driver_name: driver_name,
-				driver_handphone: driver_handphone,
-				driver_address: driver_address,
-				driver_information: driver_information,
-				driver_status: driver_status
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				valid = false;
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getSupir();
-				} else {
-					
-				}
+		var data = {
+			submit_tambah: true,
+			driver_name: driver_name,
+			driver_handphone: driver_handphone,
+			driver_address: driver_address,
+			driver_information: driver_information,
+			driver_status: driver_status
+		};
+		ajaxCall("<?= base_url("supir/tambahSupir") ?>", data, function(result) {
+			if (result == "success") {
+				closeDialog();
+				getSupir();
+			} else {
+				
 			}
 		});
 	}
 }
 
 function getSupir() {
-	$.ajax({
-		url: '<?= base_url("supir/getSupir") ?>',
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			valid = false;
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(json) {
-			$(".tbody-supir").html("");
-			var result = jQuery.parseJSON(json);
-			for (var i = 0; i < result.length; i++) {
-				addSupirToTable((i + 1), result[i]);
-			}
+	ajaxCall("<?= base_url("supir/getSupir") ?>", null, function(json) {
+		$(".tbody-supir").html("");
+		var result = jQuery.parseJSON(json);
+		for (var i = 0; i < result.length; i++) {
+			addSupirToTable((i + 1), result[i]);
 		}
 	});
 }

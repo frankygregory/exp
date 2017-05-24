@@ -97,6 +97,22 @@ class User extends MY_Controller
 		}
 	}
 	
+	public function deleteGroup() {
+		$group_id = $this->input->post("group_id");
+		$user_id = $this->session->userdata("user_id");
+		
+		$data = array(
+			"group_id" => $group_id,
+			"user_id" => $user_id
+		);
+		$affected_rows = $this->User_model->deleteGroup($data);
+		if ($affected_rows > 0) {
+			echo "success";
+		} else {
+			echo "no rows affected. WHY??";
+		}
+	}
+	
 	public function addOtherUser() {
 		$username = $this->input->post("username");
 		$user_email = $this->input->post("user_email");
@@ -155,6 +171,21 @@ class User extends MY_Controller
 			"user_id" => $user_id
 		);
 		$affected_rows = $this->User_model->updateUser($data);
+		if ($affected_rows > 0) {
+			echo "success";
+		} else {
+			echo "no rows affected. WHY??";
+		}
+	}
+	
+	public function deleteOtherUser() {
+		$other_user_id = $this->input->post("user_id");
+		$user_id = $this->session->userdata("user_id");
+		$data = array(
+			"other_user_id" => $other_user_id,
+			"user_id" => $user_id
+		);
+		$affected_rows = $this->User_model->deleteUser($data);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {

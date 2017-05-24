@@ -98,6 +98,20 @@
 	</div>
 </div>
 <div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-delete-user">
+		<div class="dialog-header">
+			<div class="dialog-title">Delete User</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-negative btn-submit-delete-user">Delete</button>
+			<button type="button" class="btn-neutral btn-batal">Batal</button>
+		</div>
+	</div>
+</div>
+<div class="dialog-background">
 	<div class="dialog dialog-tambah-group">
 		<div class="dialog-header">
 			<div class="dialog-title">Tambah Group</div>
@@ -117,20 +131,6 @@
 		</div>
 		<div class="dialog-footer">
 			<button type="button" class="btn-default btn-submit-tambah-group">Tambah</button>
-		</div>
-	</div>
-</div>
-<div class="dialog-background">
-	<div class="dialog dialog-konfirmasi-delete-user">
-		<div class="dialog-header">
-			<div class="dialog-title">Delete User</div>
-		</div>
-		<div class="dialog-body">
-			<div></div>
-		</div>
-		<div class="dialog-footer">
-			<button type="button" class="btn-negative btn-submit-delete-user">Delete</button>
-			<button type="button" class="btn-neutral btn-batal">Batal</button>
 		</div>
 	</div>
 </div>
@@ -244,6 +244,18 @@ $(function() {
 		updateUser();
 	});
 	
+	$(document).on("click", ".btn-delete-user", function() {
+		var user_id = $(this).closest(".tr-user").data("id");
+		var user_fullname = $(this).closest(".tr-user").find(".td-user_fullname").html();
+		$(".dialog-konfirmasi-delete-user").data("id", user_id);
+		$(".dialog-konfirmasi-delete-user .dialog-body").html("Delete user " + user_fullname + "?");
+		showDialog(".dialog-konfirmasi-delete-user");
+	});
+	
+	$(".btn-submit-delete-user").on("click", function() {
+		deleteUser();
+	});
+	
 	$(".btn-tambah-group").on("click", function() {
 		clearAllErrors();
 		showDialog(".dialog-tambah-group");
@@ -274,6 +286,10 @@ $(function() {
 		$(".dialog-konfirmasi-delete-group").data("id", group_id);
 		$(".dialog-konfirmasi-delete-group .dialog-body").html("Delete group " + group_name + "?");
 		showDialog(".dialog-konfirmasi-delete-group");
+	});
+	
+	$(".btn-submit-delete-group").on("click", function() {
+		deleteGroup();
 	});
 });
 
@@ -321,6 +337,16 @@ function cekUserEditInputError(user_fullname, group_ids, user_level) {
 		$(".td-edit-grup .error").html("Admin hanya boleh berada pada 1 group");
 	}
 	return valid;
+}
+
+function deleteUser() {
+	var user_id = $(".dialog-konfirmasi-delete-user").data("id");
+	ajaxCall("<?= base_url("user/deleteOtherUser") ?>", {user_id: user_id}, function(result) {
+		if (result == "success") {
+			closeDialog();
+			getUser();
+		}
+	});
 }
 
 function updateUser() {
@@ -441,6 +467,18 @@ function addUserToTable(result) {
 	
 	$(".tbody-user").html("");
 	$(".tbody-user").append(element);
+}
+
+function deleteGroup() {
+	var group_id = $(".dialog-konfirmasi-delete-group").data("id");
+	ajaxCall("<?= base_url("user/deleteGroup") ?>", {group_id: group_id}, function(result) {
+		if (result == "success") {
+			closeDialog();
+			getMyGroups();
+		} else {
+			alert("Grup ini masih memiliki anggota");
+		}
+	});
 }
 
 function updateGroup() {

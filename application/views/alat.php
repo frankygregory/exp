@@ -172,23 +172,16 @@ $(function() {
 
 function deleteAlat(element) {
 	var device_id = $(".dialog-konfirmasi-delete").data("id");
-	$.ajax({
-		url: '<?= base_url("alat/deleteAlat") ?>',
-		data: {
-			submit_delete: true,
-			device_id: device_id
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(result) {
-			if (result == "success") {
-				closeDialog();
-				getAlat();
-			} else {
-				alert(result);
-			}
+	var data = {
+		submit_delete: true,
+		device_id: device_id
+	};
+	ajaxCall("<?= base_url("alat/deleteAlat") ?>", data, function(result) {
+		if (result == "success") {
+			closeDialog();
+			getAlat();
+		} else {
+			alert(result);
 		}
 	});
 }
@@ -197,23 +190,16 @@ function toggleAlatAktif(element) {
 	var device_id = $(element).closest(".tr-alat").data("id");
 	var device_status = $(element).data("value");
 	
-	$.ajax({
-		url: '<?= base_url("alat/toggleAlatAktif") ?>',
-		data: {
-			device_id: device_id,
-			device_status: device_status
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(result) {
-			if (result == "success") {
-				closeDialog();
-				getAlat();
-			} else {
-				alert(result);
-			}
+	var data = {
+		device_id: device_id,
+		device_status: device_status
+	};
+	ajaxCall("<?= base_url("alat/toggleAlatAktif") ?>", data, function(result) {
+		if (result == "success") {
+			closeDialog();
+			getAlat();
+		} else {
+			alert(result);
 		}
 	});
 }
@@ -268,27 +254,20 @@ function updateAlat() {
 	
 	var valid = cekInputError(device_name, device_email);
 	if (valid) {
-		$.ajax({
-			url: '<?= base_url("alat/updateAlat") ?>',
-			data: {
-				submit_update: true,
-				device_id: device_id,
-				device_name: device_name,
-				device_email: device_email,
-				device_information: device_information,
-				driver_status: driver_status
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getAlat();
-				} else {
-					alert(result);
-				}
+		var data = {
+			submit_update: true,
+			device_id: device_id,
+			device_name: device_name,
+			device_email: device_email,
+			device_information: device_information,
+			driver_status: driver_status
+		};
+		ajaxCall("<?= base_url("alat/updateAlat") ?>", data, function(result) {
+			if (result == "success") {
+				closeDialog();
+				getAlat();
+			} else {
+				alert(result);
 			}
 		});
 	}
@@ -302,42 +281,28 @@ function tambahAlat() {
 	
 	var valid = cekInputError(device_name, device_email);
 	if (valid) {
-		$.ajax({
-			url: '<?= base_url("alat/tambahAlat") ?>',
-			data: {
-				submit_tambah: true,
-				device_name: device_name,
-				device_email: device_email,
-				device_information: device_information,
-				device_status: device_status
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getAlat();
-				}
+		var data = {
+			submit_tambah: true,
+			device_name: device_name,
+			device_email: device_email,
+			device_information: device_information,
+			device_status: device_status
+		};
+		ajaxCall("<?= base_url("alat/tambahAlat") ?>", data, function(result) {
+			if (result == "success") {
+				closeDialog();
+				getAlat();
 			}
 		});
 	}
 }
 
 function getAlat() {
-	$.ajax({
-		url: '<?= base_url("alat/getAlat") ?>',
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(json) {
-			$(".tbody-alat").html("");
-			var result = jQuery.parseJSON(json);
-			for (var i = 0; i < result.length; i++) {
-				addAlatToTable((i + 1), result[i]);
-			}
+	ajaxCall("<?= base_url("alat/getAlat") ?>", null, function(json) {
+		$(".tbody-alat").html("");
+		var result = jQuery.parseJSON(json);
+		for (var i = 0; i < result.length; i++) {
+			addAlatToTable((i + 1), result[i]);
 		}
 	});
 }

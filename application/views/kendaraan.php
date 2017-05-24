@@ -172,23 +172,15 @@ function toggleKendaraanAktif(element) {
 	var vehicle_status = $(element).data("value");
 	var vehicle_id = $(element).closest(".tr-kendaraan").data("id");
 	
-	$.ajax({
-		url: '<?= base_url("kendaraan/toggleKendaraanAktif") ?>',
-		data: {
-			vehicle_id: vehicle_id,
-			vehicle_status: vehicle_status
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			valid = false;
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(result) {
-			if (result == "success") {
-				getKendaraan();
-			} else {
-				alert(result);
-			}
+	var data = {
+		vehicle_id: vehicle_id,
+		vehicle_status: vehicle_status
+	};
+	ajaxCall("<?= base_url("kendaraan/toggleKendaraanAktif") ?>", data, function(result) {
+		if (result == "success") {
+			getKendaraan();
+		} else {
+			alert(result);
 		}
 	});
 }
@@ -242,28 +234,20 @@ function updateKendaraan() {
 	
 	var valid = cekInputError(vehicle_name, vehicle_nomor);
 	if (valid) {
-		$.ajax({
-			url: '<?= base_url("kendaraan/updateKendaraan") ?>',
-			data: {
-				submit_update: true,
-				vehicle_id: vehicle_id,
-				vehicle_nomor: vehicle_nomor,
-				vehicle_name: vehicle_name,
-				vehicle_information: vehicle_information,
-				vehicle_status: vehicle_status
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				valid = false;
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getKendaraan();
-				} else {
-					alert(result);
-				}
+		var data = {
+			submit_update: true,
+			vehicle_id: vehicle_id,
+			vehicle_nomor: vehicle_nomor,
+			vehicle_name: vehicle_name,
+			vehicle_information: vehicle_information,
+			vehicle_status: vehicle_status
+		};
+		ajaxCall("<?= base_url("kendaraan/updateKendaraan") ?>", data, function(result) {
+			if (result == "success") {
+				closeDialog();
+				getKendaraan();
+			} else {
+				alert(result);
 			}
 		});
 	}
@@ -277,25 +261,17 @@ function tambahKendaraan() {
 	
 	var valid = cekInputError(vehicle_name, vehicle_nomor);
 	if (valid) {
-		$.ajax({
-			url: '<?= base_url("kendaraan/tambahKendaraan") ?>',
-			data: {
-				submit_tambah: true,
-				vehicle_nomor: vehicle_nomor,
-				vehicle_name: vehicle_name,
-				vehicle_information: vehicle_information,
-				vehicle_status: vehicle_status
-			},
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				valid = false;
-				alert(jqXHR + " : " + jqXHR.responseText);
-			},
-			success: function(result) {
-				if (result == "success") {
-					closeDialog();
-					getKendaraan();
-				}
+		var data = {
+			submit_tambah: true,
+			vehicle_nomor: vehicle_nomor,
+			vehicle_name: vehicle_name,
+			vehicle_information: vehicle_information,
+			vehicle_status: vehicle_status
+		};
+		ajaxCall("<?= base_url("kendaraan/tambahKendaraan") ?>", data, function(result) {
+			if (result == "success") {
+				closeDialog();
+				getKendaraan();
 			}
 		});
 	}
@@ -303,40 +279,24 @@ function tambahKendaraan() {
 
 function deleteKendaraan(element) {
 	var vehicle_id = $(".dialog-konfirmasi-delete").data("id");
-	$.ajax({
-		url: '<?= base_url("kendaraan/deleteKendaraan") ?>',
-		data: {
-			submit_delete: true,
-			vehicle_id: vehicle_id
-		},
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			valid = false;
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(result) {
-			if (result == "success") {
-				closeDialog();
-				getKendaraan();
-			}
+	var data = {
+		submit_delete: true,
+		vehicle_id: vehicle_id
+	};
+	ajaxCall("<?= base_url("kendaraan/deleteKendaraan") ?>", data, function(result) {
+		if (result == "success") {
+			closeDialog();
+			getKendaraan();
 		}
 	});
 }
 
 function getKendaraan() {
-	$.ajax({
-		url: '<?= base_url("kendaraan/getKendaraan") ?>',
-		type: 'POST',
-		error: function(jqXHR, exception) {
-			valid = false;
-			alert(jqXHR + " : " + jqXHR.responseText);
-		},
-		success: function(json) {
-			$(".tbody-kendaraan").html("");
-			var result = jQuery.parseJSON(json);
-			for (var i = 0; i < result.length; i++) {
-				addKendaraanToTable((i + 1), result[i]);
-			}
+	ajaxCall("<?= base_url("kendaraan/getKendaraan") ?>", null, function(json) {
+		$(".tbody-kendaraan").html("");
+		var result = jQuery.parseJSON(json);
+		for (var i = 0; i < result.length; i++) {
+			addKendaraanToTable((i + 1), result[i]);
 		}
 	});
 }

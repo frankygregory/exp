@@ -14,7 +14,7 @@ class User_model extends CI_Model{
 			FROM `m_user` u, `m_user_group` ug
 			LEFT JOIN (SELECT g.group_id, g.group_name FROM `m_group` g) g
             ON g.group_id = ug.group_id
-			WHERE ug.user_id = u.user_id AND ug.user_id != '" . $data["user_id"] . "' AND (";
+			WHERE u.user_status != -1 AND ug.user_id = u.user_id AND ug.user_id != '" . $data["user_id"] . "' AND (";
 		
 		$group_ids = explode(";", $data["group_ids"]);
 		$iLength = sizeof($group_ids);
@@ -38,9 +38,18 @@ class User_model extends CI_Model{
 		return 1;
 	}
 	
+	public function deleteUser($data) {
+		$query = $this->db->query("CALL delete_other_user('" . $data["other_user_id"] . "', '" . $data["user_id"] . "');");
+		return 1;
+	}
+	
 	public function getMyGroups($user_id) {
-		$this->db->where("user_id", $user_id);
-		return $this->db->get("m_group")->result();
+		$query = $this->db->query("
+			SELECT *
+			FROM `m_group`
+			WHERE user_id = '" . $user_id . "' AND group_status != -1
+		");
+		return $query->result();
 	}
 	
 	public function updateGroup($data) {
@@ -60,6 +69,12 @@ class User_model extends CI_Model{
 	}
 	
 	public function deleteGroup($data) {
-		
+		$query = $this->db->query("CALL delete_group('" . $data["group_id"] . "', '" . $data["user_id"] . "');");
+		$result = $query->result()[0];
+		if ($result->result == "success") {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }
