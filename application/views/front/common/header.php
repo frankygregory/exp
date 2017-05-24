@@ -26,7 +26,7 @@
 </head>
 <body>
 <div class="header">
-	<div class="logo">Yukirim</div>
+	<a href="<?= base_url() ?>" class="logo">Yukirim</a>
 	<div class="header-right">
 		<a href="#" class="header-menu">List Kiriman
 			<div class="bottom-line"></div>

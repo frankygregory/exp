@@ -184,9 +184,9 @@ function getKiriman() {
 
 function addKirimanToTable(no, result) {
 	var date_from = new Date(result.shipment_delivery_date_from);
-	var fullDateFrom = date_from.getDate() + " " + month[date_from.getMonth()] + " " + date_from.getFullYear();
+	var fullDateFrom = date_from.getDate() + " " + month[date_from.getMonth()] + " " + date_from.getFullYear().toString().substring(2, 4);
 	var date_to = new Date(result.shipment_delivery_date_to);
-	var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear();
+	var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear().toString().substring(2, 4);
 	
 	var element = "<tr class='tr-kiriman' data-id='" + result.shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result.shipment_id + "'>" + result.shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result.shipment_pictures + "' /></td><td class='td-price'>Bid : " + result.bidding_count + "<br>Low : " + addCommas(result.low) + " IDR</td><td class='td-asal'>" + result.location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result.location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + parseInt(result.shipment_length) + " Km</td><td class='td-berakhir'>" + result.berakhir + "</td></td></tr>";
 	$(".tbody-kiriman").append(element);

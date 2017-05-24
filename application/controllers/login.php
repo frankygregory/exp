@@ -36,22 +36,18 @@ class Login extends CI_Controller
 
     public function index()
     {
-        $this->form_validation->set_rules('captcha','Captcha','trim|callback_check_captcha|required');
-
         if ($this->session->userdata('isLoggedIn') == 1) {
             redirect($this->session->userdata('urlpage'));
         } else {
-            $img = '';
-            if ($this->form_validation->run() == false) {
-                $img = $this->create_captcha();
-            }
 			
             $data = array(
                 'title' => 'Login Yukirim',
-                'error' => '',
-                'img' => $img,
+				"page_name" => "login",
+                'error' => ''
             );
+			$this->load->view('front/common/header', $data);
             $this->load->view('front/login', $data);
+			$this->load->view('front/common/footer', $data);
         }
     }
 

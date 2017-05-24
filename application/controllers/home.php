@@ -15,7 +15,7 @@ class Home extends CI_Controller
     {
         $data = array(
             'title' => 'home',
-            'page_name' => "home",
+            'page_name' => "home"
         );
 
         $msg = '';
@@ -38,6 +38,7 @@ class Home extends CI_Controller
     {
         $data = array(
             'title' => 'Register',
+			'page_name' => "register",
             'active' => array('', '', '', 'active'),
 			'konsumenChecked' => 'checked',
 			'ekspedisiChecked' => '',
@@ -50,12 +51,15 @@ class Home extends CI_Controller
 			'telp' => '',
 			'handphone' => ''
         );
+		$this->load->view('front/common/header', $data);
         $this->load->view('front/register', $data);
+		$this->load->view('front/common/footer', $data);
     }
 
     public function privacy_policy(){
         $data = array(
             'title' => 'Kebijakan Privasi',
+			'page_name' => "privacy_policy",
             'active' => array('', '', '', 'active'),
         );
         $this->load->view('front/privacy_policy', $data);
