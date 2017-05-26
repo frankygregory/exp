@@ -123,16 +123,16 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<td>No.</td>
+						<td class="th-no">No.</td>
 						<td>Nama Driver</td>
 						<td>No. HP</td>
 						<td>Alamat</td>
-						<td>Ketersediaan</td>
-						<td>Rating</td>
-						<td>Jumlah Transaksi</td>
+						<td class="th-ketersediaan">Ketersediaan</td>
+						<td class="th-rating">Rating</td>
+						<td class="th-jumlah-transaksi">Jumlah Transaksi</td>
 						<td>Keterangan</td>
-						<td>Status</td>
-						<td>Action</td>
+						<td class="th-status">Status</td>
+						<td class="th-action">Action</td>
 					</tr>
 				</thead>
 				<tbody class="tbody-supir">
@@ -361,7 +361,7 @@ function addSupirToTable(no, result) {
 	var btnEdit = "<button class='btn-default btn-edit' data-id='" + result.driver_id + "'>Edit</button>";
 	var btnDelete = "<button class='btn-negative btn-delete' data-id='" + result.driver_id + "'>Delete</button>";
 	
-	var element = "<tr class='tr-supir' data-id='" + result.driver_id + "'><td>" + no + "</td><td class='td-name'>" + result.driver_name + "</td><td class='td-handphone'>" + result.driver_handphone + "</td><td class='td-address'>" + result.driver_address + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td>" + result.driver_rating + "</td><td>" + result.driver_jumlah_transaksi + "</td><td class='td-information'>" + result.driver_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
+	var element = "<tr class='tr-supir' data-id='" + result.driver_id + "'><td class='td-no'>" + no + "</td><td class='td-name'>" + result.driver_name + "</td><td class='td-handphone'>" + result.driver_handphone + "</td><td class='td-address'>" + result.driver_address + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td class='td-rating'>" + result.driver_rating + "</td><td class='td-jumlah-transaksi'>" + result.driver_jumlah_transaksi + "</td><td class='td-information'>" + result.driver_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
 	$(".tbody-supir").append(element);
 }
 </script>

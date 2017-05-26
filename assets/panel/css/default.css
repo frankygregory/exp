@@ -103,8 +103,12 @@ button {
 }
 
 table {
-	width: 1200px;
+	width: 100%;
 	border-spacing: 0;
+}
+
+table.table {
+	width: 1200px;
 }
 
 table thead tr td {
@@ -141,6 +145,10 @@ table.table tbody tr:nth-child(even) {
 	clear: both;
 	overflow: auto;
 	margin: 0 auto;
+}
+
+table td[data-align="center"] {
+	text-align: center;
 }
 
 .dialog-background {
@@ -183,10 +191,6 @@ table.table tbody tr:nth-child(even) {
 	bottom: 10px;
 	left: 10px;
 	font-size: 16pt;
-}
-
-.dialog-body {
-	
 }
 
 .dialog-footer {

@@ -2,18 +2,10 @@
 	margin-bottom: 20px;
 }
 
-.dialog {
-	
-}
-
-.dialog-header {
-	
-}
-
-.dialog-footer {
-	
-}
-
 .btn-submit-tambah, .btn-submit-edit, .btn-batal, .btn-submit-delete {
 	float: right;
+}
+
+.th-no, .td-no, .th-ketersediaan, .td-ketersediaan, .th-rating, .td-rating, .th-jumlah-transaksi, .td-jumlah-transaksi, .th-status, .th-action {
+	text-align: center;
 }

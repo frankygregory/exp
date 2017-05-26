@@ -7,16 +7,6 @@
 	font-family: roboto-regular;
 }
 
-::-moz-selection {
-	background-color: #FFFF00;
-	color: black;
-}
-
-::selection {
-	background-color: #FFFF00;
-	color: black;
-}
-
 input[type="text"], input[type="password"] {
 	border: 0;
 	border-bottom: 2px solid #E0E0E0;

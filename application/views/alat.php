@@ -111,13 +111,13 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<td>No.</td>
+						<td class="th-no">No.</td>
 						<td>Nama Alat</td>
 						<td>Keterangan</td>
 						<td>Email</td>
-						<td>Ketersediaan</td>
-						<td>Status</td>
-						<td>Action</td>
+						<td class="th-ketersediaan">Ketersediaan</td>
+						<td class="th-status">Status</td>
+						<td class="th-action">Action</td>
 					</tr>
 				</thead>
 				<tbody class="tbody-alat">
@@ -327,7 +327,7 @@ function addAlatToTable(no, result) {
 	var btnEdit = "<button class='btn-default btn-edit' data-id='" + result.device_id + "'>Edit</button>";
 	var btnDelete = "<button class='btn-negative btn-delete' data-id='" + result.device_id + "'>Delete</button>";
 	
-	var element = "<tr class='tr-alat' data-id='" + result.device_id + "'><td>" + no + "</td><td class='td-name'>" + result.device_name + "</td><td class='td-information'>" + result.device_information + "</td><td class='td-email'>" + result.device_email + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
+	var element = "<tr class='tr-alat' data-id='" + result.device_id + "'><td class='td-no'>" + no + "</td><td class='td-name'>" + result.device_name + "</td><td class='td-information'>" + result.device_information + "</td><td class='td-email'>" + result.device_email + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td class='td-status'>" + btnAktif + btnTidakAktif + "</td><td class='td-action'>" + btnEdit + btnDelete + "</td></tr>";
 	$(".tbody-alat").append(element);
 }
 </script>

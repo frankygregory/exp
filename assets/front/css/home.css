@@ -1,3 +1,24 @@
+::-moz-selection {
+	background-color: #FFFF00;
+	color: black;
+}
+
+::selection {
+	background-color: #FFFF00;
+	color: black;
+}
+
+@keyframes show {
+	0% {
+		opacity: 0;
+		margin-top: 150px;
+	}
+	100% {
+		opacity: 1;
+		margin-top: 0;
+	}
+}
+
 .section-1 {
 	width: 100%;
 	height: 600px;
@@ -76,9 +97,15 @@
 
 .section-2 {
 	width: 800px;
-	overflow-y: auto;
+	height: 500px;
+	overflow-y: hidden;
 	margin: 0 auto;
-	padding: 100px 0;
+	padding: 100px 0 0;
+}
+
+.section-2 .section-content {
+	opacity: 0;
+	
 }
 
 .section-2-title {
@@ -95,13 +122,15 @@
 
 .section-3 {
 	width: 100%;
-	overflow-y: auto;
+	height: 500px;
+	overflow-y: hidden;
 	margin: 0 auto;
-	padding: 100px 0;
+	padding: 100px 0 0;
 	background-color: #F5F5F5;
 }
 
-.section-3-inner {
+.section-3 .section-content {
+	opacity: 0;
 	width: 950px;
 	margin: 0 auto;
 }
@@ -147,9 +176,10 @@
 .section-4 {
 	width: 100%;
 	max-width: 1160px;
-	overflow-y: auto;
+	height: 850px;
+	overflow-y: hidden;
 	margin: 0 auto;
-	padding: 10vh 0;
+	padding: 100px 0 0;
 }
 
 .section-4-title {
@@ -158,7 +188,8 @@
 	text-align: center;
 }
 
-.section-4-content {
+.section-4 .section-content {
+	opacity: 0;
 	width: 770px;
 	margin: 0 auto;
 }
@@ -197,6 +228,7 @@
 
 .step-number {
 	display: inline-block;
+	float: left;
 	width: 30px;
 	min-height: 1px;
 	font-size: 28pt;
@@ -217,4 +249,11 @@
 	height: 25px;
 	background-color: #999;
 	margin: 10px auto;
+}
+
+.section-2 .section-content.show, .section-3 .section-content.show, .section-4 .section-content.show {
+	animation-name: show;
+	animation-duration: 1s;
+	animation-timing-function: ease;
+	animation-fill-mode: forwards;
 }

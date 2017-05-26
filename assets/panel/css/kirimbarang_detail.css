@@ -7,7 +7,8 @@
 }
 
 .section-1 {
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 	margin-bottom: 50px;
 }
 
@@ -44,10 +45,6 @@ td {
 	padding-top: 17px;
 }
 
-.asal {
-	
-}
-
 .asal-title {
 	font-size: 14pt;
 	font-weight: bold;
@@ -65,8 +62,6 @@ td {
 	width: 70px;
 }
 
-
-
 #map-asal {
 	border: 1px solid black;
 }
@@ -78,6 +73,7 @@ td {
 }
 
 .table-section-1a {
+	width: 100%;
 	margin-bottom: 50px;
 }
 
@@ -107,10 +103,6 @@ td {
 .table-section-right .td-item-label {
 	width: 120px;
 	font-weight: bold;
-}
-
-.table-section-left .td-item-value {
-	
 }
 
 .section-3 {
@@ -202,12 +194,31 @@ td {
 	overflow-y: auto;
 }
 
+.table-detail-penawaran .td-label, .table-detail-penawaran .td-titikdua {
+	padding-top: 18px;
+}
+
+.table-detail-penawaran .input-bidding-type {
+	margin-top: 10px;
+}
+
+.table-list-penawaran {
+	width: 100% !important;
+}
+
 td.td-label {
 	width: 150px;
+	padding-top: 10px;
 }
 
 td.td-titikdua {
 	width: 10px;
+	padding-top: 10px;
+}
+
+.label-bidding-type {
+	margin-right: 15px;
+	cursor: pointer;
 }
 
 .input-bidding-price {

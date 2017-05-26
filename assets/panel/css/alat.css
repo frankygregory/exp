@@ -2,18 +2,10 @@
 	margin-bottom: 20px;
 }
 
-.dialog {
-	
-}
-
-.dialog-header {
-	
-}
-
-.dialog-footer {
-	
-}
-
 .btn-submit-tambah, .btn-submit-edit, .btn-batal, .btn-submit-delete {
 	float: right;
+}
+
+.th-no, .td-no, .th-ketersediaan, .td-ketersediaan, .th-status, .td-status, .th-action, .td-action {
+	text-align: center;
 }

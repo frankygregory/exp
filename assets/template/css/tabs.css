@@ -1,6 +1,10 @@
 .tabs-header {
 	overflow: auto;
 	border-bottom: 1px solid #252525;
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+	user-select: none;          /* Likely future */  
 }
 
 .tabs-item-container {

@@ -56,9 +56,15 @@ a.btn-kirim-barang {
 	margin-top: 20px;
 }
 
+.table-kiriman a:link, .table-kiriman a:visited {
+	text-decoration: none;
+	color: black;
+}
+
 .shipment-picture {
 	display: block;
 	width: 100px;
+	margin: 5px auto 0;
 }
 
 .subsection-sort {
@@ -68,4 +74,8 @@ a.btn-kirim-barang {
 .subsection-sort .form-item {
 	width: 200px;
 	float: right;
+}
+
+.td-nama-kirim, .td-title, .td-km {
+	text-align: center;
 }

@@ -73,8 +73,11 @@
 			<a href="<?= base_url("kirim") ?>">
 				<div>Cari Kiriman</div>
 			</a>
-			<a href="<?= base_url("kiriman-ekspedisi") ?>">
-				<div>Kiriman</div>
+			<a href="<?= base_url("kiriman-darat-ekspedisi") ?>">
+				<div>Kiriman Darat</div>
+			</a>
+			<a href="<?= base_url("kiriman-laut-ekspedisi") ?>">
+				<div>Kiriman Laut</div>
 			</a>
 			<a href="<?= base_url("kendaraan") ?>">
 				<div class="">Kendaraan</div>

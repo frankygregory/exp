@@ -7,7 +7,7 @@
 			<div class="dialog-title">Tambah Kendaraan</div>
 		</div>
 		<div class="dialog-body">
-			<table>
+			<table class="table-tambah-kendaraan">
 				<tbody>
 					<tr>
 						<td class="">Nama</td>
@@ -109,14 +109,14 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<td>No.</td>
+						<td class="td-no">No.</td>
 						<td>Nomor Kendaraan</td>
 						<td>Nama Kendaraan</td>
-						<td>Ketersediaan</td>
-						<td>Jumlah Transaksi</td>
+						<td class="td-ketersediaan">Ketersediaan</td>
+						<td class="th-jumlah-transaksi">Jumlah Transaksi</td>
 						<td>Keterangan</td>
-						<td>Status</td>
-						<td>Action</td>
+						<td class="th-status">Status</td>
+						<td class="th-action">Action</td>
 					</tr>
 				</thead>
 				<tbody class="tbody-kendaraan">
@@ -321,7 +321,7 @@ function addKendaraanToTable(no, result) {
 	var btnEdit = "<button class='btn-default btn-edit' data-id='" + result.vehicle_id + "'>Edit</button>";
 	var btnDelete = "<button class='btn-negative btn-delete' data-id='" + result.vehicle_id + "'>Delete</button>";
 	
-	var element = "<tr class='tr-kendaraan' data-id='" + result.vehicle_id + "'><td data-label='No'>" + no + "</td><td class='td-nomor' data-label='Nopol'>" + result.vehicle_nomor + "</td><td class='td-name' data-label='Nama'>" + result.vehicle_name + "</td><td class='td-ketersediaan' data-label='Ketersediaan'>" + ketersediaan + "</td><td class='td-jumlah-transaksi' data-label='Jumlah Transaksi'>" + result.vehicle_jumlah_transaksi + "</td><td class='td-information' data-label='Keterangan'>" + result.vehicle_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
+	var element = "<tr class='tr-kendaraan' data-id='" + result.vehicle_id + "'><td class='td-no' data-label='No'>" + no + "</td><td class='td-nomor' data-label='Nopol'>" + result.vehicle_nomor + "</td><td class='td-name' data-label='Nama'>" + result.vehicle_name + "</td><td class='td-ketersediaan' data-label='Ketersediaan'>" + ketersediaan + "</td><td class='td-jumlah-transaksi' data-label='Jumlah Transaksi'>" + result.vehicle_jumlah_transaksi + "</td><td class='td-information' data-label='Keterangan'>" + result.vehicle_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
 	$(".tbody-kendaraan").append(element);
 }
 </script>

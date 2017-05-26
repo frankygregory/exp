@@ -2,20 +2,12 @@
 	margin-bottom: 20px;
 }
 
-.dialog {
-	
-}
-
-.dialog-header {
-	
-}
-
-.dialog-footer {
-	
-}
-
 .btn-submit-tambah, .btn-submit-edit, .btn-batal, .btn-submit-delete {
 	float: right;
+}
+
+table .td-no, .td-ketersediaan, .th-jumlah-transaksi, .td-jumlah-transaksi, .th-status, .th-action {
+  text-align: center;
 }
 
 @media screen and (max-width: 600px) {

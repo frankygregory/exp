@@ -22,12 +22,12 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>KM</td>
-								<td>Action</td>
+								<td data-align="center">KM</td>
+								<td data-align="center">Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -40,16 +40,16 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>KM</td>
+								<td data-align="center">KM</td>
 								<td>Muatan</td>
 								<td>Supir</td>
 								<td>Kendaraan</td>
 								<td>Lacak</td>
-								<td>Action</td>
+								<td data-align="center">Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -62,16 +62,16 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>KM</td>
+								<td data-align="center">KM</td>
 								<td>Muatan</td>
 								<td>Supir</td>
 								<td>Kendaraan</td>
 								<td>Lacak</td>
-								<td>Action</td>
+								<td data-align="center">Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -84,16 +84,16 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>KM</td>
+								<td data-align="center">KM</td>
 								<td>Muatan</td>
 								<td>Supir</td>
 								<td>Kendaraan</td>
 								<td>Lacak</td>
-								<td>Action</td>
+								<td data-align="center">Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -106,16 +106,16 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>KM</td>
+								<td data-align="center">KM</td>
 								<td>Muatan</td>
 								<td>Supir</td>
 								<td>Kendaraan</td>
 								<td>Lacak</td>
-								<td>Action</td>
+								<td data-align="center">Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -128,11 +128,11 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>KM</td>
+								<td data-align="center">KM</td>
 								<td>Muatan</td>
 								<td>Supir</td>
 								<td>Kendaraan</td>
@@ -149,17 +149,17 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>KM</td>
+								<td data-align="center">KM</td>
 								<td>Muatan</td>
 								<td>Supir</td>
 								<td>Kendaraan</td>
 								<td>Lacak</td>
-								<td>Waktu Kiriman (Hari)</td>
-								<td>Total Waktu (Hari)</td>
+								<td data-align="center">Waktu Kiriman</td>
+								<td data-align="center">Total Waktu</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -172,11 +172,11 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>KM</td>
+								<td data-align="center">KM</td>
 								<td>Cancel by</td>
 							</tr>
 						</thead>
@@ -207,14 +207,14 @@
 <script>
 var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 var kirimanUrl = [];
-kirimanUrl[1] = "<?= base_url("kiriman-ekspedisi/getDealKiriman") ?>";
-kirimanUrl[2] = "<?= base_url("kiriman-ekspedisi/getPendingKiriman") ?>";
-kirimanUrl[3] = "<?= base_url("kiriman-ekspedisi/getPesananKiriman") ?>";
-kirimanUrl[4] = "<?= base_url("kiriman-ekspedisi/getDikirimKiriman") ?>";
-kirimanUrl[5] = "<?= base_url("kiriman-ekspedisi/getDiambilKiriman") ?>";
-kirimanUrl[6] = "<?= base_url("kiriman-ekspedisi/getDiterimaKiriman") ?>";
-kirimanUrl[7] = "<?= base_url("kiriman-ekspedisi/getSelesaiKiriman") ?>";
-kirimanUrl[8] = "<?= base_url("kiriman-ekspedisi/getCancelKiriman") ?>";
+kirimanUrl[1] = "<?= base_url("kiriman-darat-ekspedisi/getDealKiriman") ?>";
+kirimanUrl[2] = "<?= base_url("kiriman-darat-ekspedisi/getPendingKiriman") ?>";
+kirimanUrl[3] = "<?= base_url("kiriman-darat-ekspedisi/getPesananKiriman") ?>";
+kirimanUrl[4] = "<?= base_url("kiriman-darat-ekspedisi/getDikirimKiriman") ?>";
+kirimanUrl[5] = "<?= base_url("kiriman-darat-ekspedisi/getDiambilKiriman") ?>";
+kirimanUrl[6] = "<?= base_url("kiriman-darat-ekspedisi/getDiterimaKiriman") ?>";
+kirimanUrl[7] = "<?= base_url("kiriman-darat-ekspedisi/getSelesaiKiriman") ?>";
+kirimanUrl[8] = "<?= base_url("kiriman-darat-ekspedisi/getCancelKiriman") ?>";
 
 var kirimanTabs = [];
 kirimanTabs[1] = "deal";
@@ -274,7 +274,7 @@ $(function() {
 
 function cancelShipment() {
 	var shipment_id = $(".dialog-konfirmasi-cancel-transaction").data("shipment_id");
-	ajaxCall("<?= base_url("kiriman-ekspedisi/cancelShipment") ?>", {shipment_id: shipment_id}, function(result) {
+	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/cancelShipment") ?>", {shipment_id: shipment_id}, function(result) {
 		if (result == "success") {
 			closeDialog();
 			refreshData();
@@ -283,7 +283,7 @@ function cancelShipment() {
 }
 
 function getKendaraan() {
-	ajaxCall("<?= base_url("kiriman-ekspedisi/getKendaraan") ?>", null, function(json) {
+	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/getKendaraan") ?>", null, function(json) {
 		var result = jQuery.parseJSON(json);
 			
 		var element = "";
@@ -300,7 +300,7 @@ function getKendaraan() {
 }
 
 function getSupir() {
-	ajaxCall("<?= base_url("kiriman-ekspedisi/getSupir") ?>", null, function(json) {
+	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/getSupir") ?>", null, function(json) {
 		var result = jQuery.parseJSON(json);
 			
 		var element = "";
@@ -317,7 +317,7 @@ function getSupir() {
 }
 
 function getAlat() {
-	ajaxCall("<?= base_url("kiriman-ekspedisi/getAlat") ?>", null, function(json) {
+	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/getAlat") ?>", null, function(json) {
 		var result = jQuery.parseJSON(json);
 			
 		var element = "";
@@ -338,7 +338,7 @@ function submitTerima(element) {
 	var data = {
 		shipment_id: shipment_id
 	};
-	ajaxCall("<?= base_url("kiriman-ekspedisi/submitTerima") ?>", data, function(result) {
+	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitTerima") ?>", data, function(result) {
 		if (result == "success") {
 			refreshData();
 		} else {
@@ -352,7 +352,7 @@ function submitAmbil(element) {
 	var data = {
 		shipment_id: shipment_id
 	};
-	ajaxCall("<?= base_url("kiriman-ekspedisi/submitAmbil") ?>", data, function(result) {
+	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitAmbil") ?>", data, function(result) {
 		if (result == "success") {
 			refreshData();
 		} else {
@@ -366,7 +366,7 @@ function submitKirim(element) {
 	var data = {
 		shipment_id: shipment_id
 	};
-	ajaxCall("<?= base_url("kiriman-ekspedisi/submitKirim") ?>", data, function(result) {
+	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitKirim") ?>", data, function(result) {
 		if (result == "success") {
 			refreshData();
 		} else {
@@ -396,7 +396,7 @@ function submitPesan(element) {
 			vehicle_id: vehicle_id,
 			device_id: device_id
 		};
-		ajaxCall("<?= base_url("kiriman-ekspedisi/submitPesan") ?>", data, function(result) {
+		ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitPesan") ?>", data, function(result) {
 			if (result == "success") {
 				refreshData();
 			} else {
@@ -411,7 +411,7 @@ function submitDeal(element) {
 	var data = {
 		shipment_id: shipment_id
 	};
-	ajaxCall("<?= base_url("kiriman-ekspedisi/submitDeal") ?>", data, function(result) {
+	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitDeal") ?>", data, function(result) {
 		if (result == "success") {
 			refreshData();
 		} else {
@@ -427,7 +427,7 @@ function refreshData() {
 }
 
 function getKirimanCount() {
-	ajaxCall("<?= base_url("kiriman-ekspedisi/getKirimanSaya") ?>", null, function(json) {
+	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/getKirimanSaya") ?>", null, function(json) {
 		var result = jQuery.parseJSON(json);
 		assignKirimanCount(result);
 	});
@@ -530,9 +530,9 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		var date_to = new Date(result[i].shipment_delivery_date_to);
 		var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear();
 		
-		var jenis_muatan = "penuh";
+		var jenis_muatan = "Penuh";
 		if (result[i].shipment_jenis_muatan == 0) {
-			jenis_muatan = "parsial";
+			jenis_muatan = "Parsial";
 		}
 		
 		var tdJenisMuatan = "<td>" + jenis_muatan + "</td>";
@@ -561,7 +561,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				break;
 			case "selesai":
 				additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
-				waktu = "<td>" + result[i].waktu_kiriman + "</td><td>" + result[i].total_waktu + "</td>";
+				waktu = "<td data-align='center'>" + result[i].waktu_kiriman + " hari</td><td data-align='center'>" + result[i].total_waktu + " hari</td>";
 				break;
 			case "cancel":
 				tdJenisMuatan = "";
@@ -569,7 +569,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				break;
 		}
 		
-		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + "</td>" + tdJenisMuatan + tdCancelBy + additionalTd + element[tab].btn + waktu + "</tr>";
+		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + result[i].shipment_length + "</td>" + tdJenisMuatan + tdCancelBy + additionalTd + element[tab].btn + waktu + "</tr>";
 	}
 	
 	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");

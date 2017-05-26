@@ -141,6 +141,15 @@
 				<table class="table-detail-penawaran">
 					<tbody>
 						<tr>
+							<td class="td-label">Jenis</td>
+							<td class="td-titikdua"> : </td>
+							<td>
+								<label class="label-bidding-type"><input type="radio" class="input-bidding-type" name="input-bidding-type" value="1" checked="checked" /> Darat</label>
+								<label class="label-bidding-type"><input type="radio" class="input-bidding-type" name="input-bidding-type" value="2" /> Laut</label>
+								<div class="error penawaran-error error-bidding-type"></div>
+							</td>
+						</tr>
+						<tr>
 							<td class="td-label">Harga</td>
 							<td class="td-titikdua"> : </td>
 							<td>
@@ -157,7 +166,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="td-label">List Kendaraan</td>
+							<td class="td-label td-label-list-kendaraan">Kendaraan</td>
 							<td class="td-titikdua"> : </td>
 							<td>
 								<input type="text" class="input-kendaraan" />
@@ -182,6 +191,7 @@
 			<thead>
 				<tr>
 					<td class="td-harga">Harga</td>
+					<td>Jenis</td>
 					<td>Ekspedisi</td>
 					<td>Detail</td>
 					<td class="td-action">Status</td>
@@ -365,6 +375,15 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	
 	$(document).on("click", ".btn-tawar", function() {
 		showDetailPenawaran(this);
+	});
+
+	$(".input-bidding-type").on("change", function() {
+		var value = $(this).val();
+		if (value == "1") {
+			$(".td-label-list-kendaraan").html("Kendaraan");
+		} else {
+			$(".td-label-list-kendaraan").html("Kapal");
+		}
 	});
 	
 	$(".input-bidding-price").on("keydown", function(e) {
@@ -561,8 +580,13 @@ function addBiddingListToTable(result) {
 	var iLength = result.length;
 	var element = "";
 	for (var i = 0; i < iLength; i++) {
+		var bidding_type = "Darat";
+		if (result[i].bidding_type == 2) {
+			bidding_type = "Laut";
+		}
 		element += "<tr class='tr-bidding' <?= $tr_bidding ?>>";
 		element += "<td class='td-bidding-price'>" + addCommas(result[i].bidding_price) + " IDR</td>";
+		element += "<td class='td-bidding-type'>" + bidding_type + "</td>";
 		element += "<td class='td-bidding-username'>" + result[i].username + "</td>";
 		element += "<td class='td-bidding-tanggal-ambil'>";
 		element += "<div>Tanggal Ambil : " + result[i].bidding_pickupdate + "</div>";
