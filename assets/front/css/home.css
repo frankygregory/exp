@@ -181,7 +181,7 @@
 	padding-left: 0;
 }
 
-.section-4-step-right: {
+.section-4-step-right {
 	padding-right: 0;
 }
 
@@ -201,7 +201,6 @@
 	min-height: 1px;
 	font-size: 28pt;
 	font-weight: bold;
-	float: left;
 	margin-top: 12px;
 }
 

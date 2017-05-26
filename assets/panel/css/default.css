@@ -141,7 +141,6 @@ table.table tbody tr:nth-child(even) {
 	clear: both;
 	overflow: auto;
 	margin: 0 auto;
-	background-color: : cyan;
 }
 
 .dialog-background {
