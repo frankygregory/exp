@@ -31,7 +31,8 @@
 
 .feedback-item {
 	width: 100%;
-	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 	position: relative;
 	box-shadow: 0 0 5px #AAA;
 	border-radius: 3px;

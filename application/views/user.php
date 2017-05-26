@@ -172,21 +172,23 @@
 <div class="content">
 	<div class="section-1">
 		<button type="button" class="btn-default btn-tambah-user">Tambah User</button>
-		<table class="table table-user">
-			<thead>
-				<tr>
-					<td class='td-no'>No.</td>
-					<td>Nama</td>
-					<td>Email</td>
-					<td>Group</td>
-					<td>Level</td>
-					<td>Status</td>
-					<td>Action</td>
-				</tr>
-			</thead>
-			<tbody class="tbody-user">
-			</tbody>
-		</table>
+		<div class="table-container">
+			<table class="table table-user">
+				<thead>
+					<tr>
+						<td class='td-no'>No.</td>
+						<td>Nama</td>
+						<td>Email</td>
+						<td>Group</td>
+						<td>Level</td>
+						<td>Status</td>
+						<td>Action</td>
+					</tr>
+				</thead>
+				<tbody class="tbody-user">
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<div class="section-2">
 		<button type="button" class="btn-default btn-tambah-group">Tambah Group</button>

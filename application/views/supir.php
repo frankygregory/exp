@@ -119,25 +119,27 @@
 <div class="content">
 	<div class="section-1">
 		<button type="button" class="btn-default btn-tambah">Tambah Driver</button>
-		<table class="table">
-			<thead>
-				<tr>
-					<td>No.</td>
-					<td>Nama Driver</td>
-					<td>No. HP</td>
-					<td>Alamat</td>
-					<td>Ketersediaan</td>
-					<td>Rating</td>
-					<td>Jumlah Transaksi</td>
-					<td>Keterangan</td>
-					<td>Status</td>
-					<td>Action</td>
-				</tr>
-			</thead>
-			<tbody class="tbody-supir">
-			
-			</tbody>
-		</table>
+		<div class="table-container">
+			<table class="table">
+				<thead>
+					<tr>
+						<td>No.</td>
+						<td>Nama Driver</td>
+						<td>No. HP</td>
+						<td>Alamat</td>
+						<td>Ketersediaan</td>
+						<td>Rating</td>
+						<td>Jumlah Transaksi</td>
+						<td>Keterangan</td>
+						<td>Status</td>
+						<td>Action</td>
+					</tr>
+				</thead>
+				<tbody class="tbody-supir">
+				
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>
 </div>

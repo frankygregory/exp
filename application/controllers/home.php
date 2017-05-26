@@ -11,15 +11,24 @@ class Home extends CI_Controller
         parent::__construct();
     }
 
+	public function cekLogin()
+    {
+		$isLoggedIn = false;
+        if ($this->session->userdata('isLoggedIn') == 1) {
+            $isLoggedIn = true;
+		}
+		return $isLoggedIn;
+    }
+
     public function index()
     {
+		$isLoggedIn = $this->cekLogin();
         $data = array(
             'title' => 'home',
-            'page_name' => "home"
+            'page_name' => "home",
+			"isLoggedIn" => $isLoggedIn
         );
 
-        $msg = '';
-        $this->session->set_flashdata('msg', $msg);
 		$this->load->view('front/common/header', $data);
         $this->load->view('front/home', $data);
 		$this->load->view('front/common/footer', $data);
@@ -36,6 +45,7 @@ class Home extends CI_Controller
 
     public function register()
     {
+		$isLoggedIn = $this->cekLogin();
         $data = array(
             'title' => 'Register',
 			'page_name' => "register",
@@ -49,9 +59,9 @@ class Home extends CI_Controller
 			'nama' => '',
 			'alamat' => '',
 			'telp' => '',
-			'handphone' => ''
+			'handphone' => '',
+			"isLoggedIn" => $isLoggedIn
         );
-		$this->load->view('front/common/header', $data);
         $this->load->view('front/register', $data);
 		$this->load->view('front/common/footer', $data);
     }

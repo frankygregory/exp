@@ -9,34 +9,9 @@ class Login extends CI_Controller
 		$this->load->model("Login_model");
     }
 
-    function create_captcha() {
-        $options = array(
-                    'img_path' => './captcha/',
-                    'img_url' => base_url('captcha/'),
-                    'img_width' => '125',
-                    'img_height' => '40',
-                    'expiration' => 7200,
-                   );
-
-        $cap = create_captcha($options);
-        $image = $cap['image'];
-        $this->session->set_userdata('captchaword',$cap['word']);
-        return $image;
-    }
-
-    function check_captcha() {
-        if ($this->input->post('captcha')==$this->session->userdata('captchaword')) {
-            return true;
-        }
-        else {
-            $this->form_validation->set_message('check_captcha','Captcha is wrong');
-            return false;
-        }
-    }
-
     public function index()
     {
-        if ($this->session->userdata('isLoggedIn') == 1) {
+        /*if ($this->session->userdata('isLoggedIn') == 1) {
             redirect($this->session->userdata('urlpage'));
         } else {
 			
@@ -48,7 +23,7 @@ class Login extends CI_Controller
 			$this->load->view('front/common/header', $data);
             $this->load->view('front/login', $data);
 			$this->load->view('front/common/footer', $data);
-        }
+        }*/
     }
 
     public function doLogin()
@@ -60,61 +35,48 @@ class Login extends CI_Controller
 		//$browser = get_browser();
 		//$browser_name = $browser->browser_name_pattern . ";" . $browser->platform . ";" . $browser->browser . ";" . $browser->version;
 		
-		if ($this->form_validation->run('login') == FALSE) {
-			$data = array(
-				'title' => 'Login Yukirim',
-				'error' => '',
-				'img' => $this->create_captcha(),
-			);
-			$this->load->view('front/login', $data);
-		} else {
-			$username = $this->input->post('username');
-			$password = $this->input->post('password');
-			
-			if (!preg_match('/^[a-zA-Z0-9_\.]+$/', $username) OR !preg_match('/^[a-zA-Z0-9_\.]+$/', $password)) {
-				$this->view('front/login', 'Isian harus huruf atau angka');
-			} else {
-				if ((strlen($username) > 0) OR (strlen($password) > 0)) {
-					$insertData = array(
-						"username" => $username,
-						"password" => $password,
-						"ip" => $ip,
-						"location" => $location,
-						"browser" => $_SERVER["HTTP_USER_AGENT"]
-					);
-					$user = $this->Login_model->login($insertData);
-					if (sizeof($user) > 0) {
-						if ($user[0]["result"] == "false") {
-							$data = array(
-								'title' => 'Login Yukirim',
-								'error' => 'Username / Password salah!!',
-								'img' => $this->create_captcha(),
-							);
-						$this->load->view('front/login', $data);
-						} else {
-							$this->setuserdata(
-								$user[0]['user_id'],
-								$user[0]['username'],
-								$user[0]['user_fullname'],
-								$user[0]['group_ids'],
-								$user[0]['user_level'],
-								$user[0]['role_id'],
-								$user[0]['type_id'],
-								'menu',
-								'dashboard'
-							);
-							redirect('dashboard');
-						}
-					}
-				}
-			}
-		}
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
+        
+        if (!preg_match('/^[a-zA-Z0-9_\.]+$/', $username) OR !preg_match('/^[a-zA-Z0-9_\.]+$/', $password)) {
+            $this->view('front/login', 'Isian harus huruf atau angka');
+        } else {
+            if ((strlen($username) > 0) OR (strlen($password) > 0)) {
+                $insertData = array(
+                    "username" => $username,
+                    "password" => $password,
+                    "ip" => $ip,
+                    "location" => $location,
+                    "browser" => $_SERVER["HTTP_USER_AGENT"]
+                );
+                $user = $this->Login_model->login($insertData);
+                if (sizeof($user) > 0) {
+                    if ($user[0]["result"] == "false") {
+                        echo "error";
+                    } else {
+                        $this->setuserdata(
+                            $user[0]['user_id'],
+                            $user[0]['username'],
+                            $user[0]['user_fullname'],
+                            $user[0]['group_ids'],
+                            $user[0]['user_level'],
+                            $user[0]['role_id'],
+                            $user[0]['type_id'],
+                            'menu',
+                            'dashboard'
+                        );
+                        echo "success";
+                    }
+                }
+            }
+        }
+		
     }
 
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect('login');
+        redirect(base_url());
     }
 
     public function view($file, $value)

@@ -28,7 +28,7 @@
 <body>
 <div class="container">
     <div class="navigation-header">
-		<svg class="menu-hamburger" fill="#FFF" height="24" viewBox="0 0 24 24" width="24" >
+		<svg class="menu-hamburger" fill="#FFF" width="30" height="30" viewBox="0 0 20 20" >
 			<path d="M0 0h24v24H0z" fill="none"/>
 			<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
 		</svg>
@@ -144,11 +144,11 @@ function toggleNavigationDrawer() {
 	if (marginLeft < 0) {
 		$(".navigation-menu").animate({
 			marginLeft: 0
-		}, 100);
+		}, 200);
 	} else {
 		$(".navigation-menu").animate({
 			marginLeft: -220
-		}, 100);
+		}, 200);
 	}
 }
 

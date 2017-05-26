@@ -45,20 +45,22 @@
 </div>
 <div class="content">
 	<div class="section-1">
-		<table class="table table-kiriman">
-			<thead>
-				<tr>
-					<td>Nama Kirim</td>
-					<td>Harga</td>
-					<td>Asal</td>
-					<td>Tujuan</td>
-					<td>Jarak</td>
-					<td>Berakhir</td>
-				</tr>
-			</thead>
-			<tbody class="tbody-kiriman">
-			</tbody>
-		</table>
+		<div class="table-container">
+			<table class="table table-kiriman">
+				<thead>
+					<tr>
+						<td>Nama Kirim</td>
+						<td>Harga</td>
+						<td>Asal</td>
+						<td>Tujuan</td>
+						<td>Jarak</td>
+						<td>Berakhir</td>
+					</tr>
+				</thead>
+				<tbody class="tbody-kiriman">
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>
 </div>

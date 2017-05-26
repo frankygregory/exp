@@ -32,154 +32,170 @@
 		</div>
 		<div class="tabs-body">
 			<div class="tabs-content active" data-tabs-number="1">
-				<table class="table table-kiriman">
-					<thead>
-						<tr>
-							<td>Nama Kirim</td>
-							<td>Harga</td>
-							<td>Asal</td>
-							<td>Tujuan</td>
-							<td>Jarak</td>
-							<td>Berakhir</td>
-							<td>Action</td>
-						</tr>
-					</thead>
-					<tbody class="tbody-kiriman">
-					</tbody>
-				</table>
+				<div class="table-container">
+					<table class="table table-kiriman">
+						<thead>
+							<tr>
+								<td>Nama Kirim</td>
+								<td>Harga</td>
+								<td>Asal</td>
+								<td>Tujuan</td>
+								<td>Jarak</td>
+								<td>Berakhir</td>
+								<td>Action</td>
+							</tr>
+						</thead>
+						<tbody class="tbody-kiriman">
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="2">
-				<table class="table table-kiriman">
-					<thead>
-						<tr>
-							<td>Nama Kirim</td>
-							<td>Harga</td>
-							<td>Asal</td>
-							<td>Tujuan</td>
-							<td>Jarak</td>
-							<td>Action</td>
-						</tr>
-					</thead>
-					<tbody class="tbody-kiriman">
-					</tbody>
-				</table>
+				<div class="table-container">
+					<table class="table table-kiriman">
+						<thead>
+							<tr>
+								<td>Nama Kirim</td>
+								<td>Harga</td>
+								<td>Asal</td>
+								<td>Tujuan</td>
+								<td>Jarak</td>
+								<td>Action</td>
+							</tr>
+						</thead>
+						<tbody class="tbody-kiriman">
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="3">
-				<table class="table table-kiriman">
-					<thead>
-						<tr>
-							<td>Nama Kirim</td>
-							<td>Harga</td>
-							<td>Asal</td>
-							<td>Tujuan</td>
-							<td>Jarak</td>
-							<td>Jenis Muatan</td>
-							<td>Supir</td>
-							<td>Kendaraan</td>
-							<td>Lacak</td>
-							<td>Action</td>
-						</tr>
-					</thead>
-					<tbody class="tbody-kiriman">
-					</tbody>
-				</table>
+				<div class="table-container">
+					<table class="table table-kiriman">
+						<thead>
+							<tr>
+								<td>Nama Kirim</td>
+								<td>Harga</td>
+								<td>Asal</td>
+								<td>Tujuan</td>
+								<td>Jarak</td>
+								<td>Jenis Muatan</td>
+								<td>Supir</td>
+								<td>Kendaraan</td>
+								<td>Lacak</td>
+								<td>Action</td>
+							</tr>
+						</thead>
+						<tbody class="tbody-kiriman">
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="4">
-				<table class="table table-kiriman">
-					<thead>
-						<tr>
-							<td>Nama Kirim</td>
-							<td>Harga</td>
-							<td>Asal</td>
-							<td>Tujuan</td>
-							<td>Jarak</td>
-							<td>Jenis Muatan</td>
-							<td>Supir</td>
-							<td>Kendaraan</td>
-							<td>Lacak</td>
-							<td>Action</td>
-						</tr>
-					</thead>
-					<tbody class="tbody-kiriman">
-					</tbody>
-				</table>
+				<div class="table-container">
+					<table class="table table-kiriman">
+						<thead>
+							<tr>
+								<td>Nama Kirim</td>
+								<td>Harga</td>
+								<td>Asal</td>
+								<td>Tujuan</td>
+								<td>Jarak</td>
+								<td>Jenis Muatan</td>
+								<td>Supir</td>
+								<td>Kendaraan</td>
+								<td>Lacak</td>
+								<td>Action</td>
+							</tr>
+						</thead>
+						<tbody class="tbody-kiriman">
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="5">
-				<table class="table table-kiriman">
-					<thead>
-						<tr>
-							<td>Nama Kirim</td>
-							<td>Harga</td>
-							<td>Asal</td>
-							<td>Tujuan</td>
-							<td>Jarak</td>
-							<td>Jenis Muatan</td>
-							<td>Supir</td>
-							<td>Kendaraan</td>
-							<td>Lacak</td>
-							<td>Action</td>
-						</tr>
-					</thead>
-					<tbody class="tbody-kiriman">
-					</tbody>
-				</table>
+				<div class="table-container">
+					<table class="table table-kiriman">
+						<thead>
+							<tr>
+								<td>Nama Kirim</td>
+								<td>Harga</td>
+								<td>Asal</td>
+								<td>Tujuan</td>
+								<td>Jarak</td>
+								<td>Jenis Muatan</td>
+								<td>Supir</td>
+								<td>Kendaraan</td>
+								<td>Lacak</td>
+								<td>Action</td>
+							</tr>
+						</thead>
+						<tbody class="tbody-kiriman">
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="6">
-				<table class="table table-kiriman">
-					<thead>
-						<tr>
-							<td>Nama Kirim</td>
-							<td>Harga</td>
-							<td>Asal</td>
-							<td>Tujuan</td>
-							<td>Jarak</td>
-							<td>Jenis Muatan</td>
-							<td>Supir</td>
-							<td>Kendaraan</td>
-							<td>Lacak</td>
-							<td>Rating</td>
-						</tr>
-					</thead>
-					<tbody class="tbody-kiriman">
-					</tbody>
-				</table>
+				<div class="table-container">
+					<table class="table table-kiriman">
+						<thead>
+							<tr>
+								<td>Nama Kirim</td>
+								<td>Harga</td>
+								<td>Asal</td>
+								<td>Tujuan</td>
+								<td>Jarak</td>
+								<td>Jenis Muatan</td>
+								<td>Supir</td>
+								<td>Kendaraan</td>
+								<td>Lacak</td>
+								<td>Rating</td>
+							</tr>
+						</thead>
+						<tbody class="tbody-kiriman">
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="7">
-				<table class="table table-kiriman">
-					<thead>
-						<tr>
-							<td>Nama Kirim</td>
-							<td>Harga</td>
-							<td>Asal</td>
-							<td>Tujuan</td>
-							<td>Jarak</td>
-							<td>Jenis Muatan</td>
-							<td>Supir</td>
-							<td>Kendaraan</td>
-							<td>Lacak</td>
-							<td>Waktu Kiriman</td>
-							<td>Total Waktu</td>
-						</tr>
-					</thead>
-					<tbody class="tbody-kiriman">
-					</tbody>
-				</table>
+				<div class="table-container">
+					<table class="table table-kiriman">
+						<thead>
+							<tr>
+								<td>Nama Kirim</td>
+								<td>Harga</td>
+								<td>Asal</td>
+								<td>Tujuan</td>
+								<td>Jarak</td>
+								<td>Jenis Muatan</td>
+								<td>Supir</td>
+								<td>Kendaraan</td>
+								<td>Lacak</td>
+								<td>Waktu Kiriman</td>
+								<td>Total Waktu</td>
+							</tr>
+						</thead>
+						<tbody class="tbody-kiriman">
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="8">
-				<table class="table table-kiriman">
-					<thead>
-						<tr>
-							<td>Nama Kirim</td>
-							<td>Harga</td>
-							<td>Asal</td>
-							<td>Tujuan</td>
-							<td>Jarak</td>
-							<td>Cancel By</td>
-						</tr>
-					</thead>
-					<tbody class="tbody-kiriman">
-					</tbody>
-				</table>
+				<div class="table-container">
+					<table class="table table-kiriman">
+						<thead>
+							<tr>
+								<td>Nama Kirim</td>
+								<td>Harga</td>
+								<td>Asal</td>
+								<td>Tujuan</td>
+								<td>Jarak</td>
+								<td>Cancel By</td>
+							</tr>
+						</thead>
+						<tbody class="tbody-kiriman">
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -107,22 +107,24 @@
 <div class="content">
 	<div class="section-1">
 		<button type="button" class="btn-default btn-tambah">Tambah Alat</button>
-		<table class="table">
-			<thead>
-				<tr>
-					<td>No.</td>
-					<td>Nama Alat</td>
-					<td>Keterangan</td>
-					<td>Email</td>
-					<td>Ketersediaan</td>
-					<td>Status</td>
-					<td>Action</td>
-				</tr>
-			</thead>
-			<tbody class="tbody-alat">
-			
-			</tbody>
-		</table>
+		<div class="table-container">
+			<table class="table">
+				<thead>
+					<tr>
+						<td>No.</td>
+						<td>Nama Alat</td>
+						<td>Keterangan</td>
+						<td>Email</td>
+						<td>Ketersediaan</td>
+						<td>Status</td>
+						<td>Action</td>
+					</tr>
+				</thead>
+				<tbody class="tbody-alat">
+				
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>
 </div>

@@ -3,6 +3,7 @@
 	margin: 0;
 	box-sizing: border-box;
 	font-family: roboto-regular;
+	touch-action: none;
 }
 
 .page-title {
@@ -13,7 +14,7 @@
 
 .content {
 	width: 100%;
-	max-width: 1160px;
+	max-width: 1300px;
 	margin: 0 auto;
 }
 
@@ -39,6 +40,10 @@ input[type="file"] {
 
 button {
 	cursor: pointer;
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+	user-select: none;          /* Likely future */  
 }
 
 .btn-default, .btn-default:focus, .btn-negative, .btn-negative:focus, .btn-neutral, .btn-neutral:focus, .btn-positive, .btn-positive:focus {
@@ -98,7 +103,7 @@ button {
 }
 
 table {
-	width: 100%;
+	width: 1200px;
 	border-spacing: 0;
 }
 
@@ -116,7 +121,7 @@ table td {
 	padding: 10px 5px;
 }
 
-table.table td {
+table.table td:last-child {
 	border-right: 1px solid #BDBDBD;
 }
 
@@ -130,6 +135,13 @@ table.table tr:last-child td{
 
 table.table tbody tr:nth-child(even) {
 	background-color: #EEEEEE;
+}
+
+.table-container {
+	clear: both;
+	overflow: auto;
+	margin: 0 auto;
+	background-color: : cyan;
 }
 
 .dialog-background {
