@@ -2,7 +2,7 @@
 <div class="container-fluid">
 <div class="page-title"><?= $page_title ?></div>
 <div class="content">
-	<div class="tabs" data-id="asd">
+	<div class="tabs" data-id="">
 		<div class="tabs-header">
 			<div class="tabs-item-container">
 				<div class="tabs-item active" data-tabs-number="1">Konfirmasi (<span class="tabs-item-count">0</span>)</div>
@@ -181,6 +181,46 @@
 			</div>
 		</div>
 	</div>
+	<div class="dialog-ubah">
+		<div class="dialog-ubah-buttons">
+			<div class="dialog-ubah-button-container">
+				<button type="button" class="dialog-ubah-button btn-default" data-value="2" data-text="Door 1">Door 1</button>
+				<div class="button-time"></div>
+			</div>
+			<div class="dialog-ubah-arrow">&rarr;</div>
+			<div class="dialog-ubah-button-container">
+				<button type="button" class="dialog-ubah-button btn-default" data-value="3" data-text="Port 1">Port 1</button>
+				<div class="button-time"></div>
+			</div>
+			<div class="dialog-ubah-arrow">&rarr;</div>
+			<div class="dialog-ubah-button-container">
+				<button type="button" class="dialog-ubah-button btn-default" data-value="4" data-text="Port 2">Port 2</button>
+				<div class="button-time"></div>
+			</div>
+			<div class="dialog-ubah-arrow">&rarr;</div>
+			<div class="dialog-ubah-button-container">
+				<button type="button" class="dialog-ubah-button btn-default" data-value="5" data-text="Door 2">Door 2</button>
+				<div class="button-time"></div>
+			</div>
+			<div class="dialog-ubah-arrow">&rarr;</div>
+			<div class="dialog-ubah-button-container">
+				<button type="button" class="dialog-ubah-button btn-default" data-value="6" data-text="Selesai">Selesai</button>
+				<div class="button-time"></div>
+			</div>
+		</div>
+		<div class="dialog-ubah-text">
+			<div class="dialog-ubah-text-1">
+				<div class="dialog-ubah-label">Status</div>
+				<input type="text" class="dialog-ubah-input-status" value="Door 1" readonly />
+				<input type="hidden" class="dialog-ubah-input-status-value" value="2" />
+			</div>
+			<div>
+				<div class="dialog-ubah-label">Tanggal</div>
+				<input type="text" class="dialog-ubah-input-waktu" />
+			</div>
+		</div>
+		<button class="btn-default btn-submit-ubah">Ubah</button>
+	</div>
 </div>
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-cancel-transaction">
@@ -236,8 +276,15 @@ $(function() {
 		submitDeal(this);
 	});
 	
-	$(document).on("click", ".btn-ubah", function() {
-		
+	$(document).on("click", ".btn-ubah", function(e) {
+		e.stopPropagation();
+		showUbahDialog(this);
+	});
+
+	$("body:not(.dialog-ubah)").on("click", function(e) {
+		if ($(".dialog-ubah").css("display") == "block") {
+			hideUbahDialog();
+		}
 	});
 	
 	$(document).on("click", ".btn-batal-pengiriman", function() {
@@ -252,7 +299,30 @@ $(function() {
 	$(".btn-submit-cancel-transaction").on("click", function() {
 		cancelShipment();
 	});
+
+	$(".dialog-ubah-button").on("click", function() {
+		var text = $(this).data("text");
+		var value = $(this).data("value");
+		$(".dialog-ubah-input-status").val(text);
+		$(".dialog-ubah-input-status-value").val(value);
+	});
 });
+
+function showUbahDialog(element) {
+	var status = $(element).closest(".tr-kiriman").data("status");
+	$(".dialog-ubah").data("status", status);
+
+	for (var i = 2; i <= status; i++) {
+		$(".dialog-ubah-button[data-value='" + i + "']").prop("disabled", true);
+	}
+
+	$(".dialog-ubah-button[data-value='" + (status + 1) + "']").click();
+	$(".dialog-ubah").css("display", "block");
+}
+
+function hideUbahDialog() {
+	$(".dialog-ubah").css("display", "none");
+}
 
 function cancelShipment() {
 	var shipment_id = $(".dialog-konfirmasi-cancel-transaction").data("shipment_id");
@@ -280,8 +350,6 @@ function getKendaraan() {
 		$(".select-kendaraan").append(element);
 	});*/
 }
-
-
 
 function submitDeal(element) {
 	var shipment_id = $(element).closest(".tr-kiriman").data("id");
@@ -445,7 +513,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				break;
 		}
 		
-		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + tdCancelBy + additionalTd + tdStatus + element[tab].btn + waktu + "</tr>";
+		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "' data-status='" + result[i].shipment_status + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + tdCancelBy + additionalTd + tdStatus + element[tab].btn + waktu + "</tr>";
 	}
 	
 	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");

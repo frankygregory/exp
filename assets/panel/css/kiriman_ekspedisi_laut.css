@@ -32,3 +32,77 @@
 	display: block;
 	margin: 0 auto;
 }
+
+.dialog-ubah {
+	display: none;
+	position: absolute;
+	width: 750px;
+	height: 300px;
+	background-color: white;
+	border: 1px solid black;
+	z-index: 500;
+}
+
+.dialog-ubah-buttons {
+	margin-top: 20px;
+	margin-left: 30px;
+	overflow: auto;
+}
+
+.dialog-ubah-button-container, .dialog-ubah-arrow {
+	float: left;
+}
+
+.dialog-ubah-button-container {
+	width: 100px;
+	text-align: center;
+}
+
+.dialog-ubah-arrow {
+	margin: 8px 15px 0;
+}
+
+.dialog-ubah-button {
+	display: block;
+	margin: 0 auto;
+}
+
+.dialog-ubah .button-time {
+	margin-top: 5px;
+	font-size: 10pt;
+}
+
+.dialog-ubah-text {
+	width: 240px;
+	margin: 30px auto 0;
+}
+
+.dialog-ubah-text-1 {
+	margin-bottom: 10px;
+}
+
+.dialog-ubah-text .dialog-ubah-label {
+	float: left;
+	width: 60px;
+	text-align: right;
+	margin-right: 10px;
+	margin-top: 8px;
+}
+
+.dialog-ubah-text .dialog-ubah-input-status {
+	width: 100px;
+	background-color: #E0E0E0;
+	color: #616161;
+	border: 1px solid #E0E0E0;
+}
+
+.dialog-ubah-text .dialog-ubah-input-waktu {
+	width: 170px;
+}
+
+.btn-submit-ubah {
+	display: block;
+	width: 120px;
+	height: 50px;
+	margin: 30px auto 0;
+}
