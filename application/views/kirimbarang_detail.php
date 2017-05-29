@@ -463,13 +463,15 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		clearErrors();
 	}
 	
-	function kirimPenawaran() {		
+	function kirimPenawaran() {
+		var bidding_type = $(".input-bidding-type:checked").val();
 		var bidding_price = $(".input-bidding-price").val();
 		var bidding_pickupdate = $(".input-bidding-pickupdate").val();
 		var bidding_vehicle = $(".input-kendaraan").val();
 		var bidding_information = $(".input-bidding-information").val();
 		
 		var data = {
+			bidding_type: bidding_type,
 			bidding_price: bidding_price,
 			bidding_pickupdate: bidding_pickupdate,
 			bidding_vehicle: bidding_vehicle,
@@ -482,6 +484,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 			var user_id = <?= $user_id ?>;
 			data = {
 				submit_bid: true,
+				bidding_type: bidding_type,
 				bidding_price: bidding_price,
 				bidding_pickupdate: bidding_pickupdate,
 				bidding_information: bidding_information,

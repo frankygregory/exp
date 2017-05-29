@@ -1,62 +1,62 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kiriman_ekspedisi extends MY_Controller
+class Kiriman_ekspedisi_laut extends MY_Controller
 {
     public function __construct(){
         parent::__construct();
-        $this->load->model("Kiriman_ekspedisi_model");
+        $this->load->model("Kiriman_ekspedisi_laut_model");
 		$this->loadModule("tabs");
     }
 
     public function index()
     {   
 		$data = array(
-            'title' => 'Kiriman Darat',
-			'page_title' => "Kiriman Darat",
+            'title' => 'Kiriman Laut',
+			'page_title' => "Kiriman Laut",
         );
 		
-        parent::template('kiriman_ekspedisi', $data);
+        parent::template('kiriman_ekspedisi_laut', $data);
 	}
 	
 	public function getDealKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_model->getDealKiriman($user_id);
+		$kiriman = $this->Kiriman_ekspedisi_laut_model->getDealKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
 	public function getPendingKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_model->getPendingKiriman($user_id);
+		$kiriman = $this->Kiriman_ekspedisi_laut_model->getPendingKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
 	public function getPesananKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_model->getPesananKiriman($user_id);
+		$kiriman = $this->Kiriman_ekspedisi_laut_model->getPesananKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
 	public function getDikirimKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_model->getDikirimKiriman($user_id);
+		$kiriman = $this->Kiriman_ekspedisi_laut_model->getDikirimKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
 	public function getDiambilKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_model->getDiambilKiriman($user_id);
+		$kiriman = $this->Kiriman_ekspedisi_laut_model->getDiambilKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	public function getDiterimaKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_model->getDiterimaKiriman($user_id);
+		$kiriman = $this->Kiriman_ekspedisi_laut_model->getDiterimaKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
 	public function getSelesaiKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_model->getSelesaiKiriman($user_id);
+		$kiriman = $this->Kiriman_ekspedisi_laut_model->getSelesaiKiriman($user_id);
 		$iLength = sizeof($kiriman);
 		for ($i = 0; $i < $iLength; $i++) {
 			$waktu = $kiriman[$i]->waktu_kiriman;
@@ -68,7 +68,7 @@ class Kiriman_ekspedisi extends MY_Controller
 	}
 	public function getCancelKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_model->getCancelKiriman($user_id);
+		$kiriman = $this->Kiriman_ekspedisi_laut_model->getCancelKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
@@ -86,7 +86,7 @@ class Kiriman_ekspedisi extends MY_Controller
 		
 	public function getKirimanSaya() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_model->getKirimanCount($user_id);
+		$kiriman = $this->Kiriman_ekspedisi_laut_model->getKirimanCount($user_id);
 		echo json_encode($kiriman);
 	}
 	
@@ -97,7 +97,7 @@ class Kiriman_ekspedisi extends MY_Controller
 			"shipment_id" => $shipment_id,
 			"user_id" => $user_id
 		);
-		$affected_rows = $this->Kiriman_ekspedisi_model->submitDeal($data);
+		$affected_rows = $this->Kiriman_ekspedisi_laut_model->submitDeal($data);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {
@@ -121,7 +121,7 @@ class Kiriman_ekspedisi extends MY_Controller
 			"vehicle_id" => $vehicle_id,
 			"device_id" => $device_id
 		);
-		$affected_rows = $this->Kiriman_ekspedisi_model->submitPesan($data);
+		$affected_rows = $this->Kiriman_ekspedisi_laut_model->submitPesan($data);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {
@@ -136,7 +136,7 @@ class Kiriman_ekspedisi extends MY_Controller
 			"shipment_id" => $shipment_id,
 			"user_id" => $user_id
 		);
-		$affected_rows = $this->Kiriman_ekspedisi_model->submitKirim($data);
+		$affected_rows = $this->Kiriman_ekspedisi_laut_model->submitKirim($data);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {
@@ -151,7 +151,7 @@ class Kiriman_ekspedisi extends MY_Controller
 			"shipment_id" => $shipment_id,
 			"user_id" => $user_id
 		);
-		$affected_rows = $this->Kiriman_ekspedisi_model->submitAmbil($data);
+		$affected_rows = $this->Kiriman_ekspedisi_laut_model->submitAmbil($data);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {
@@ -166,7 +166,7 @@ class Kiriman_ekspedisi extends MY_Controller
 			"shipment_id" => $shipment_id,
 			"user_id" => $user_id
 		);
-		$affected_rows = $this->Kiriman_ekspedisi_model->submitTerima($data);
+		$affected_rows = $this->Kiriman_ekspedisi_laut_model->submitTerima($data);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {
@@ -181,7 +181,7 @@ class Kiriman_ekspedisi extends MY_Controller
 			"shipment_id" => $shipment_id,
 			"user_id" => $user_id
 		);
-		$affected_rows = $this->Kiriman_ekspedisi_model->cancelShipment($data);
+		$affected_rows = $this->Kiriman_ekspedisi_laut_model->cancelShipment($data);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {
@@ -191,19 +191,19 @@ class Kiriman_ekspedisi extends MY_Controller
 	
 	public function getSupir() {
 		$user_id = $this->session->userdata("user_id");
-		$driver = $this->Kiriman_ekspedisi_model->getDriverAktif($user_id);
+		$driver = $this->Kiriman_ekspedisi_laut_model->getDriverAktif($user_id);
 		echo json_encode($driver);
 	}
 	
 	public function getKendaraan() {
 		$user_id = $this->session->userdata("user_id");
-		$vehicle = $this->Kiriman_ekspedisi_model->getKendaraanAktif($user_id);
+		$vehicle = $this->Kiriman_ekspedisi_laut_model->getKendaraanAktif($user_id);
 		echo json_encode($vehicle);
 	}
 	
 	public function getAlat() {
 		$user_id = $this->session->userdata("user_id");
-		$device = $this->Kiriman_ekspedisi_model->getAlatAktif($user_id);
+		$device = $this->Kiriman_ekspedisi_laut_model->getAlatAktif($user_id);
 		echo json_encode($device);
 	}
 }

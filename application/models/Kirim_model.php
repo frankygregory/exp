@@ -138,6 +138,7 @@ class Kirim_model extends CI_Model
 	
 	public function doBidding($data) {
 		$insertData = array(
+			"bidding_type" => $data["bidding_type"],
 			"bidding_price" => $data["bidding_price"],
 			"bidding_pickupdate" => $data["bidding_pickupdate"],
 			"bidding_information" => $data["bidding_information"],

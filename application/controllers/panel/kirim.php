@@ -384,6 +384,7 @@ class Kirim extends MY_Controller
 	public function kirimPenawaran() {
 		$submit_bid = $this->input->post("submit_bid");
 		if ($submit_bid != null) {
+			$bidding_type = $this->input->post("bidding_type");
 			$bidding_price = $this->input->post("bidding_price");
 			$bidding_pickupdate = $this->input->post("bidding_pickupdate");
 			$bidding_information = $this->input->post("bidding_information");
@@ -391,6 +392,7 @@ class Kirim extends MY_Controller
 			$user_id = $this->session->userdata("user_id");
 			
 			$data = array(
+				"bidding_type" => $bidding_type,
 				"bidding_price" => $bidding_price,
 				"bidding_pickupdate" => $bidding_pickupdate,
 				"bidding_information" => $bidding_information,

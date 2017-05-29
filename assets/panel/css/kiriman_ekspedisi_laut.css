@@ -2,6 +2,7 @@
 
 .table-kiriman {
 	margin-top: 10px;
+	width: 1200px;
 }
 
 .table-kiriman a:link, .table-kiriman a:visited {
@@ -19,20 +20,15 @@
 	margin: 5px auto 0;
 }
 
+.input-no-kontainer {
+	width: 150px !important;
+}
+
 .subsection-sort {
 	float: right;
 }
 
-.btn-submit-rating {
-	float: right;
-}
-
-.rating-section {
-	width: 300px;
-	text-align: center;
+.btn-action {
+	display: block;
 	margin: 0 auto;
-}
-
-.stars {
-	overflow: auto;
 }

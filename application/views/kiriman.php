@@ -36,13 +36,13 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>Jarak</td>
+								<td data-align="center">Km</td>
 								<td>Berakhir</td>
-								<td>Action</td>
+								<td data-align='center'>Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -55,12 +55,12 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>Jarak</td>
-								<td>Action</td>
+								<td data-align="center">Km</td>
+								<td data-align='center'>Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -73,16 +73,16 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>Jarak</td>
+								<td data-align="center">Km</td>
 								<td>Jenis Muatan</td>
 								<td>Supir</td>
 								<td>Kendaraan</td>
 								<td>Lacak</td>
-								<td>Action</td>
+								<td data-align="center">Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -95,16 +95,16 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>Jarak</td>
+								<td data-align="center">Km</td>
 								<td>Jenis Muatan</td>
 								<td>Supir</td>
 								<td>Kendaraan</td>
 								<td>Lacak</td>
-								<td>Action</td>
+								<td data-align="center">Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -117,16 +117,16 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>Jarak</td>
+								<td data-align="center">Km</td>
 								<td>Jenis Muatan</td>
 								<td>Supir</td>
 								<td>Kendaraan</td>
 								<td>Lacak</td>
-								<td>Action</td>
+								<td data-align="center">Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -139,11 +139,11 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>Jarak</td>
+								<td data-align="center">Km</td>
 								<td>Jenis Muatan</td>
 								<td>Supir</td>
 								<td>Kendaraan</td>
@@ -161,17 +161,17 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>Jarak</td>
+								<td data-align="center">Km</td>
 								<td>Jenis Muatan</td>
 								<td>Supir</td>
 								<td>Kendaraan</td>
 								<td>Lacak</td>
-								<td>Waktu Kiriman</td>
-								<td>Total Waktu</td>
+								<td data-align="center">Waktu Kiriman</td>
+								<td data-align="center">Total Waktu</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -184,11 +184,11 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td>Nama Kirim</td>
+								<td data-align="center">Nama Kirim</td>
 								<td>Harga</td>
 								<td>Asal</td>
 								<td>Tujuan</td>
-								<td>Jarak</td>
+								<td data-align="center">Km</td>
 								<td>Cancel By</td>
 							</tr>
 						</thead>
@@ -411,7 +411,7 @@ $(function() {
 					break;
 			}
 			
-			element += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "</a><img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + result[i].shipment_length + " Km</td>" + tdJenisMuatan + additionalTd + berakhir + ratingSection + action + waktu + cancelBy + "</tr>";
+			element += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + tdJenisMuatan + additionalTd + berakhir + ratingSection + action + waktu + cancelBy + "</tr>";
 		}
 		
 		$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");
