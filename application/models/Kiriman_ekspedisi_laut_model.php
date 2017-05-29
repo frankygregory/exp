@@ -2,6 +2,15 @@
 
 class Kiriman_ekspedisi_laut_model extends CI_Model
 {
+	protected $shipment_status_col = array(
+		
+		"2" => "door_start",
+		"3" => "port_start",
+		"4" => "port_finish",
+		"5" => "door_finish",
+		"6" => "ending"
+	);
+
     public function __construct()
     {
         parent::__construct();
@@ -31,73 +40,49 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 		return $query->result();
 	}
 	
-	public function getPesananKiriman($user_id) {
+	public function getDoorAwalKiriman($user_id) {
 		$query = $this->db->query("
-			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, GROUP_CONCAT(dd.driver_id SEPARATOR ';') AS driver_ids, GROUP_CONCAT(dd.driver_name SEPARATOR ';') AS driver_names, GROUP_CONCAT(vd.vehicle_id SEPARATOR ';') AS vehicle_ids, GROUP_CONCAT(vd.vehicle_name SEPARATOR ';') AS vehicle_names, GROUP_CONCAT(ded.device_id SEPARATOR ';') AS device_ids, GROUP_CONCAT(ded.device_name SEPARATOR ';') AS device_names
-			FROM `t_bidding` t, `m_shipment` m
+			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, sd.ship_id, sd.shipment_details_container_number
+			FROM `t_bidding` t, `m_shipment_laut` sd, `m_shipment` m
 			LEFT JOIN (SELECT COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) tb
 			ON m.shipment_id = tb.shipment_id
-			LEFT JOIN (SELECT dd.driver_id, dd.shipment_id, d.driver_name FROM `m_driver_details` dd, `m_driver` d WHERE dd.driver_id = d.driver_id) dd
-            ON dd.shipment_id = m.shipment_id
-			LEFT JOIN (SELECT vd.vehicle_id, vd.shipment_id, v.vehicle_name FROM `m_vehicle_details` vd, `m_vehicle` v WHERE vd.vehicle_id = v.vehicle_id) vd
-            ON vd.shipment_id = m.shipment_id
-            LEFT JOIN (SELECT ded.device_id, ded.shipment_id, de.device_name FROM `m_device_details` ded, `m_device_customer` de WHERE ded.device_id = de.device_id) ded
-            ON ded.shipment_id = m.shipment_id
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 2 AND t.bidding_type = 2
+			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 2 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
 	}
 	
-	public function getDikirimKiriman($user_id) {
+	public function getPortAwalKiriman($user_id) {
 		$query = $this->db->query("
-			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, GROUP_CONCAT(dd.driver_id SEPARATOR ';') AS driver_ids, GROUP_CONCAT(dd.driver_name SEPARATOR ';') AS driver_names, GROUP_CONCAT(vd.vehicle_id SEPARATOR ';') AS vehicle_ids, GROUP_CONCAT(vd.vehicle_name SEPARATOR ';') AS vehicle_names, GROUP_CONCAT(ded.device_id SEPARATOR ';') AS device_ids, GROUP_CONCAT(ded.device_name SEPARATOR ';') AS device_names
-			FROM `t_bidding` t, `m_shipment` m
+			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, sd.ship_id, sd.shipment_details_container_number
+			FROM `t_bidding` t, `m_shipment_laut` sd, `m_shipment` m
 			LEFT JOIN (SELECT COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) tb
 			ON m.shipment_id = tb.shipment_id
-			LEFT JOIN (SELECT dd.driver_id, dd.shipment_id, d.driver_name FROM `m_driver_details` dd, `m_driver` d WHERE dd.driver_id = d.driver_id) dd
-            ON dd.shipment_id = m.shipment_id
-			LEFT JOIN (SELECT vd.vehicle_id, vd.shipment_id, v.vehicle_name FROM `m_vehicle_details` vd, `m_vehicle` v WHERE vd.vehicle_id = v.vehicle_id) vd
-            ON vd.shipment_id = m.shipment_id
-            LEFT JOIN (SELECT ded.device_id, ded.shipment_id, de.device_name FROM `m_device_details` ded, `m_device_customer` de WHERE ded.device_id = de.device_id) ded
-            ON ded.shipment_id = m.shipment_id
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 3 AND t.bidding_type = 2
+			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 3 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
 	}
 	
-	public function getDiambilKiriman($user_id) {
+	public function getPortAkhirKiriman($user_id) {
 		$query = $this->db->query("
-			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, GROUP_CONCAT(dd.driver_id SEPARATOR ';') AS driver_ids, GROUP_CONCAT(dd.driver_name SEPARATOR ';') AS driver_names, GROUP_CONCAT(vd.vehicle_id SEPARATOR ';') AS vehicle_ids, GROUP_CONCAT(vd.vehicle_name SEPARATOR ';') AS vehicle_names, GROUP_CONCAT(ded.device_id SEPARATOR ';') AS device_ids, GROUP_CONCAT(ded.device_name SEPARATOR ';') AS device_names
-			FROM `t_bidding` t, `m_shipment` m
+			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, sd.ship_id, sd.shipment_details_container_number
+			FROM `t_bidding` t, `m_shipment_laut` sd, `m_shipment` m
 			LEFT JOIN (SELECT COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) tb
 			ON m.shipment_id = tb.shipment_id
-			LEFT JOIN (SELECT dd.driver_id, dd.shipment_id, d.driver_name FROM `m_driver_details` dd, `m_driver` d WHERE dd.driver_id = d.driver_id) dd
-            ON dd.shipment_id = m.shipment_id
-			LEFT JOIN (SELECT vd.vehicle_id, vd.shipment_id, v.vehicle_name FROM `m_vehicle_details` vd, `m_vehicle` v WHERE vd.vehicle_id = v.vehicle_id) vd
-            ON vd.shipment_id = m.shipment_id
-            LEFT JOIN (SELECT ded.device_id, ded.shipment_id, de.device_name FROM `m_device_details` ded, `m_device_customer` de WHERE ded.device_id = de.device_id) ded
-            ON ded.shipment_id = m.shipment_id
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 4 AND t.bidding_type = 2
+			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 4 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
 	}
 	
-	public function getDiterimaKiriman($user_id) {
+	public function getDoorAkhirKiriman($user_id) {
 		$query = $this->db->query("
-			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, GROUP_CONCAT(dd.driver_id SEPARATOR ';') AS driver_ids, GROUP_CONCAT(dd.driver_name SEPARATOR ';') AS driver_names, GROUP_CONCAT(vd.vehicle_id SEPARATOR ';') AS vehicle_ids, GROUP_CONCAT(vd.vehicle_name SEPARATOR ';') AS vehicle_names, GROUP_CONCAT(ded.device_id SEPARATOR ';') AS device_ids, GROUP_CONCAT(ded.device_name SEPARATOR ';') AS device_names
-			FROM `t_bidding` t, `m_shipment` m
+			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, sd.ship_id, sd.shipment_details_container_number
+			FROM `t_bidding` t, `m_shipment_laut` sd, `m_shipment` m
 			LEFT JOIN (SELECT COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) tb
 			ON m.shipment_id = tb.shipment_id
-			LEFT JOIN (SELECT dd.driver_id, dd.shipment_id, d.driver_name FROM `m_driver_details` dd, `m_driver` d WHERE dd.driver_id = d.driver_id) dd
-            ON dd.shipment_id = m.shipment_id
-			LEFT JOIN (SELECT vd.vehicle_id, vd.shipment_id, v.vehicle_name FROM `m_vehicle_details` vd, `m_vehicle` v WHERE vd.vehicle_id = v.vehicle_id) vd
-            ON vd.shipment_id = m.shipment_id
-            LEFT JOIN (SELECT ded.device_id, ded.shipment_id, de.device_name FROM `m_device_details` ded, `m_device_customer` de WHERE ded.device_id = de.device_id) ded
-            ON ded.shipment_id = m.shipment_id
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 5 AND t.bidding_type = 2
+			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 5 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -105,17 +90,11 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 	
 	public function getSelesaiKiriman($user_id) {
 		$query = $this->db->query("
-			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, GROUP_CONCAT(dd.driver_id SEPARATOR ';') AS driver_ids, GROUP_CONCAT(dd.driver_name SEPARATOR ';') AS driver_names, GROUP_CONCAT(vd.vehicle_id SEPARATOR ';') AS vehicle_ids, GROUP_CONCAT(vd.vehicle_name SEPARATOR ';') AS vehicle_names, GROUP_CONCAT(ded.device_id SEPARATOR ';') AS device_ids, GROUP_CONCAT(ded.device_name SEPARATOR ';') AS device_names, TIMESTAMPDIFF(SECOND, m.delivery_date, m.receive_date) AS waktu_kiriman, TIMESTAMPDIFF(SECOND, m.pending_date, m.end_date) AS total_waktu
-			FROM `t_bidding` t, `m_shipment` m
+			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, sd.ship_id, sd.shipment_details_container_number, TIMESTAMPDIFF(SECOND, m.delivery_date, m.receive_date) AS waktu_kiriman, TIMESTAMPDIFF(SECOND, sd.pending_date, sd.ending_date) AS total_waktu
+			FROM `t_bidding` t, `m_shipment_laut` sd, `m_shipment` m
 			LEFT JOIN (SELECT COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) tb
 			ON m.shipment_id = tb.shipment_id
-			LEFT JOIN (SELECT dd.driver_id, dd.shipment_id, d.driver_name FROM `m_driver_details` dd, `m_driver` d WHERE dd.driver_id = d.driver_id) dd
-            ON dd.shipment_id = m.shipment_id
-			LEFT JOIN (SELECT vd.vehicle_id, vd.shipment_id, v.vehicle_name FROM `m_vehicle_details` vd, `m_vehicle` v WHERE vd.vehicle_id = v.vehicle_id) vd
-            ON vd.shipment_id = m.shipment_id
-            LEFT JOIN (SELECT ded.device_id, ded.shipment_id, de.device_name FROM `m_device_details` ded, `m_device_customer` de WHERE ded.device_id = de.device_id) ded
-            ON ded.shipment_id = m.shipment_id
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 6 AND t.bidding_type = 2
+			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 6 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -123,16 +102,10 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 	
 	public function getCancelKiriman($user_id) {
 		$query = $this->db->query("
-			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, m.cancel_by, u.username AS cancel_username, GROUP_CONCAT(dd.driver_id SEPARATOR ';') AS driver_ids, GROUP_CONCAT(dd.driver_name SEPARATOR ';') AS driver_names, GROUP_CONCAT(vd.vehicle_id SEPARATOR ';') AS vehicle_ids, GROUP_CONCAT(vd.vehicle_name SEPARATOR ';') AS vehicle_names, GROUP_CONCAT(ded.device_id SEPARATOR ';') AS device_ids, GROUP_CONCAT(ded.device_name SEPARATOR ';') AS device_names
+			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, m.cancel_by
 			FROM `m_user` u, `t_bidding` t, `m_shipment` m
 			LEFT JOIN (SELECT COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) tb
 			ON m.shipment_id = tb.shipment_id
-			LEFT JOIN (SELECT dd.driver_id, dd.shipment_id, d.driver_name FROM `m_driver_details` dd, `m_driver` d WHERE dd.driver_id = d.driver_id) dd
-            ON dd.shipment_id = m.shipment_id
-			LEFT JOIN (SELECT vd.vehicle_id, vd.shipment_id, v.vehicle_name FROM `m_vehicle_details` vd, `m_vehicle` v WHERE vd.vehicle_id = v.vehicle_id) vd
-            ON vd.shipment_id = m.shipment_id
-            LEFT JOIN (SELECT ded.device_id, ded.shipment_id, de.device_name FROM `m_device_details` ded, `m_device_customer` de WHERE ded.device_id = de.device_id) ded
-            ON ded.shipment_id = m.shipment_id
 			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 7 AND u.user_id = m.cancel_by AND t.bidding_type = 2
 			GROUP BY m.shipment_id
 		");
@@ -161,52 +134,39 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 		return $query->result();
 	}
 	
-	public function getDriverAktif($user_id) {
-		$query = $this->db->query("
-			SELECT m.*, COALESCE(d.shipment_id, '') AS shipment_id
-			FROM `m_driver` m
-			LEFT JOIN `m_driver_details` d
-			ON m.driver_id = d.driver_id AND d.driver_details_status = 1
-			WHERE m.user_id = '" . $user_id . "' AND COALESCE(d.shipment_id, '') = '' AND m.driver_status = 1
-			GROUP BY m.driver_id
-		");
-		return $query->result();
-	}
-	
-	public function getAlatAktif($user_id) {
-		$query = $this->db->query("
-			SELECT m.*, COALESCE(d.shipment_id, '') AS shipment_id
-			FROM `m_device_customer` m
-			LEFT JOIN `m_device_details` d
-			ON m.device_id = d.device_id AND d.device_details_status = 1
-			WHERE m.user_id = '" . $user_id . "' AND COALESCE(d.shipment_id, '') = '' AND m.device_status = 1
-			GROUP BY m.device_id
-		");
-		return $query->result();
-	}
-	
 	public function submitDeal($data) {
 		$this->db->query("CALL deal_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
 		return 1;
 	}
 	
-	public function submitPesan($data) {
-		$this->db->query("CALL pesan_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "', '" . $data["driver_id"] . "', '" . $data["vehicle_id"] . "', '" . $data["device_id"] . "', '" . $data["shipment_jenis_muatan"] . "');");
-		return 1;
-	}
-	
-	public function submitKirim($data) {
-		$this->db->query("CALL kirim_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
-		return 1;
-	}
-	
-	public function submitAmbil($data) {
-		$this->db->query("CALL ambil_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
-		return 1;
-	}
-	
-	public function submitTerima($data) {
-		$this->db->query("CALL terima_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
+	public function submitUbah($data) {
+		$this->db->trans_start();
+		$status = $this->db->query("SELECT shipment_status FROM `m_shipment` WHERE shipment_id = " . $data["shipment_id"])->result()[0]->shipment_status;
+
+		$set = "";
+		if ($status < 2) {
+			$set .= "ship_id = '" . $data["ship_id"] . "', shipment_details_container_number = '" . $data["shipment_details_container_number"] . "'";
+		}
+		for ($i = $status + 1; $i <= $data["shipment_status"]; $i++) {
+			if ($set != "") {
+				$set .= ", ";
+			}
+			$set .= $this->shipment_status_col[$i] . "_date = '" . $data["datetime"] . "'";
+			$set .= ", " . $this->shipment_status_col[$i] . "_by = '" . $data["user_id"] . "'";
+		}
+		$set .= ", modified_by = '" . $data["user_id"] . "'";
+
+		$this->db->query("
+			UPDATE `m_shipment`
+			SET shipment_status = '" . $data["shipment_status"] . "', modified_by = '" . $data["user_id"] . "'
+			WHERE shipment_id = '" . $data["shipment_id"] . "'"
+		);
+		$this->db->query("
+			UPDATE `m_shipment_laut`
+			SET " . $set . " 
+			WHERE shipment_id = '" . $data["shipment_id"] . "'
+		");
+		$this->db->trans_complete();
 		return 1;
 	}
 	

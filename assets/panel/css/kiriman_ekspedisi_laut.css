@@ -36,11 +36,14 @@
 .dialog-ubah {
 	display: none;
 	position: absolute;
+	left: 0;
+	right: 0;
+	margin: auto;
 	width: 750px;
 	height: 300px;
 	background-color: white;
 	border: 1px solid black;
-	z-index: 500;
+	z-index: 10;
 }
 
 .dialog-ubah-buttons {

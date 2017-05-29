@@ -14,7 +14,7 @@
 
 .tabs-item {
 	float: left;
-	width: 100px;
+	width: 110px;
 	padding: 10px 0 10px;
 	text-align: center;
 	cursor: pointer;
@@ -30,7 +30,7 @@
 }
 
 .tabs-selection {
-	width: 100px;
+	width: 110px;
 	height: 5px;
 	margin-top: -5px;
 	background-color: #2196F3;

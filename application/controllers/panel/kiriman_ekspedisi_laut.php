@@ -7,6 +7,7 @@ class Kiriman_ekspedisi_laut extends MY_Controller
         parent::__construct();
         $this->load->model("Kiriman_ekspedisi_laut_model");
 		$this->loadModule("tabs");
+		$this->loadModule("datepicker");
     }
 
     public function index()
@@ -31,26 +32,26 @@ class Kiriman_ekspedisi_laut extends MY_Controller
 		echo json_encode($kiriman);
 	}
 	
-	public function getPesananKiriman() {
+	public function getDoorAwalKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_laut_model->getPesananKiriman($user_id);
+		$kiriman = $this->Kiriman_ekspedisi_laut_model->getDoorAwalKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
-	public function getDikirimKiriman() {
+	public function getPortAwalKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_laut_model->getDikirimKiriman($user_id);
+		$kiriman = $this->Kiriman_ekspedisi_laut_model->getPortAwalKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
-	public function getDiambilKiriman() {
+	public function getPortAkhirKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_laut_model->getDiambilKiriman($user_id);
+		$kiriman = $this->Kiriman_ekspedisi_laut_model->getPortAkhirKiriman($user_id);
 		echo json_encode($kiriman);
 	}
-	public function getDiterimaKiriman() {
+	public function getDoorAkhirKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_ekspedisi_laut_model->getDiterimaKiriman($user_id);
+		$kiriman = $this->Kiriman_ekspedisi_laut_model->getDoorAkhirKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
@@ -59,8 +60,6 @@ class Kiriman_ekspedisi_laut extends MY_Controller
 		$kiriman = $this->Kiriman_ekspedisi_laut_model->getSelesaiKiriman($user_id);
 		$iLength = sizeof($kiriman);
 		for ($i = 0; $i < $iLength; $i++) {
-			$waktu = $kiriman[$i]->waktu_kiriman;
-			$kiriman[$i]->waktu_kiriman = $this->secondsToDay($waktu);
 			$waktu = $kiriman[$i]->total_waktu;
 			$kiriman[$i]->total_waktu = $this->secondsToDay($waktu);
 		}
@@ -105,68 +104,23 @@ class Kiriman_ekspedisi_laut extends MY_Controller
 		}
 	}
 	
-	public function submitPesan() {
+	public function submitUbah() {
 		$shipment_id = $this->input->post("shipment_id");
+		$ship_id = $this->input->post("ship_id");
+		$shipment_details_container_number = $this->input->post("shipment_details_container_number");
+		$shipment_status = $this->input->post("shipment_status");
+		$datetime = $this->input->post("datetime");
 		$user_id = $this->session->userdata("user_id");
-		$shipment_jenis_muatan = $this->input->post("jenis_muatan");
-		$driver_id = $this->input->post("driver_id");
-		$vehicle_id = $this->input->post("vehicle_id");
-		$device_id = $this->input->post("device_id");
 		
 		$data = array(
 			"shipment_id" => $shipment_id,
-			"user_id" => $user_id,
-			"shipment_jenis_muatan" => $shipment_jenis_muatan,
-			"driver_id" => $driver_id,
-			"vehicle_id" => $vehicle_id,
-			"device_id" => $device_id
-		);
-		$affected_rows = $this->Kiriman_ekspedisi_laut_model->submitPesan($data);
-		if ($affected_rows > 0) {
-			echo "success";
-		} else {
-			echo "no rows affected. WHY??";
-		}
-	}
-	
-	public function submitKirim() {
-		$shipment_id = $this->input->post("shipment_id");
-		$user_id = $this->session->userdata("user_id");
-		$data = array(
-			"shipment_id" => $shipment_id,
+			"ship_id" => $ship_id,
+			"shipment_details_container_number" => $shipment_details_container_number,
+			"shipment_status" => $shipment_status,
+			"datetime" => $datetime,
 			"user_id" => $user_id
 		);
-		$affected_rows = $this->Kiriman_ekspedisi_laut_model->submitKirim($data);
-		if ($affected_rows > 0) {
-			echo "success";
-		} else {
-			echo "no rows affected. WHY??";
-		}
-	}
-	
-	public function submitAmbil() {
-		$shipment_id = $this->input->post("shipment_id");
-		$user_id = $this->session->userdata("user_id");
-		$data = array(
-			"shipment_id" => $shipment_id,
-			"user_id" => $user_id
-		);
-		$affected_rows = $this->Kiriman_ekspedisi_laut_model->submitAmbil($data);
-		if ($affected_rows > 0) {
-			echo "success";
-		} else {
-			echo "no rows affected. WHY??";
-		}
-	}
-	
-	public function submitTerima() {
-		$shipment_id = $this->input->post("shipment_id");
-		$user_id = $this->session->userdata("user_id");
-		$data = array(
-			"shipment_id" => $shipment_id,
-			"user_id" => $user_id
-		);
-		$affected_rows = $this->Kiriman_ekspedisi_laut_model->submitTerima($data);
+		$affected_rows = $this->Kiriman_ekspedisi_laut_model->submitUbah($data);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {
@@ -189,21 +143,9 @@ class Kiriman_ekspedisi_laut extends MY_Controller
 		}
 	}
 	
-	public function getSupir() {
-		$user_id = $this->session->userdata("user_id");
-		$driver = $this->Kiriman_ekspedisi_laut_model->getDriverAktif($user_id);
-		echo json_encode($driver);
-	}
-	
 	public function getKendaraan() {
 		$user_id = $this->session->userdata("user_id");
 		$vehicle = $this->Kiriman_ekspedisi_laut_model->getKendaraanAktif($user_id);
 		echo json_encode($vehicle);
-	}
-	
-	public function getAlat() {
-		$user_id = $this->session->userdata("user_id");
-		$device = $this->Kiriman_ekspedisi_laut_model->getAlatAktif($user_id);
-		echo json_encode($device);
 	}
 }

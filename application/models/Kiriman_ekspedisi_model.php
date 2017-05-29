@@ -13,7 +13,7 @@ class Kiriman_ekspedisi_model extends CI_Model
 			FROM `t_bidding` t, `m_shipment` m
 			LEFT JOIN (SELECT COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) tb
 			ON m.shipment_id = tb.shipment_id
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 0
+			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 0 AND t.bidding_type = 1
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -25,7 +25,7 @@ class Kiriman_ekspedisi_model extends CI_Model
 			FROM `t_bidding` t, `m_shipment` m
 			LEFT JOIN (SELECT COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) tb
 			ON m.shipment_id = tb.shipment_id
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 1
+			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 1 AND t.bidding_type = 1
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -43,7 +43,7 @@ class Kiriman_ekspedisi_model extends CI_Model
             ON vd.shipment_id = m.shipment_id
             LEFT JOIN (SELECT ded.device_id, ded.shipment_id, de.device_name FROM `m_device_details` ded, `m_device_customer` de WHERE ded.device_id = de.device_id) ded
             ON ded.shipment_id = m.shipment_id
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 2
+			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 2 AND t.bidding_type = 1
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -61,7 +61,7 @@ class Kiriman_ekspedisi_model extends CI_Model
             ON vd.shipment_id = m.shipment_id
             LEFT JOIN (SELECT ded.device_id, ded.shipment_id, de.device_name FROM `m_device_details` ded, `m_device_customer` de WHERE ded.device_id = de.device_id) ded
             ON ded.shipment_id = m.shipment_id
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 3
+			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 3 AND t.bidding_type = 1
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -79,7 +79,7 @@ class Kiriman_ekspedisi_model extends CI_Model
             ON vd.shipment_id = m.shipment_id
             LEFT JOIN (SELECT ded.device_id, ded.shipment_id, de.device_name FROM `m_device_details` ded, `m_device_customer` de WHERE ded.device_id = de.device_id) ded
             ON ded.shipment_id = m.shipment_id
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 4
+			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 4 AND t.bidding_type = 1
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -97,7 +97,7 @@ class Kiriman_ekspedisi_model extends CI_Model
             ON vd.shipment_id = m.shipment_id
             LEFT JOIN (SELECT ded.device_id, ded.shipment_id, de.device_name FROM `m_device_details` ded, `m_device_customer` de WHERE ded.device_id = de.device_id) ded
             ON ded.shipment_id = m.shipment_id
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 5
+			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 5 AND t.bidding_type = 1
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -115,7 +115,7 @@ class Kiriman_ekspedisi_model extends CI_Model
             ON vd.shipment_id = m.shipment_id
             LEFT JOIN (SELECT ded.device_id, ded.shipment_id, de.device_name FROM `m_device_details` ded, `m_device_customer` de WHERE ded.device_id = de.device_id) ded
             ON ded.shipment_id = m.shipment_id
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 6
+			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 6 AND t.bidding_type = 1
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -143,7 +143,7 @@ class Kiriman_ekspedisi_model extends CI_Model
 		$query = $this->db->query(
 			"SELECT m.shipment_status, COUNT(m.shipment_status) AS count
 			FROM `m_shipment` m, `t_bidding` t
-			WHERE t.user_id = '" . $user_id . "' AND t.bidding_status = 1 AND t.shipment_id = m.shipment_id
+			WHERE t.user_id = '" . $user_id . "' AND t.bidding_status = 1 AND t.shipment_id = m.shipment_id AND t.bidding_type = 1
 			GROUP BY m.shipment_status;"
 		);
 		return $query->result();

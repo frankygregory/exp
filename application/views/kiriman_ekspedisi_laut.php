@@ -275,14 +275,16 @@ $(function() {
 	$(document).on("click", ".btn-deal", function() {
 		submitDeal(this);
 	});
+
+	$(".dialog-ubah-input-waktu").datepicker();
 	
 	$(document).on("click", ".btn-ubah", function(e) {
 		e.stopPropagation();
 		showUbahDialog(this);
 	});
 
-	$("body:not(.dialog-ubah)").on("click", function(e) {
-		if ($(".dialog-ubah").css("display") == "block") {
+	$("body").on("click", function(e) {
+		if ($(e.target).closest(".dialog-ubah").length == 0 && $(e.target).closest(".datepicker").length == 0) {
 			hideUbahDialog();
 		}
 	});
@@ -294,6 +296,10 @@ $(function() {
 		$(".dialog-konfirmasi-cancel-transaction").data("shipment_id", shipment_id);
 		$(".dialog-konfirmasi-cancel-transaction .dialog-body").html("Batalkan kiriman " + shipment_title + "?");
 		showDialog(".dialog-konfirmasi-cancel-transaction");
+	});
+
+	$(".btn-submit-ubah").on("click", function() {
+		submitUbah();
 	});
 	
 	$(".btn-submit-cancel-transaction").on("click", function() {
@@ -308,16 +314,65 @@ $(function() {
 	});
 });
 
+function submitUbah() {
+	var shipment_id = $(".dialog-ubah").data("id");
+	var shipment_status = $(".dialog-ubah-input-status-value").val();
+	var datetime = $(".dialog-ubah-input-waktu").val() + " 00:00:00";
+	var shipment_details_container_number = $(".dialog-ubah").data("shipment_details_container_number");
+	var ship_id = $(".dialog-ubah").data("ship_id");
+
+	var data = {
+		shipment_id: shipment_id,
+		shipment_status: shipment_status,
+		datetime: datetime,
+		shipment_details_container_number: shipment_details_container_number,
+		ship_id: ship_id
+	};
+
+	ajaxCall("<?= base_url("kiriman-laut-ekspedisi/submitUbah"); ?>", data, function(result) {
+		if (result == "success") {
+			hideUbahDialog();
+			refreshData();
+		}
+	});
+}
+
 function showUbahDialog(element) {
-	var status = $(element).closest(".tr-kiriman").data("status");
+	var trKiriman = $(element).closest(".tr-kiriman");
+	var top = $(element).offset().top + $(element).outerHeight();
+	$(".dialog-ubah").css({top: top});
+	var status = $(trKiriman).data("status");
 	$(".dialog-ubah").data("status", status);
 
-	for (var i = 2; i <= status; i++) {
-		$(".dialog-ubah-button[data-value='" + i + "']").prop("disabled", true);
+	var valid = true;
+	if (status == 1) {
+		var inputNoKontainer = $(trKiriman).find(".input-no-kontainer");
+		var noKontainer = $(inputNoKontainer).val().trim();
+		if (noKontainer == "") {
+			valid = false;
+			alert("Nomor Kontainer harus diisi");
+			$(inputNoKontainer).select();
+		} else {
+			var ship_id = $(trKiriman).find(".select-kapal").val();
+			$(".dialog-ubah").data("ship_id", ship_id);
+			$(".dialog-ubah").data("shipment_details_container_number", noKontainer);
+		}
 	}
 
-	$(".dialog-ubah-button[data-value='" + (status + 1) + "']").click();
-	$(".dialog-ubah").css("display", "block");
+	if (valid) {
+		var id = $(trKiriman).data("id");
+		$(".dialog-ubah").data("id", id);
+
+		for (var i = 2; i <= status; i++) {
+			$(".dialog-ubah-button[data-value='" + i + "']").prop("disabled", true);
+		}
+
+		$(".dialog-ubah-button[data-value='" + (status + 1) + "']").click();
+		var date = new Date();
+		var strDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+		$(".dialog-ubah-input-waktu").val(strDate);
+		$(".dialog-ubah").css("display", "block");
+	}
 }
 
 function hideUbahDialog() {
@@ -456,7 +511,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		},
 		"door2": {
 			value: "",
-			btn: "",
+			btn: "<td><button class='btn-default btn-action btn-ubah'>Ubah</button><button class='btn-negative btn-action btn-batal-pengiriman'>Batalkan</button></td>"
 		},
 		"selesai": {
 			value: "",
@@ -488,25 +543,25 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				tdStatus = "<td>D1 &rarr; P1 &rarr; P2 &rarr; D2</td>";
 				break;
 			case "door1":
-				additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
-				tdStatus = "<td>D1 &rarr; P1 &rarr; P2 &rarr; D2</td>";
+				additionalTd = "<td>" + result[i].ship_id + "</td><td>" + result[i].shipment_details_container_number + "</td>";
+				tdStatus = "<td><strong>D1</strong> &rarr; P1 &rarr; P2 &rarr; D2</td>";
 				break;
 			case "port1":
-				additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
-				tdStatus = "<td>D1 &rarr; P1 &rarr; P2 &rarr; D2</td>";
+				additionalTd = "<td>" + result[i].ship_id + "</td><td>" + result[i].shipment_details_container_number + "</td>";
+				tdStatus = "<td><strong>D1 &rarr; P1</strong> &rarr; P2 &rarr; D2</td>";
 				break;
 			case "port2":
-				additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
-				tdStatus = "<td>D1 &rarr; P1 &rarr; P2 &rarr; D2</td>";
+				additionalTd = "<td>" + result[i].ship_id + "</td><td>" + result[i].shipment_details_container_number + "</td>";
+				tdStatus = "<td><strong>D1 &rarr; P1 &rarr; P2</strong> &rarr; D2</td>";
 				break;
 			case "door2":
-				additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
-				tdStatus = "<td>D1 &rarr; P1 &rarr; P2 &rarr; D2</td>";
+				additionalTd = "<td>" + result[i].ship_id + "</td><td>" + result[i].shipment_details_container_number + "</td>";
+				tdStatus = "<td><strong>D1 &rarr; P1 &rarr; P2 &rarr; D2</strong></td>";
 				break;
 			case "selesai":
-				additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
-				tdStatus = "<td>D1 &rarr; P1 &rarr; P2 &rarr; D2</td>";
-				waktu = "<td data-align='center'>" + result[i].waktu_kiriman + " hari</td><td data-align='center'>" + result[i].total_waktu + " hari</td>";
+				additionalTd = "<td>" + result[i].ship_id + "</td><td>" + result[i].shipment_details_container_number + "</td>";
+				tdStatus = "<td><strong>D1 &rarr; P1 &rarr; P2 &rarr; D2</strong></td>";
+				waktu = "<td data-align='center'>" + result[i].total_waktu + " hari</td>";
 				break;
 			case "cancel":
 				tdCancelBy = "<td class='td-cancel_by'>" + result[i].cancel_username + "</td>";

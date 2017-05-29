@@ -9,6 +9,7 @@
 	border: 1px solid #BDBDBD;
 	padding: 5px;
 	background-color: white;
+	z-index: 100;
 }
 
 .datepicker-bulan-container {
