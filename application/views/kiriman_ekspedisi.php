@@ -5,7 +5,7 @@
 	<div class="tabs" data-id="asd">
 		<div class="tabs-header">
 			<div class="tabs-item-container">
-				<div class="tabs-item active" data-tabs-number="1">Deal (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item active" data-tabs-number="1">Konfirmasi (<span class="tabs-item-count">0</span>)</div>
 				<div class="tabs-item" data-tabs-number="2">Pending (<span class="tabs-item-count">0</span>)</div>
 				<div class="tabs-item" data-tabs-number="3">Pesanan (<span class="tabs-item-count">0</span>)</div>
 				<div class="tabs-item" data-tabs-number="4">Dikirim (<span class="tabs-item-count">0</span>)</div>
@@ -205,7 +205,7 @@
 </div>
 </div>
 <script>
-var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var month = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"];
 var kirimanUrl = [];
 kirimanUrl[1] = "<?= base_url("kiriman-darat-ekspedisi/getDealKiriman") ?>";
 kirimanUrl[2] = "<?= base_url("kiriman-darat-ekspedisi/getPendingKiriman") ?>";
@@ -491,7 +491,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 	var element = {
 		"deal": {
 			value: "",
-			btn: "<td><button class='btn-default btn-action btn-deal'>Deal</button><button class='btn-negative btn-action btn-batal-pengiriman'>Tolak</button></td>"
+			btn: "<td><button class='btn-default btn-action btn-deal'>Konfirmasi</button><button class='btn-negative btn-action btn-batal-pengiriman'>Tolak</button></td>"
 		},
 		"pending": {
 			value: "",
@@ -526,9 +526,9 @@ function addKirimanToTable(result, tabsNumber, tab) {
 	for (var i = 0; i < iLength; i++) {
 		
 		var date_from = new Date(result[i].shipment_delivery_date_from);
-		var fullDateFrom = date_from.getDate() + " " + month[date_from.getMonth()] + " " + date_from.getFullYear();
+		var fullDateFrom = date_from.getDate() + " " + month[date_from.getMonth()] + " " + date_from.getFullYear().toString().substring(2);
 		var date_to = new Date(result[i].shipment_delivery_date_to);
-		var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear();
+		var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear().toString().substring(2);
 		
 		var jenis_muatan = "Penuh";
 		if (result[i].shipment_jenis_muatan == 0) {

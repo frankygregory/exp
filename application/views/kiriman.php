@@ -16,205 +16,30 @@
 	</div>
 </div>
 <div class="content">
-	<div class="tabs" data-id="asd">
-		<div class="tabs-header">
-			<div class="tabs-item-container">
-				<div class="tabs-item active" data-tabs-number="1">Open (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="2">Pending (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="3">Pesanan (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="4">Dikirim (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="5">Diambil (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="6">Diterima (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="7">Selesai (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="8">Cancel (<span class="tabs-item-count">0</span>)</div>
-			</div>
-			<div class="tabs-selection"></div>
-		</div>
-		<div class="tabs-body">
-			<div class="tabs-content active" data-tabs-number="1">
-				<div class="table-container">
-					<table class="table table-kiriman">
-						<thead>
-							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">Km</td>
-								<td>Berakhir</td>
-								<td data-align='center'>Action</td>
-							</tr>
-						</thead>
-						<tbody class="tbody-kiriman">
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="tabs-content" data-tabs-number="2">
-				<div class="table-container">
-					<table class="table table-kiriman">
-						<thead>
-							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">Km</td>
-								<td data-align='center'>Action</td>
-							</tr>
-						</thead>
-						<tbody class="tbody-kiriman">
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="tabs-content" data-tabs-number="3">
-				<div class="table-container">
-					<table class="table table-kiriman">
-						<thead>
-							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">Km</td>
-								<td>Jenis Muatan</td>
-								<td>Supir</td>
-								<td>Kendaraan</td>
-								<td>Lacak</td>
-								<td data-align="center">Action</td>
-							</tr>
-						</thead>
-						<tbody class="tbody-kiriman">
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="tabs-content" data-tabs-number="4">
-				<div class="table-container">
-					<table class="table table-kiriman">
-						<thead>
-							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">Km</td>
-								<td>Jenis Muatan</td>
-								<td>Supir</td>
-								<td>Kendaraan</td>
-								<td>Lacak</td>
-								<td data-align="center">Action</td>
-							</tr>
-						</thead>
-						<tbody class="tbody-kiriman">
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="tabs-content" data-tabs-number="5">
-				<div class="table-container">
-					<table class="table table-kiriman">
-						<thead>
-							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">Km</td>
-								<td>Jenis Muatan</td>
-								<td>Supir</td>
-								<td>Kendaraan</td>
-								<td>Lacak</td>
-								<td data-align="center">Action</td>
-							</tr>
-						</thead>
-						<tbody class="tbody-kiriman">
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="tabs-content" data-tabs-number="6">
-				<div class="table-container">
-					<table class="table table-kiriman">
-						<thead>
-							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">Km</td>
-								<td>Jenis Muatan</td>
-								<td>Supir</td>
-								<td>Kendaraan</td>
-								<td>Lacak</td>
-								<td>Rating</td>
-							</tr>
-						</thead>
-						<tbody class="tbody-kiriman">
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="tabs-content" data-tabs-number="7">
-				<div class="table-container">
-					<table class="table table-kiriman">
-						<thead>
-							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">Km</td>
-								<td>Jenis Muatan</td>
-								<td>Supir</td>
-								<td>Kendaraan</td>
-								<td>Lacak</td>
-								<td data-align="center">Waktu Kiriman</td>
-								<td data-align="center">Total Waktu</td>
-							</tr>
-						</thead>
-						<tbody class="tbody-kiriman">
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<div class="tabs-content" data-tabs-number="8">
-				<div class="table-container">
-					<table class="table table-kiriman">
-						<thead>
-							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">Km</td>
-								<td>Cancel By</td>
-							</tr>
-						</thead>
-						<tbody class="tbody-kiriman">
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
+	<div class="table-container">
+		<table class="table table-kiriman">
+			<thead>
+				<tr>
+					<td data-align="center">Nama Kirim</td>
+					<td>Harga</td>
+					<td>Asal</td>
+					<td>Tujuan</td>
+					<td data-align="center">Km</td>
+					<td>Berakhir</td>
+					<td data-align='center'>Action</td>
+				</tr>
+			</thead>
+			<tbody class="tbody-kiriman">
+			</tbody>
+		</table>
 	</div>
-	
 </div>
 </div>
 </div>
 <script>
 $(function() {
 	var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-	var kirimanUrl = [];
-	kirimanUrl[1] = "<?= base_url("kiriman-saya/getOpenKiriman") ?>";
-	kirimanUrl[2] = "<?= base_url("kiriman-saya/getPendingKiriman") ?>";
-	kirimanUrl[3] = "<?= base_url("kiriman-saya/getPesananKiriman") ?>";
-	kirimanUrl[4] = "<?= base_url("kiriman-saya/getDikirimKiriman") ?>";
-	kirimanUrl[5] = "<?= base_url("kiriman-saya/getDiambilKiriman") ?>";
-	kirimanUrl[6] = "<?= base_url("kiriman-saya/getDiterimaKiriman") ?>";
-	kirimanUrl[7] = "<?= base_url("kiriman-saya/getSelesaiKiriman") ?>";
-	kirimanUrl[8] = "<?= base_url("kiriman-saya/getCancelKiriman") ?>";
+	var kirimanUrl = "<?= base_url("kiriman-saya/getOpenKiriman") ?>";
 	
 	var kirimanTabs = [];
 	kirimanTabs[1] = "open";
@@ -226,14 +51,7 @@ $(function() {
 	kirimanTabs[7] = "selesai";
 	kirimanTabs[8] = "cancel";
 	
-	getKirimanCount();
-	getKiriman(kirimanUrl[1], 1, "open");
-	
-	$(".tabs-item").on("click", function() {
-		var tabsNumber = $(this).data("tabs-number");
-		getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
-		
-	});
+	getKiriman(kirimanUrl, 1, "open");
 	
 	$(document).on("click", ".btn-submit-rating", function() {
 		submitRating(this);
@@ -259,9 +77,7 @@ $(function() {
 		ajaxCall("<?= base_url("kiriman-saya/cancelShipment") ?>", data, function(result) {
 			if (result == "success") {
 				closeDialog();
-				getKirimanCount();
-				var tabsNumber = $(".tabs-item.active").data("tabs-number");
-				getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
+				getKiriman(kirimanUrl, tabsNumber, kirimanTabs[tabsNumber]);
 			} else {
 				alert(result);
 			}
@@ -280,71 +96,13 @@ $(function() {
 		};
 		ajaxCall("<?= base_url("kiriman-saya/submitRating") ?>", data, function(result) {
 			if (result == "success") {
-				getKirimanCount();
-				var tabsNumber = $(".tabs-item.active").data("tabs-number");
-				getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
+				getKiriman(kirimanUrl, tabsNumber, kirimanTabs[tabsNumber]);
 			} else {
 				alert(result);
 			}
 		});
 	}
-	
-	function getKirimanCount() {
-		ajaxCall("<?= base_url("kiriman-saya/getKirimanSaya") ?>", null, function(json) {
-			var result = jQuery.parseJSON(json);
-			assignKirimanCount(result);
-		});
-	}
-	
-	function assignKirimanCount(result) {
-		var tabs = {
-			t1: 0,
-			t2: 0,
-			t3: 0,
-			t4: 0,
-			t5: 0,
-			t6: 0,
-			t7: 0,
-			t8: 0
-		};
-		
-		for (var i = 0; i < result.length; i++) {
-			switch (result[i].shipment_status) {
-				case "-1":
-					tabs.t1= result[i].count;
-					break;
-				case "0":
-					tabs.t2 = result[i].count;
-					break;
-				case "1":
-					tabs.t2 = result[i].count;
-					break;
-				case "2":
-					tabs.t3 = result[i].count;
-					break;
-				case "3":
-					tabs.t4 = result[i].count;
-					break;
-				case "4":
-					tabs.t5 = result[i].count;
-					break;
-				case "5":
-					tabs.t6 = result[i].count;
-					break;
-				case "6":
-					tabs.t7 = result[i].count;
-					break;
-				case "7":
-					tabs.t8 = result[i].count;
-					break;
-			}
-		}
-		
-		for (var i = 1; i <= 8; i++) {
-			updateTabsItemCount(i, tabs["t" + i]);
-		}
-	}
-	
+
 	function getKiriman(url, tabsNumber, tabs) {
 		ajaxCall(url, null, function(json) {
 			var result = jQuery.parseJSON(json);
@@ -374,6 +132,7 @@ $(function() {
 			var berakhir = "";
 			var cancelBy = "";
 			var ratingSection = "";
+			var status = result[i].shipment_status;
 			var action = "<td><button class='btn-negative btn-cancel-transaction'>Batalkan Kiriman</button></td>";
 			var waktu = "";
 			switch (tab) {
@@ -411,11 +170,11 @@ $(function() {
 					break;
 			}
 			
-			element += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + tdJenisMuatan + additionalTd + berakhir + ratingSection + action + waktu + cancelBy + "</tr>";
+			element += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + additionalTd + berakhir + ratingSection + action + waktu + cancelBy + "</tr>";
 		}
 		
-		$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");
-		$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").append(element);
+		$(".tbody-kiriman").html("");
+		$(".tbody-kiriman").append(element);
 	}
 });
 </script>

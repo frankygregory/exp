@@ -239,7 +239,7 @@
 </div>
 </div>
 <script>
-var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var month = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"];
 var kirimanUrl = [];
 kirimanUrl[1] = "<?= base_url("kiriman-laut-ekspedisi/getDealKiriman") ?>";
 kirimanUrl[2] = "<?= base_url("kiriman-laut-ekspedisi/getPendingKiriman") ?>";

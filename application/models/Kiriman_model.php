@@ -7,14 +7,21 @@ class Kiriman_model extends CI_Model
         parent::__construct();
     }
 	
-	public function getOpenKiriman($user_id) {
+	public function getAllKiriman($user_id) {
 		$query = $this->db->query("
-			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, TIMESTAMPDIFF(SECOND, CURRENT_TIMESTAMP(), m.shipment_end_date) AS berakhir, COALESCE(t.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low
+			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status,
+			IF (t.bidding_type = 'darat', CONCAT(sd.confirmation_date, ';', sd.order_date, ';', sd.delivery_date, ';', sd.pickup_date, ';', sd.receive_date, ';', sd.end_date), IF (t.bidding_type = 'laut', CONCAT(sl.confirmation_date, ';', door_start_date, ';', port_start_date, ';', port_finish_date, ';', door_finish_date, ';', ending_date), 'undefined')) AS date
+			, m.location_from_city, m.location_to_city, TIMESTAMPDIFF(SECOND, CURRENT_TIMESTAMP(), m.shipment_end_date) AS berakhir, COALESCE(t.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low
 			FROM `m_shipment` m
-			LEFT JOIN (SELECT COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) t
+			LEFT JOIN (SELECT IF (t.bidding_type = 1, 'darat', 'laut') AS bidding_type, COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) t
 			ON m.shipment_id = t.shipment_id
-			WHERE m.user_id = " . $user_id . " AND m.shipment_status = -1
+			LEFT JOIN `m_shipment_darat` sd
+			ON sd.shipment_id = m.shipment_id
+			LEFT JOIN `m_shipment_laut` sl
+			ON sl.shipment_id = m.shipment_id
+			WHERE m.user_id = '" . $user_id . "'
 			GROUP BY m.shipment_id
+			ORDER BY m.shipment_status
 		");
 		return $query->result();
 	}

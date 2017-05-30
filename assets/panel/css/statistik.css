@@ -7,6 +7,7 @@
 .section-title {
 	font-size: 14pt;
 	font-weight: bold;
+	margin-bottom: 10px;
 }
 
 .table-statistik-kiriman, .table-statistik-bidding {
@@ -16,13 +17,20 @@
 table td {
 	width: 90px;
 	text-align: center;
+	border-bottom: 1px solid #BDBDBD;
 }
 
-.td-col-header {
-	
+.tr-col-header {
+	font-weight: bold;
+}
+
+.tr-col-header td {
+	font-size: 11pt;
 }
 
 .td-row-header {
 	width: 100px;
 	text-align: right;
+	font-weight: bold;
+	font-size: 11pt;
 }

@@ -30,10 +30,10 @@
 				<div class="label">Sebagai</div>
 				<div class="input-container" data-type="role">
 					<label class="label-role">
-						<input type="radio" name="role" value="1" class="input-role" <?= $konsumenChecked ?> />Konsumen
+						<input type="radio" name="role" value="1" class="input-role" <?= $konsumenChecked ?> />Pemilik Barang
 					</label>
 					<label class="label-role">
-						<input type="radio" name="role" value="2" class="input-role" <?= $ekspedisiChecked ?>>Ekspedisi
+						<input type="radio" name="role" value="2" class="input-role" <?= $ekspedisiChecked ?>>Pemilik Kendaraan
 					</label>
 				</div>
 			</div>
@@ -111,7 +111,7 @@
 			<button class="btn btn-daftar" type="submit">Daftar</button>
 		</form>
 		<div class="login">
-			<span>Sudah daftar? <a href="<?= base_url("login"); ?>">Go To Login</a></span>
+			<span>Sudah daftar? <a href="<?= base_url() ?>#login">Go To Login</a></span>
 		</div>
 	</div>
 </div>

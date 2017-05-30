@@ -419,40 +419,40 @@ function addItem() {
 	var checked = $("input[name='pilihan']:checked").val();
 	switch (checked) {
 		case "dimensi":
-			panjang = $(".input-panjang-barang").val();
-			lebar = $(".input-lebar-barang").val();
-			tinggi = $(".input-tinggi-barang").val();
+			panjang = parseInt($(".input-panjang-barang").val().trim()) || 0;
+			lebar = parseInt($(".input-lebar-barang").val().trim()) || 0;
+			tinggi = parseInt($(".input-tinggi-barang").val().trim()) || 0;
 			dimensi_satuan = $(".input-satuan-dimensi-barang").val();
 			select_dimensi = panjang + " " + dimensi_satuan + "<br>" + lebar + " " + dimensi_satuan + "<br>" + tinggi + " " + dimensi_satuan;
 			
-			if (panjang == "") {
+			if (panjang == 0) {
 				valid = false;
 				error.panjang = "Panjang harus diisi";
 			}
-			if (lebar == "") {
+			if (lebar == 0) {
 				valid = false;
 				error.lebar = "Lebar harus diisi";
 			}
-			if (tinggi == "") {
+			if (tinggi == 0) {
 				valid = false;
 				error.tinggi = "Tinggi harus diisi";
 			}
 			
 			break;
 		case "kubikasi":
-			kubikasi = $(".input-kubikasi-barang").val();
+			kubikasi = parseInt($(".input-kubikasi-barang").val().trim()) || 0;
 			kubikasi_satuan = $(".input-satuan-kubikasi-barang").val();
 			select_kubikasi = kubikasi + " " + kubikasi_satuan;
-			if (kubikasi == "") {
+			if (kubikasi == 0) {
 				valid = false;
 				error.kubikasi = "Kubikasi harus diisi";
 			}
 			break;
 		case "berat":
-			berat = $(".input-berat-barang").val();
+			berat = parseInt($(".input-berat-barang").val().trim()) || 0;
 			berat_satuan = $(".input-satuan-berat-barang").val();
 			select_berat = berat + " " + berat_satuan;
-			if (berat == "") {
+			if (berat == 0) {
 				valid = false;
 				error.berat = "Berat harus diisi";
 			}
@@ -475,6 +475,11 @@ function addItem() {
 			input_lebar = "<input type='hidden' value='" + lebar + "' name='item-lebar-" + count + "' />";
 			input_tinggi = "<input type='hidden' value='" + tinggi + "' name='item-tinggi-" + count + "' />";
 			input_dimensi_satuan = "<input type='hidden' value='" + dimensi_satuan + "' name='item-dimensi-satuan-" + count + "' />";
+
+			kubikasi = panjang * lebar * tinggi;
+			kubikasi_satuan = dimensi_satuan + "3";
+			select_kubikasi = kubikasi + " " + kubikasi_satuan;
+			input_kubikasi = "<input type='hidden' value='" + kubikasi + "' name='item-kubikasi-" + count + "' />";
 		} else if (select_kubikasi != "") {
 			input_kubikasi = "<input type='hidden' value='" + kubikasi + "' name='item-kubikasi-" + count + "' />";
 			input_kubikasi_satuan = "<input type='hidden' value='" + kubikasi_satuan + "' name='item-kubikasi-satuan-" + count + "' />";

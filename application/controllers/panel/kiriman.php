@@ -41,7 +41,7 @@ class Kiriman extends MY_Controller
 	
 	public function getOpenKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getOpenKiriman($user_id);
+		$kiriman = $this->Kiriman_model->getAllKiriman($user_id);
 		$iLength = sizeof($kiriman);
 		for ($i = 0; $i < $iLength; $i++) {
 			$berakhir = $kiriman[$i]->berakhir;

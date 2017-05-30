@@ -9,7 +9,7 @@
 			<div class="title-description">Kirim apapun dan kapanpun : Mudah, Cepat, Aman</div>
 			<div class="section-1-buttons">
 				<button class="btn-pemilik" type="button" >Saya adalah Pemilik Barang</button>
-				<button class="btn-penerima" type="button" >Saya adalah Penerima Barang</button>
+				<button class="btn-penerima" type="button" >Saya adalah Pemilik Kendaraan</button>
 			</div>
 		</div>
 	</div>

@@ -90,7 +90,7 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 	
 	public function getSelesaiKiriman($user_id) {
 		$query = $this->db->query("
-			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, sd.ship_id, sd.shipment_details_container_number, TIMESTAMPDIFF(SECOND, m.delivery_date, m.receive_date) AS waktu_kiriman, TIMESTAMPDIFF(SECOND, sd.pending_date, sd.ending_date) AS total_waktu
+			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, COALESCE(tb.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low, sd.ship_id, sd.shipment_details_container_number, TIMESTAMPDIFF(SECOND, m.delivery_date, m.receive_date) AS waktu_kiriman, TIMESTAMPDIFF(SECOND, sd.door_start_date, sd.ending_date) AS total_waktu
 			FROM `t_bidding` t, `m_shipment_laut` sd, `m_shipment` m
 			LEFT JOIN (SELECT COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) tb
 			ON m.shipment_id = tb.shipment_id
