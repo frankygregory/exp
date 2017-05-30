@@ -25,7 +25,8 @@
 					<td>Asal</td>
 					<td>Tujuan</td>
 					<td data-align="center">Km</td>
-					<td>Berakhir</td>
+					<td>Keterangan</td>
+					<td>Status</td>
 					<td data-align='center'>Action</td>
 				</tr>
 			</thead>
@@ -40,16 +41,6 @@
 $(function() {
 	var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	var kirimanUrl = "<?= base_url("kiriman-saya/getOpenKiriman") ?>";
-	
-	var kirimanTabs = [];
-	kirimanTabs[1] = "open";
-	kirimanTabs[2] = "pending";
-	kirimanTabs[3] = "pesanan";
-	kirimanTabs[4] = "dikirim";
-	kirimanTabs[5] = "diambil";
-	kirimanTabs[6] = "diterima";
-	kirimanTabs[7] = "selesai";
-	kirimanTabs[8] = "cancel";
 	
 	getKiriman(kirimanUrl, 1, "open");
 	
@@ -77,7 +68,7 @@ $(function() {
 		ajaxCall("<?= base_url("kiriman-saya/cancelShipment") ?>", data, function(result) {
 			if (result == "success") {
 				closeDialog();
-				getKiriman(kirimanUrl, tabsNumber, kirimanTabs[tabsNumber]);
+				getKiriman(kirimanUrl);
 			} else {
 				alert(result);
 			}
@@ -96,21 +87,21 @@ $(function() {
 		};
 		ajaxCall("<?= base_url("kiriman-saya/submitRating") ?>", data, function(result) {
 			if (result == "success") {
-				getKiriman(kirimanUrl, tabsNumber, kirimanTabs[tabsNumber]);
+				getKiriman(kirimanUrl);
 			} else {
 				alert(result);
 			}
 		});
 	}
 
-	function getKiriman(url, tabsNumber, tabs) {
+	function getKiriman(url) {
 		ajaxCall(url, null, function(json) {
 			var result = jQuery.parseJSON(json);
-			addKirimanToTable(result, tabsNumber, tabs);
+			addKirimanToTable(result);
 		});
 	}
 	
-	function addKirimanToTable(result, tabsNumber, tab) {
+	function addKirimanToTable(result) {
 		var iLength = result.length;
 		var element = "";
 		
@@ -124,53 +115,92 @@ $(function() {
 			if (result[i].shipment_jenis_muatan == 0) {
 				jenis_muatan = "Parsial";
 			} else if (result[i].shipment_jenis_muatan == -1) {
-				jenis_muatan = "Undefined";
+				jenis_muatan = "";
 			}
 			
-			var tdJenisMuatan = "<td class='td-jenis-muatan'>" + jenis_muatan + "</td>";
+			var bidding_type = result[i].bidding_type;
 			var additionalTd = "";
 			var berakhir = "";
 			var cancelBy = "";
 			var ratingSection = "";
 			var status = result[i].shipment_status;
-			var action = "<td><button class='btn-negative btn-cancel-transaction'>Batalkan Kiriman</button></td>";
-			var waktu = "";
-			switch (tab) {
-				case "open":
-					berakhir = "<td class='td-berakhir'>" + result[i].berakhir + "</td>";
-					tdJenisMuatan = "";
+			var statusDetail = {
+				"-1": "Open",
+				"0": "Pending",
+				"1": "Konfirmasi",
+				"2": {
+					"darat": "Pesanan",
+					"laut": "Door 1"
+				},
+				"3": {
+					"darat": "Dikirim",
+					"laut": "Port 1"
+				},
+				"4": {
+					"darat": "Diambil",
+					"laut": "Port 2"
+				},
+				"5": {
+					"darat": "Diterima",
+					"laut": "Door 2"
+				},
+				"6": "Selesai",
+				"7": "Cancel"
+			};
+			var action = "<button class='btn-negative btn-cancel-transaction'>Batalkan Kiriman</button>";
+
+			var keterangan = {};
+			keterangan["darat"] = "Supir : " + result[i].driver_names + "<br>Kendaraan : " + result[i].vehicle_names + "<br>Alat : " + result[i].device_names;
+			keterangan["laut"] = "Kapal : " + result[i].ship_id + "<br>No. Kontainer : " + result[i].shipment_details_container_number;
+			switch (result[i].shipment_status) {
+				case "-1":
+					additionalTd += "Berakhir : " + result[i].berakhir;
+					status = statusDetail["-1"];
 					break;
-				case "pending":
-					tdJenisMuatan = "";
+				case "0":
+					status = statusDetail["0"];
 					break;
-				case "pesanan":
-					additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
+				case "1":
+					status = statusDetail["1"];
 					break;
-				case "dikirim":
-					tab = "dikirim";
-					additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
+				case "2":
+					additionalTd += keterangan[bidding_type];
+					status = statusDetail["1"] + "<br>" + statusDetail["2"][bidding_type];
 					break;
-				case "diambil":
-					additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
+				case "3":
+					additionalTd += keterangan[bidding_type];
+					status = statusDetail["1"] + "<br>" + statusDetail["2"][bidding_type] + "<br>" + statusDetail["3"][bidding_type];
 					break;
-				case "diterima":
-					additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
-					ratingSection = "<td><div class='rating-section'>" + getRatingJs() + "<textarea class='input-rating-feedback'></textarea><button class='btn-default btn-submit-rating'>Submit</button></div></td>";
+				case "4":
+					additionalTd += keterangan[bidding_type];
+					status = statusDetail["1"] + "<br>" + statusDetail["2"][bidding_type] + "<br>" + statusDetail["3"][bidding_type] + "<br>" + statusDetail["4"][bidding_type];
+					break;
+				case "5":
+					additionalTd += keterangan[bidding_type];
+					ratingSection = "<div class='rating-section'>" + getRatingJs() + "<textarea class='input-rating-feedback'></textarea><button class='btn-default btn-submit-rating'>Submit</button></div>";
 					action = "";
+					status = statusDetail["1"] + "<br>" + statusDetail["2"][bidding_type] + "<br>" + statusDetail["3"][bidding_type] + "<br>" + statusDetail["4"][bidding_type] + "<br>" + statusDetail["5"][bidding_type];
 					break;
-				case "selesai":
-					additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
+				case "6":
+					additionalTd += keterangan[bidding_type];
+					
+					var waktu_kiriman = "";
+					if (bidding_type == "darat") {
+						waktu_kiriman = "<br>Waktu Kiriman : " + result[i].waktu_kiriman;
+					}
+					additionalTd  += waktu_kiriman + "<br>Total Waktu : " + result[i].total_waktu;
+
 					action = "";
-					waktu = "<td>" + result[i].waktu_kiriman + "</td><td>" + result[i].total_waktu + "</td>";
+					status = statusDetail["1"] + "<br>" + statusDetail["2"][bidding_type] + "<br>" + statusDetail["3"][bidding_type] + "<br>" + statusDetail["4"][bidding_type] + "<br>" + statusDetail["5"][bidding_type] + "<br>" + statusDetail["6"];
 					break;
-				case "cancel":
+				case "7":
+					additionalTd += "Cancel By : " + result[i].cancel_username;
 					action = "";
-					tdJenisMuatan = "";
-					cancelBy = "<td>" + result[i].cancel_username + "</td>";
+					status = statusDetail["7"];
 					break;
 			}
 			
-			element += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + additionalTd + berakhir + ratingSection + action + waktu + cancelBy + "</tr>";
+			element += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td><td>" + additionalTd + "</td><td>" + status + "</td><td>" + ratingSection + action + "</td></tr>";
 		}
 		
 		$(".tbody-kiriman").html("");

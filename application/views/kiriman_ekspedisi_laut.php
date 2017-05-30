@@ -202,11 +202,6 @@
 				<button type="button" class="dialog-ubah-button btn-default" data-value="5" data-text="Door 2">Door 2</button>
 				<div class="button-time"></div>
 			</div>
-			<div class="dialog-ubah-arrow">&rarr;</div>
-			<div class="dialog-ubah-button-container">
-				<button type="button" class="dialog-ubah-button btn-default" data-value="6" data-text="Selesai">Selesai</button>
-				<div class="button-time"></div>
-			</div>
 		</div>
 		<div class="dialog-ubah-text">
 			<div class="dialog-ubah-text-1">

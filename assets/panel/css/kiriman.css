@@ -2,6 +2,7 @@
 
 .table-kiriman {
 	margin-top: 10px;
+	width: 100% !important;
 }
 
 .table-kiriman a:link, .table-kiriman a:visited {
@@ -21,6 +22,11 @@
 
 .subsection-sort {
 	float: right;
+}
+
+.btn-cancel-transaction {
+	display: block;
+	margin: 0 auto;
 }
 
 .btn-submit-rating {
