@@ -49,12 +49,12 @@
 			<table class="table table-kiriman">
 				<thead>
 					<tr>
-						<td class="td-nama-kirim">Nama Kirim</td>
-						<td>Harga</td>
-						<td>Asal</td>
-						<td>Tujuan</td>
-						<td class="td-km">Km</td>
-						<td>Berakhir</td>
+						<td class="td-nama-kirim" data-col="nama-kirim">Nama Kirim</td>
+						<td data-col="harga">Harga</td>
+						<td data-col="asal">Asal</td>
+						<td data-col="tujuan">Tujuan</td>
+						<td class="td-km" data-col="km">Km</td>
+						<td data-col="berakhir">Berakhir</td>
 					</tr>
 				</thead>
 				<tbody class="tbody-kiriman">
@@ -70,9 +70,15 @@
 <script type="text/javascript">
 var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 $(function() {
-	
 	getKiriman();
 	
+	var headerHeight = parseInt($(".navigation-header").css("height"));
+	var theadHeight = parseInt($(".table-kiriman thead").css("height"));
+	var tbodyTop = $(".table-kiriman tbody").offset().top;
+	var tbodyPosition = tbodyTop - headerHeight - theadHeight;
+	
+	$(".container-content").on("scroll", scrollDownEvent);
+
 	$(".select-sort").on("change", function() {
 		getKiriman();
 	});
@@ -126,6 +132,24 @@ $(function() {
 			$(".datalist").css("display", "none");
 		}
 	});
+
+	function scrollDownEvent() {
+		var scrollTop = $(".container-content").scrollTop();
+		if (scrollTop >= tbodyPosition) {
+			$(".table-kiriman").addClass("fixed");
+			$(".container-content").off("scroll");
+			$(".container-content").on("scroll", scrollUpEvent);
+		}
+	}
+
+	function scrollUpEvent() {
+		var scrollTop = $(".container-content").scrollTop();
+		if (scrollTop <= tbodyPosition) {
+			$(".table-kiriman").removeClass("fixed");
+			$(".container-content").off("scroll");
+			$(".container-content").on("scroll", scrollDownEvent);
+		}
+	}
 });
 
 function getKota(fromto, keyword) {
@@ -190,7 +214,7 @@ function addKirimanToTable(no, result) {
 	var date_to = new Date(result.shipment_delivery_date_to);
 	var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear().toString().substring(2, 4);
 	
-	var element = "<tr class='tr-kiriman' data-id='" + result.shipment_id + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result.shipment_id + "'>" + result.shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result.shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result.bidding_count + "<br>Low : " + addCommas(result.low) + " IDR</td><td class='td-asal'>" + result.location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result.location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km'>" + parseInt(result.shipment_length) + "</td><td class='td-berakhir'>" + result.berakhir + "</td></td></tr>";
+	var element = "<tr class='tr-kiriman' data-id='" + result.shipment_id + "'><td class='td-title' data-col='nama-kirim'><a href='<?= base_url("kirim/detail/") ?>" + result.shipment_id + "'>" + result.shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result.shipment_pictures + "' /></a></td><td class='td-price' data-col='harga'>Bid : " + result.bidding_count + "<br>Low : " + addCommas(result.low) + " IDR</td><td class='td-asal' data-col='asal'>" + result.location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan' data-col='tujuan'>" + result.location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-col='km'>" + parseInt(result.shipment_length) + "</td><td class='td-berakhir' data-col='berakhir'>" + result.berakhir + "</td></td></tr>";
 	$(".tbody-kiriman").append(element);
 }
 </script>

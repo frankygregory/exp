@@ -36,11 +36,15 @@
 }
 
 .table-kiriman td[data-col="asal"], .table-kiriman td[data-col="tujuan"] {
-	width: 160px;
+	width: 180px;
 }
 
 .table-kiriman td[data-col="km"] {
 	width: 50px;
+}
+
+.table-kiriman td[data-col="berakhir"] {
+	width: 200px;
 }
 
 .table-kiriman td[data-col="keterangan"] {
@@ -53,6 +57,10 @@
 
 .table-kiriman td[data-col="action"] {
 	width: 200px;
+}
+
+.table-kiriman td[data-col="cancel-by"] {
+	width: 150px;
 }
 
 .table-kiriman a:link, .table-kiriman a:visited {
@@ -84,7 +92,6 @@
 }
 
 .rating-section {
-	width: 300px;
 	text-align: center;
 	margin: 0 auto;
 }

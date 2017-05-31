@@ -33,28 +33,26 @@ class Kiriman extends MY_Controller
 		return $dtF->diff($dtT)->format('%a');
 	}
 	
-	public function getKirimanSaya() {
+	public function getKirimanCount() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getKirimanSaya($user_id);
+		$kiriman = $this->Kiriman_model->getKirimanCount($user_id);
 		echo json_encode($kiriman);
 	}
 	
 	public function getOpenKiriman() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getAllKiriman($user_id);
+		$kiriman = $this->Kiriman_model->getOpenKiriman($user_id);
 		$iLength = sizeof($kiriman);
 		for ($i = 0; $i < $iLength; $i++) {
 			$berakhir = $kiriman[$i]->berakhir;
 			$kiriman[$i]->berakhir = $this->secondsToTime($berakhir);
-			$waktu_kiriman = $kiriman[$i]->waktu_kiriman;
-			if ($waktu_kiriman != "") {
-				$kiriman[$i]->waktu_kiriman = $this->secondsToDay($waktu_kiriman);
-			}
-			$total_waktu = $kiriman[$i]->total_waktu;
-			if ($total_waktu != "") {
-				$kiriman[$i]->total_waktu = $this->secondsToDay($total_waktu);
-			}
 		}
+		echo json_encode($kiriman);
+	}
+
+	public function getProgressKiriman() {
+		$user_id = $this->session->userdata("user_id");
+		$kiriman = $this->Kiriman_model->getProgressKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
@@ -86,16 +84,16 @@ class Kiriman extends MY_Controller
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getDiterimaKiriman($user_id);
 		echo json_encode($kiriman);
-	}
+	}*/
 	
 	public function getSelesaiKiriman() {
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getSelesaiKiriman($user_id);
 		$iLength = sizeof($kiriman);
 		for ($i = 0; $i < $iLength; $i++) {
-			$waktu = $kiriman[$i]->waktu_kiriman;
+			$waktu = intval($kiriman[$i]->waktu_kiriman);
 			$kiriman[$i]->waktu_kiriman = $this->secondsToDay($waktu);
-			$waktu = $kiriman[$i]->total_waktu;
+			$waktu = intval($kiriman[$i]->total_waktu);
 			$kiriman[$i]->total_waktu = $this->secondsToDay($waktu);
 		}
 		echo json_encode($kiriman);
@@ -105,7 +103,7 @@ class Kiriman extends MY_Controller
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getCancelKiriman($user_id);
 		echo json_encode($kiriman);
-	}*/
+	}
 	
 	public function submitRating() {
 		$user_id = $this->session->userdata("user_id");
