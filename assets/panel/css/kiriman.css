@@ -1,7 +1,58 @@
 
 
 .table-kiriman {
-	margin: 10px auto 0;
+	margin: 10px auto 50px;
+	width: auto !important;
+}
+
+.table-kiriman thead, .table-kiriman tbody {
+	display: block;
+}
+
+.table-kiriman thead {
+	background-color: white;
+}
+
+.table-kiriman thead tr {
+	height: 40px;
+}
+
+.table-kiriman.fixed thead {
+	position: fixed;
+	top: 50px;
+	margin-right: 15px;
+}
+
+.table-kiriman.fixed tbody {
+	margin-top: 40px;
+}
+
+.table-kiriman td[data-col="nama-kirim"] {
+	width: 120px;
+}
+
+.table-kiriman td[data-col="harga"] {
+	width: 170px;
+}
+
+.table-kiriman td[data-col="asal"], .table-kiriman td[data-col="tujuan"] {
+	width: 160px;
+}
+
+.table-kiriman td[data-col="km"] {
+	width: 50px;
+}
+
+.table-kiriman td[data-col="keterangan"] {
+	width: 260px;
+}
+
+.table-kiriman td[data-col="status"] {
+	width: 100px;
+}
+
+.table-kiriman td[data-col="action"] {
+	width: 200px;
 }
 
 .table-kiriman a:link, .table-kiriman a:visited {

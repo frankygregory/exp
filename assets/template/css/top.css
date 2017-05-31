@@ -142,7 +142,8 @@
 
 .container-content {
 	height: 100%;
-	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: visible;
 	padding: 15px;
 	position: relative;
 }
