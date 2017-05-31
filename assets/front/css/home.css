@@ -74,6 +74,7 @@
 	font-size: 14pt;
 	border-radius: 5px;
 	cursor: pointer;
+	text-decoration: none;
 }
 
 .btn-pemilik {

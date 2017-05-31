@@ -107,9 +107,9 @@ $(function() {
 		
 		for (var i = 0; i < iLength; i++) {
 			var date_from = new Date(result[i].shipment_delivery_date_from);
-			var fullDateFrom = date_from.getDate() + " " + month[date_from.getMonth()] + " " + date_from.getFullYear();
+			var fullDateFrom = date_from.getDate() + " " + month[date_from.getMonth()] + " " + date_from.getFullYear().toString().substring(2);
 			var date_to = new Date(result[i].shipment_delivery_date_to);
-			var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear();
+			var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear().toString().substring(2);
 			
 			var jenis_muatan = "Penuh";
 			if (result[i].shipment_jenis_muatan == 0) {
@@ -186,9 +186,9 @@ $(function() {
 					
 					var waktu_kiriman = "";
 					if (bidding_type == "darat") {
-						waktu_kiriman = "<br>Waktu Kiriman : " + result[i].waktu_kiriman;
+						waktu_kiriman = "<br>Waktu Kiriman : " + result[i].waktu_kiriman + " hari";
 					}
-					additionalTd  += waktu_kiriman + "<br>Total Waktu : " + result[i].total_waktu;
+					additionalTd  += waktu_kiriman + "<br>Total Waktu : " + result[i].total_waktu + " hari";
 
 					action = "";
 					status = statusDetail["1"] + "<br>" + statusDetail["2"][bidding_type] + "<br>" + statusDetail["3"][bidding_type] + "<br>" + statusDetail["4"][bidding_type] + "<br>" + statusDetail["5"][bidding_type] + "<br>" + statusDetail["6"];

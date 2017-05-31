@@ -46,11 +46,19 @@ class Kiriman extends MY_Controller
 		for ($i = 0; $i < $iLength; $i++) {
 			$berakhir = $kiriman[$i]->berakhir;
 			$kiriman[$i]->berakhir = $this->secondsToTime($berakhir);
+			$waktu_kiriman = $kiriman[$i]->waktu_kiriman;
+			if ($waktu_kiriman != "") {
+				$kiriman[$i]->waktu_kiriman = $this->secondsToDay($waktu_kiriman);
+			}
+			$total_waktu = $kiriman[$i]->total_waktu;
+			if ($total_waktu != "") {
+				$kiriman[$i]->total_waktu = $this->secondsToDay($total_waktu);
+			}
 		}
 		echo json_encode($kiriman);
 	}
 	
-	public function getPendingKiriman() {
+	/*public function getPendingKiriman() {
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getPendingKiriman($user_id);
 		echo json_encode($kiriman);
@@ -97,7 +105,7 @@ class Kiriman extends MY_Controller
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getCancelKiriman($user_id);
 		echo json_encode($kiriman);
-	}
+	}*/
 	
 	public function submitRating() {
 		$user_id = $this->session->userdata("user_id");

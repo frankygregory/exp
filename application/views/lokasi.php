@@ -220,11 +220,14 @@ function updateLocation() {
 	});
 }
 
-function cekInputError(location_address, location_detail, location_contact) {
+function cekInputError(location_address, location_latlng, location_detail, location_contact) {
 	var valid = true;
 		if (location_address == "") {
 			valid = false;
 			$("#location_address").next().html("Nama lokasi harus diisi");
+		} else if (location_latlng == "0, 0") {
+			valid = false;
+			$("#location_address").next().html("Lokasi harus dipilih dari google maps");
 		}
 		if (location_detail == "") {
 			valid = false;
@@ -257,7 +260,7 @@ function addLocation() {
 	}
 	
 	clearErrors();
-	var valid = cekInputError(location_address, location_detail, location_contact);
+	var valid = cekInputError(location_address, location_latlng, location_detail, location_contact);
 	if (valid) {
 		var data = {
 			location_name: location_name,

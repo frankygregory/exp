@@ -24,7 +24,7 @@
 <body>
 <div class="content">
 	<div class="register-box">
-		<div class="register-title">REGISTER</div>
+		<div class="register-title">Daftar</div>
 		<form class="register-role" action="<?= base_url("home/doRegisterConsumer") ?>" name="form-register" method="post">
 			<div class="form-group">
 				<div class="label">Sebagai</div>
@@ -105,7 +105,8 @@
 				</div>
 			</div>
 			<label class="label-terms">
-				Saya setuju dengan <a target="_blank" href="<?= base_url("kebijakan-privasi"); ?>">Syarat dan Ketentuan</a><input type="checkbox" name="terms" value="1" class="input-terms">
+				Saya setuju dengan <a target="_blank" href="<?= base_url("kebijakan-privasi"); ?>">Syarat dan Ketentuan</a>
+				<input type="checkbox" name="terms" value="1" class="input-terms">
 				<div class="field-error">Anda harus setuju Syarat dan Ketentuan</div>
 			</label>
 			<button class="btn btn-daftar" type="submit">Daftar</button>

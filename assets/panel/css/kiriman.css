@@ -1,8 +1,7 @@
 
 
 .table-kiriman {
-	margin-top: 10px;
-	width: 100% !important;
+	margin: 10px auto 0;
 }
 
 .table-kiriman a:link, .table-kiriman a:visited {
