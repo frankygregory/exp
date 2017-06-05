@@ -161,8 +161,34 @@ class Kirim extends MY_Controller
 	
 	function getBiddingList() {
 		$shipment_id = $this->input->post("shipment_id");
+		$user_id = $this->session->userdata("user_id");
 		$bidding = $this->Kirim_model->getBidding($shipment_id);
-		echo json_encode($bidding);
+		$canBid = true;
+		for ($i = 0; $i < sizeof($bidding); $i++) {
+			if ($bidding[$i]->bidding_status == 0 && $bidding[$i]->user_id == $user_id) {
+				$canBid = false;
+				break;
+			}
+		}
+		$result = new stdClass();
+		$result->data = $bidding;
+		$result->canBid = $canBid;
+		echo json_encode($result);
+	}
+
+	function cancelBidding() {
+		$bidding_id = $this->input->post("bidding_id");
+		$user_id = $this->session->userdata("user_id");
+		$data = array(
+			"bidding_id" => $bidding_id,
+			"user_id" => $user_id
+		);
+		$affected_rows = $this->Kirim_model->cancelBidding($data);
+		if ($affected_rows > 0) {
+			echo "success";
+		} else {
+			echo "no rows affected. WHY??";
+		}
 	}
 	
 	function getKendaraan() {

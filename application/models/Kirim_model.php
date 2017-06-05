@@ -150,6 +150,18 @@ class Kirim_model extends CI_Model
 		$this->db->insert("t_bidding", $insertData);
 		return $this->db->affected_rows();
 	}
+
+	public function cancelBidding($data) {
+		$this->db->where("bidding_id", $data["bidding_id"]);
+		$this->db->where("user_id", $data["user_id"]);
+		$this->db->where("bidding_status", 0);
+		$updateData = array(
+			"bidding_status" => -1,
+			"modified_by" => $data["user_id"]
+		);
+		$this->db->update("t_bidding", $updateData);
+		return $this->db->affected_rows();
+	}
 	
 	public function acceptBidding($data) {
 		$this->db->query("CALL setuju_penawaran('" . $data["shipment_id"] . "', '" . $data["bidding_id"] . "', '" . $data["user_id"] . "');");

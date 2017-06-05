@@ -58,6 +58,7 @@ button {
 .btn-default:disabled, .btn-negative:disabled, .btn-neutral:disabled, .btn-positive:disabled, .btn-default:disabled:hover, .btn-negative:disabled:hover, .btn-neutral:disabled:hover, .btn-positive:disabled:hover {
 	background-color: #9E9E9E !important;
 	color: #616161 !important;
+	cursor: default;
 }
 
 .btn-default, .btn-default:focus {

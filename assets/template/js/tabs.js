@@ -2,10 +2,12 @@ $(function() {
 	$(".tabs-item").on("click", function() {
 		var offset = $(this).position();
 		var tabsNumber = $(this).data("tabs-number");
+		var width = parseInt($(this).css("width"));
 		var tabsSelection = $(this).closest(".tabs").find(".tabs-selection");
 		$(tabsSelection).stop();
 		$(tabsSelection).animate({
-			marginLeft: offset.left + "px"
+			marginLeft: offset.left + "px",
+			width: width
 		}, 200);
 		var currentTabsNumber = $(this).siblings(".active").data("tabs-number");
 		$(this).siblings().removeClass("active");

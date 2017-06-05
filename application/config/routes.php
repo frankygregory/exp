@@ -67,6 +67,7 @@ $route['kirim/getBiddingList'] = 'panel/kirim/getBiddingList';
 $route['kirim/getKendaraan'] = 'panel/kirim/getKendaraan';
 $route['kirim/kirimPenawaran'] = 'panel/kirim/kirimPenawaran';
 $route['kirim/tolakPenawaran'] = 'panel/kirim/tolakPenawaran';
+$route['kirim/cancelBidding'] = 'panel/kirim/cancelBidding';
 $route['kirim'] = 'panel/kirim';
 //$route['kirim/(:any)'] = 'panel/kirim/$1';
 $route['kirim/getKiriman'] = 'panel/kirim/getKiriman';

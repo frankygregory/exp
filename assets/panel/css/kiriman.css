@@ -1,4 +1,6 @@
-
+.tabs-item[data-tabs-number="2"] {
+	width: 150px;
+}
 
 .table-kiriman {
 	margin: 10px auto 50px;

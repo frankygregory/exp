@@ -136,7 +136,7 @@
 		<div class="section-title">Penawaran</div>
 		<?php
 		if ($role_id == 2 && $shipment_status == -1) { ?>
-			<button type="button" class="btn-default btn-tawar">Kirim Penawaran</button>
+			<button type="button" class="btn-default btn-tawar" disabled>Kirim Penawaran</button>
 			<div class="detail-penawaran">
 				<table class="table-detail-penawaran">
 					<tbody>
@@ -217,6 +217,20 @@
 		</div>
 	</div>
 </div>
+<div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-cancel-bidding">
+		<div class="dialog-header">
+			<div class="dialog-title">Batal Penawaran</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-negative btn-submit-cancel-bidding">Batalkan Penawaran</button>
+			<button type="button" class="btn-neutral btn-batal">Tidak Jadi</button>
+		</div>
+	</div>
+</div>
 <script>
 var map;
 var marker;
@@ -237,6 +251,7 @@ $detailJawabPertanyaan = "";
 $divQuestions = "element += \"<div class='questions'>\";";
 $tr_bidding = "";
 $btnSetujuBidding = "";
+$btnCancelBidding = "";
 
 if ($role_id == 1 && $isOwner && $shipment_status == -1) { 
 	$btnJawabPertanyaan = "element += \"<button class='btn-neutral btn-jawab-pertanyaan'>Jawab</button>\";";
@@ -246,13 +261,13 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		"element += \"</div>\";";
 	$divQuestions = "element += \"<div class='questions' data-questions-id='\" + questions[i].questions_id + \"'>\";";
 
-	$tr_bidding = " data-bidding_id='\" + result[i].bidding_id + \"'";
+	$tr_bidding = "data-bidding_id='\" + result.data[i].bidding_id + \"'";
 	$btnSetujuBidding = "element += \"";
 	$btnSetujuBidding .= "<button class='btn-default btn-setuju'>Setuju</button>";
 	$btnSetujuBidding .= "<button class='btn-negative btn-tolak'>Tolak</button>";
 	$btnSetujuBidding .= "<div class='container-tolak'>";
-	$btnSetujuBidding .= "<textarea class='input-alasan' data-bidding_id='\" + result[i].bidding_id + \"'></textarea>";
-	$btnSetujuBidding .= "<button class='btn-negative btn-submit-tolak' data-bidding_id='\" + result[i].bidding_id + \"'>Tolak</button>";
+	$btnSetujuBidding .= "<textarea class='input-alasan' data-bidding_id='\" + result.data[i].bidding_id + \"'></textarea>";
+	$btnSetujuBidding .= "<button class='btn-negative btn-submit-tolak' data-bidding_id='\" + result.data[i].bidding_id + \"'>Tolak</button>";
 	$btnSetujuBidding .= "<button class='btn-neutral btn-batal-tolak'>Batal Tolak</button>";
 	$btnSetujuBidding .= "</div>";
 	$btnSetujuBidding .= "\";";
@@ -370,7 +385,16 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		$(element).parent().css("display", "none");
 	}
 <?php
-} else if ($role_id == 2 && $shipment_status == -1) { ?>
+} else if ($role_id == 2 && $shipment_status == -1) {
+	$tr_bidding = "data-bidding_id='\" + result.data[i].bidding_id + \"'";
+
+	$btnCancelBidding = "if (user_id == result.data[i].user_id) {";
+	$btnCancelBidding .= "element += \"";
+	$btnCancelBidding .= "<button class='btn-negative btn-cancel-bidding'>Batalkan</button>";
+	$btnCancelBidding .= "\";";
+	$btnCancelBidding .= "}";
+	?>
+	var user_id = <?= $this->session->userdata("user_id") ?>;
 	var detailPenawaranShown = false;
 	
 	$(document).on("click", ".btn-tawar", function() {
@@ -407,6 +431,33 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	$(".btn-submit-pertanyaan").on("click", function() {
 		kirimPertanyaan();
 	});
+
+	$(document).on("click", ".btn-cancel-bidding", function() {
+		var trBidding = $(this).closest(".tr-bidding");
+		var bidding_id = $(trBidding).data("bidding_id");
+		$(".dialog-konfirmasi-cancel-bidding").data("id", bidding_id);
+		var bidding_price = $(trBidding).find(".td-bidding-price").data("value");
+		var bidding_type = $(trBidding).find(".td-bidding-type").data("value");
+		var bidding_information = $(trBidding).find(".td-bidding-tanggal-ambil").html();
+		var text = "Penawaran : <br>Harga : " + addCommas(bidding_price) + " IDR<br>Tipe : " + bidding_type + "<br>" + bidding_information;
+		$(".dialog-konfirmasi-cancel-bidding .dialog-body").html(text);
+		showDialog(".dialog-konfirmasi-cancel-bidding");
+	});
+
+	$(document).on("click", ".btn-submit-cancel-bidding", function() {
+		cancelBidding();
+	});
+
+	function cancelBidding() {
+		var bidding_id = $(".dialog-konfirmasi-cancel-bidding").data("id");
+		ajaxCall("<?= base_url("kirim/cancelBidding") ?>", {bidding_id: bidding_id}, function(result) {
+			if (result == "success") {
+				location.reload();
+			} else {
+				alert(result);
+			}
+		});
+	}
 	
 	function kirimPertanyaan() {
 		var questions_text = $(".input-pertanyaan").val();
@@ -580,29 +631,32 @@ function getBiddingList() {
 }
 
 function addBiddingListToTable(result) {
-	var iLength = result.length;
+	var iLength = result.data.length;
 	var element = "";
 	for (var i = 0; i < iLength; i++) {
 		var bidding_type = "Darat";
-		if (result[i].bidding_type == 2) {
+		if (result.data[i].bidding_type == 2) {
 			bidding_type = "Laut";
 		}
 		element += "<tr class='tr-bidding' <?= $tr_bidding ?>>";
-		element += "<td class='td-bidding-price'>" + addCommas(result[i].bidding_price) + " IDR</td>";
-		element += "<td class='td-bidding-type'>" + bidding_type + "</td>";
-		element += "<td class='td-bidding-username'>" + result[i].username + "</td>";
+		element += "<td class='td-bidding-price' data-value='" + result.data[i].bidding_price + "'>" + addCommas(result.data[i].bidding_price) + " IDR</td>";
+		element += "<td class='td-bidding-type' data-value='" + bidding_type + "'>" + bidding_type + "</td>";
+		element += "<td class='td-bidding-username'>" + result.data[i].username + "</td>";
 		element += "<td class='td-bidding-tanggal-ambil'>";
-		element += "<div>Tanggal Ambil : " + result[i].bidding_pickupdate + "</div>";
-		element += "<div>Keterangan : " + result[i].bidding_information + "</div>";
+		element += "<div>Tanggal Ambil : " + result.data[i].bidding_pickupdate + "</div>";
+		element += "<div>Keterangan : " + result.data[i].bidding_information + "</div>";
 		element += "</td>";
 		element += "<td>";
-		if (result[i].bidding_status == 1) {
+		if (result.data[i].bidding_status == 1) {
 			element += "DITERIMA";
 		}
-		else if (result[i].bidding_status == 2) {
-			element += "<div class='alasan-tolak'>DITOLAK<br><strong>Alasan : </strong>" + result[i].bidding_reason + "</div>";
+		else if (result.data[i].bidding_status == 2) {
+			element += "<div class='alasan-tolak'>DITOLAK<br><strong>Alasan : </strong>" + result.data[i].bidding_reason + "</div>";
+		} else if (result.data[i].bidding_status == -1) {
+			element += "DIBATALKAN";
 		} else {
 		<?= $btnSetujuBidding ?>
+		<?= $btnCancelBidding ?>
 		}
 		element += "</td>";
 		element += "</tr>";
@@ -610,6 +664,9 @@ function addBiddingListToTable(result) {
 	
 	$(".tbody-list-penawaran").html("");
 	$(".tbody-list-penawaran").append(element);
+	if (result["canBid"]) {
+		$(".btn-tawar").prop("disabled", false);
+	}
 }
 
 function initMap() {	
