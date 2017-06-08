@@ -21,20 +21,9 @@ class Statistik extends MY_Controller
         parent::template('statistik', $data);
     }
 	
-	public function getStatistikKiriman() {
+	public function getStatistik() {
 		$user_id = $this->session->userdata("user_id");
-		$statistik;
-		if ($this->session->userdata("role_id") == 1) {
-			$statistik = $this->Statistik_model->getStatistikKirimanKonsumen($user_id);
-		} else {
-			$statistik = $this->Statistik_model->getStatistikKirimanEkspedisi($user_id);
-		}
-		echo json_encode($statistik);
-	}
-	
-	public function getStatistikBidding() {
-		$user_id = $this->session->userdata("user_id");
-		$statistik = $this->Statistik_model->getStatistikBidding($user_id);
+		$statistik = $this->Statistik_model->getStatistik($user_id);
 		echo json_encode($statistik);
 	}
 }
