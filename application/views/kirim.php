@@ -6,13 +6,13 @@
 		<div class="subsection-title">Filter</div>
 		<div class="form-item">
 			<div class="form-item-label">Kota Asal</div>
-			<input type="text" class="input-kota-asal" data-fromto="from" value="" />
+			<input type="text" class="input-kota-asal input-kota-from" data-fromto="from" value="" />
 			<div class="datalist from-city-dropdown">
 			</div>
 		</div>
 		<div class="form-item">
 			<div class="form-item-label">Kota Tujuan</div>
-			<input type="text" class="input-kota-tujuan" data-fromto="to" />
+			<input type="text" class="input-kota-tujuan input-kota-to" data-fromto="to" />
 			<div class="datalist to-city-dropdown">
 			</div>
 		</div>
@@ -70,6 +70,9 @@
 <script type="text/javascript">
 var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 $(function() {
+	if ($(".header").length > 0) {
+		$(".header").addClass("scroll");
+	}
 	getKiriman();
 	
 	var headerHeight = parseInt($(".navigation-header").css("height"));
@@ -103,14 +106,18 @@ $(function() {
 		}
 	});
 	
-	$(".input-kota-asal").on("focusout", function() {
-		hideDatalist("from");
-		getKiriman();
+	$(".input-kota-asal").on("keypress", function(e) {
+		if (e.which == 13) {
+			hideDatalist();
+			getKiriman();
+		}
 	});
 	
-	$(".input-kota-tujuan").on("focusout", function() {
-		hideDatalist("to");
-		getKiriman();
+	$(".input-kota-tujuan").on("keypress", function(e) {
+		if (e.which == 13) {
+			hideDatalist();
+			getKiriman();
+		}
 	});
 	
 	$(".input-jarak-min, .input-jarak-max, .input-lowest-bid").on("keypress", function(e) {
@@ -128,9 +135,17 @@ $(function() {
 	});
 	
 	$(document).on("click", function(e) {
-		if ($(e.target).attr("class") !== "datalist") {
-			$(".datalist").css("display", "none");
+		if ($(e.target).closest(".datalist").length == 0) {
+			hideDatalist();
 		}
+	});
+
+	$(document).on("click", ".datalist-item", function() {
+		var value = $(this).html();
+		var fromto = $(this).data("fromto");
+		$(".input-kota-" + fromto).val(value);
+		hideDatalist();
+		getKiriman();
 	});
 
 	function scrollDownEvent() {
@@ -164,7 +179,7 @@ function getKota(fromto, keyword) {
 		var iLength = result.length;
 		if (iLength > 0) {
 			for (var i = 0; i < iLength; i++) {
-				element += "<div class='datalist-item " + fromto + "-city-dropdown-item'>" + result[i].city + "</div>";
+				element += "<div class='datalist-item " + fromto + "-city-dropdown-item' data-fromto='" + fromto + "'>" + result[i].city + "</div>";
 			}
 		} else {
 			element += "<div class='datalist-empty-state'>Tidak ada hasil</div>";
@@ -179,8 +194,8 @@ function showDatalist(fromto) {
 	$("." + fromto + "-city-dropdown").css("display", "block");
 }
 
-function hideDatalist(fromto) {
-	$("." + fromto + "-city-dropdown").css("display", "none");
+function hideDatalist() {
+	$(".datalist").css("display", "none");
 }
 
 function getKiriman() {

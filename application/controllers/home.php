@@ -26,6 +26,7 @@ class Home extends CI_Controller
         $data = array(
             'title' => 'home',
             'page_name' => "home",
+			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn
         );
 
@@ -33,6 +34,22 @@ class Home extends CI_Controller
         $this->load->view('front/home', $data);
 		$this->load->view('front/common/footer', $data);
     }
+
+	public function list_kiriman()
+	{
+		$isLoggedIn = $this->cekLogin();
+		$data = array(
+            'title' => 'List Kiriman',
+            'page_name' => "kirim",
+			'page_title'=> 'List Kiriman',
+			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirim.css" rel="stylesheet">',
+			"isLoggedIn" => $isLoggedIn
+        );
+
+		$this->load->view('front/common/header', $data);
+        $this->load->view('kirim', $data);
+		$this->load->view('front/common/footer', $data);
+	}
 
     public function contact()
     {

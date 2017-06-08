@@ -20,6 +20,7 @@
 	<link href="<?=base_url()?>assets/front/css/header.css" rel="stylesheet" media="(orientation: landscape)">
 	<link href="<?=base_url()?>assets/front/css/header - portrait.css" rel="stylesheet" media="(orientation: portrait)">
 	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css" rel="stylesheet">
+	<?= $additional_file ?>
 
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
 	<script src="<?=base_url('assets/panel/js/velocity.min.js')?>"></script>
@@ -32,7 +33,7 @@
 			<a href="<?= base_url('dashboard') ?>" class="header-menu header-menu-dashboard">My Dashboard
 			</a>
 <?php   }	?>
-		<a href="#" class="header-menu">List Kiriman
+		<a href="<?= base_url("list-kiriman") ?>" class="header-menu">List Kiriman
 			<div class="bottom-line"></div>
 		</a>
 		<a href="#" class="header-menu">Contact Us
@@ -74,6 +75,7 @@
 		<button type="button" class="btn-default btn-login">Login</button>
 	</div>
 </div>
+<div class="header-overlay"></div>
 <script>
 $(function() {
 	
@@ -166,6 +168,18 @@ function ajaxCall(url, data, callback) {
 			callback(result);
 		}
 	});
+}
+
+function addCommas(nStr) {
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
 }
 </script>
 <div class="container">

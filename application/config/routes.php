@@ -53,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 $route['contact'] = 'home/contact';
 $route['kebijakan-privasi'] = 'home/privacy_policy';
-
+$route['list-kiriman'] = 'home/list_kiriman';
 $route['register'] = 'home/register';
 $route['login'] = 'login';
 $route['dologin'] = 'login/dologin';

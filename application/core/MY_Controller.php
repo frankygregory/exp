@@ -16,6 +16,11 @@ class MY_Controller extends CI_Controller
         $this->load->model('M_GenFunc','',TRUE);
     }
 
+    public function __partial_construct()
+    {
+        parent::__construct();
+    }
+
     public function cekLogin()
     {
         if ($this->session->userdata('isLoggedIn') != 1) {

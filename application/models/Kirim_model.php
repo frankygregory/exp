@@ -51,6 +51,7 @@ class Kirim_model extends CI_Model
 			SELECT DISTINCT location_from_city AS city
 			FROM `m_shipment`
 			WHERE shipment_status = -1 AND location_from_city LIKE '%" . $keyword . "%'
+			LIMIT 5
 		");
 		return $query->result();
 	}
@@ -60,6 +61,7 @@ class Kirim_model extends CI_Model
 			SELECT DISTINCT location_to_city AS city
 			FROM `m_shipment`
 			WHERE shipment_status = -1 AND location_to_city LIKE '%" . $keyword . "%'
+			LIMIT 5
 		");
 		return $query->result();
 	}

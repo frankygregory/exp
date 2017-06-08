@@ -6,7 +6,7 @@ class Kirim extends MY_Controller
 
     public function __construct()
     {
-        parent::__construct();
+        parent::__partial_construct();
 		$this->load->model("Kirim_model");
 		$this->loadModule("datepicker");
     }
@@ -76,7 +76,7 @@ class Kirim extends MY_Controller
 		echo json_encode($range);
 	}
 
-    public function privates()
+    /*public function privates()
     {
         $data = array(
             'title' => 'Privates'
@@ -101,10 +101,12 @@ class Kirim extends MY_Controller
         );
 
         parent::template('kirim_penawaran', $data);
-    }
+    }*/
 
     public function kirimbarang()
     {
+		parent::__construct();
+
         $user_id = (int) $this->session->userdata('user_id');
         $dataHistoryAsal = $this->queryArray("select * from m_location where location_from = 1 and user_id=$user_id");
         $dataHistoryAkhir = $this->queryArray("select * from m_location where location_to = 1 and user_id=$user_id");
@@ -177,6 +179,8 @@ class Kirim extends MY_Controller
 	}
 
 	function cancelBidding() {
+		parent::__construct();
+
 		$bidding_id = $this->input->post("bidding_id");
 		$user_id = $this->session->userdata("user_id");
 		$data = array(
@@ -192,6 +196,8 @@ class Kirim extends MY_Controller
 	}
 	
 	function getKendaraan() {
+		parent::__construct();
+
 		$user_id = $this->session->userdata("user_id");
 		$this->load->model("Kendaraan_model");
 		$vehicles = $this->Kendaraan_model->getKendaraanByUserId($user_id);
@@ -261,6 +267,8 @@ class Kirim extends MY_Controller
     }
 
 	public function getSavedLocation() {
+		parent::__construct();
+
 		$user_id = $this->session->userdata("user_id");
 		$fromto = $this->input->post("fromto");
 		$locations = $this->Kirim_model->getSavedLocation($user_id, $fromto);
@@ -269,7 +277,8 @@ class Kirim extends MY_Controller
 
     public function doKirimBarang()
     {
-        
+        parent::__construct();
+
 		$item_count = intval($this->input->post("detail-count", true));
 		if ($item_count > 0) {
 			$shipment_pictures = '';
@@ -367,6 +376,8 @@ class Kirim extends MY_Controller
     }
 	
 	public function setujuPenawaran() {
+		parent::__construct();
+
 		$shipment_id = $this->input->post("shipment_id");
 		$bidding_id = $this->input->post("bidding_id");
 		$user_id = $this->session->userdata("user_id");
@@ -385,6 +396,8 @@ class Kirim extends MY_Controller
 	}
 	
 	public function tolakPenawaran() {
+		parent::__construct();
+
 		$submit_tolak = $this->input->post("submit_tolak");
 		if ($submit_tolak != null) {
 			$bidding_id = $this->input->post("bidding_id");
@@ -408,6 +421,8 @@ class Kirim extends MY_Controller
 	}
 	
 	public function kirimPenawaran() {
+		parent::__construct();
+
 		$submit_bid = $this->input->post("submit_bid");
 		if ($submit_bid != null) {
 			$bidding_type = $this->input->post("bidding_type");
@@ -438,6 +453,8 @@ class Kirim extends MY_Controller
 	}
 	
 	public function jawabPertanyaan() {
+		parent::__construct();
+
 		$submit_jawaban = $this->input->post("submit_jawaban");
 		if ($submit_jawaban != null) {
 			$questions_id = $this->input->post("questions_id");
@@ -459,6 +476,8 @@ class Kirim extends MY_Controller
 	}
 	
 	public function kirimPertanyaan() {
+		parent::__construct();
+		
 		$submit_pertanyaan = $this->input->post("submit_pertanyaan");
 		if ($submit_pertanyaan != null) {
 			$questions_text = $this->input->post("questions_text");
@@ -483,7 +502,7 @@ class Kirim extends MY_Controller
 		}
 	}
 
-	public function updatekirimBarang(){
+	/*public function updatekirimBarang(){
         if ($this->form_validation->run('kirim') == FALSE) {
             $errors = validation_errors();
             echo json_encode(array("error" => "<div class='alert alert-warning alert-dismissible' role='alert'>
@@ -574,5 +593,5 @@ class Kirim extends MY_Controller
 
         $this->updateData('m_shipment_details', $data, array("shipment_details_id" => $this->input->post("shipment_details_id")));
         echo json_encode(array("status" => TRUE));
-    }
+    }*/
 }
