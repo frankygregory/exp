@@ -242,9 +242,14 @@ var location_to_lng = <?= $location_to_lng ?>;
 
 var data_shipment_id = <?= $shipment_id ?>;
 
-getDiscussions();
-getBiddingList();
-//getKendaraan();
+$(function() {
+	if ($(".header").length > 0) {
+		$(".header").addClass("scroll");
+	}
+	
+	getDiscussions();
+	getBiddingList();
+
 <?php
 $btnJawabPertanyaan = "";
 $detailJawabPertanyaan = "";
@@ -575,6 +580,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	}
 	
 <?php } ?>
+});
 
 function getDiscussions() {
 	var shipment_id = data_shipment_id;

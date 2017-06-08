@@ -41,6 +41,8 @@ class Kirim extends MY_Controller
 		$shipment_length_max = $this->input->post("shipment_length_max");
 		$lowest_bid = $this->input->post("lowest_bid");
 		$order_by = $this->input->post("order_by");
+		$limit = 100;
+		$offset = 0;
 		
 		$data = array(
 			"location_from_city" => $location_from_city,
@@ -48,7 +50,9 @@ class Kirim extends MY_Controller
 			"shipment_length_min" => $shipment_length_min,
 			"shipment_length_max" => $shipment_length_max,
 			"lowest_bid" => $lowest_bid,
-			"order_by" => $order_by
+			"order_by" => $order_by,
+			"limit" => $limit,
+			"offset" => $offset
 		);
 		$kirim = $this->Kirim_model->getListKirimanUmum($data);
 		$iLength = sizeof($kirim);
@@ -204,11 +208,47 @@ class Kirim extends MY_Controller
 		echo json_encode($vehicles);
 	}
 
+	function cekLogin()
+    {
+		$isLoggedIn = false;
+        if ($this->session->userdata('isLoggedIn') == 1) {
+            $isLoggedIn = true;
+		}
+		return $isLoggedIn;
+    }
+
     function detail($id)
     {
+		$isLoggedIn = $this->cekLogin();
+		if (!$isLoggedIn) {
+			$this->detail_umum($id);
+		} else {
+			$data = $this->getDetailData($id);
+			parent::template('kirimbarang_detail', $data);
+		}
+    }
 
-        $data = $this->Kirim_model->getShipment($id);
-        $items = $this->Kirim_model->getShipmentDetail($id);
+	private function detail_umum($id) {
+		$isLoggedIn = $this->cekLogin();
+		$data = array(
+			'title' => 'home',
+			'page_name' => "kirimbarang_detail",
+			'page_title'=> 'Detail Kiriman',
+			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css" rel="stylesheet">',
+			"isLoggedIn" => $isLoggedIn
+		);
+
+		$detailData = $this->getDetailData($id);
+		$data = $data + $detailData;
+
+		$this->load->view('front/common/header', $data);
+		$this->load->view('kirimbarang_detail', $data);
+		$this->load->view('front/common/footer', $data);
+	}
+
+	private function getDetailData($id) {
+		$data = $this->Kirim_model->getShipment($id);
+		$items = $this->Kirim_model->getShipmentDetail($id);
 		$user_id = $this->session->userdata("user_id");
 		$user_username = $this->session->userdata("username");
 		$user_role = $this->session->userdata("role_id");
@@ -226,11 +266,11 @@ class Kirim extends MY_Controller
 			$isOwner = true;
 		}
 		
-        $data = array(
-            'title' => 'Kirim Barang',
+		$data = array(
+			'title' => 'Kirim Barang',
 			'page_title' => $data[0]->shipment_title,
-            'type' => 'edit',
-            'shipment_id' => $shipment_id,
+			'type' => 'edit',
+			'shipment_id' => $shipment_id,
 			'user_id' => $user_id,
 			'username' => $user_username,
 			'role_id' => $user_role,
@@ -239,32 +279,32 @@ class Kirim extends MY_Controller
 			'shipment_owner_username' => $data[0]->username,
 			'created_date' => $data[0]->created_date,
 			'modified_date' => $data[0]->modified_date,
-            'shipment_title' => $data[0]->shipment_title,
+			'shipment_title' => $data[0]->shipment_title,
 			'order_type_name' => $order_type_name,
-            'shipment_information' => $data[0]->shipment_information,
+			'shipment_information' => $data[0]->shipment_information,
 			'shipment_status' => $data[0]->shipment_status,
-            'location_from_contact' => $data[0]->location_from_contact,
-            'location_from_name' => $data[0]->location_from_name,
+			'location_from_contact' => $data[0]->location_from_contact,
+			'location_from_name' => $data[0]->location_from_name,
 			'location_from_city' => $data[0]->location_from_city,
-            'location_from_address' => $data[0]->location_from_address,
-            'location_from_lat' => $data[0]->location_from_lat,
+			'location_from_address' => $data[0]->location_from_address,
+			'location_from_lat' => $data[0]->location_from_lat,
 			'location_from_lng' => $data[0]->location_from_lng,
-            'location_to_contact' => $data[0]->location_to_contact,
-            'location_to_name' => $data[0]->location_to_name,
+			'location_to_contact' => $data[0]->location_to_contact,
+			'location_to_name' => $data[0]->location_to_name,
 			'location_to_city' => $data[0]->location_to_city,
-            'location_to_address' => $data[0]->location_to_address,
-            'location_to_lat' => $data[0]->location_to_lat,
+			'location_to_address' => $data[0]->location_to_address,
+			'location_to_lat' => $data[0]->location_to_lat,
 			'location_to_lng' => $data[0]->location_to_lng,
-            'shipment_delivery_date_from' => $data[0]->shipment_delivery_date_from,
-            'shipment_delivery_date_to' => $data[0]->shipment_delivery_date_to,
-            'shipment_end_date' => $data[0]->shipment_end_date,
-            'shipment_price' => $data[0]->shipment_price,
-            'shipment_pictures' => $data[0]->shipment_pictures,
-            'items' => $items
-        );
-		
-        parent::template('kirimbarang_detail', $data);
-    }
+			'shipment_delivery_date_from' => $data[0]->shipment_delivery_date_from,
+			'shipment_delivery_date_to' => $data[0]->shipment_delivery_date_to,
+			'shipment_end_date' => $data[0]->shipment_end_date,
+			'shipment_price' => $data[0]->shipment_price,
+			'shipment_pictures' => $data[0]->shipment_pictures,
+			'items' => $items
+		);
+
+		return $data;
+	}
 
 	public function getSavedLocation() {
 		parent::__construct();
@@ -477,7 +517,7 @@ class Kirim extends MY_Controller
 	
 	public function kirimPertanyaan() {
 		parent::__construct();
-		
+
 		$submit_pertanyaan = $this->input->post("submit_pertanyaan");
 		if ($submit_pertanyaan != null) {
 			$questions_text = $this->input->post("questions_text");

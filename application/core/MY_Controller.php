@@ -24,7 +24,7 @@ class MY_Controller extends CI_Controller
     public function cekLogin()
     {
         if ($this->session->userdata('isLoggedIn') != 1) {
-            redirect(base_url());
+            redirect(base_url("#login"));
         }
     }
 	

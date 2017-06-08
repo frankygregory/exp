@@ -109,12 +109,7 @@ $(function() {
 
 		$(".header-menu-login").on("click", function(e) {
 			e.stopPropagation();
-			if ($(".login-dialog").css("display") == "none") {
-				$(".login-dialog").css("display", "block");
-				$(".input-username").select();
-			} else {
-				$(".login-dialog").css("display", "none");
-			}
+			toggleLoginDialog();
 		});
 
 		$(".input-username, .input-password").on("keypress", function(e) {
@@ -156,6 +151,15 @@ $(function() {
 <?php
 	}	?>
 });
+function toggleLoginDialog() {
+	if ($(".login-dialog").css("display") == "none") {
+		$(".login-dialog").css("display", "block");
+		$(".input-username").select();
+	} else {
+		$(".login-dialog").css("display", "none");
+	}
+}
+
 function ajaxCall(url, data, callback) {
 	$.ajax({
 		url: url,

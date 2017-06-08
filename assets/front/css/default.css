@@ -7,6 +7,10 @@
 	font-family: roboto-regular;
 }
 
+body {
+	min-height: 100vh;
+}
+
 input[type="text"], input[type="password"] {
 	border: 0;
 	border-bottom: 2px solid #E0E0E0;

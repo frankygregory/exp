@@ -62,6 +62,25 @@
 			</table>
 		</div>
 	</div>
+	<div class="paging-section">
+		<div class="view-per-page">
+			View per page :
+			<select class="select-view-per-page">
+				<option value="10">10</option>
+				<option value="25">25</option>
+				<option value="50">50</option>
+			</select>
+		</div>
+		<div class="page-numbers">
+			Halaman : 
+			<div class="page-number-item disabled" data-value="prev">Previous</div>
+			<div class="page-number-item current-page-number" data-value="1">1</div>
+			<div class="page-number-item" data-value="2">2</div>
+			<div class="page-number-item" data-value="3">3</div>
+			<div class="page-number-item" data-value="4">4</div>
+			<div class="page-number-item" data-value="next">Next</div>
+		</div>
+	</div>
 </div>
 </div>
 </div>
