@@ -29,7 +29,7 @@ class Kirim_model extends CI_Model
 		return $query->result();
 	}
 
-	public function getListKirimanUmumCount() {
+	public function getListKirimanUmumCount($data) {
 		if ($data["order_by"] != "") {
 			$data["order_by"] = " ORDER BY m." . $data["order_by"];
 		}
@@ -42,6 +42,8 @@ class Kirim_model extends CI_Model
 		$query =  $this->db->query(
 			"SELECT COUNT(m.shipment_id) AS count
 			FROM `m_shipment` m
+			LEFT JOIN (SELECT COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) t
+			ON m.shipment_id = t.shipment_id
 			WHERE m.shipment_end_date > CURRENT_TIMESTAMP() AND m.shipment_status = -1 AND m.location_from_city LIKE '%" . $data["location_from_city"] . "%' AND m.location_to_city LIKE '%" . $data["location_to_city"] . "%' AND m.shipment_length >= " . $data["shipment_length_min"] . $where_shipment_max . " AND COALESCE(t.bidding_price, 0) >= " . $data["lowest_bid"] . "
 			GROUP BY m.shipment_id"
 		);

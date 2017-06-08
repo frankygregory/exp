@@ -41,8 +41,9 @@ class Kirim extends MY_Controller
 		$shipment_length_max = $this->input->post("shipment_length_max");
 		$lowest_bid = $this->input->post("lowest_bid");
 		$order_by = $this->input->post("order_by");
-		$limit = 100;
-		$offset = 0;
+		$limit = $this->input->post("view_per_page");
+		$page = $this->input->post("page");
+		$offset = ($page - 1) * $limit;
 		
 		$data = array(
 			"location_from_city" => $location_from_city,
@@ -60,7 +61,12 @@ class Kirim extends MY_Controller
 			$berakhir = $kirim[$i]->berakhir;
 			$kirim[$i]->berakhir = $this->secondsToTime($berakhir);
 		}
-		echo json_encode($kirim);
+
+		$count = $this->Kirim_model->getListKirimanUmumCount($data);
+		$result = new stdClass();
+		$result->data = $kirim;
+		$result->count = $count;
+		echo json_encode($result);
 	}
 	
 	public function getKota() {

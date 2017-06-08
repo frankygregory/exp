@@ -74,10 +74,12 @@
 		<div class="page-numbers">
 			Halaman : 
 			<div class="page-number-item disabled" data-value="prev">Previous</div>
-			<div class="page-number-item current-page-number" data-value="1">1</div>
-			<div class="page-number-item" data-value="2">2</div>
-			<div class="page-number-item" data-value="3">3</div>
-			<div class="page-number-item" data-value="4">4</div>
+			<div class="available-pages">
+				<div class="page-number-item current-page-number" data-value="1">1</div>
+				<div class="page-number-item" data-value="2">2</div>
+				<div class="page-number-item" data-value="3">3</div>
+				<div class="page-number-item" data-value="4">4</div>
+			</div>
 			<div class="page-number-item" data-value="next">Next</div>
 		</div>
 	</div>
@@ -217,6 +219,10 @@ function hideDatalist() {
 	$(".datalist").css("display", "none");
 }
 
+function setAvailablePages() {
+	var currentPage = $(".page-number-item.current-page-number").data("value");
+}
+
 function getKiriman() {
 	var jarak_min = parseInt($(".input-jarak-min").val()) || 0;
 	var jarak_max = parseInt($(".input-jarak-max").val()) || 0;
@@ -224,6 +230,8 @@ function getKiriman() {
 	var order_by = $(".select-sort").val();
 	var keyword_from = $(".input-kota-asal").val();
 	var keyword_to = $(".input-kota-tujuan").val();
+	var view_per_page = $(".select-view-per-page").val();
+	var page = $(".page-number-item.current-page-number").data("value");
 	
 	var data = {
 		keyword_from: keyword_from,
@@ -231,13 +239,16 @@ function getKiriman() {
 		shipment_length_min: jarak_min,
 		shipment_length_max: jarak_max,
 		lowest_bid: lowest_bid,
-		order_by: order_by
+		order_by: order_by,
+		view_per_page: view_per_page,
+		page: page
 	};
 	ajaxCall("<?= base_url("kirim/getKiriman") ?>", data, function(json) {
 		$(".tbody-kiriman").html("");
 		var result = jQuery.parseJSON(json);
-		for (var i = 0; i < result.length; i++) {
-			addKirimanToTable((i + 1), result[i]);
+		var count = result.count;
+		for (var i = 0; i < result.data.length; i++) {
+			addKirimanToTable((i + 1), result.data[i]);
 		}
 	});
 }
