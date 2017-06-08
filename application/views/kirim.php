@@ -219,11 +219,40 @@ function hideDatalist() {
 	$(".datalist").css("display", "none");
 }
 
-function setAvailablePages() {
-	var currentPage = $(".page-number-item.current-page-number").data("value");
+function setAvailablePages(count, view_per_page) {
+	var pageCount = Math.ceil(count / view_per_page);
+	var element = "";
+	element += '<div class="page-number-item current-page-number" data-value="1">1</div>';
+	for (var i = 2; i <= pageCount; i++) {
+		element += '<div class="page-number-item" data-value="' + i + '">' + i + '</div>';
+	}
+	$(".available-pages").html(element);
+	
+	disablePrevPage();
+	if (pageCount <= 1) {
+		disableNextPage();
+	} else {
+		enableNextPage();
+	}
 }
 
-function getKiriman() {
+function disableNextPage() {
+	$(".page-number-item[data-value='next']").addClass("disabled");
+}
+
+function enableNextPage() {
+	$(".page-number-item[data-value='next']").removeClass("disabled");
+}
+
+function disablePrevPage() {
+	$(".page-number-item[data-value='prev']").addClass("disabled");
+}
+
+function enablePrevPage() {
+	$(".page-number-item[data-value='prev']").removeClass("disabled");
+}
+
+function getKiriman(changePage = false) {
 	var jarak_min = parseInt($(".input-jarak-min").val()) || 0;
 	var jarak_max = parseInt($(".input-jarak-max").val()) || 0;
 	var lowest_bid = parseInt($(".input-lowest-bid").val()) || 0;
@@ -231,7 +260,10 @@ function getKiriman() {
 	var keyword_from = $(".input-kota-asal").val();
 	var keyword_to = $(".input-kota-tujuan").val();
 	var view_per_page = $(".select-view-per-page").val();
-	var page = $(".page-number-item.current-page-number").data("value");
+	var page = 1;
+	if (changePage) {
+		page = $(".page-number-item.current-page-number").data("value");
+	}
 	
 	var data = {
 		keyword_from: keyword_from,
@@ -241,12 +273,18 @@ function getKiriman() {
 		lowest_bid: lowest_bid,
 		order_by: order_by,
 		view_per_page: view_per_page,
-		page: page
+		page: page,
+		change_page: changePage
 	};
 	ajaxCall("<?= base_url("kirim/getKiriman") ?>", data, function(json) {
 		$(".tbody-kiriman").html("");
 		var result = jQuery.parseJSON(json);
-		var count = result.count;
+		
+		if (!changePage) {
+			var count = result.count;
+			setAvailablePages(count, view_per_page);
+		}
+
 		for (var i = 0; i < result.data.length; i++) {
 			addKirimanToTable((i + 1), result.data[i]);
 		}

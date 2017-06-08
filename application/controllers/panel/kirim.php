@@ -43,6 +43,7 @@ class Kirim extends MY_Controller
 		$order_by = $this->input->post("order_by");
 		$limit = $this->input->post("view_per_page");
 		$page = $this->input->post("page");
+		$change_page = $this->input->post("change_page");
 		$offset = ($page - 1) * $limit;
 		
 		$data = array(
@@ -61,11 +62,13 @@ class Kirim extends MY_Controller
 			$berakhir = $kirim[$i]->berakhir;
 			$kirim[$i]->berakhir = $this->secondsToTime($berakhir);
 		}
-
-		$count = $this->Kirim_model->getListKirimanUmumCount($data);
 		$result = new stdClass();
 		$result->data = $kirim;
-		$result->count = $count;
+
+		if ($change_page == "false") {
+			$count = $this->Kirim_model->getListKirimanUmumCount($data)[0]->count;
+			$result->count = $count;
+		}
 		echo json_encode($result);
 	}
 	
