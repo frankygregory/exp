@@ -186,5 +186,11 @@ function addCommas(nStr) {
     }
     return x1 + x2;
 }
+
+function isNumber(e) {
+	if ((e.which >= 65 && e.which <= 90) || e.which >= 186) {
+		e.preventDefault();
+	}
+}
 </script>
 <div class="container">

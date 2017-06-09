@@ -1,10 +1,14 @@
+.content {
+	width: 1040px;
+}
+
 .section {
-	min-height: 80px;
-	padding: 10px 0;
+	height: 80px;
+	width: 1040px;
+	padding-top: 10px;
 	margin: 0 auto;
-	left: 0;
-	right: 0;
 	background-color: white;
+	z-index: 100;
 }
 
 .section.fixed {
@@ -13,7 +17,7 @@
 }
 
 .section.fixed + div {
-	margin-top: 120px;
+	margin-top: 110px;
 }
 
 .subsection-filter {
@@ -33,7 +37,7 @@
 }
 
 .form-item-kota {
-	width: 150px;
+	width: 160px;
 }
 
 .form-item-jarak {
@@ -61,7 +65,7 @@
 }
 
 .table-kiriman {
-	margin: 0 auto 0;
+	margin: 0 auto;
 	width: auto !important;
 }
 
@@ -74,7 +78,24 @@
 }
 
 .table-kiriman thead tr {
-	height: 40px;
+	height: 50px;
+}
+
+.table-kiriman thead td[data-sortable="true"] {
+	cursor: pointer;
+}
+
+.table-kiriman thead td[data-sortable="true"]:hover {
+	background-color: #EEE;
+}
+
+.table-kiriman .tr-icon {
+	margin-bottom: -5px;
+	margin-left: 10px;
+}
+
+.table-kiriman thead td[data-sortable="true"][data-sort-value=""] .tr-icon {
+	display: none;
 }
 
 .table-kiriman.fixed thead {
@@ -101,11 +122,11 @@
 }
 
 .table-kiriman td[data-col="km"] {
-	width: 50px;
+	width: 80px;
 }
 
 .table-kiriman td[data-col="berakhir"] {
-	width: 260px;
+	width: 230px;
 }
 
 .table-kiriman a:link, .table-kiriman a:visited {
@@ -125,6 +146,7 @@
 
 .subsection-sort {
 	float: right;
+	margin-right: -10px;
 }
 
 .subsection-sort .form-item {
