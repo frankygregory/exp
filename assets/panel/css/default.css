@@ -220,6 +220,7 @@ table td[data-align="center"] {
 	padding: 10px 0;
 	overflow: hidden;
 	font-weight: normal;
+	z-index: 1000;
 }
 
 .datalist:hover {

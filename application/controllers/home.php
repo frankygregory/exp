@@ -5,11 +5,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller
 {
+	protected $modules = "";
 
     public function __construct()
     {
         parent::__construct();
     }
+
+	public function loadModule($moduleName) {
+		$this->modules .= "<link href='" . base_url("assets/template/css/" . $moduleName . ".css") . "' rel='stylesheet'>" . "<script src='" . base_url("assets/template/js/" . $moduleName . ".js") . "'></script>";
+	}
 
 	public function cekLogin()
     {
@@ -27,7 +32,8 @@ class Home extends CI_Controller
             'title' => 'home',
             'page_name' => "home",
 			'additional_file' => "",
-			"isLoggedIn" => $isLoggedIn
+			"isLoggedIn" => $isLoggedIn,
+			"modules" => $this->modules
         );
 
 		$this->load->view('front/common/header', $data);
@@ -38,12 +44,14 @@ class Home extends CI_Controller
 	public function list_kiriman()
 	{
 		$isLoggedIn = $this->cekLogin();
+		$this->loadModule("pagination");
 		$data = array(
             'title' => 'List Kiriman',
             'page_name' => "kirim",
 			'page_title'=> 'List Kiriman',
 			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirim.css" rel="stylesheet">',
-			"isLoggedIn" => $isLoggedIn
+			"isLoggedIn" => $isLoggedIn,
+			"modules" => $this->modules
         );
 
 		$this->load->view('front/common/header', $data);
@@ -77,7 +85,8 @@ class Home extends CI_Controller
 			'alamat' => '',
 			'telp' => '',
 			'handphone' => '',
-			"isLoggedIn" => $isLoggedIn
+			"isLoggedIn" => $isLoggedIn,
+			"modules" => $this->modules
         );
         $this->load->view('front/register', $data);
 		$this->load->view('front/common/footer', $data);

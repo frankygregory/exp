@@ -1,0 +1,56 @@
+.jumlah-hasil {
+	float: left;
+	font-size: 11pt;
+	color: #616161;
+}
+
+.jumlah-hasil .result-count, .jumlah-hasil .result-paging {
+	color: black !important;
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+.paging-section {
+	overflow: auto;
+	margin: 50px 0;
+}
+
+.view-per-page {
+	float: right;
+	margin-right: 50px;
+}
+
+.select-view-per-page {
+	width: 60px;
+}
+
+.page-numbers {
+	float: right;
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+	user-select: none;          /* Likely future */
+}
+
+.page-number-item, .page-number-prev, .page-number-next {
+	display: inline-block;
+	padding: 8px 12px;
+	border: 1px solid #424242;
+	cursor: pointer;
+	margin-right: 5px;
+}
+
+.page-number-item:hover, .page-number-prev:hover, .page-number-next:hover {
+	background-color: #E0E0E0;
+}
+
+.page-number-item.current-page-number, .page-number-prev.disabled, .page-number-next.disabled {
+	cursor: default;
+	background-color: #E0E0E0;
+	border: 1px solid #616161;
+	color: #616161;
+}
+
+.available-pages {
+	display: inline-block;
+}

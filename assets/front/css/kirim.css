@@ -15,3 +15,11 @@ input[type="text"]:focus {
 	width: 80vw;
 	margin: 0 auto;
 }
+
+.section.fixed {
+	top: 50px;
+}
+
+.table-kiriman.fixed thead {
+	top: 170px;
+}

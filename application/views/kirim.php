@@ -4,13 +4,13 @@
 <div class="section">
 	<div class="subsection-filter">
 		<div class="subsection-title">Filter</div>
-		<div class="form-item">
+		<div class="form-item form-item-kota">
 			<div class="form-item-label">Kota Asal</div>
 			<input type="text" class="input-kota-asal input-kota-from" data-fromto="from" value="" />
 			<div class="datalist from-city-dropdown">
 			</div>
 		</div>
-		<div class="form-item">
+		<div class="form-item form-item-kota">
 			<div class="form-item-label">Kota Tujuan</div>
 			<input type="text" class="input-kota-tujuan input-kota-to" data-fromto="to" />
 			<div class="datalist to-city-dropdown">
@@ -63,6 +63,15 @@
 		</div>
 	</div>
 	<div class="paging-section">
+		<div class="jumlah-hasil">Menampilkan hasil <span class="result-paging">0</span> dari <span class="result-count">0</span></div>
+		<div class="page-numbers">
+			Halaman : 
+			<div class="page-number-prev disabled" data-value="prev">Previous</div>
+			<div class="available-pages" data-value="0">
+				<div class="page-number-item current-page-number" data-value="1">1</div>
+			</div>
+			<div class="page-number-next" data-value="next">Next</div>
+		</div>
 		<div class="view-per-page">
 			View per page :
 			<select class="select-view-per-page">
@@ -71,38 +80,38 @@
 				<option value="50">50</option>
 			</select>
 		</div>
-		<div class="page-numbers">
-			Halaman : 
-			<div class="page-number-item disabled" data-value="prev">Previous</div>
-			<div class="available-pages">
-				<div class="page-number-item current-page-number" data-value="1">1</div>
-				<div class="page-number-item" data-value="2">2</div>
-				<div class="page-number-item" data-value="3">3</div>
-				<div class="page-number-item" data-value="4">4</div>
-			</div>
-			<div class="page-number-item" data-value="next">Next</div>
-		</div>
 	</div>
 </div>
 </div>
 </div>
-
-
 <script type="text/javascript">
 var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var headerHeight, sectionHeight, sectionTop, sectionPosition, theadHeight, tbodyTop, tbodyPosition;
+
 $(function() {
 	if ($(".header").length > 0) {
-		$(".header").addClass("scroll");
+		$(".header").addClass("scroll white-background");
+		headerHeight = parseInt($(".header").css("height")) || 0;
+	} else {
+		headerHeight = parseInt($(".navigation-header").css("height")) || 0;
 	}
+	var width = $(".section").width();
+	$(".section").css("width", width);
+	sectionHeight = parseInt($(".section").css("height")) || 0;
+	sectionTop = $(".section").offset().top;
+	sectionPosition = sectionTop - headerHeight;
+	theadHeight = parseInt($(".table-kiriman thead").css("height")) || 0;
+	tbodyTop = $(".table-kiriman tbody").offset().top;
+	tbodyPosition = tbodyTop - headerHeight - theadHeight - sectionHeight;
+
 	getKiriman();
 	
-	var headerHeight = parseInt($(".navigation-header").css("height"));
-	var theadHeight = parseInt($(".table-kiriman thead").css("height"));
-	var tbodyTop = $(".table-kiriman tbody").offset().top;
-	var tbodyPosition = tbodyTop - headerHeight - theadHeight;
+	if ($(".container-content").length > 0) {
+		$(".container-content").on("scroll", scrollDownEvent);
+	} else {
+		$(document).on("scroll", scrollDownEvent);
+	}
 	
-	$(".container-content").on("scroll", scrollDownEvent);
-
 	$(".select-sort").on("change", function() {
 		getKiriman();
 	});
@@ -169,24 +178,35 @@ $(function() {
 		getKiriman();
 	});
 
-	function scrollDownEvent() {
-		var scrollTop = $(".container-content").scrollTop();
-		if (scrollTop >= tbodyPosition) {
-			$(".table-kiriman").addClass("fixed");
-			$(".container-content").off("scroll");
-			$(".container-content").on("scroll", scrollUpEvent);
-		}
-	}
+	$(".select-view-per-page").on("change", function() {
+		getKiriman();
+	});
 
-	function scrollUpEvent() {
-		var scrollTop = $(".container-content").scrollTop();
-		if (scrollTop <= tbodyPosition) {
-			$(".table-kiriman").removeClass("fixed");
-			$(".container-content").off("scroll");
-			$(".container-content").on("scroll", scrollDownEvent);
-		}
-	}
+	paginationCallback = function() {
+		getKiriman(true);
+	};
+
 });
+
+function scrollDownEvent() {
+	var scrollTop = $(this).scrollTop();
+	if (scrollTop >= sectionPosition) {
+		$(".section, .table-kiriman").addClass("fixed");
+		$(".section").css("top", headerHeight);
+		$(".table-kiriman thead").css("top", headerHeight + sectionHeight);
+		$(this).off("scroll");
+		$(this).on("scroll", scrollUpEvent);
+	}
+}
+
+function scrollUpEvent() {
+	var scrollTop = $(this).scrollTop();
+	if (scrollTop <= sectionPosition) {
+		$(".section, .table-kiriman").removeClass("fixed");
+		$(this).off("scroll");
+		$(this).on("scroll", scrollDownEvent);
+	}
+}
 
 function getKota(fromto, keyword) {
 	var data = {
@@ -219,37 +239,12 @@ function hideDatalist() {
 	$(".datalist").css("display", "none");
 }
 
-function setAvailablePages(count, view_per_page) {
-	var pageCount = Math.ceil(count / view_per_page);
-	var element = "";
-	element += '<div class="page-number-item current-page-number" data-value="1">1</div>';
-	for (var i = 2; i <= pageCount; i++) {
-		element += '<div class="page-number-item" data-value="' + i + '">' + i + '</div>';
-	}
-	$(".available-pages").html(element);
-	
-	disablePrevPage();
-	if (pageCount <= 1) {
-		disableNextPage();
+function scrollToTop() {
+	if ($(".container-content").length > 0) {
+		$(".container-content").scrollTop(0);
 	} else {
-		enableNextPage();
+		$(document).scrollTop(0);
 	}
-}
-
-function disableNextPage() {
-	$(".page-number-item[data-value='next']").addClass("disabled");
-}
-
-function enableNextPage() {
-	$(".page-number-item[data-value='next']").removeClass("disabled");
-}
-
-function disablePrevPage() {
-	$(".page-number-item[data-value='prev']").addClass("disabled");
-}
-
-function enablePrevPage() {
-	$(".page-number-item[data-value='prev']").removeClass("disabled");
 }
 
 function getKiriman(changePage = false) {
@@ -259,10 +254,22 @@ function getKiriman(changePage = false) {
 	var order_by = $(".select-sort").val();
 	var keyword_from = $(".input-kota-asal").val();
 	var keyword_to = $(".input-kota-tujuan").val();
-	var view_per_page = $(".select-view-per-page").val();
+	var view_per_page = parseInt($(".select-view-per-page").val());
 	var page = 1;
 	if (changePage) {
-		page = $(".page-number-item.current-page-number").data("value");
+		page = parseInt($(".page-number-item.current-page-number").data("value"));
+		var availablePages = parseInt($(".available-pages").data("value"));
+		if (page == availablePages) {
+			disableNextPage();
+		} else {
+			enableNextPage();
+		}
+
+		if (page > 1) {
+			enablePrevPage();
+		} else {
+			disablePrevPage();
+		}
 	}
 	
 	var data = {
@@ -279,11 +286,19 @@ function getKiriman(changePage = false) {
 	ajaxCall("<?= base_url("kirim/getKiriman") ?>", data, function(json) {
 		$(".tbody-kiriman").html("");
 		var result = jQuery.parseJSON(json);
-		
+		scrollToTop();
 		if (!changePage) {
 			var count = result.count;
 			setAvailablePages(count, view_per_page);
 		}
+
+		var resultPagingFrom = ((page - 1) * view_per_page) + 1;
+		var resultPagingTo = resultPagingFrom + view_per_page - 1;
+		var count = parseInt($(".result-count").html());
+		if (resultPagingTo > count) {
+			resultPagingTo = count;
+		}
+		$(".result-paging").html(resultPagingFrom + " - " + resultPagingTo);
 
 		for (var i = 0; i < result.data.length; i++) {
 			addKirimanToTable((i + 1), result.data[i]);

@@ -24,6 +24,7 @@
 
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
 	<script src="<?=base_url('assets/panel/js/velocity.min.js')?>"></script>
+	<?= $modules ?>
 </head>
 <body>
 <div class="header">
@@ -72,7 +73,7 @@
 				<input type="checkbox" class="input-remember-me" value="remember-me" /> Ingat saya
 			</label>
 		</div>
-		<button type="button" class="btn-default btn-login">Login</button>
+		<button type="button" class="btn-login">Login</button>
 	</div>
 </div>
 <div class="header-overlay"></div>

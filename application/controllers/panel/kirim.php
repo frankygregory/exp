@@ -13,6 +13,7 @@ class Kirim extends MY_Controller
 
     public function index()
     {
+		$this->loadModule("pagination");
 		$role_id = $this->session->userdata("role_id");
 		$page_title = "List Kiriman";
 		if ($role_id == 2) {
@@ -244,7 +245,8 @@ class Kirim extends MY_Controller
 			'page_name' => "kirimbarang_detail",
 			'page_title'=> 'Detail Kiriman',
 			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css" rel="stylesheet">',
-			"isLoggedIn" => $isLoggedIn
+			"isLoggedIn" => $isLoggedIn,
+			"modules" => ""
 		);
 
 		$detailData = $this->getDetailData($id);

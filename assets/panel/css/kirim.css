@@ -1,10 +1,22 @@
 .section {
-	height: 80px;
-	margin-top: 20px;
+	min-height: 80px;
+	padding: 10px 0;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	background-color: white;
+}
+
+.section.fixed {
+	position: fixed;
+	top: 30px;
+}
+
+.section.fixed + div {
+	margin-top: 120px;
 }
 
 .subsection-filter {
-	width: 70%;
 	float: left;
 }
 
@@ -14,14 +26,14 @@
 	margin-right: 20px;
 }
 
-.subsection-filter .subsection-title {
-	height: 70px;
-}
-
 .form-item {
 	float: left;
 	width: 170px;
 	margin-right: 10px;
+}
+
+.form-item-kota {
+	width: 150px;
 }
 
 .form-item-jarak {
@@ -49,7 +61,7 @@
 }
 
 .table-kiriman {
-	margin: 20px auto 0;
+	margin: 0 auto 0;
 	width: auto !important;
 }
 
@@ -67,8 +79,9 @@
 
 .table-kiriman.fixed thead {
 	position: fixed;
-	top: 50px;
+	top: 150px;
 	margin-right: 15px;
+	z-index: 0;
 }
 
 .table-kiriman.fixed tbody {
@@ -121,42 +134,4 @@
 
 .td-nama-kirim, .td-title, .td-km {
 	text-align: center;
-}
-
-.paging-section {
-	margin: 50px 0;
-}
-
-.select-view-per-page {
-	width: 60px;
-}
-
-.page-numbers {
-	float: right;
-	-webkit-user-select: none;  /* Chrome all / Safari all */
-	-moz-user-select: none;     /* Firefox all */
-	-ms-user-select: none;      /* IE 10+ */
-	user-select: none;          /* Likely future */
-}
-
-.page-number-item {
-	display: inline-block;
-	padding: 8px 12px;
-	border: 1px solid #424242;
-	cursor: pointer;
-}
-
-.page-number-item:hover {
-	background-color: #E0E0E0;
-}
-
-.page-number-item.current-page-number, .page-number-item.disabled {
-	cursor: default;
-	background-color: #E0E0E0;
-	border: 1px solid #616161;
-	color: #616161;
-}
-
-.available-pages {
-	display: inline-block;
 }
