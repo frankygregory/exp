@@ -243,10 +243,6 @@ var location_to_lng = <?= $location_to_lng ?>;
 var data_shipment_id = <?= $shipment_id ?>;
 
 $(function() {
-	if ($(".header").length > 0) {
-		$(".header").addClass("scroll");
-	}
-	
 	getDiscussions();
 	getBiddingList();
 

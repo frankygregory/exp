@@ -1,10 +1,10 @@
 ::-moz-selection {
-	background-color: #FFFF00;
+	background-color: #FF9800;
 	color: black;
 }
 
 ::selection {
-	background-color: #FFFF00;
+	background-color: #FF9800;
 	color: black;
 }
 
@@ -79,20 +79,20 @@
 
 .btn-pemilik {
 	background-color: transparent;
-	border: 2px solid #FFF000;
-	color: #FFF000;
+	border: 2px solid #FF9800;
+	color: #FF9800;
 	margin-right: 20px;
 }
 
 .btn-pemilik:hover {
-	background-color: #FFF000;
-	border: 2px solid #FFF000;
+	background-color: #FF9800;
+	border: 2px solid #FF9800;
 	color: black;
 }
 
 .btn-penerima {
-	background-color: #FFF000;
-	border: 2px solid #FFF000;
+	background-color: #FF9800;
+	border: 2px solid #FF9800;
 	color: black;
 }
 

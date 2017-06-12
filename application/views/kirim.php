@@ -220,7 +220,6 @@ var headerHeight, sectionHeight, sectionTop, sectionPosition, theadHeight, tbody
 var alreadyRefresh = false;
 $(function() {
 	if ($(".header").length > 0) {
-		$(".header").addClass("scroll white-background");
 		headerHeight = parseInt($(".header").css("height")) || 0;
 	} else {
 		headerHeight = parseInt($(".navigation-header").css("height")) || 0;

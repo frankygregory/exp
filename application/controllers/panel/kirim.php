@@ -239,6 +239,7 @@ class Kirim extends MY_Controller
     }
 
 	private function detail_umum($id) {
+		$activePage = ["home" => "", "list_kiriman" => "", "contact_us" => "", "daftar" => "", "login" => ""];
 		$isLoggedIn = $this->cekLogin();
 		$data = array(
 			'title' => 'home',
@@ -246,7 +247,9 @@ class Kirim extends MY_Controller
 			'page_title'=> 'Detail Kiriman',
 			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css" rel="stylesheet">',
 			"isLoggedIn" => $isLoggedIn,
-			"modules" => ""
+			"modules" => "",
+			"activePage" => $activePage,
+			"headerScroll" => "scroll white-background"
 		);
 
 		$detailData = $this->getDetailData($id);

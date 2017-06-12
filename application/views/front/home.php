@@ -8,8 +8,8 @@
 			<div class="title-text">Yukirim</div>
 			<div class="title-description">Kirim apapun dan kapanpun : Mudah, Cepat, Aman</div>
 			<div class="section-1-buttons">
-				<a class="btn-pemilik" href="<?= base_url("register") ?>#barang" >Saya adalah Pemilik Barang</a>
-				<a class="btn-penerima" href="<?= base_url("register") ?>#kendaraan" >Saya adalah Pemilik Kendaraan</a>
+				<a class="btn-pemilik" href="<?= base_url("how/pemilik-barang") ?>" >Saya adalah Pemilik Barang</a>
+				<a class="btn-penerima" href="<?= base_url("how/pemilik-kendaraan") ?>" >Saya adalah Pemilik Kendaraan</a>
 			</div>
 		</div>
 	</div>

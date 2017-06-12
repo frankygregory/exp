@@ -27,21 +27,21 @@
 	<?= $modules ?>
 </head>
 <body>
-<div class="header">
+<div class="header <?= $headerScroll ?>">
 	<a href="<?= base_url() ?>" class="logo">Yukirim</a>
 	<div class="header-right">
 <?php   if ($isLoggedIn == 1) {	?>
 			<a href="<?= base_url('dashboard') ?>" class="header-menu header-menu-dashboard">My Dashboard
 			</a>
 <?php   }	?>
-		<a href="<?= base_url("list-kiriman") ?>" class="header-menu">List Kiriman
+		<a href="<?= base_url("list-kiriman") ?>" class="header-menu <?= $activePage["list_kiriman"] ?>">List Kiriman
 			<div class="bottom-line"></div>
 		</a>
 		<a href="#" class="header-menu">Contact Us
 			<div class="bottom-line"></div>
 		</a>
 <?php	if ($isLoggedIn != 1) {	?>
-		<a href="<?= base_url("register") ?>" class="header-menu">Daftar
+		<a href="<?= base_url("register") ?>" class="header-menu <?= $activePage["daftar"] ?>">Daftar
 			<div class="bottom-line"></div>
 		</a>
 		<a class="header-menu header-menu-login">Login
@@ -76,7 +76,9 @@
 		<button type="button" class="btn-login">Login</button>
 	</div>
 </div>
-<div class="header-overlay"></div>
+<?php if ($page_name != "home") { ?>
+	<div class="header-overlay"></div>
+<?php }	?>
 <script>
 $(function() {
 	

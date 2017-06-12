@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Home extends CI_Controller
 {
 	protected $modules = "";
-
+	protected $activePage = ["home" => "", "list_kiriman" => "", "contact_us" => "", "daftar" => "", "login" => ""];
     public function __construct()
     {
         parent::__construct();
@@ -33,7 +33,9 @@ class Home extends CI_Controller
             'page_name' => "home",
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
-			"modules" => $this->modules
+			"modules" => $this->modules,
+			"activePage" => $this->activePage,
+			"headerScroll" => ""
         );
 
 		$this->load->view('front/common/header', $data);
@@ -43,6 +45,7 @@ class Home extends CI_Controller
 
 	public function list_kiriman()
 	{
+		$this->activePage["list_kiriman"] = "active";
 		$isLoggedIn = $this->cekLogin();
 		$this->loadModule("pagination");
 		$data = array(
@@ -51,11 +54,39 @@ class Home extends CI_Controller
 			'page_title'=> 'List Kiriman',
 			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirim.css" rel="stylesheet">',
 			"isLoggedIn" => $isLoggedIn,
-			"modules" => $this->modules
+			"modules" => $this->modules,
+			"activePage" => $this->activePage,
+			"headerScroll" => "scroll white-background"
         );
 
 		$this->load->view('front/common/header', $data);
         $this->load->view('kirim', $data);
+		$this->load->view('front/common/footer', $data);
+	}
+
+	public function how($role)
+	{
+		$isLoggedIn = $this->cekLogin();
+		$segment = $this->uri->segment(2);
+		$page_name;
+		if ($segment == "pemilik-barang") {
+			$page_name = "how_konsumen";
+		} else if ($segment == "pemilik-kendaraan") {
+			$page_name = "how_ekspedisi";
+		}
+
+		$data = array(
+            'title' => 'How It Works',
+            'page_name' => $page_name,
+			'page_title'=> 'How It Works - Pemilik Barang',
+			'additional_file' => "",
+			"isLoggedIn" => $isLoggedIn,
+			"modules" => $this->modules,
+			"activePage" => $this->activePage,
+			"headerScroll" => "scroll white-background"
+        );
+		$this->load->view('front/common/header', $data);
+		$this->load->view('front/' . $page_name, $data);
 		$this->load->view('front/common/footer', $data);
 	}
 
@@ -70,6 +101,7 @@ class Home extends CI_Controller
 
     public function register()
     {
+		$this->activePage["daftar"] = "active";
 		$isLoggedIn = $this->cekLogin();
         $data = array(
             'title' => 'Register',
@@ -86,7 +118,9 @@ class Home extends CI_Controller
 			'telp' => '',
 			'handphone' => '',
 			"isLoggedIn" => $isLoggedIn,
-			"modules" => $this->modules
+			"modules" => $this->modules,
+			"activePage" => $this->activePage,
+			"headerScroll" => "scroll white-background"
         );
         $this->load->view('front/register', $data);
 		$this->load->view('front/common/footer', $data);

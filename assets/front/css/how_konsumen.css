@@ -1,0 +1,36 @@
+.section-1 {
+    width: 100%;
+    height: 600px;
+    position: relative;
+}
+
+.section-1-image {
+    width: 100%;
+	height: 100%;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+    filter: brightness(30%);
+}
+
+.section-1-text {
+    width: 100%;
+    position: absolute;
+    bottom: 200px;
+    color: white;
+    text-align: center;
+}
+
+.section-1-title {
+    font-size: 3em;
+}
+
+.section-1-description {
+    font-size: 1.5em;
+    margin-top: 50px;
+}
+
+.section-2 {
+	width: 100%;
+	height: 600px;
+}

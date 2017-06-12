@@ -118,7 +118,6 @@
 </div>
 <script>
 $(function() {
-	$(".header").addClass("scroll");
 	
 	$("input.input-username").on("focusout", function() {
 		var valid = cekUsername();
