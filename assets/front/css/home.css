@@ -190,36 +190,50 @@
 }
 
 .section-4 .section-content {
-	opacity: 0;
 	width: 770px;
 	margin: 0 auto;
 }
 
 .section-4-step {
-	overflow: auto;
+	overflow: hidden;
+	min-height: 70px;
+	position: relative;
 }
 
 .section-4-step-left, .section-4-step-icon, .section-4-step-right {
 	float: left;
+	overflow: hidden;
 }
 
 .section-4-step-left, .section-4-step-right {
+	display: inline-block;
 	width: 320px;
 	min-height: 1px;
 	padding: 15px 10px 0;
+	
 }
 
 .section-4-step-left {
+	float: left;
 	padding-left: 0;
+	opacity: 0;
 }
 
 .section-4-step-right {
+	float: right;
 	padding-right: 0;
+	opacity: 0;
 }
 
 .section-4-step-icon {
 	width: 70px;
 	height: 70px;
+	position: absolute;
+	margin: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	background-size: 60%;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -229,12 +243,11 @@
 
 .step-number {
 	display: inline-block;
-	float: left;
-	width: 30px;
+	width: 130px;
 	min-height: 1px;
+	padding-top: 12px;
 	font-size: 28pt;
 	font-weight: bold;
-	margin-top: 12px;
 }
 
 .step-number.right {
@@ -252,9 +265,85 @@
 	margin: 10px auto;
 }
 
-.section-2 .section-content.show, .section-3 .section-content.show, .section-4 .section-content.show {
+.step-1 .step-number.right, .step-2 .step-number, .step-3 .step-number.right, .step-4 .step-number, .step-5 .step-number.right {
+	opacity: 0;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}
+
+.section-2 .section-content.show, .section-3 .section-content.show {
 	animation-name: show;
 	animation-duration: 1s;
 	animation-timing-function: ease;
 	animation-fill-mode: forwards;
+}
+
+@keyframes section-4-step-number {
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes section-4-step-desc {
+	to {
+		opacity: 1;
+	}
+}
+
+.section-4 .section-content.show .step-1 .step-number.right {
+	animation-name: section-4-step-number;
+}
+
+.section-4 .section-content.show .step-2 .step-number {
+	animation-name: section-4-step-number;
+	animation-delay: 0.5s;
+}
+
+.section-4 .section-content.show .step-3 .step-number.right {
+	animation-name: section-4-step-number;
+	animation-delay: 1s;
+}
+
+.section-4 .section-content.show .step-4 .step-number {
+	animation-name: section-4-step-number;
+	animation-delay: 1.5s;
+}
+
+.section-4 .section-content.show .step-5 .step-number.right {
+	animation-name: section-4-step-number;
+	animation-delay: 2s;
+}
+
+.section-4 .section-content.show .step-1 .section-4-step-right {
+	animation-name: section-4-step-desc;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}
+
+.section-4 .section-content.show .step-2 .section-4-step-left {
+	animation-name: section-4-step-desc;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+	animation-delay: 0.5s;
+}
+
+.section-4 .section-content.show .step-3 .section-4-step-right {
+	animation-name: section-4-step-desc;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+	animation-delay: 1s;
+}
+
+.section-4 .section-content.show .step-4 .section-4-step-left {
+	animation-name: section-4-step-desc;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+	animation-delay: 1.5s;
+}
+
+.section-4 .section-content.show .step-5 .section-4-step-right {
+	animation-name: section-4-step-desc;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+	animation-delay: 2s;
 }

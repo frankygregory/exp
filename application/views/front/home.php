@@ -61,43 +61,48 @@
 		<div class="section-content">
 			<div class="section-4-title">Bagaimana Caranya?</div>
 			<div class="section-4-step step-1">
-				<span class="step-number"></span>
-				<div class="section-4-step-left"></div>
 				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
-				<span class="step-number right">1</span>
-				<div class="section-4-step-right">Isi detail Barang dan lokasi asal serta tujuan pengiriman</div>
+				<div class="section-4-step-container">
+					<div class="section-4-step-left empty"></div>
+					<span class="step-number right">1</span>
+					<div class="section-4-step-right">Isi detail Barang dan lokasi asal serta tujuan pengiriman</div>
+				</div>
 			</div>
 			<div class="section-4-vertical-line"></div>
 			<div class="section-4-step step-2">
-				<span class="step-number">2</span>
-				<div class="section-4-step-left">Piih penyedia jasa kiriman yang sesuai baik dari sisi harga ataupun pelayanan</div>
 				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
-				<span class="step-number"></span>
-				<div class="section-4-step-right"></div>
+				<div class="section-4-step-container">
+					<div class="section-4-step-left">Piih penyedia jasa kiriman yang sesuai baik dari sisi harga ataupun pelayanan</div>
+					<span class="step-number left">2</span>
+					<div class="section-4-step-right empty"></div>
+				</div>
 			</div>
 			<div class="section-4-vertical-line"></div>
 			<div class="section-4-step step-3">
-				<span class="step-number"></span>
-				<div class="section-4-step-left"></div>
 				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
-				<span class="step-number right">3</span>
-				<div class="section-4-step-right">Lacak kiriman yang dilakukan</div>
+				<div class="section-4-step-container">
+					<div class="section-4-step-left empty"></div>
+					<span class="step-number right">3</span>
+					<div class="section-4-step-right">Lacak kiriman yang dilakukan</div>
+				</div>
 			</div>
 			<div class="section-4-vertical-line"></div>
 			<div class="section-4-step step-4">
-				<span class="step-number">4</span>
-				<div class="section-4-step-left">Konfirmasi Kiriman yang sudah selesai dilakukan</div>
 				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
-				<span class="step-number"></span>
-				<div class="section-4-step-right"></div>
+				<div class="section-4-step-container">
+					<div class="section-4-step-left">Konfirmasi Kiriman yang sudah selesai dilakukan</div>
+					<span class="step-number left">4</span>
+					<div class="section-4-step-right empty"></div>
+				</div>
 			</div>
 			<div class="section-4-vertical-line"></div>
 			<div class="section-4-step step-5">
-				<span class="step-number"></span>
-				<div class="section-4-step-left"></div>
 				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
-				<span class="step-number right">5</span>
-				<div class="section-4-step-right">Berikan feedback dan rating bagi penyedia jasa kiriman</div>
+				<div class="section-4-step-container">
+					<div class="section-4-step-left empty"></div>
+					<span class="step-number right">5</span>
+					<div class="section-4-step-right">Berikan feedback dan rating bagi penyedia jasa kiriman</div>
+				</div>
 			</div>
 		</div>
 	</div>
