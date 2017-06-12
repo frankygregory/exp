@@ -61,7 +61,7 @@
 		<div class="section-content">
 			<div class="section-4-title">Bagaimana Caranya?</div>
 			<div class="section-4-step step-1">
-				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
+				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_assignment_black_24dp_2x.png") ?>');"></div>
 				<div class="section-4-step-container">
 					<div class="section-4-step-left empty"></div>
 					<span class="step-number right">1</span>
@@ -70,7 +70,7 @@
 			</div>
 			<div class="section-4-vertical-line"></div>
 			<div class="section-4-step step-2">
-				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
+				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_check_circle_black_24dp_2x.png") ?>');"></div>
 				<div class="section-4-step-container">
 					<div class="section-4-step-left">Piih penyedia jasa kiriman yang sesuai baik dari sisi harga ataupun pelayanan</div>
 					<span class="step-number left">2</span>
@@ -79,7 +79,7 @@
 			</div>
 			<div class="section-4-vertical-line"></div>
 			<div class="section-4-step step-3">
-				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
+				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_place_black_24dp_2x.png") ?>');"></div>
 				<div class="section-4-step-container">
 					<div class="section-4-step-left empty"></div>
 					<span class="step-number right">3</span>
@@ -88,7 +88,7 @@
 			</div>
 			<div class="section-4-vertical-line"></div>
 			<div class="section-4-step step-4">
-				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
+				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/confirm.png") ?>');"></div>
 				<div class="section-4-step-container">
 					<div class="section-4-step-left">Konfirmasi Kiriman yang sudah selesai dilakukan</div>
 					<span class="step-number left">4</span>
@@ -97,7 +97,7 @@
 			</div>
 			<div class="section-4-vertical-line"></div>
 			<div class="section-4-step step-5">
-				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/man.svg") ?>');"></div>
+				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_feedback_black_24dp_2x.png") ?>');"></div>
 				<div class="section-4-step-container">
 					<div class="section-4-step-left empty"></div>
 					<span class="step-number right">5</span>

@@ -17,21 +17,21 @@
 				<div class="form-item">
 					<div class="form-item-label">Judul Kiriman</div>
 					<div class="form-item-input-group">
-						<div class="form-item-error"></div>
 						<input type="text" name="shipment_title" class="input-judul" value="<?= $shipment_title ?>" />
+						<div class="error"></div>
 					</div>
 				</div>
 				<div class="form-item">
 					<div class="form-item-label">Keterangan</div>
 					<div class="form-item-input-group">
-						<div class="form-item-error"></div>
 						<textarea rows="6" name="shipment_information" class="input-keterangan" ><?= $shipment_information ?></textarea>
+						<div class="error"></div>
 					</div>
 				</div>
 				<div class="form-item">
 					<div class="form-item-label">Foto Barang</div>
 					<div class="form-item-input-group">
-						<div class="form-item-error"></div>
+						<div class="error"></div>
 						<input type="file" class="input-gambar" name="shipment_pictures" />
 						<input type="hidden" class="input-gambar-nama" name="shipment_pictures_name" value="<?= $shipment_pictures ?>" />
 					</div>
@@ -55,18 +55,19 @@
 						</div>
 						<div class="form-item-error"></div>
 						<input type="text" class="" id="location_from_address" name="location_from_address" value="<?= $location_from_address ?>" />
+						<div class="error"></div>
 						<input type="hidden" name="location_from_name" id="location_from_name" value="" />
 						<input type="hidden" name="location_from_city" id="location_from_city" value="" />
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Detail Lokasi</div>
-						<div class="form-item-error"></div>
 						<textarea rows="3" class="input-asal-detail" name="location_from_detail" id="location_from_detail" ></textarea>
+						<div class="error"></div>
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Kontak</div>
-						<div class="form-item-error"></div>
 						<input type="text" class="input-asal-kontak" name="location_from_contact" id="location_from_contact" value="<?= $location_from_contact ?>" />
+						<div class="error"></div>
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Peta Lokasi</div>
@@ -86,20 +87,20 @@
 							<div class="saved-location-container">	
 							</div>
 						</div>
-						<div class="form-item-error"></div>
 						<input type="text" class="" id="location_to_address" name="location_to_address" value="<?= $location_to_address ?>" />
+						<div class="error"></div>
 						<input type="hidden" name="location_to_name" id="location_to_name" value="" />
 						<input type="hidden" name="location_to_city" id="location_to_city" value="" />
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Detail Lokasi</div>
-						<div class="form-item-error"></div>
 						<textarea rows="3" class="input-tujuan-detail" name="location_to_detail" id="location_to_detail" ></textarea>
+						<div class="error"></div>
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Kontak</div>
-						<div class="form-item-error"></div>
 						<input type="text" class="input-tujuan-kontak" name="location_to_contact" id="location_to_contact" value="<?= $location_to_contact ?>" />
+						<div class="error"></div>
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Peta Lokasi</div>
@@ -358,8 +359,61 @@ $(function() {
 		isNumber(e);
 	});
 	
-	$("#kirimForm").on("submit", function() {
+	$("#kirimForm").on("submit", function(e) {
+		clearAllErrors();
+
+		var valid = true;
+		var judul = $(".input-judul").val().trim();
+		if (judul == "") {
+			valid = false;
+			$(".input-judul").next().html("Judul harus diisi");
+		}
+		var keterangan = $(".input-keterangan").val().trim();
+		if (keterangan == "") {
+			valid = false;
+			$(".input-keterangan").next().html("Keterangan harus diisi");
+		}
+		var lokasi_awal = $("#location_from_address").val().trim();
+		var location_from_name = $("#location_from_name").val().trim();
+		if (lokasi_awal == "") {
+			valid = false;
+			$("#location_from_address").next().html("Lokasi Asal harus diisi");
+		} else if (location_from_name == "") {
+			valid = false;
+			$("#location_from_address").next().html("Lokasi Asal harus dipilih dari Google Maps");
+		}
+		var detail_awal = $("#location_from_detail").val().trim();
+		if (detail_awal == "") {
+			$("#location_from_detail").next().html("Detail Lokasi harus diisi");
+		}
+		var kontak_awal = $("#location_from_contact").val().trim();
+		if (kontak_awal == "") {
+			valid = false;
+			$("#location_from_contact").next().html("Kontak harus diisi");
+		}
+		var lokasi_tujuan = $("#location_to_address").val().trim();
+		var location_to_name = $("#location_to_name").val().trim();
+		if (lokasi_tujuan == "") {
+			valid = false;
+			$("#location_to_address").next().html("Lokasi Tujuan harus diisi");
+		} else if (location_to_name == "") {
+			valid = false;
+			$("#location_to_address").next().html("Lokasi Tujuan harus dipilih dari Google Maps");
+		}
+		var detail_tujuan = $("#location_to_detail").val().trim();
+		if (detail_tujuan == "") {
+			$("#location_to_detail").next().html("Detail Lokasi harus diisi");
+		}
+		var kontak_tujuan = $("#location_to_contact").val().trim();
+		if (kontak_tujuan == "") {
+			valid = false;
+			$("#location_to_contact").next().html("Kontak harus diisi");
+		}
 		var from_latlng = $("#location_from_latlng").val();
+
+		if (!valid) {
+			e.preventDefault();
+		}
 	});
 	
 });
@@ -518,6 +572,8 @@ function clearAllErrors() {
 	error.tinggi = "";
 	error.kubikasi = "";
 	error.berat = "";
+
+	$(".error").html("");
 }
 
 function showErrors() {

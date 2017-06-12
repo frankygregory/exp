@@ -119,11 +119,11 @@ class Kirim extends MY_Controller
 
     public function kirimbarang()
     {
-		parent::__construct();
+		parent::__second_construct();
 
         $user_id = (int) $this->session->userdata('user_id');
-        $dataHistoryAsal = $this->queryArray("select * from m_location where location_from = 1 and user_id=$user_id");
-        $dataHistoryAkhir = $this->queryArray("select * from m_location where location_to = 1 and user_id=$user_id");
+       	$dataHistoryAsal = $this->queryArray("select * from m_location where location_from = 1 and user_id=$user_id");
+       	$dataHistoryAkhir = $this->queryArray("select * from m_location where location_to = 1 and user_id=$user_id");
 
         $data = array(
             'title' => 'Kirim Barang',
@@ -193,7 +193,7 @@ class Kirim extends MY_Controller
 	}
 
 	function cancelBidding() {
-		parent::__construct();
+		parent::__second_construct();
 
 		$bidding_id = $this->input->post("bidding_id");
 		$user_id = $this->session->userdata("user_id");
@@ -210,7 +210,7 @@ class Kirim extends MY_Controller
 	}
 	
 	function getKendaraan() {
-		parent::__construct();
+		parent::__second_construct();
 
 		$user_id = $this->session->userdata("user_id");
 		$this->load->model("Kendaraan_model");
@@ -321,7 +321,7 @@ class Kirim extends MY_Controller
 	}
 
 	public function getSavedLocation() {
-		parent::__construct();
+		parent::__second_construct();
 
 		$user_id = $this->session->userdata("user_id");
 		$fromto = $this->input->post("fromto");
@@ -331,7 +331,7 @@ class Kirim extends MY_Controller
 
     public function doKirimBarang()
     {
-        parent::__construct();
+        parent::__second_construct();
 
 		$item_count = intval($this->input->post("detail-count", true));
 		if ($item_count > 0) {
@@ -430,7 +430,7 @@ class Kirim extends MY_Controller
     }
 	
 	public function setujuPenawaran() {
-		parent::__construct();
+		parent::__second_construct();
 
 		$shipment_id = $this->input->post("shipment_id");
 		$bidding_id = $this->input->post("bidding_id");
@@ -450,7 +450,7 @@ class Kirim extends MY_Controller
 	}
 	
 	public function tolakPenawaran() {
-		parent::__construct();
+		parent::__second_construct();
 
 		$submit_tolak = $this->input->post("submit_tolak");
 		if ($submit_tolak != null) {
@@ -475,7 +475,7 @@ class Kirim extends MY_Controller
 	}
 	
 	public function kirimPenawaran() {
-		parent::__construct();
+		parent::__second_construct();
 
 		$submit_bid = $this->input->post("submit_bid");
 		if ($submit_bid != null) {
@@ -507,7 +507,7 @@ class Kirim extends MY_Controller
 	}
 	
 	public function jawabPertanyaan() {
-		parent::__construct();
+		parent::__second_construct();
 
 		$submit_jawaban = $this->input->post("submit_jawaban");
 		if ($submit_jawaban != null) {
@@ -530,7 +530,7 @@ class Kirim extends MY_Controller
 	}
 	
 	public function kirimPertanyaan() {
-		parent::__construct();
+		parent::__second_construct();
 
 		$submit_pertanyaan = $this->input->post("submit_pertanyaan");
 		if ($submit_pertanyaan != null) {

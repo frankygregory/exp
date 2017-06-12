@@ -117,11 +117,13 @@ class Home extends CI_Controller
 			'alamat' => '',
 			'telp' => '',
 			'handphone' => '',
+			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
 			"activePage" => $this->activePage,
 			"headerScroll" => "scroll white-background"
         );
+		 $this->load->view('front/common/header', $data);
         $this->load->view('front/register', $data);
 		$this->load->view('front/common/footer', $data);
     }
