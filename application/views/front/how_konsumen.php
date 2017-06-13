@@ -4,7 +4,7 @@
 		<div class="section-1-text">
 			<div class="section-1-title">KIRIM APAPUN BARANGMU<br>DIMANAPUN, KAPANPUN</div>
 			<div class="section-1-description">Yukirim menyediakan layanan dan fasilitas terbaik untuk menghemat waktumu dan tenagamu.</div>
-			<a href="<?= base_url("register#konsumen") ?>" class="btn btn-daftar">DAFTAR SEKARANG</a>
+			<a href="<?= base_url("register") ?>" class="btn btn-daftar">DAFTAR SEKARANG</a>
 		</div>
 	</div>
 	<div class="section-2">

@@ -48,7 +48,7 @@
 					</label>
 				</div>
 			</div>
-			<div class="form-group">
+			<div class="form-group form-group-username">
 				<div class="label">Username</div>
 				<div class="input-container" data-type="username">
 					<input type="text" name="username" class="input-username" placeholder="My Username" autofocus="autofocus" maxlength="15" value="<?= $username ?>" />
@@ -118,7 +118,11 @@
 </div>
 <script>
 $(function() {
-	
+	var hash = window.location.hash;
+	if (hash == "#pemilik-kendaraan") {
+		$(".input-role[value='2']").prop("checked", true);
+	}
+
 	$("input.input-username").on("focusout", function() {
 		var valid = cekUsername();
 	});

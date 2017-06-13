@@ -123,18 +123,26 @@ class Home extends CI_Controller
 			"activePage" => $this->activePage,
 			"headerScroll" => "scroll white-background"
         );
-		 $this->load->view('front/common/header', $data);
+		$this->load->view('front/common/header', $data);
         $this->load->view('front/register', $data);
 		$this->load->view('front/common/footer', $data);
     }
 
     public function privacy_policy(){
+		$isLoggedIn = $this->cekLogin();
         $data = array(
             'title' => 'Kebijakan Privasi',
 			'page_name' => "privacy_policy",
-            'active' => array('', '', '', 'active'),
+			'page_title'=> 'How It Works - Pemilik Barang',
+			'additional_file' => "",
+			"isLoggedIn" => $isLoggedIn,
+			"modules" => $this->modules,
+			"activePage" => $this->activePage,
+			"headerScroll" => "scroll white-background"
         );
+		$this->load->view('front/common/header', $data);
         $this->load->view('front/privacy_policy', $data);
+		$this->load->view('front/common/footer', $data);
     }
 	
 	public function doRegisterConsumer() {

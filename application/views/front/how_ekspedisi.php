@@ -4,7 +4,7 @@
 		<div class="section-1-text">
 			<div class="section-1-title">JANGAN BIARKAN TRUK ANDA KOSONG</div>
 			<div class="section-1-description">Yukirim menyediakan layanan dan fasilitas terbaik untuk menghemat waktumu dan tenagamu.</div>
-			<a href="<?= base_url("register#ekspedisi") ?>" class="btn btn-daftar">DAFTAR SEKARANG</a>
+			<a href="<?= base_url("register#pemilik-kendaraan") ?>" class="btn btn-daftar">DAFTAR SEKARANG</a>
 		</div>
 	</div>
 	<div class="section-2">

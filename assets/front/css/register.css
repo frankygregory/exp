@@ -58,6 +58,10 @@ input[type="radio"] {
 	float: left;
 }
 
+.input-container[data-type="username"] .field-error {
+	margin-top: -20px;
+}
+
 .input-container[data-type="alamat"] {
 	width: 300px;
 	height: 60px;

@@ -28,7 +28,7 @@
 </head>
 <body>
 <div class="header <?= $headerScroll ?>">
-	<a href="<?= base_url() ?>" class="logo">Yukirim</a>
+	<a href="<?= base_url() ?>" class="logo" style="background-image: url('<?= base_url("assets/icons/yukirim3.png") ?>');"></a>
 	<div class="header-right">
 <?php   if ($isLoggedIn == 1) {	?>
 			<a href="<?= base_url('dashboard') ?>" class="header-menu header-menu-dashboard">My Dashboard
