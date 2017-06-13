@@ -105,7 +105,7 @@
 				</div>
 			</div>
 			<label class="label-terms">
-				Saya setuju dengan <a target="_blank" href="<?= base_url("kebijakan-privasi"); ?>">Syarat dan Ketentuan</a>
+				Saya setuju dengan <a target="_blank" href="<?= base_url("syarat-dan-ketentuan"); ?>">Syarat dan Ketentuan</a>
 				<input type="checkbox" name="terms" value="1" class="input-terms">
 				<div class="field-error">Anda harus setuju Syarat dan Ketentuan</div>
 			</label>

@@ -48,7 +48,7 @@
 .header-menu {
 	display: inline-block;
 	font-size: 14pt;
-	margin-top: 22px;
+	margin-top: 17px;
 	margin-right: 20px;
 	cursor: pointer;
 }
@@ -215,11 +215,36 @@
 }
 
 .footer {
-	height: 100px;
+	height: 150px;
 	background-color: #EEEEEE;
 }
 
 .copyright {
-	line-height: 100px;
-	margin-left: 100px;
+	float: right;
+	line-height: 150px;
+	margin-right: 100px;
+}
+
+.footer-col {
+	float: right;
+	margin-right: 100px;
+	padding-top: 35px;
+}
+
+.footer-col-title {
+	font-weight: bold;
+	height: 30px;
+	font-size: 11pt;
+}
+
+.footer-link {
+	display: block;
+	text-decoration: none;
+	color: #252525;
+	font-size: 11pt;
+	margin-bottom: 5px;
+}
+
+.footer-link:hover {
+	text-decoration: underline;
 }

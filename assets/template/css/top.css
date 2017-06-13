@@ -27,12 +27,12 @@
 .logo {
 	display: block;
 	float: left;
-	font-size: 18pt;
-	font-weight: bold;
 	margin-left: 60px;
-	margin-top: 10px;
-	color: white;
-	text-decoration: none;
+	width: 100px;
+	height: 50px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .nav-account {

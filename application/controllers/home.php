@@ -128,12 +128,12 @@ class Home extends CI_Controller
 		$this->load->view('front/common/footer', $data);
     }
 
-    public function privacy_policy(){
+    public function terms(){
 		$isLoggedIn = $this->cekLogin();
         $data = array(
-            'title' => 'Kebijakan Privasi',
-			'page_name' => "privacy_policy",
-			'page_title'=> 'How It Works - Pemilik Barang',
+            'title' => 'Syarat dan Ketentuan',
+			'page_name' => "terms",
+			'page_title'=> 'Syarat dan Ketentuan',
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,

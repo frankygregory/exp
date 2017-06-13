@@ -130,10 +130,12 @@
 					<tbody>
 					</tbody>
 				</table>
+				<button type="button" class="btn-positive btn-show-tambah-barang">Tambah Barang</button>
 			</div>
+			<div class="error"></div>
 		</div>
 		<div class="section-3">
-			<div class="section-title">4 | Tambah Barang</div>
+			<div class="section-title">Tambah Barang</div>
 			<div class="section-3-content">
 				<div class="form-item form-nama-barang">
 					<div class="form-item-label">Nama Barang
@@ -225,13 +227,13 @@
 				</div>
 			</div>
 			<div class="section-3-buttons">
-				<button type="button" class="section-btn btn-positive btn-tambah-item" onclick="addItem()">Tambah Item</button>
+				<button type="button" class="section-btn btn-positive btn-tambah-item" onclick="addItem()">Masukkan ke List Barang</button>
 				<button type="button" class="section-btn btn-neutral btn-reset" onclick="clearTambahBarang()">Reset</button>
 			</div>
 		</div>
 		
 		<div class="section-5">
-			<div class="section-title">5 | Tentukan Tanggal</div>
+			<div class="section-title">4 | Tentukan Tanggal</div>
 			<div class="section-5-content">
 				<div class="section-5-left">
 					<div class="form-item form-tanggal-kirim-awal">
@@ -295,6 +297,14 @@ $(function() {
 	$(".input-tanggal-kirim-awal").datepicker();
 	$(".input-tanggal-kirim-akhir").datepicker();
 	$(".input-tanggal-deadline").datepicker();
+
+	$(".btn-show-tambah-barang").on("click", function() {
+		if ($(".section-3").css("display") == "none") {
+			$(".section-3").css("display", "block");
+		} else {
+			$(".section-3").css("display", "none");
+		}
+	});
 	
 	$(document).on("keypress", function(e) {
 		if (e.which == 13) { //ENTER
@@ -409,7 +419,11 @@ $(function() {
 			valid = false;
 			$("#location_to_contact").next().html("Kontak harus diisi");
 		}
-		var from_latlng = $("#location_from_latlng").val();
+		var itemCount = parseInt($(".detail-count").val());
+		if (itemCount == 0) {
+			valid = false;
+			$(".section-4-content").next().html("List Barang harus diisi");
+		}
 
 		if (!valid) {
 			e.preventDefault();
