@@ -2,17 +2,20 @@ var datepickerMonthNames = ["January", "February", "March", "April", "May", "Jun
   "July", "August", "September", "October", "November", "December"
 ];
 (function($) {
-	$.fn.datepicker = function() {
+	$.fn.datepicker = function(options) {
 		
 		var thisClass = $(this).attr("class");
 		var thisElement = this;
-		datepickerInitialize(thisClass, this);
+		var settings = $.extend({
+			disableDateBefore: "",
+			disableDateAfter: ""
+		}, options);
+		datepickerInitialize(thisClass, this, settings);
 		
 		var datepickerElement = $(".datepicker[data-class='" + thisClass + "']");
 		
-		$(this).on("keydown", function(e) {
-			e.preventDefault();
-		});
+		$(this).prop("readonly", true);
+		$(this).css("cursor", "text");
 		
 		$(this).on("click", function() {
 			datepickerShow(datepickerElement, thisElement);
@@ -115,24 +118,24 @@ function changeMonth(datepickerElement, currentYear, currentMonth) {
 	
 	if (isThisMonth || isThisMonth2) {
 		var monthPosition = "first";
-		if (month % 2 == 1) {
+		if (isThisMonth2) {
 			monthPosition = "second";
 		}
-		
 		var today = new Date().getDate();
 		$(datepickerElement).find(".datepicker-tanggal-container." + monthPosition + "-month .datepicker-tanggal[data-date-of-month='" + today + "']").attr("data-today", "1");
 	}
 }
 
-function datepickerInitialize(thisClass, thisElement) {
+function datepickerInitialize(thisClass, thisElement, settings) {
 	var date = new Date();
 	var today = date.getDate();
 	var month = date.getMonth();
 	var year = date.getFullYear();
 	var secondDate;
-	
+	var isThisMonth = true;
 	var monthPosition = "first";
 	if (month % 2 == 1) {
+		isThisMonth = false;
 		monthPosition = "second";
 		secondDate = date;
 		date = new Date(year, month - 1, today);
@@ -140,15 +143,17 @@ function datepickerInitialize(thisClass, thisElement) {
 	} else {
 		secondDate = new Date(year, month + 1, 1);
 	}
-		
-	var element =	'<div class="datepicker" data-class="' + thisClass + '" data-shown="false" data-current-month="' + month + '" data-current-year="' + year + '"><div class="datepicker-content"><div class="datepicker-bulan-container"><div class="datepicker-bulan-title"><span class="datepicker-bulan-title-name first-month">' + datepickerMonthNames[month] + ' ' + year + '</span><svg class="prev-month-icon" fill="#FFFFFF" height="35" viewBox="0 0 24 24" width="35" ><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg></div><div class="datepicker-hari-container"><span class="datepicker-hari-nama" data-value="0">Mi</span><span class="datepicker-hari-nama" data-value="1">Se</span><span class="datepicker-hari-nama" data-value="2">Se</span><span class="datepicker-hari-nama" data-value="3">Ra</span><span class="datepicker-hari-nama" data-value="4">Ka</span><span class="datepicker-hari-nama" data-value="5">Ju</span><span class="datepicker-hari-nama" data-value="6">Sa</span></div><div class="datepicker-tanggal-container first-month">' + datepickerAssignDate(date, true) + '</div></div><div class="datepicker-bulan-container"><div class="datepicker-bulan-title"><span class="datepicker-bulan-title-name second-month">' + datepickerMonthNames[month + 1] + ' ' + year + '</span><svg class="next-month-icon" fill="#FFFFFF" height="35" viewBox="0 0 24 24" width="35"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/><path d="M0 0h24v24H0z" fill="none"/></svg></div><div class="datepicker-hari-container"><span class="datepicker-hari-nama" data-value="0">Mi</span><span class="datepicker-hari-nama" data-value="1">Se</span><span class="datepicker-hari-nama" data-value="2">Se</span><span class="datepicker-hari-nama" data-value="3">Ra</span><span class="datepicker-hari-nama" data-value="4">Ka</span><span class="datepicker-hari-nama" data-value="5">Ju</span><span class="datepicker-hari-nama" data-value="6">Sa</span></div><div class="datepicker-tanggal-container second-month">' + datepickerAssignDate(secondDate, false) + '</div></div></div><div class="datepicker-footer"></div></div>';
+
+	var element =	'<div class="datepicker" data-class="' + thisClass + '" data-shown="false" data-current-month="' + month + '" data-current-year="' + year + '"><div class="datepicker-content"><div class="datepicker-bulan-container"><div class="datepicker-bulan-title"><span class="datepicker-bulan-title-name first-month">' + datepickerMonthNames[month] + ' ' + year + '</span><svg class="prev-month-icon" fill="#FFFFFF" height="35" viewBox="0 0 24 24" width="35" ><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg></div><div class="datepicker-hari-container"><span class="datepicker-hari-nama" data-value="0">Mi</span><span class="datepicker-hari-nama" data-value="1">Se</span><span class="datepicker-hari-nama" data-value="2">Se</span><span class="datepicker-hari-nama" data-value="3">Ra</span><span class="datepicker-hari-nama" data-value="4">Ka</span><span class="datepicker-hari-nama" data-value="5">Ju</span><span class="datepicker-hari-nama" data-value="6">Sa</span></div><div class="datepicker-tanggal-container first-month">' + datepickerAssignDate(date, isThisMonth) + '</div></div><div class="datepicker-bulan-container"><div class="datepicker-bulan-title"><span class="datepicker-bulan-title-name second-month">' + datepickerMonthNames[month + 1] + ' ' + year + '</span><svg class="next-month-icon" fill="#FFFFFF" height="35" viewBox="0 0 24 24" width="35"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/><path d="M0 0h24v24H0z" fill="none"/></svg></div><div class="datepicker-hari-container"><span class="datepicker-hari-nama" data-value="0">Mi</span><span class="datepicker-hari-nama" data-value="1">Se</span><span class="datepicker-hari-nama" data-value="2">Se</span><span class="datepicker-hari-nama" data-value="3">Ra</span><span class="datepicker-hari-nama" data-value="4">Ka</span><span class="datepicker-hari-nama" data-value="5">Ju</span><span class="datepicker-hari-nama" data-value="6">Sa</span></div><div class="datepicker-tanggal-container second-month">' + datepickerAssignDate(secondDate, !isThisMonth) + '</div></div></div><div class="datepicker-footer"></div></div>';
 	
 	$(".container-content").append(element);
 	$(".datepicker[data-class='" + thisClass + "'] .datepicker-tanggal-container." + monthPosition + "-month .datepicker-tanggal[data-date-of-month='" + today + "']").attr("data-today", "1");
-	$(".datepicker[data-class='" + thisClass + "'] .prev-month-icon").attr("data-disabled", "1");
+	if (settings.disableDateBefore == "today") {
+		$(".datepicker[data-class='" + thisClass + "'] .prev-month-icon").attr("data-disabled", "1");
+	}
 }
 
-function datepickerAssignDate(date, thisMonth) {
+function datepickerAssignDate(date, thisMonth, disableDateBeforeToday = false) {
 	var today = date.getDate();
 	var month = date.getMonth();
 	var year = date.getFullYear();
@@ -198,10 +203,31 @@ function datepickerAssignDateForMonth(today, month, year, tgl1Day, tglMax, thisM
 			element += "</div>";
 		}
 	} else {
+		element += datepickerSetAvailableDate(today, month, year, tgl1Day, tglMax);
+	}
+	
+	return element;
+}
+
+function datepickerSetAvailableDate(today, month, year, tgl1Day, tglMax) {
+	var ctrDate = 1;
+	var element = "";
+	element += '<div class="datepicker-tanggal-row">';
+	for (var i = 0; i < 7; i++) {
+		var value = year + "-" + (month + 1) + "-" + ctrDate;
+		if (i >= tgl1Day) {
+			element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '">' + ctrDate + '</span>';
+			ctrDate++;
+		} else {
+			element += '<span class="datepicker-tanggal" data-current-month="0"></span>';
+		}
+	}
+	element += "</div>";
+	for (var i = 1; i < 6; i++) {
 		element += '<div class="datepicker-tanggal-row">';
-		for (var i = 0; i < 7; i++) {
+		for (var j = 0; j < 7; j++) {
 			var value = year + "-" + (month + 1) + "-" + ctrDate;
-			if (i >= tgl1Day) {
+			if (ctrDate <= tglMax) {
 				element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '">' + ctrDate + '</span>';
 				ctrDate++;
 			} else {
@@ -209,20 +235,6 @@ function datepickerAssignDateForMonth(today, month, year, tgl1Day, tglMax, thisM
 			}
 		}
 		element += "</div>";
-		for (var i = 1; i < 6; i++) {
-			element += '<div class="datepicker-tanggal-row">';
-			for (var j = 0; j < 7; j++) {
-				var value = year + "-" + (month + 1) + "-" + ctrDate;
-				if (ctrDate <= tglMax) {
-					element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '">' + ctrDate + '</span>';
-					ctrDate++;
-				} else {
-					element += '<span class="datepicker-tanggal" data-current-month="0"></span>';
-				}
-			}
-			element += "</div>";
-		}
 	}
-	
 	return element;
 }

@@ -258,7 +258,7 @@
 
 .section-5-left, .section-5-right {
 	float: left;
-	width: 40%;
+	width: 45%;
 }
 
 .form-tanggal-kirim-awal, .form-tanggal-kirim-akhir {
@@ -276,7 +276,7 @@
 }
 
 .form-item-harga {
-	width: 50%;
+	width: 200px;
 }
 
 .label-shipment-type {
