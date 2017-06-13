@@ -239,22 +239,24 @@
 					<div class="form-item form-tanggal-kirim-awal">
 						<div class="form-item-label">Tanggal Kirim</div>
 						<input type="text" name="tanggal-kirim-awal" class="input-tanggal-kirim-awal" placeholder="" />
+						<div class="error"></div>
 					</div>
 					<div class="form-item form-tanggal-kirim-akhir">
 						<div class="form-item-label">sampai dengan</div>
 						<input type="text" name="tanggal-kirim-akhir" class="input-tanggal-kirim-akhir" placeholder="" />
-						
+						<div class="error"></div>
 					</div>
 					<div class="form-item form-deadline">
 						<div class="form-item-label">Berakhir tanggal</div>
 						<input type="text" name="tanggal-deadline" class="input-tanggal-deadline" placeholder="" />
-						
+						<div class="error"></div>
 					</div>
 				</div>
 				<div class="section-5-right">
 					<div class="form-item form-item-harga">
 						<div class="form-item-label">Harga</div>
 						<input type="text" name="shipment_price" class="input-harga" data-type="number" maxlength="11" />
+						<div class="error"></div>
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Tipe Penawaran</div>
@@ -423,6 +425,26 @@ $(function() {
 		if (itemCount == 0) {
 			valid = false;
 			$(".section-4-content").next().html("List Barang harus diisi");
+		}
+		var tanggal_kirim = $(".input-tanggal-kirim-awal").val();
+		if (tanggal_kirim == "") {
+			valid = false;
+			$(".input-tanggal-kirim-awal").next().html("Tanggal harus diisi");
+		}
+		var sampai_dengan = $(".input-tanggal-kirim-akhir").val();
+		if (sampai_dengan == "") {
+			valid = false;
+			$(".input-tanggal-kirim-akhir").next().html("Tanggal harus diisi");
+		}
+		var berakhir = $(".input-tanggal-deadline").val();
+		if (berakhir == "") {
+			valid = false;
+			$(".input-tanggal-deadline").next().html("Tanggal harus diisi");
+		}
+		var harga = $(".input-harga").val();
+		if (harga == "") {
+			valid = false;
+			$(".input-harga").next().html("Harga harus diisi");
 		}
 
 		if (!valid) {

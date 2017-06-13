@@ -28,7 +28,7 @@
 </head>
 <body>
 <div class="header <?= $headerScroll ?>">
-	<a href="<?= base_url() ?>" class="logo" style="background-image: url('<?= base_url("assets/icons/yukirim3.png") ?>');"></a>
+	<a href="<?= base_url() ?>" class="logo" style="background-image: url('<?= base_url("assets/icons/yukirim1.png") ?>');"></a>
 	<div class="header-right">
 <?php   if ($isLoggedIn == 1) {	?>
 			<a href="<?= base_url('dashboard') ?>" class="header-menu header-menu-dashboard">My Dashboard
@@ -67,13 +67,18 @@
 	}	?>
 	<div class="login-dialog">
 		<input type="text" class="input-username" placeholder="username" />
+		<div class="login-error login-error-username error"></div>
 		<input type="password" class="input-password" placeholder="password" />
+		<div class="login-error login-error-password error"></div>
 		<div class="remember-me">
 			<label>
 				<input type="checkbox" class="input-remember-me" value="remember-me" /> Ingat saya
 			</label>
 		</div>
 		<button type="button" class="btn-login">Login</button>
+		<div class="loading-div">
+			<div class="loading-circle"></div>
+		</div>
 	</div>
 </div>
 <?php if ($page_name != "home") { ?>
@@ -105,7 +110,7 @@ $(function() {
 		$("body:not(.login-dialog)").on("click", function(e) {
 			if ($(e.target).closest(".login-dialog").length == 0) {
 				if ($(".login-dialog").css("display") == "block") {
-					$(".login-dialog").css("display", "none");
+					hideLoginDialog();
 				}
 			}
 		});
@@ -126,25 +131,30 @@ $(function() {
 		});
 
 		function doLogin() {
+			$(".login-dialog .login-error").html("");
 			var username = $(".input-username").val().trim();
 			var password = $(".input-password").val().trim();
 			
 			var valid = true;
 			if (username == "") {
 				valid = false;
+				$(".login-error.login-error-username").html("Username harus diisi");
 			}
 			if (password == "") {
 				valid = false;
+				$(".login-error.login-error-password").html("Password harus diisi");
 			}
 
 			if (valid) {
+				showLoading();
 				var data = {
 					username: username,
 					password: password
 				};
 				ajaxCall("<?= base_url('login/doLogin') ?>", data, function(result) {
 					if (result == "error") {
-
+						hideLoading();
+						$(".login-error.login-error-password").html("Username / Password salah");
 					} else if (result == "success") {
 						window.location = "<?= base_url('dashboard') ?>";
 					}
@@ -154,13 +164,27 @@ $(function() {
 <?php
 	}	?>
 });
+
+function showLoading() {
+	$(".loading-div").addClass("shown");
+}
+
+function hideLoading() {
+	$(".loading-div").removeClass("shown");
+}
+
 function toggleLoginDialog() {
 	if ($(".login-dialog").css("display") == "none") {
 		$(".login-dialog").css("display", "block");
 		$(".input-username").select();
 	} else {
-		$(".login-dialog").css("display", "none");
+		hideLoginDialog();
 	}
+}
+
+function hideLoginDialog() {
+	$(".login-dialog").css("display", "none");
+	$(".login-dialog .login-error").html("");
 }
 
 function ajaxCall(url, data, callback) {
