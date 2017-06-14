@@ -188,6 +188,7 @@
 				<tbody class="tbody-user">
 				</tbody>
 			</table>
+			<div class="table-empty-state"></div>
 		</div>
 	</div>
 	<div class="section-2">
@@ -467,6 +468,12 @@ function addUserToTable(result) {
 		}
 	}
 	
+	if (iLength == 0) {
+		$(".table-empty-state").addClass("shown");
+		
+	} else {
+		$(".table-empty-state").removeClass("shown");
+	}
 	$(".tbody-user").html("");
 	$(".tbody-user").append(element);
 }

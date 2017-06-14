@@ -6,8 +6,53 @@
 	float: right;
 }
 
-table .td-no, .td-ketersediaan, .th-jumlah-transaksi, .td-jumlah-transaksi, .th-status, .th-action {
+.table-container {
+  min-width: 1000px;
+}
+
+.table-kendaraan {
+  width: 1180px !important;
+}
+
+table .td-no, .td-ketersediaan, .th-jumlah-transaksi, .td-jumlah-transaksi {
   text-align: center;
+}
+
+.table-empty-state {
+  margin-left: 0;
+  width: 1180px;
+}
+
+td[data-col="no"] {
+  width: 50px;
+}
+
+td[data-col="nomor-kendaraan"] {
+  width: 170px;
+}
+
+td[data-col="nama-kendaraan"] {
+  width: 250px;
+}
+
+td[data-col="ketersediaan"] {
+  width: 100px;
+}
+
+td[data-col="jumlah-transaksi"] {
+  width: 100px;
+}
+
+td[data-col="keterangan"] {
+  width: 250px;
+}
+
+td[data-col="status"] {
+  width: 200px;
+}
+
+td[data-col="action"] {
+  width: 160px;
 }
 
 @media screen and (max-width: 600px) {

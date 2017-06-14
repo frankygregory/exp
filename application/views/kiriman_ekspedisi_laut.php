@@ -22,17 +22,18 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td data-align="center">Konfirmasi</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-align="center" data-col='action'>Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
+					<div class="table-empty-state">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="2">
@@ -40,20 +41,21 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td>Kapal</td>
-								<td>No. Kontainer</td>
-								<td>Status</td>
-								<td data-align="center">Action</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-col='kapal'>Kapal</td>
+								<td data-col='no-kontainer'>No. Kontainer</td>
+								<td data-col='status'>Status</td>
+								<td data-align="center" data-col='action'>Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
+					<div class="table-empty-state">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="3">
@@ -61,20 +63,21 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td>Kapal</td>
-								<td>No. Kontainer</td>
-								<td>Status</td>
-								<td data-align="center">Action</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-col='kapal'>Kapal</td>
+								<td data-col='no-kontainer'>No. Kontainer</td>
+								<td data-col='status'>Status</td>
+								<td data-align="center" data-col='action'>Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
+					<div class="table-empty-state">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="4">
@@ -82,20 +85,21 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td>Kapal</td>
-								<td>No. Kontainer</td>
-								<td>Status</td>
-								<td data-align="center">Action</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-col='kapal'>Kapal</td>
+								<td data-col='no-kontainer'>No. Kontainer</td>
+								<td data-col='status'>Status</td>
+								<td data-align="center" data-col='action'>Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
+					<div class="table-empty-state">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="5">
@@ -103,20 +107,21 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td>Kapal</td>
-								<td>No. Kontainer</td>
-								<td>Status</td>
-								<td data-align="center">Action</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-col='kapal'>Kapal</td>
+								<td data-col='no-kontainer'>No. Kontainer</td>
+								<td data-col='status'>Status</td>
+								<td data-align="center" data-col='action'>Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
+					<div class="table-empty-state">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="6">
@@ -124,20 +129,21 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td>Kapal</td>
-								<td>No. Kontainer</td>
-								<td>Status</td>
-								<td data-align="center">Action</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-col='kapal'>Kapal</td>
+								<td data-col='no-kontainer'>No. Kontainer</td>
+								<td data-col='status'>Status</td>
+								<td data-align="center" data-col='action'>Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
+					<div class="table-empty-state">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="7">
@@ -145,20 +151,21 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td>Kapal</td>
-								<td>No. Kontainer</td>
-								<td>Status</td>
-								<td data-align="center">Total Waktu</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-col='kapal'>Kapal</td>
+								<td data-col='no-kontainer'>No. Kontainer</td>
+								<td data-col='status'>Status</td>
+								<td data-align="center" data-col='total-waktu'>Total Waktu</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
+					<div class="table-empty-state">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="8">
@@ -166,17 +173,18 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td>Cancel by</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-col='cancel-by'>Cancel by</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
+					<div class="table-empty-state">tidak ada data</div>
 				</div>
 			</div>
 		</div>
@@ -570,9 +578,9 @@ function addKirimanToTable(result, tabsNumber, tab) {
 	for (var i = 0; i < iLength; i++) {
 		
 		var date_from = new Date(result[i].shipment_delivery_date_from);
-		var fullDateFrom = date_from.getDate() + " " + month[date_from.getMonth()] + " " + date_from.getFullYear();
+		var fullDateFrom = date_from.getDate() + " " + month[date_from.getMonth()] + " " + date_from.getFullYear().toString().substring(2);
 		var date_to = new Date(result[i].shipment_delivery_date_to);
-		var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear();
+		var fullDateTo = date_to.getDate() + " " + month[date_to.getMonth()] + " " + date_to.getFullYear().toString().substring(2);
 		
 		var additionalTd = "";
 		var tdStatus = "";
@@ -615,6 +623,11 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "' data-status='" + result[i].shipment_status + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + tdCancelBy + additionalTd + tdStatus + element[tab].btn + waktu + "</tr>";
 	}
 	
+	if (iLength == 0) {
+		$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .table-empty-state").addClass("shown");
+	} else {
+		$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .table-empty-state").removeClass("shown");
+	}
 	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");
 	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").append(element[tab].value);
 	

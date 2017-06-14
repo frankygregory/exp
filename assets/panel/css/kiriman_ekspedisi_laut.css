@@ -1,8 +1,10 @@
-
+.table-container {
+	margin: 0 auto 50px;
+}
 
 .table-kiriman {
-	margin: 10px auto 50px;
-	width: 1200px;
+	width: auto !important;
+	margin: 10px auto 0;
 }
 
 .table-kiriman a:link, .table-kiriman a:visited {
@@ -12,6 +14,74 @@
 
 .table-kiriman tbody tr:hover {
 	background-color: #E0E0E0 !important;
+}
+
+.tabs-content[data-tabs-number="1"] .table-empty-state {
+	width: 870px;
+}
+
+.tabs-content[data-tabs-number="2"] .table-empty-state, .tabs-content[data-tabs-number="3"] .table-empty-state, .tabs-content[data-tabs-number="4"] .table-empty-state, .tabs-content[data-tabs-number="5"] .table-empty-state, .tabs-content[data-tabs-number="6"] .table-empty-state {
+	width: 1270px;
+}
+
+.tabs-content[data-tabs-number="7"] .table-empty-state {
+	width: 1240px;
+}
+
+.tabs-content[data-tabs-number="8"] .table-empty-state {
+	width: 920px;
+}
+
+.table-kiriman td[data-col="nama-kirim"] {
+	width: 150px;
+}
+
+.table-kiriman td[data-col="harga"] {
+	width: 180px;
+}
+
+.table-kiriman td[data-col="asal"], .table-kiriman td[data-col="tujuan"] {
+	width: 180px;
+}
+
+.table-kiriman td[data-col="km"] {
+	width: 80px;
+}
+
+.table-kiriman td[data-col="konfirmasi"] {
+	width: 150px;
+}
+
+.table-kiriman td[data-col="kapal"] {
+	width: 130px;
+}
+
+.table-kiriman td[data-col="no-kontainer"] {
+	width: 100px;
+}
+
+.table-kiriman td[data-col="status"] {
+	width: 170px;
+}
+
+.table-kiriman td[data-col="action"] {
+	width: 100px;
+}
+
+.table-kiriman td[data-col="waktu-kiriman"] {
+	width: 70px;
+}
+
+.table-kiriman td[data-col="total-waktu"] {
+	width: 70px;
+}
+
+.table-kiriman td[data-col="berakhir"] {
+	width: 230px;
+}
+
+.table-kiriman td[data-col="cancel-by"] {
+	width: 150px;
 }
 
 .shipment-picture {

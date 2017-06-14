@@ -109,6 +109,10 @@
 	margin-top: 40px;
 }
 
+.table-empty-state {
+	width: 100%;
+}
+
 .table-kiriman td[data-col="nama-kirim"] {
 	width: 150px;
 }

@@ -44,6 +44,7 @@
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
+					<div class="table-empty-state">Tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="2">
@@ -64,6 +65,7 @@
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
+					<div class="table-empty-state">Tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="3">
@@ -83,6 +85,7 @@
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
+					<div class="table-empty-state">Tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="4">
@@ -101,6 +104,7 @@
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
+					<div class="table-empty-state">Tidak ada data</div>
 				</div>
 			</div>
 		</div>
@@ -370,6 +374,11 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		element[tab] += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title' data-col='nama-kirim' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price' data-col='harga'>Bid : " + result[i].bidding_count + "<br>" + low + addCommas(result[i].low) + " IDR</td><td class='td-asal' data-col='asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan' data-col='tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-col='km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + statusTd + keteranganTd + berakhirTd + actionTd + cancelByTd + "</tr>";
 	}
 	
+	if (iLength == 0) {
+		$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .table-empty-state").addClass("shown");
+	} else {
+		$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .table-empty-state").removeClass("shown");
+	}
 	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");
 	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").append(element[tab]);
 }

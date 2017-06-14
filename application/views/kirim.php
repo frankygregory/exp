@@ -190,6 +190,7 @@
 				<tbody class="tbody-kiriman">
 				</tbody>
 			</table>
+			<div class="table-empty-state">Tidak ada hasil</div>
 		</div>
 	</div>
 	<div class="paging-section">
@@ -440,8 +441,14 @@ function getKiriman(changePage = false) {
 		}
 		$(".result-paging").html(resultPagingFrom + " - " + resultPagingTo);
 
-		for (var i = 0; i < result.data.length; i++) {
+		var iLength = result.data.length;
+		for (var i = 0; i < iLength; i++) {
 			addKirimanToTable((i + 1), result.data[i]);
+		}
+		if (iLength == 0) {
+			$(".table-empty-state").addClass("shown");
+		} else {
+			$(".table-empty-state").removeClass("shown");
 		}
 	});
 }

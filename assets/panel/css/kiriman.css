@@ -2,8 +2,12 @@
 	width: 150px;
 }
 
+.table-container {
+	margin-bottom: 50px;
+}
+
 .table-kiriman {
-	margin: 10px auto 50px;
+	margin: 10px auto 0;
 	width: auto !important;
 }
 
@@ -27,6 +31,22 @@
 
 .table-kiriman.fixed tbody {
 	margin-top: 40px;
+}
+
+.tabs-content[data-tabs-number="1"] .table-empty-state {
+	width: 1100px;
+}
+
+.tabs-content[data-tabs-number="2"] .table-empty-state {
+	width: 1260px;
+}
+
+.tabs-content[data-tabs-number="3"] .table-empty-state {
+	width: 1060px;
+}
+
+.tabs-content[data-tabs-number="4"] .table-empty-state {
+	width: 850px;
 }
 
 .table-kiriman td[data-col="nama-kirim"] {

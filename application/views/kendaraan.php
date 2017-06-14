@@ -106,22 +106,23 @@
 	<div class="section-1">
 		<button type="button" class="btn-default btn-tambah">Tambah Kendaraan</button>
 		<div class="table-container">
-			<table class="table">
+			<table class="table table-kendaraan">
 				<thead>
 					<tr>
-						<td class="td-no">No.</td>
-						<td>Nomor Kendaraan</td>
-						<td>Nama Kendaraan</td>
-						<td class="td-ketersediaan">Ketersediaan</td>
-						<td class="th-jumlah-transaksi">Jumlah Transaksi</td>
-						<td>Keterangan</td>
-						<td class="th-status">Status</td>
-						<td class="th-action">Action</td>
+						<td class="td-no" data-col='no'>No.</td>
+						<td data-col='nomor-kendaraan'>Nomor Kendaraan</td>
+						<td data-col='nama-kendaraan'>Nama Kendaraan</td>
+						<td class="td-ketersediaan" data-col='ketersediaan'>Ketersediaan</td>
+						<td class="th-jumlah-transaksi" data-col='jumlah-transaksi'>Jumlah Transaksi</td>
+						<td data-col='keterangan'>Keterangan</td>
+						<td class="th-status" data-col='status'>Status</td>
+						<td class="th-action" data-col='action'>Action</td>
 					</tr>
 				</thead>
 				<tbody class="tbody-kendaraan">
 				</tbody>
 			</table>
+			<div class="table-empty-state">Anda belum menambahkan kendaraan</div>
 		</div>
 	</div>
 </div>
@@ -297,8 +298,14 @@ function getKendaraan() {
 	ajaxCall("<?= base_url("kendaraan/getKendaraan") ?>", null, function(json) {
 		$(".tbody-kendaraan").html("");
 		var result = jQuery.parseJSON(json);
-		for (var i = 0; i < result.length; i++) {
+		var iLength = result.length;
+		for (var i = 0; i < iLength; i++) {
 			addKendaraanToTable((i + 1), result[i]);
+		}
+		if (iLength == 0) {
+			$(".table-empty-state").addClass("shown");
+		} else {
+			$(".table-empty-state").removeClass("shown");
 		}
 	});
 }
