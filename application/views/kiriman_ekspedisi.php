@@ -22,11 +22,11 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
 								<td data-align="center">Action</td>
 							</tr>
 						</thead>
@@ -40,15 +40,15 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td>Muatan</td>
-								<td>Supir</td>
-								<td>Kendaraan</td>
-								<td>Lacak</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-col='muatan'>Muatan</td>
+								<td data-col='supir'>Supir</td>
+								<td data-col='kendaraan'>Kendaraan</td>
+								<td data-col='lacak'>Lacak</td>
 								<td data-align="center">Action</td>
 							</tr>
 						</thead>
@@ -62,15 +62,15 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td>Muatan</td>
-								<td>Supir</td>
-								<td>Kendaraan</td>
-								<td>Lacak</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-col='muatan'>Muatan</td>
+								<td data-col='supir'>Supir</td>
+								<td data-col='kendaraan'>Kendaraan</td>
+								<td data-col='lacak'>Lacak</td>
 								<td data-align="center">Action</td>
 							</tr>
 						</thead>
@@ -84,15 +84,15 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td>Muatan</td>
-								<td>Supir</td>
-								<td>Kendaraan</td>
-								<td>Lacak</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-col='muatan'>Muatan</td>
+								<td data-col='supir'>Supir</td>
+								<td data-col='kendaraan'>Kendaraan</td>
+								<td data-col='lacak'>Lacak</td>
 								<td data-align="center">Action</td>
 							</tr>
 						</thead>
@@ -106,15 +106,15 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td>Muatan</td>
-								<td>Supir</td>
-								<td>Kendaraan</td>
-								<td>Lacak</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-col='muatan'>Muatan</td>
+								<td data-col='supir'>Supir</td>
+								<td data-col='kendaraan'>Kendaraan</td>
+								<td data-col='lacak'>Lacak</td>
 								<td data-align="center">Action</td>
 							</tr>
 						</thead>
@@ -128,15 +128,15 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td>Muatan</td>
-								<td>Supir</td>
-								<td>Kendaraan</td>
-								<td>Lacak</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-col='muatan'>Muatan</td>
+								<td data-col='supir'>Supir</td>
+								<td data-col='kendaraan'>Kendaraan</td>
+								<td data-col='lacak'>Lacak</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -149,15 +149,15 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
-								<td>Muatan</td>
-								<td>Supir</td>
-								<td>Kendaraan</td>
-								<td>Lacak</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
+								<td data-col='muatan'>Muatan</td>
+								<td data-col='supir'>Supir</td>
+								<td data-col='kendaraan'>Kendaraan</td>
+								<td data-col='lacak'>Lacak</td>
 								<td data-align="center">Waktu Kiriman</td>
 								<td data-align="center">Total Waktu</td>
 							</tr>
@@ -172,11 +172,11 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-align="center">Nama Kirim</td>
-								<td>Harga</td>
-								<td>Asal</td>
-								<td>Tujuan</td>
-								<td data-align="center">KM</td>
+								<td data-align="center" data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='harga'>Harga</td>
+								<td data-col='asal'>Asal</td>
+								<td data-col='tujuan'>Tujuan</td>
+								<td data-align="center" data-col='km'>KM</td>
 								<td>Cancel by</td>
 							</tr>
 						</thead>
@@ -569,7 +569,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				break;
 		}
 		
-		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + tdJenisMuatan + tdCancelBy + additionalTd + element[tab].btn + waktu + "</tr>";
+		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "'><td class='td-title' data-align='center' data-col='nama-kirim'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price' data-col='harga'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal' data-col='asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan' data-col='tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center' data-col='km'>" + parseInt(result[i].shipment_length) + "</td>" + tdJenisMuatan + tdCancelBy + additionalTd + element[tab].btn + waktu + "</tr>";
 	}
 	
 	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");

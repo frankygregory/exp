@@ -214,7 +214,7 @@
 				<input type="text" class="dialog-ubah-input-waktu" />
 			</div>
 		</div>
-		<button class="btn-default btn-submit-ubah">Ubah</button>
+		<button class="btn-default btn-ubah2">Ubah</button>
 	</div>
 </div>
 <div class="dialog-background">
@@ -228,6 +228,31 @@
 		<div class="dialog-footer">
 			<button type="button" class="btn-negative btn-submit-cancel-transaction">Batalkan Kiriman</button>
 			<button type="button" class="btn-neutral btn-batal">Tidak Jadi</button>
+		</div>
+	</div>
+</div>
+<div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-ubah">
+		<div class="dialog-header">
+			<div class="dialog-title">Ubah Status Kiriman</div>
+		</div>
+		<div class="dialog-body">
+			<div>
+				<span class="label">Nama Kiriman : </span>
+				<span class="value" data-label="nama"></span>
+			</div>
+			<div>
+				<span class="label">Status : </span>
+				<span class="value" data-label="status"></span>
+			</div>
+			<div>
+				<span class="label">Tanggal : </span>
+				<span class="value" data-label="tanggal"></span>
+			</div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-ubah">Ubah</button>
+			<button type="button" class="btn-neutral btn-batal">Batal</button>
 		</div>
 	</div>
 </div>
@@ -279,7 +304,7 @@ $(function() {
 	});
 
 	$("body").on("click", function(e) {
-		if ($(e.target).closest(".dialog-ubah").length == 0 && $(e.target).closest(".datepicker").length == 0) {
+		if ($(e.target).closest(".dialog-ubah").length == 0 && $(e.target).closest(".datepicker").length == 0 && $(e.target).closest(".dialog-konfirmasi-ubah").length == 0) {
 			hideUbahDialog();
 		}
 	});
@@ -291,6 +316,27 @@ $(function() {
 		$(".dialog-konfirmasi-cancel-transaction").data("shipment_id", shipment_id);
 		$(".dialog-konfirmasi-cancel-transaction .dialog-body").html("Batalkan kiriman " + shipment_title + "?");
 		showDialog(".dialog-konfirmasi-cancel-transaction");
+	});
+
+	$(".btn-ubah2").on("click", function() {
+		var shipment_id = $(".dialog-ubah").data("id");
+		var shipment_title = $(".dialog-ubah").data("shipment_title");
+		var shipment_status = $(".dialog-ubah-input-status-value").val();
+		var shipment_status_name = $(".dialog-ubah-input-status").val();
+		var datetime = $(".dialog-ubah-input-waktu").val() + " 00:00:00";
+		var shipment_details_container_number = $(".dialog-ubah").data("shipment_details_container_number");
+		var ship_id = $(".dialog-ubah").data("ship_id");
+
+		$(".dialog-konfirmasi-ubah").data("shipment_id", shipment_id);
+		$(".dialog-konfirmasi-ubah").data("shipment_status", shipment_status);
+		$(".dialog-konfirmasi-ubah").data("datetime", datetime);
+		$(".dialog-konfirmasi-ubah").data("shipment_details_container_number", shipment_details_container_number);
+		$(".dialog-konfirmasi-ubah").data("ship_id", ship_id);
+		
+		$(".dialog-konfirmasi-ubah .value[data-label='nama']").html(shipment_title);
+		$(".dialog-konfirmasi-ubah .value[data-label='status']").html(shipment_status_name);
+		$(".dialog-konfirmasi-ubah .value[data-label='tanggal']").html(datetime);
+		showDialog(".dialog-konfirmasi-ubah");
 	});
 
 	$(".btn-submit-ubah").on("click", function() {
@@ -310,11 +356,11 @@ $(function() {
 });
 
 function submitUbah() {
-	var shipment_id = $(".dialog-ubah").data("id");
-	var shipment_status = $(".dialog-ubah-input-status-value").val();
-	var datetime = $(".dialog-ubah-input-waktu").val() + " 00:00:00";
-	var shipment_details_container_number = $(".dialog-ubah").data("shipment_details_container_number");
-	var ship_id = $(".dialog-ubah").data("ship_id");
+	var shipment_id = $(".dialog-konfirmasi-ubah").data("shipment_id");
+	var shipment_status = $(".dialog-konfirmasi-ubah").data("shipment_status");
+	var datetime = $(".dialog-konfirmasi-ubah").data("datetime");
+	var shipment_details_container_number = $(".dialog-konfirmasi-ubah").data("shipment_details_container_number");
+	var ship_id = $(".dialog-konfirmasi-ubah").data("ship_id");
 
 	var data = {
 		shipment_id: shipment_id,
@@ -326,6 +372,7 @@ function submitUbah() {
 
 	ajaxCall("<?= base_url("kiriman-laut-ekspedisi/submitUbah"); ?>", data, function(result) {
 		if (result == "success") {
+			closeDialog();
 			hideUbahDialog();
 			refreshData();
 		}
@@ -356,7 +403,9 @@ function showUbahDialog(element) {
 
 	if (valid) {
 		var id = $(trKiriman).data("id");
+		var nama = $(trKiriman).data("shipment-title");
 		$(".dialog-ubah").data("id", id);
+		$(".dialog-ubah").data("shipment_title", nama);
 
 		for (var i = 2; i <= status; i++) {
 			$(".dialog-ubah-button[data-value='" + i + "']").prop("disabled", true);
