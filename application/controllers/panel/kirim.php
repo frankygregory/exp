@@ -18,6 +18,7 @@ class Kirim extends MY_Controller
 		$page_title = "List Kiriman";
 		if ($role_id == 2) {
 			$page_title = "Cari Kiriman";
+			$this->activeMenu["cari_kiriman"] = "active";
 		}
 		
         $data = array(
@@ -124,7 +125,7 @@ class Kirim extends MY_Controller
         $user_id = (int) $this->session->userdata('user_id');
        	$dataHistoryAsal = $this->queryArray("select * from m_location where location_from = 1 and user_id=$user_id");
        	$dataHistoryAkhir = $this->queryArray("select * from m_location where location_to = 1 and user_id=$user_id");
-
+		$this->activeMenu["kirim_barang"] = "active";
         $data = array(
             'title' => 'Kirim Barang',
             'type' => 'new',

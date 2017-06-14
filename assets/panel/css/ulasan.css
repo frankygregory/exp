@@ -1,19 +1,28 @@
 .section-1 {
 	overflow: auto;
 	margin-bottom: 50px;
+	text-align: center;
 }
 
 .rating-total {
-	text-align: center;
+	display: inline-block;
+	height: 100px;
+}
+
+.rating-label {
+	float: left;
 	font-size: 14pt;
+	line-height: 100px;
+	margin-right: 10px;
 }
 
 .rating-total-number {
+	float: left;
 	width: 100px;
 	height: 100px;
-	padding-top: 25px;
+	line-height: 100px;
+	text-align: center;
 	font-size: 28pt;
-	display: inline-block;
 	border: 1px solid black;
 	border-radius: 100%;
 }

@@ -151,11 +151,12 @@ $(function() {
 					username: username,
 					password: password
 				};
-				ajaxCall("<?= base_url('login/doLogin') ?>", data, function(result) {
-					if (result == "error") {
+				ajaxCall("<?= base_url('login/doLogin') ?>", data, function(json) {
+					var result = jQuery.parseJSON(json);
+					if (result.status == "error") {
 						hideLoading();
-						$(".login-error.login-error-password").html("Username / Password salah");
-					} else if (result == "success") {
+						$(".login-error.login-error-password").html(result.reason);
+					} else if (result.status == "success") {
 						window.location = "<?= base_url('dashboard') ?>";
 					}
 				});
@@ -193,11 +194,18 @@ function ajaxCall(url, data, callback) {
 		data: data,
 		type: 'POST',
 		error: function(jqXHR, exception) {
-			alert(jqXHR + " : " + jqXHR.responseText);
+			//alert(jqXHR + " : " + jqXHR.responseText + "\n" + exception);
+			var error = {
+				status: "error",
+				reason: exception
+			};
+			error = JSON.stringify(error);
+			callback(error);
 		},
 		success: function(result) {
 			callback(result);
-		}
+		},
+		timeout: 10000
 	});
 }
 

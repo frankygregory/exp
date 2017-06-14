@@ -11,6 +11,7 @@ class Statistik extends MY_Controller
 
     public function index()
     {
+        $this->activeMenu["statistik"] = "active";
         $data = array(
             'title' => 'Statistik',
 			"page_title" => "Statistik",

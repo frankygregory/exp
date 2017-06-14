@@ -16,6 +16,7 @@ class Kendaraan extends MY_Controller
 
     public function index()
     {
+		$this->activeMenu["kendaraan"] = "active";
         $data = array(
             'title' => 'Kendaraan',
 			'page_title' => "Kendaraan"

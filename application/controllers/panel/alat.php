@@ -12,6 +12,7 @@ class Alat extends MY_Controller
 
     public function index()
     {
+		$this->activeMenu["alat"] = "active";
         $data = array(
             'title' => 'Alat',
 			'page_title' => "Alat"

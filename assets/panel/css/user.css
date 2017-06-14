@@ -31,12 +31,40 @@ label {
 	float: right;
 }
 
+.table-user, .table-group {
+	display: block;
+}
+
 .table-group {
 	width: 500px;
 }
 
-.td-no {
+td[data-col="no"] {
 	width: 50px;
+}
+
+td[data-col="nama"] {
+	width: 200px;
+}
+
+td[data-col="email"] {
+	width: 200px;
+}
+
+td[data-col="group"] {
+	width: 200px;
+}
+
+td[data-col="level"] {
+	width: 250px;
+}
+
+td[data-col="status"] {
+	width: 100px;
+}
+
+td[data-col="action"] {
+	width: 200px;
 }
 
 .error {

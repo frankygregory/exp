@@ -239,6 +239,7 @@ var location_from_lat = <?= $location_from_lat ?>;
 var location_from_lng = <?= $location_from_lng ?>;
 var location_to_lat = <?= $location_to_lat ?>;
 var location_to_lng = <?= $location_to_lng ?>;
+var user_id;
 
 var data_shipment_id = <?= $shipment_id ?>;
 
@@ -395,7 +396,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	$btnCancelBidding .= "\";";
 	$btnCancelBidding .= "}";
 	?>
-	var user_id = <?= $this->session->userdata("user_id") ?>;
+	user_id = <?= $this->session->userdata("user_id") ?>;
 	var detailPenawaranShown = false;
 	
 	$(document).on("click", ".btn-tawar", function() {
@@ -627,7 +628,9 @@ function getBiddingList() {
 		shipment_id: shipment_id
 	};
 	ajaxCall("<?= base_url("kirim/getBiddingList") ?>", data, function(json) {
+		
 		var result = jQuery.parseJSON(json);
+		console.log(result);
 		addBiddingListToTable(result);
 	});
 }

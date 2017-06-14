@@ -9,6 +9,21 @@ Just put general function which frequently used in this class
 class MY_Controller extends CI_Controller
 {
 	protected $modules = "";
+    protected $activeMenu = array(
+        "dashboard" => "",
+        "kirim_barang" => "",
+        "kiriman_saya" => "",
+        "lokasi" => "",
+        "cari_kiriman" => "",
+        "kiriman_darat" => "",
+        "kiriman_laut" => "",
+        "kendaraan" => "",
+        "supir" => "",
+        "alat" => "",
+        "user" => "",
+        "ulasan" => "",
+        "statistik" => ""
+    );
     public function __construct()
     {
         parent::__construct();
@@ -55,6 +70,7 @@ class MY_Controller extends CI_Controller
     public function template($file, $data){
 		$data["pageName"] = $file;
 		$data["modules"] = $this->modules;
+        $data["activeMenu"] = $this->activeMenu;
         $this->load->view('template/top', $data);
         $this->load->view($file, $data);
         $this->load->view('template/bottom');

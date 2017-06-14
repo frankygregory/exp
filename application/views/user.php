@@ -176,13 +176,13 @@
 			<table class="table table-user">
 				<thead>
 					<tr>
-						<td class='td-no'>No.</td>
-						<td>Nama</td>
-						<td>Email</td>
-						<td>Group</td>
-						<td>Level</td>
-						<td>Status</td>
-						<td>Action</td>
+						<td class='td-no' data-col='no' data-align='center'>No.</td>
+						<td data-col='nama'>Nama</td>
+						<td data-col='email'>Email</td>
+						<td data-col='group'>Group</td>
+						<td data-col='level'>Level</td>
+						<td data-col='status'>Status</td>
+						<td data-col='action'>Action</td>
 					</tr>
 				</thead>
 				<tbody class="tbody-user">
@@ -195,9 +195,9 @@
 		<table class="table table-group">
 			<thead>
 				<tr>
-					<td class='td-no'>No.</td>
-					<td>Nama</td>
-					<td>Action</td>
+					<td class='td-no' data-col='no' data-align='center'>No.</td>
+					<td data-col='nama'>Nama</td>
+					<td data-col='action'>Action</td>
 				</tr>
 			</thead>
 			<tbody class="tbody-group">
@@ -456,13 +456,13 @@ function addUserToTable(result) {
 			var btnDelete = "<button class='btn-negative btn-delete-user'>Delete</button>";
 			
 			element += "<tr class='tr-user' data-id='" + result[i].user_id + "'>";
-			element += "<td>" + (i + 1) + "</td>";
-			element += "<td class='td-user_fullname'>" + result[i].user_fullname + "</td>";
-			element += "<td class='td-user_email'>" + result[i].user_email + "</td>";
-			element += "<td class='td-user_group' data-group_ids='" + result[i].group_ids + "'>" + group_names + "</td>";
-			element += "<td class='td-user_level' data-user_level='" + dataUserLevel + "'>" + tdUserLevel + "</td>";
-			element += "<td class='td-user_status' data-user_status='" + result[i].user_status + "'>" + status + "</td>";
-			element += "<td>" + btnEdit + btnDelete + "</td>";
+			element += "<td data-col='no' data-align='center'>" + (i + 1) + "</td>";
+			element += "<td class='td-user_fullname' data-col='nama'>" + result[i].user_fullname + "</td>";
+			element += "<td class='td-user_email' data-col='email'>" + result[i].user_email + "</td>";
+			element += "<td class='td-user_group' data-col='group' data-group_ids='" + result[i].group_ids + "'>" + group_names + "</td>";
+			element += "<td class='td-user_level' data-col='level' data-user_level='" + dataUserLevel + "'>" + tdUserLevel + "</td>";
+			element += "<td class='td-user_status' data-col='status' data-user_status='" + result[i].user_status + "'>" + status + "</td>";
+			element += "<td data-col='action'>" + btnEdit + btnDelete + "</td>";
 			element += "</tr>";
 		}
 	}
@@ -543,9 +543,9 @@ function addGroupsToTable(result) {
 			group_name = "default";
 		}
 		element += "<tr class='tr-group' data-id='" + result[i].group_id + "' data-name='" + group_name + "'>";
-		element += "<td>" + (i + 1) + "</td>";
-		element += "<td class='td-group_name'>" + group_name + "</td>";
-		element += "<td><button class='btn-default btn-edit-group'>Edit</button>" + btnDelete + "</td>";
+		element += "<td data-col='no' data-align='center'>" + (i + 1) + "</td>";
+		element += "<td class='td-group_name' data-col='nama'>" + group_name + "</td>";
+		element += "<td data-col='action'><button class='btn-default btn-edit-group'>Edit</button>" + btnDelete + "</td>";
 		element += "</tr>";
 		
 		checkbox += "<label class='label-checkbox-group'><input type='checkbox' class='input-insert-user_group_id' value='" + result[i].group_id + "' /> " + group_name + "</label>";

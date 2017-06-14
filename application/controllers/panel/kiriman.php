@@ -13,6 +13,7 @@ class Kiriman extends MY_Controller
 
     public function index()
     {   
+		$this->activeMenu["kiriman_saya"] = "active";
 		$data = array(
             'title' => 'Kiriman Saya',
 			'page_title' => "Kiriman Saya",

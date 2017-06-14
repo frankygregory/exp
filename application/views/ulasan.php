@@ -4,10 +4,8 @@
 <div class="content">
 	<div class="section-1">
 		<div class="rating-total">
-			Rating : 
-			<span>
-				<span class="rating-total-number"></span>
-			</span>
+			<span class="rating-label">Rating : </span>
+			<span class="rating-total-number"></span>
 		</div>
 	</div>
 	<div class="section-2">

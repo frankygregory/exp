@@ -11,6 +11,7 @@ class Dashboard extends MY_Controller
 
     public function index()
     {
+        $this->activeMenu["dashboard"] = "active";
         $data = array(
             'title' => 'Dashboard',
 			"page_title" => "Dashboard"

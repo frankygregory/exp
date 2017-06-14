@@ -10,6 +10,7 @@ class Lokasi extends MY_Controller
 
     public function index()
     {
+		$this->activeMenu["lokasi"] = "active";
         $data = array(
             'title' => 'Lokasi',
 			"page_title" => "Lokasi"

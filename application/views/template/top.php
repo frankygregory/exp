@@ -49,55 +49,55 @@
 	<div class="navigation-header-space"></div>
 	<div class="container-body">
 		<div class="navigation-menu">
-			<a href="<?= base_url("dashboard") ?>">
+			<a href="<?= base_url("dashboard") ?>" class="<?= $activeMenu["dashboard"] ?>">
 				<div>Dashboard</div>
 			</a>
 <?php	if ($this->session->userdata("role_id") == 1) { ?>
-			<a href="<?= base_url("kirim/kirimbarang") ?>">
+			<a href="<?= base_url("kirim/kirimbarang") ?>" class="<?= $activeMenu["kirim_barang"] ?>">
 				<div>Kirim Barang</div>
 			</a>
-			<a href="<?= base_url("kiriman-saya") ?>">
+			<a href="<?= base_url("kiriman-saya") ?>" class="<?= $activeMenu["kiriman_saya"] ?>">
 				<div>Kiriman Saya</div>
 			</a>
-			<a href="<?= base_url("lokasi") ?>">
+			<a href="<?= base_url("lokasi") ?>" class="<?= $activeMenu["lokasi"] ?>">
 				<div>Lokasi</div>
 			</a>
 	<?php	if ($this->session->userdata("user_level") != 3) { ?>
-				<a href="<?= base_url("user") ?>">
+				<a href="<?= base_url("user") ?>" class="<?= $activeMenu["user"] ?>">
 					<div class="">User</div>
 				</a>
 	<?php	}	?>
 <?php	}	?>
 	<?php
 		if ($this->session->userdata("role_id") == 2) { ?>
-			<a href="<?= base_url("kirim") ?>">
+			<a href="<?= base_url("kirim") ?>" class="<?= $activeMenu["cari_kiriman"] ?>">
 				<div>Cari Kiriman</div>
 			</a>
-			<a href="<?= base_url("kiriman-darat-ekspedisi") ?>">
+			<a href="<?= base_url("kiriman-darat-ekspedisi") ?>" class="<?= $activeMenu["kiriman_darat"] ?>">
 				<div>Kiriman Darat</div>
 			</a>
-			<a href="<?= base_url("kiriman-laut-ekspedisi") ?>">
+			<a href="<?= base_url("kiriman-laut-ekspedisi") ?>" class="<?= $activeMenu["kiriman_laut"] ?>">
 				<div>Kiriman Laut</div>
 			</a>
-			<a href="<?= base_url("kendaraan") ?>">
+			<a href="<?= base_url("kendaraan") ?>" class="<?= $activeMenu["kendaraan"] ?>">
 				<div class="">Kendaraan</div>
 			</a>
-			<a href="<?= base_url("supir") ?>">
+			<a href="<?= base_url("supir") ?>" class="<?= $activeMenu["supir"] ?>">
 				<div class="">Supir</div>
 			</a>
-			<a href="<?= base_url("alat") ?>">
+			<a href="<?= base_url("alat") ?>" class="<?= $activeMenu["alat"] ?>">
 				<div class="">Alat</div>
 			</a>
 	<?php	if ($this->session->userdata("user_level") != 3) { ?>
-				<a href="<?= base_url("user") ?>">
+				<a href="<?= base_url("user") ?>" class="<?= $activeMenu["user"] ?>">
 					<div class="">User</div>
 				</a>
 	<?php	}	?>
-			<a href="<?= base_url("ulasan") ?>">
+			<a href="<?= base_url("ulasan") ?>" class="<?= $activeMenu["ulasan"] ?>">
 				<div class="">Ulasan</div>
 			</a>
 <?php	}	?>
-			<a href="<?= base_url("statistik") ?>">
+			<a href="<?= base_url("statistik") ?>" class="<?= $activeMenu["statistik"] ?>">
 				<div class="">Statistik</div>
 			</a>
 		</div>

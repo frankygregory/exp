@@ -11,6 +11,7 @@ class Kiriman_ekspedisi extends MY_Controller
 
     public function index()
     {   
+		$this->activeMenu["kiriman_darat"] = "active";
 		$data = array(
             'title' => 'Kiriman Darat',
 			'page_title' => "Kiriman Darat",

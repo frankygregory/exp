@@ -12,6 +12,7 @@ class Kiriman_ekspedisi_laut extends MY_Controller
 
     public function index()
     {   
+		$this->activeMenu["kiriman_laut"] = "active";
 		$data = array(
             'title' => 'Kiriman Laut',
 			'page_title' => "Kiriman Laut",

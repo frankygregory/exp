@@ -12,6 +12,7 @@ class Ulasan extends MY_Controller
 
     public function index()
     {
+		$this->activeMenu["ulasan"] = "active";
         $data = array(
             'title' => 'Ulasan',
 			'page_title' => "Ulasan"

@@ -136,8 +136,8 @@
 	padding: 14px 0 14px 25px;
 }
 
-.navigation-menu a:hover {
-	background-color: rgba(0, 0, 0, 0.3);
+.navigation-menu a:hover, .navigation-menu a.active {
+	background-color: rgba(0, 0, 0, 0.2);
 }
 
 .container-content {

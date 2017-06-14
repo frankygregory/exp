@@ -11,6 +11,7 @@ class Supir extends MY_Controller
 
     public function index()
     {
+		$this->activeMenu["supir"] = "active";
         $data = array(
             'title' => 'Driver',
 			"page_title" => "Driver"

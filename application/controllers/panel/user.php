@@ -36,6 +36,7 @@ class User extends MY_Controller
 
     public function index()
     {
+		$this->activeMenu["user"] = "active";
         $data = array(
             'title' => 'User',
 			"page_title" => "User"

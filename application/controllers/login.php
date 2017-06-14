@@ -29,17 +29,20 @@ class Login extends CI_Controller
     public function doLogin()
     {
 		$ip = getenv('HTTP_CLIENT_IP')?:getenv('HTTP_X_FORWARDED_FOR')?:getenv('HTTP_X_FORWARDED')?:getenv('HTTP_FORWARDED_FOR')?:getenv('HTTP_FORWARDED')?:getenv('REMOTE_ADDR');
-		$geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=" . $ip));
-		$location = $geo["geoplugin_city"] . ";" . $geo["geoplugin_region"] . ";" . $geo["geoplugin_countryName"];
-		//$location = "";
+		//$geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=" . $ip));
+		//$location = $geo["geoplugin_city"] . ";" . $geo["geoplugin_region"] . ";" . $geo["geoplugin_countryName"];
+		$location = "";
 		//$browser = get_browser();
 		//$browser_name = $browser->browser_name_pattern . ";" . $browser->platform . ";" . $browser->browser . ";" . $browser->version;
 		
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
+        $username = $this->input->post('username', true);
+        $password = $this->input->post('password', true);
         
         if (!preg_match('/^[a-zA-Z0-9_\.]+$/', $username) OR !preg_match('/^[a-zA-Z0-9_\.]+$/', $password)) {
-            $this->view('front/login', 'Isian harus huruf atau angka');
+            $result = new stdClass();
+            $result->status = "error";
+            $result->reason = "isian harus huruf / angka";
+            echo json_encode($result);
         } else {
             if ((strlen($username) > 0) OR (strlen($password) > 0)) {
                 $insertData = array(
@@ -52,7 +55,10 @@ class Login extends CI_Controller
                 $user = $this->Login_model->login($insertData);
                 if (sizeof($user) > 0) {
                     if ($user[0]["result"] == "false") {
-                        echo "error";
+                        $result = new stdClass();
+                        $result->status = "error";
+                        $result->reason = "Username / Password salah";
+                        echo json_encode($result);
                     } else {
                         $this->setuserdata(
                             $user[0]['user_id'],
@@ -65,7 +71,9 @@ class Login extends CI_Controller
                             'menu',
                             'dashboard'
                         );
-                        echo "success";
+                        $result = new stdClass();
+                        $result->status = "success";
+                        echo json_encode($result);
                     }
                 }
             }
