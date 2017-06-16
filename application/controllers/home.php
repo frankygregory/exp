@@ -128,6 +128,52 @@ class Home extends CI_Controller
 		$this->load->view('front/common/footer', $data);
     }
 
+	public function profil($id) {
+		$this->load->model("Profil_model");
+		$user = $this->Profil_model->getUser($id);
+		if (sizeof($user) > 0) {
+			$isLoggedIn = $this->cekLogin();
+			$data = array(
+				'title' => 'Profil',
+				'page_name' => "profil",
+				'page_title'=> 'Profil',
+				'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css" rel="stylesheet">',
+				"user" => $user,
+				"isLoggedIn" => $isLoggedIn,
+				"modules" => $this->modules,
+				"activePage" => $this->activePage,
+				"headerScroll" => "scroll white-background"
+			);
+			$this->load->view('front/common/header', $data);
+			$this->load->view('front/profil', $data);
+			$this->load->view('front/common/footer', $data);
+		} else {
+			header("Location: " . base_url());
+		}
+	}
+
+	public function getStatistik() {
+		$this->load->model("Statistik_model");
+		$user_id = $this->input->post("user_id");
+		$statistik = $this->Statistik_model->getStatistik($user_id);
+		echo json_encode($statistik);
+	}
+
+	public function getProfilRating() {
+		$this->load->model("Ulasan_model");
+		$user_id = $this->input->post("user_id");
+		$rating = $this->Ulasan_model->getMyRating($user_id);
+		echo json_encode($rating);
+	}
+	
+	public function getProfilFeedback() {
+		$this->load->model("Ulasan_model");
+		$sort = $this->input->post("sort");
+		$user_id = $this->input->post("user_id");
+		$feedbacks = $this->Ulasan_model->getMyFeedback($sort, $user_id);
+		echo json_encode($feedbacks);
+	}
+
     public function terms(){
 		$isLoggedIn = $this->cekLogin();
         $data = array(

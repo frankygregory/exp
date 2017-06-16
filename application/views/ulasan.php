@@ -26,6 +26,7 @@
 </div>
 
 <script type="text/javascript">
+var profilUrl = "<?= base_url("profil/") ?>";
 $(function() {
 	getMyRating();
 	getMyFeedback();
@@ -60,7 +61,7 @@ function getMyFeedback() {
 			element += '</tr>';
 			element += '<tr>';
 			element += '<td class="td-label">Oleh</td>';
-			element += '<td class="td-value">' + result[i].username + '</td>';
+			element += '<td class="td-value"><a href="' + profilUrl + result[i].created_by + '">' + result[i].username + '</a></td>';
 			element += '</tr>';
 			element += '<tr>';
 			element += '<td class="td-label">Kiriman</td>';

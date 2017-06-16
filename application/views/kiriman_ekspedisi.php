@@ -214,6 +214,7 @@
 </div>
 <script>
 var month = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"];
+var profilUrl = "<?= base_url("profil/") ?>";
 var kirimanUrl = [];
 kirimanUrl[1] = "<?= base_url("kiriman-darat-ekspedisi/getDealKiriman") ?>";
 kirimanUrl[2] = "<?= base_url("kiriman-darat-ekspedisi/getPendingKiriman") ?>";
@@ -573,7 +574,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				break;
 			case "cancel":
 				tdJenisMuatan = "";
-				tdCancelBy = "<td class='td-cancel_by'>" + result[i].cancel_username + "</td>";
+				tdCancelBy = "<td class='td-cancel_by'><a href='" + profilUrl + result[i].cancel_by + "'>" + result[i].cancel_username + "</a></td>";
 				break;
 		}
 		

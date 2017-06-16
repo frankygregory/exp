@@ -286,6 +286,7 @@ class Kirim extends MY_Controller
 			'page_title' => $data[0]->shipment_title,
 			'type' => 'edit',
 			'shipment_id' => $shipment_id,
+			'shipment_user_id' => $data[0]->user_id,
 			'user_id' => $user_id,
 			'username' => $user_username,
 			'role_id' => $user_role,

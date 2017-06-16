@@ -14,7 +14,7 @@
 					<tr>
 						<td class="td-label">Pelanggan</td>
 						<td class="td-titikdua">:</td>
-						<td><?= $shipment_owner_username ?></td>
+						<td><a href="<?= base_url("profil/") . $shipment_user_id ?>"><?= $shipment_owner_username ?></a></td>
 					</tr>
 					<tr>
 						<td class="td-label">Tanggal Buat</td>
@@ -240,6 +240,8 @@ var location_from_lng = <?= $location_from_lng ?>;
 var location_to_lat = <?= $location_to_lat ?>;
 var location_to_lng = <?= $location_to_lng ?>;
 var user_id;
+var profilUrl = "<?= base_url("profil/") ?>";
+var shipment_user_id = "<?= $shipment_user_id ?>";
 
 var data_shipment_id = <?= $shipment_id ?>;
 
@@ -597,7 +599,7 @@ function addDiscussionToTable(result) {
 	for (var i = 0; i < iLength; i++) {
 		element += "<div class='discussions-item'>";
 		<?= $divQuestions ?>
-		element += "<div class='questions-user-id'>" + questions[i].username + "</div>";
+		element += "<div class='questions-user-id'><a href='" + profilUrl + questions[i].user_id + "'>" + questions[i].username + "</a></div>";
 		element += "<div class='questions-text'>" + questions[i].questions_text + "</div>";
 		<?= $btnJawabPertanyaan ?>
 		element += "</div>";
@@ -606,7 +608,7 @@ function addDiscussionToTable(result) {
 		var jLength = answers.length;
 		for (var j = 0; j < jLength; j++) {
 			element += "<div class='answers'>";
-			element += "<div class='answers-user-id'><?= $shipment_owner_username ?></div>";
+			element += "<div class='answers-user-id'><a href='" + profilUrl + shipment_user_id + "'><?= $shipment_owner_username ?></a></div>";
 			element += "<div class='answers-text'>" + answers[j].answers_text + "</div>";
 			element += "</div>";
 		}
@@ -646,7 +648,7 @@ function addBiddingListToTable(result) {
 		element += "<tr class='tr-bidding' <?= $tr_bidding ?>>";
 		element += "<td class='td-bidding-price' data-value='" + result.data[i].bidding_price + "'>" + addCommas(result.data[i].bidding_price) + " IDR</td>";
 		element += "<td class='td-bidding-type' data-value='" + bidding_type + "'>" + bidding_type + "</td>";
-		element += "<td class='td-bidding-username'>" + result.data[i].username + "</td>";
+		element += "<td class='td-bidding-username'><a href='" + profilUrl + result.data[i].user_id + "'>" + result.data[i].username + "</a></td>";
 		element += "<td class='td-bidding-tanggal-ambil'>";
 		element += "<div>Tanggal Ambil : " + result.data[i].bidding_pickupdate + "</div>";
 		element += "<div>Keterangan : " + result.data[i].bidding_information + "</div>";

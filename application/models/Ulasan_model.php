@@ -32,7 +32,7 @@ class Ulasan_model extends CI_Model
 		}
 		
 		$query = $this->db->query("
-			SELECT rd.user_rating_details_id, rd.user_rating_number, rd.user_rating_feedback, rd.shipment_id, rd.created_by, rd.created_date, m.shipment_title, u.username
+			SELECT rd.user_rating_details_id, rd.user_rating_number, rd.user_rating_feedback, rd.shipment_id, rd.created_by, rd.created_date, m.shipment_title, u.username, rd.created_by
 			FROM `t_user_rating_details` rd
 			LEFT JOIN `m_shipment` m
 			ON rd.shipment_id = m.shipment_id

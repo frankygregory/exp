@@ -114,6 +114,7 @@
 </div>
 <script>
 var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var profilUrl = "<?= base_url("profil/") ?>";
 var kirimanUrl = [];
 kirimanUrl[1] = "<?= base_url("kiriman-saya/getOpenKiriman") ?>";
 kirimanUrl[2] = "<?= base_url("kiriman-saya/getProgressKiriman") ?>";
@@ -366,7 +367,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				statusTd = "<td data-col='status' data-align='center'>" + statusDetail[status] + "</td>";
 				break;
 			case "cancel":
-				cancelByTd += "<td data-col='cancel-by'>" + result[i].cancel_username + "</td>";
+				cancelByTd += "<td data-col='cancel-by'><a href='" + profilUrl + result[i].cancel_by + "'>" + result[i].cancel_username + "</a></td>";
 				actionTd = "";
 				break;
 		}

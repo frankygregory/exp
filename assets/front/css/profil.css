@@ -1,4 +1,71 @@
+.content {
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-bottom: 50px;
+}
+
+.container {
+	min-height: 750px;
+}
+
 .section-1 {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.username {
+	font-size: 20pt;
+}
+
+.section-2 {
+	overflow: auto;
+	margin-bottom: 100px;
+}
+
+.subsection {
+	float: left;
+}
+
+.subsection-kiriman {
+	margin-right: 100px;
+}
+
+.section-title {
+	font-size: 14pt;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.table-statistik-kiriman, .table-statistik-bidding {
+	width: 500px;
+}
+
+table td {
+	width: 90px;
+	text-align: center;
+	border-bottom: 1px solid #BDBDBD;
+}
+
+.tr-col-header {
+	font-weight: bold;
+}
+
+.tr-col-header td {
+	font-size: 11pt;
+}
+
+.td-row-header {
+	width: 100px;
+	text-align: right;
+	font-weight: bold;
+	font-size: 11pt;
+}
+
+.section-3 {
+	clear: both;
+}
+
+.subsection-rating-total {
 	overflow: auto;
 	margin-bottom: 50px;
 	text-align: center;
@@ -65,6 +132,10 @@
 
 .feedback-item-left .td-value {
 	color: #1976D2;
+}
+
+.table-feedback tr td {
+	border: 0;
 }
 
 .stars-container {
