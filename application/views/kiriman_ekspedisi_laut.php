@@ -362,7 +362,32 @@ $(function() {
 		$(".dialog-ubah-input-status").val(text);
 		$(".dialog-ubah-input-status-value").val(value);
 	});
+
+	$(document).on("click", ".tr-kiriman", function() {
+		var detailElement = $(this).next();
+		if ($(detailElement).height() == 0) {
+			$(this).next().addClass("show");
+			getDetailPengirim(this);
+		} else {
+			$(this).next().removeClass("show");
+		}
+	});
 });
+
+function getDetailPengirim(element) {
+	var shipment_id = $(element).data("id");
+	ajaxCall("<?= base_url("kiriman-laut-ekspedisi/getDetailPengirim") ?>", {shipment_id: shipment_id}, function(json) {
+		var result = jQuery.parseJSON(json);
+		result = result[0];
+		var content = "";
+		content += "<div class='detail-title'>Detail Kontak</div>";
+		content += "<div class='detail-row'><span class='detail-label'>Nama</span><span class='detail-titikdua'> : </span><span>" + result["user_fullname"] + "</span></div>";
+		content += "<div class='detail-row'><span class='detail-label'>Alamat</span><span class='detail-titikdua'> : </span><span>" + result["user_address"] + "</span></div>";
+		content += "<div class='detail-row'><span class='detail-label'>Telepon</span><span class='detail-titikdua'> : </span><span>" + result["user_telephone"] + "</span></div>";
+		content += "<div><span class='detail-label'>Handphone</span><span class='detail-titikdua'> : </span><span>" + result["user_handphone"] + "</span></div>";
+		$(element).next().find(".row-detail-td-content").html(content);
+	});
+}
 
 function submitUbah() {
 	var shipment_id = $(".dialog-konfirmasi-ubah").data("shipment_id");
@@ -622,6 +647,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		}
 		
 		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "' data-status='" + result[i].shipment_status + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + tdCancelBy + additionalTd + tdStatus + element[tab].btn + waktu + "</tr>";
+		element[tab].value += "<tr class='row-detail-tr'><td class='row-detail-td' colspan='9'><div class='row-detail-td-content'></div></td></tr>";
 	}
 	
 	if (iLength == 0) {
@@ -630,6 +656,8 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .table-empty-state").removeClass("shown");
 	}
 	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");
+	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").append(element[tab].value);
+	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").append(element[tab].value);
 	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").append(element[tab].value);
 	
 	if (tab == "pending" && iLength > 0) {

@@ -632,7 +632,6 @@ function getBiddingList() {
 	ajaxCall("<?= base_url("kirim/getBiddingList") ?>", data, function(json) {
 		
 		var result = jQuery.parseJSON(json);
-		console.log(result);
 		addBiddingListToTable(result);
 	});
 }

@@ -120,6 +120,7 @@ $route["kiriman-darat-ekspedisi/getSelesaiKiriman"] = 'panel/kiriman_ekspedisi/g
 $route["kiriman-darat-ekspedisi/getCancelKiriman"] = 'panel/kiriman_ekspedisi/getCancelKiriman';
 $route['kiriman-laut-ekspedisi'] = 'panel/kiriman_ekspedisi_laut';
 $route['kiriman-laut-ekspedisi/getKirimanSaya'] = 'panel/kiriman_ekspedisi_laut/getKirimanSaya';
+$route['kiriman-laut-ekspedisi/getDetailPengirim'] = 'panel/kiriman_ekspedisi_laut/getDetailPengirim';
 $route["kiriman-laut-ekspedisi/getDealKiriman"] = 'panel/kiriman_ekspedisi_laut/getDealKiriman';
 $route["kiriman-laut-ekspedisi/getPendingKiriman"] = 'panel/kiriman_ekspedisi_laut/getPendingKiriman';
 $route["kiriman-laut-ekspedisi/getDoorAwalKiriman"] = 'panel/kiriman_ekspedisi_laut/getDoorAwalKiriman';
