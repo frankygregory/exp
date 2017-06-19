@@ -37,7 +37,7 @@
 		<a href="<?= base_url("list-kiriman") ?>" class="header-menu <?= $activePage["list_kiriman"] ?>">List Kiriman
 			<div class="bottom-line"></div>
 		</a>
-		<a href="#" class="header-menu">Contact Us
+		<a href="#" class="header-menu">Kontak
 			<div class="bottom-line"></div>
 		</a>
 <?php	if ($isLoggedIn != 1) {	?>
@@ -51,7 +51,7 @@
 		<a class="header-menu header-menu-user"><?= $this->session->userdata("user_fullname") ?>
 			<span class="dropdown-icon">
 				<svg style="width:24px;height:24px" viewBox="0 -5 24 24">
-					<path fill="#FFFFFF" d="M7,10L12,15L17,10H7Z" />
+					<path fill="#000" d="M7,10L12,15L17,10H7Z" />
 				</svg>
 			</span>
 		</a>

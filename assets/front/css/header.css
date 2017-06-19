@@ -3,7 +3,7 @@
 	height: 70px;
 	position: fixed;
 	top: 0;
-	background-color: rgba(251, 231, 0, 1);
+	background-color: rgb(251, 231, 0);
 	z-index: 1000;
 	-webkit-user-select: none;  /* Chrome all / Safari all */
 	-moz-user-select: none;     /* Firefox all */
@@ -38,7 +38,7 @@
 	display: inline-block;
 	font-size: 14pt;
 	margin-top: 20px;
-	margin-right: 20px;
+	margin-right: 50px;
 	font-weight: bold;
 	cursor: pointer;
 	color: #000;
@@ -56,7 +56,6 @@
 .header-menu-dashboard {
 	padding: 10px;
 	margin-top: -10px;
-	background-color: #FF9800;
 	color: black !important;
 	border: 1px solid black;
 }
@@ -147,10 +146,11 @@
 	width: 100%;
 	margin-top: 30px;
 	padding: 15px 0 !important;
-	background-color: #FF9800 !important;
+	background-color: rgb(251, 231, 0) !important;
 	color: black !important;
 	border: 0;
 	cursor: pointer;
+	font-weight: bold;
 }
 
 .header-menu-user {
