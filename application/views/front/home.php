@@ -62,27 +62,27 @@
 		<div class="section-content">
 			<div class="section-4-step step-1">
 				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_assignment_black_24dp_2x.png") ?>');"></div>
-				<div class="section-4-step-description">1. Isi detail Barang dan lokasi asal serta tujuan pengiriman</div>
+				<div class="section-4-step-description"><strong>1. Isi detail Barang</strong> dan lokasi asal serta tujuan pengiriman</div>
 			</div>
 			<div class="section-4-horizontal-line"></div>
 			<div class="section-4-step step-2">
 				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_check_circle_black_24dp_2x.png") ?>');"></div>
-				<div class="section-4-step-description">2. Piih penyedia jasa kiriman yang sesuai baik dari sisi harga ataupun pelayanan</div>
+				<div class="section-4-step-description"><strong>2. Piih penyedia jasa</strong> kiriman yang sesuai baik dari sisi harga ataupun pelayanan</div>
 			</div>
 			<div class="section-4-horizontal-line"></div>
 			<div class="section-4-step step-3">
 				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_place_black_24dp_2x.png") ?>');"></div>
-				<div class="section-4-step-description">3. Lacak kiriman yang dilakukan</div>
+				<div class="section-4-step-description"><strong>3. Lacak kiriman</strong> yang dilakukan</div>
 			</div>
 			<div class="section-4-horizontal-line"></div>
 			<div class="section-4-step step-4">
 				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/confirm.png") ?>');"></div>
-				<div class="section-4-step-description">4. Konfirmasi Kiriman yang sudah selesai dilakukan</div>
+				<div class="section-4-step-description"><strong>4. Konfirmasi Kiriman</strong> yang sudah selesai dilakukan</div>
 			</div>
 			<div class="section-4-horizontal-line"></div>
 			<div class="section-4-step step-5">
 				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_feedback_black_24dp_2x.png") ?>');"></div>
-				<div class="section-4-step-description">5. Berikan feedback dan rating bagi penyedia jasa kiriman</div>
+				<div class="section-4-step-description"><strong>5. Berikan feedback</strong> dan rating bagi penyedia jasa kiriman</div>
 			</div>
 		</div>
 	</div>

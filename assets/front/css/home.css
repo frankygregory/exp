@@ -148,7 +148,7 @@
 
 .section-3 .section-content {
 	opacity: 0;
-	width: 950px;
+	width: 1150px;
 	margin: 0 auto;
 }
 
@@ -178,7 +178,7 @@
 
 .mengapa-item {
 	float: left;
-	width: 200px;
+	width: 250px;
 	margin-right: 50px;
 }
 
@@ -187,10 +187,10 @@
 }
 
 .mengapa-item-icon {
-	width: 90px;
-	height: 90px;
+	width: 100px;
+	height: 100px;
 	margin: 0 auto;
-	background-size: 70px;
+	background-size: 80px;
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -204,8 +204,9 @@
 }
 
 .mengapa-item-description {
-	font-size: 12pt;
+	font-size: 13pt;
 	text-align: center;
+	line-height: 30px;
 }
 
 .section-2 .section-content.show, .section-3 .section-content.show {
@@ -280,7 +281,11 @@
 }
 
 .section-4-step-description {
-	font-size: 14pt;
-	font-weight: bold;
+	font-size: 13pt;
 	margin-top: 20px;
+	line-height: 30px;
+}
+
+.section-4-step-description strong {
+	font-size: 14pt;
 }
