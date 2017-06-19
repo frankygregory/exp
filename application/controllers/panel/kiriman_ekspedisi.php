@@ -19,6 +19,12 @@ class Kiriman_ekspedisi extends MY_Controller
 		
         parent::template('kiriman_ekspedisi', $data);
 	}
+
+	public function getDetailPengirim() {
+		$shipment_id = $this->input->post("shipment_id");
+		$detail = $this->Kiriman_ekspedisi_model->getDetailPengirim($shipment_id);
+		echo json_encode($detail);
+	}
 	
 	public function getDealKiriman() {
 		$user_id = $this->session->userdata("user_id");

@@ -615,7 +615,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		var tdStatus = "";
 		var tdCancelBy = "";
 		var waktu = "";
-		var btnViewKontak = "<button class='btn-default btn-view-kontak'>View Contact</button>";
+		var btnViewKontak = "<button class='btn-default btn-view-kontak'>Info Kontak</button>";
 		switch (tab) {
 			case "deal":
 				btnViewKontak = "";
@@ -662,8 +662,6 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .table-empty-state").removeClass("shown");
 	}
 	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");
-	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").append(element[tab].value);
-	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").append(element[tab].value);
 	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").append(element[tab].value);
 	
 	if (tab == "pending" && iLength > 0) {

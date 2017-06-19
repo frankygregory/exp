@@ -324,6 +324,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 
 		var ratingSection = "";
 
+		var btnViewKontak = "<button class='btn-default btn-view-kontak'>Info Ekspedisi</button>";
 		var keterangan = {};
 		keterangan["darat"] = "Supir : " + result[i].driver_names + "<br>Kendaraan : " + result[i].vehicle_names + "<br>Alat : " + result[i].device_names;
 		keterangan["laut"] = "Kapal : " + result[i].ship_id + "<br>No. Kontainer : " + result[i].shipment_details_container_number;
@@ -331,10 +332,14 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		switch (tab) {
 			case "open":
 				berakhirTd = "<td data-col='berakhir'>" + result[i].berakhir + "</td>";
+				btnViewKontak = "";
 				break;
 			case "progress":
 				low = "";
 				keteranganTd = "<td data-col='keterangan'>";
+				if (status == 0) {
+					btnViewKontak = "";
+				}
 				if (status > 1) {
 					keteranganTd += keterangan[bidding_type];
 				}
@@ -353,6 +358,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				statusTd = "<td data-col='status' data-align='center'>" + statusDetail[status][bidding_type] + "</td>";
 				break;
 			case "selesai":
+				btnViewKontak = "";
 				low = "";
 				keteranganTd = "<td data-col='keterangan'>" + keterangan[bidding_type];
 				
@@ -372,7 +378,9 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				break;
 		}
 		
-		element[tab] += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title' data-col='nama-kirim' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price' data-col='harga'>Bid : " + result[i].bidding_count + "<br>" + low + addCommas(result[i].low) + " IDR</td><td class='td-asal' data-col='asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan' data-col='tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-col='km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + statusTd + keteranganTd + berakhirTd + actionTd + cancelByTd + "</tr>";
+		element[tab] += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title' data-col='nama-kirim' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price' data-col='harga'>Bid : " + result[i].bidding_count + "<br>" + low + addCommas(result[i].low) + " IDR" + btnViewKontak + "</td><td class='td-asal' data-col='asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan' data-col='tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-col='km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + statusTd + keteranganTd + berakhirTd + actionTd + cancelByTd + "</tr>";
+
+		element[tab] += "<tr class='row-detail-tr'><td class='row-detail-td' colspan='9'><div class='row-detail-td-content'></div></td></tr>";
 	}
 	
 	if (iLength == 0) {

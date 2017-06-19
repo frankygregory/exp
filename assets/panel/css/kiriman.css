@@ -121,3 +121,69 @@
 .stars {
 	overflow: auto;
 }
+
+.btn-view-kontak {
+	margin-top: 10px;
+}
+
+table tbody tr:nth-child(even) {
+	background-color: transparent !important;
+}
+
+table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
+	background-color: #EEE !important;
+}
+
+.row-detail-tr {
+	height: 0;
+}
+
+.row-detail-tr.show {
+	height: 200px;
+}
+
+.row-detail-td {
+	display: none;
+	width: 1000px;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.row-detail-tr.show .row-detail-td {
+	display: table-cell;
+}
+
+.row-detail-td-content {
+	width: 100%;
+	height: 200px;
+	padding: 25px;
+	opacity: 0;
+}
+
+.row-detail-tr.show .row-detail-td-content {
+	animation-name: row-detail-td-show;
+    animation-duration: 0.3s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes row-detail-td-show {
+	to {
+		opacity: 1;
+	}
+}
+
+.detail-title {
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.detail-row {
+	margin-bottom: 10px;
+}
+
+.detail-label {
+	display: inline-block;
+	width: 90px;
+}

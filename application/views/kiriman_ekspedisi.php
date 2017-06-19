@@ -279,7 +279,35 @@ $(function() {
 	$(".btn-submit-cancel-transaction").on("click", function() {
 		cancelShipment();
 	});
+
+	$(document).on("click", ".tabs-content:not([data-tabs-number='7']):not([data-tabs-number='8']) .btn-view-kontak", function() {
+		var tr = $(this).closest(".tr-kiriman");
+		var detailElement = $(tr).next();
+		if ($(detailElement).height() == 0) {
+			$(detailElement).addClass("show");
+			if ($(detailElement).find(".row-detail-td-content").html().trim() == "") {
+				getDetailPengirim(tr);
+			}
+		} else {
+			$(detailElement).removeClass("show");
+		}
+	});
 });
+
+function getDetailPengirim(element) {
+	var shipment_id = $(element).data("id");
+	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/getDetailPengirim") ?>", {shipment_id: shipment_id}, function(json) {
+		var result = jQuery.parseJSON(json);
+		result = result[0];
+		var content = "";
+		content += "<div class='detail-title'>Detail Kontak</div>";
+		content += "<div class='detail-row'><span class='detail-label'>Nama</span><span class='detail-titikdua'> : </span><span>" + result["user_fullname"] + "</span></div>";
+		content += "<div class='detail-row'><span class='detail-label'>Alamat</span><span class='detail-titikdua'> : </span><span>" + result["user_address"] + "</span></div>";
+		content += "<div class='detail-row'><span class='detail-label'>Telepon</span><span class='detail-titikdua'> : </span><span>" + result["user_telephone"] + "</span></div>";
+		content += "<div><span class='detail-label'>Handphone</span><span class='detail-titikdua'> : </span><span>" + result["user_handphone"] + "</span></div>";
+		$(element).next().find(".row-detail-td-content").html(content);
+	});
+}
 
 function cancelShipment() {
 	var shipment_id = $(".dialog-konfirmasi-cancel-transaction").data("shipment_id");
@@ -544,12 +572,14 @@ function addKirimanToTable(result, tabsNumber, tab) {
 			jenis_muatan = "Parsial";
 		}
 		
+		var btnViewKontak = "<button class='btn-default btn-view-kontak'>Info Kontak</button>";
 		var tdJenisMuatan = "<td>" + jenis_muatan + "</td>";
 		var additionalTd = "";
 		var tdCancelBy = "";
 		var waktu = "";
 		switch (tab) {
 			case "deal":
+				btnViewKontak = "";
 				tdJenisMuatan = "";
 				break;
 			case "pending":
@@ -569,16 +599,20 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
 				break;
 			case "selesai":
+				btnViewKontak = "";
 				additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
 				waktu = "<td data-align='center'>" + result[i].waktu_kiriman + " hari</td><td data-align='center'>" + result[i].total_waktu + " hari</td>";
 				break;
 			case "cancel":
+				btnViewKontak = "";
 				tdJenisMuatan = "";
 				tdCancelBy = "<td class='td-cancel_by'><a href='" + profilUrl + result[i].cancel_by + "'>" + result[i].cancel_username + "</a></td>";
 				break;
 		}
 		
-		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "'><td class='td-title' data-align='center' data-col='nama-kirim'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price' data-col='harga'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal' data-col='asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan' data-col='tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center' data-col='km'>" + parseInt(result[i].shipment_length) + "</td>" + tdJenisMuatan + tdCancelBy + additionalTd + element[tab].btn + waktu + "</tr>";
+		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "'><td class='td-title' data-align='center' data-col='nama-kirim'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price' data-col='harga'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR" + btnViewKontak + "</td><td class='td-asal' data-col='asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan' data-col='tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center' data-col='km'>" + parseInt(result[i].shipment_length) + "</td>" + tdJenisMuatan + tdCancelBy + additionalTd + element[tab].btn + waktu + "</tr>";
+
+		element[tab].value += "<tr class='row-detail-tr'><td class='row-detail-td' colspan='9'><div class='row-detail-td-content'></div></td></tr>";
 	}
 	
 	if (iLength == 0) {

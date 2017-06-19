@@ -6,6 +6,16 @@ class Kiriman_ekspedisi_model extends CI_Model
     {
         parent::__construct();
     }
+
+	public function getDetailPengirim($shipment_id) {
+		$query = $this->db->query("
+			SELECT u.username, u.user_email, u.user_fullname, u.user_address, u.user_telephone, u.user_handphone
+			FROM `m_user` u, `m_shipment` s
+			WHERE s.user_id = u.user_id AND s.shipment_id = '" . $shipment_id . "'
+			LIMIT 1"
+		);
+		return $query->result();
+	}
 	
 	public function getDealKiriman($user_id) {
 		$query = $this->db->query("
