@@ -34,8 +34,7 @@ class Home extends CI_Controller
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
-			"activePage" => $this->activePage,
-			"headerScroll" => ""
+			"activePage" => $this->activePage
         );
 
 		$this->load->view('front/common/header', $data);
@@ -55,8 +54,7 @@ class Home extends CI_Controller
 			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirim.css" rel="stylesheet">',
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
-			"activePage" => $this->activePage,
-			"headerScroll" => "scroll white-background"
+			"activePage" => $this->activePage
         );
 
 		$this->load->view('front/common/header', $data);
@@ -82,8 +80,7 @@ class Home extends CI_Controller
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
-			"activePage" => $this->activePage,
-			"headerScroll" => "scroll white-background"
+			"activePage" => $this->activePage
         );
 		$this->load->view('front/common/header', $data);
 		$this->load->view('front/' . $page_name, $data);
@@ -120,8 +117,7 @@ class Home extends CI_Controller
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
-			"activePage" => $this->activePage,
-			"headerScroll" => "scroll white-background"
+			"activePage" => $this->activePage
         );
 		$this->load->view('front/common/header', $data);
         $this->load->view('front/register', $data);
@@ -141,8 +137,7 @@ class Home extends CI_Controller
 				"user" => $user,
 				"isLoggedIn" => $isLoggedIn,
 				"modules" => $this->modules,
-				"activePage" => $this->activePage,
-				"headerScroll" => "scroll white-background"
+				"activePage" => $this->activePage
 			);
 			$this->load->view('front/common/header', $data);
 			$this->load->view('front/profil', $data);
@@ -183,8 +178,7 @@ class Home extends CI_Controller
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
-			"activePage" => $this->activePage,
-			"headerScroll" => "scroll white-background"
+			"activePage" => $this->activePage
         );
 		$this->load->view('front/common/header', $data);
         $this->load->view('front/privacy_policy', $data);

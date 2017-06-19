@@ -27,8 +27,8 @@
 	<?= $modules ?>
 </head>
 <body>
-<div class="header <?= $headerScroll ?>">
-	<a href="<?= base_url() ?>" class="logo" style="background-image: url('<?= base_url("assets/icons/yukirim1.png") ?>');"></a>
+<div class="header">
+	<a href="<?= base_url() ?>" class="logo" style="background-image: url('<?= base_url("assets/icons/logo.png") ?>');"></a>
 	<div class="header-right">
 <?php   if ($isLoggedIn == 1) {	?>
 			<a href="<?= base_url('dashboard') ?>" class="header-menu header-menu-dashboard">My Dashboard
@@ -81,9 +81,7 @@
 		</div>
 	</div>
 </div>
-<?php if ($page_name != "home") { ?>
-	<div class="header-overlay"></div>
-<?php }	?>
+<div class="header-overlay"></div>
 <script>
 $(function() {
 	

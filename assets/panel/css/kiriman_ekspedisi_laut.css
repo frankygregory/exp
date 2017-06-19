@@ -12,7 +12,7 @@
 	color: black;
 }
 
-.table-kiriman tbody tr:hover {
+.table-kiriman tbody .tr-kiriman:hover {
 	background-color: #E0E0E0 !important;
 }
 
@@ -180,16 +180,16 @@
 	margin: 30px auto 0;
 }
 
+.btn-view-kontak {
+	margin-top: 10px;
+}
+
 table tbody tr:nth-child(even) {
 	background-color: transparent !important;
 }
 
 table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
 	background-color: #EEE !important;
-}
-
-.tr-kiriman {
-	cursor: pointer;
 }
 
 .row-detail-tr {

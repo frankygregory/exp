@@ -295,7 +295,7 @@ $(function() {
 	
 	getKirimanCount();
 	getKiriman(kirimanUrl[1], 1, "deal");
-	
+
 	$(".tabs-item").on("click", function() {
 		var tabsNumber = $(this).data("tabs-number");
 		getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
@@ -363,13 +363,16 @@ $(function() {
 		$(".dialog-ubah-input-status-value").val(value);
 	});
 
-	$(document).on("click", ".tr-kiriman", function() {
-		var detailElement = $(this).next();
+	$(document).on("click", ".tabs-content:not([data-tabs-number='7']):not([data-tabs-number='8']) .btn-view-kontak", function() {
+		var tr = $(this).closest(".tr-kiriman");
+		var detailElement = $(tr).next();
 		if ($(detailElement).height() == 0) {
-			$(this).next().addClass("show");
-			getDetailPengirim(this);
+			$(detailElement).addClass("show");
+			if ($(detailElement).find(".row-detail-td-content").html().trim() == "") {
+				getDetailPengirim(tr);
+			}
 		} else {
-			$(this).next().removeClass("show");
+			$(detailElement).removeClass("show");
 		}
 	});
 });
@@ -612,9 +615,10 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		var tdStatus = "";
 		var tdCancelBy = "";
 		var waktu = "";
+		var btnViewKontak = "<button class='btn-default btn-view-kontak'>View Contact</button>";
 		switch (tab) {
 			case "deal":
-				
+				btnViewKontak = "";
 				break;
 			case "pending":
 				additionalTd = "<td><select class='select-kapal'><option value='1'>Meratus</option><option value='2'>SPIL</option></select></td><td><input type='text' class='input-no-kontainer' maxlength='11' /></td>";
@@ -637,16 +641,18 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				tdStatus = "<td><strong>D1 &rarr; P1 &rarr; P2 &rarr; D2</strong></td>";
 				break;
 			case "selesai":
+				btnViewKontak = "";
 				additionalTd = "<td>" + result[i].ship_id + "</td><td>" + result[i].shipment_details_container_number + "</td>";
 				tdStatus = "<td><strong>D1 &rarr; P1 &rarr; P2 &rarr; D2</strong></td>";
 				waktu = "<td data-align='center'>" + result[i].total_waktu + " hari</td>";
 				break;
 			case "cancel":
+				btnViewKontak = "";
 				tdCancelBy = "<td class='td-cancel_by'><a href='" + profilUrl + result[i].cancel_by + "'>" + result[i].cancel_username + "</a></td>";
 				break;
 		}
 		
-		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "' data-status='" + result[i].shipment_status + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + tdCancelBy + additionalTd + tdStatus + element[tab].btn + waktu + "</tr>";
+		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "' data-status='" + result[i].shipment_status + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + result[i].shipment_title + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR" + btnViewKontak + "</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + tdCancelBy + additionalTd + tdStatus + element[tab].btn + waktu + "</tr>";
 		element[tab].value += "<tr class='row-detail-tr'><td class='row-detail-td' colspan='9'><div class='row-detail-td-content'></div></td></tr>";
 	}
 	

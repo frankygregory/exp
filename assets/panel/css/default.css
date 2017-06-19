@@ -110,6 +110,9 @@ table {
 
 table.table {
 	width: 1200px;
+	border-bottom: 1px solid #BDBDBD;
+	border-right: 1px solid #BDBDBD;
+	border-left: 1px solid #BDBDBD;
 }
 
 table thead tr td {
@@ -124,18 +127,6 @@ table.table thead tr td {
 table td {
 	font-size: 12pt;
 	padding: 10px 5px;
-}
-
-table.table td:last-child {
-	border-right: 1px solid #BDBDBD;
-}
-
-table.table td:nth-child(1) {
-	border-left: 1px solid #BDBDBD;
-}
-
-table.table tr:last-child td{
-	border-bottom: 1px solid #BDBDBD;
 }
 
 table.table tbody tr:nth-child(even) {

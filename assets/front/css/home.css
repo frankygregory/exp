@@ -1,17 +1,17 @@
 ::-moz-selection {
-	background-color: #FF9800;
+	background-color: rgb(251, 231, 0);
 	color: black;
 }
 
 ::selection {
-	background-color: #FF9800;
+	background-color: rgb(251, 231, 0);
 	color: black;
 }
 
 @keyframes show {
 	0% {
 		opacity: 0;
-		margin-top: 100px;
+		margin-top: 60px;
 	}
 	100% {
 		opacity: 1;
@@ -32,12 +32,11 @@
 }
 
 .background-image {
-	width: 100%;
+	width: 50%;
 	height: 100%;
-	background-size: 100%;
+	background-size: auto 600px;
 	background-repeat: no-repeat;
 	background-position: center;
-	filter: brightness(30%);
 }
 
 .image-wrapper {
@@ -50,84 +49,101 @@
 
 .section-1-title {
 	position: absolute;
-	width: 100%;
-	bottom: 100px;
-	left: 0;
-	color: white;
+	width: 60%;
+	bottom: 200px;
+	right: 0;
+	color: #000;
 	text-align: center;
 }
 
 .title-text {
-	font-size: 70pt;
+	width: 400px;
+	height: 100px;
+	margin: 0 auto;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .title-description {
 	font-size: 22pt;
+	font-weight: bold;
 }
 
 .section-1-buttons {
-	margin-top: 50px;
+	margin-top: 100px;
 }
 
 .btn-pemilik, .btn-penerima {
-	padding: 15px 20px;
+	padding: 15px 40px;
 	font-size: 14pt;
-	border-radius: 5px;
 	cursor: pointer;
 	text-decoration: none;
+	font-weight: bold;
 }
 
 .btn-pemilik {
-	background-color: transparent;
-	border: 2px solid #FF9800;
-	color: #FF9800;
-	margin-right: 20px;
-}
-
-.btn-pemilik:hover {
-	background-color: #FF9800;
-	border: 2px solid #FF9800;
-	color: black;
+	background-color: #000;
+	color: rgb(251, 231, 0);
+	margin-right: -5px;
 }
 
 .btn-penerima {
-	background-color: #FF9800;
-	border: 2px solid #FF9800;
-	color: black;
+	background-color: rgb(251, 231, 0);
+	color: #000;
 }
 
 .section-2 {
-	width: 800px;
-	height: 500px;
+	width: 100%;
+	height: 600px;
 	overflow-y: hidden;
 	margin: 0 auto;
-	padding: 100px 0 0;
+	padding: 150px 0 0;
+	background-color: #F5F5F5;
 }
 
 .section-2 .section-content {
+	width: 950px;
+	margin: 0 auto;
 	opacity: 0;
-	
-}
-
-.section-2-title {
-	font-size: 36pt;
-	margin-bottom: 20px;
 	text-align: center;
 }
 
+.section-2-title {
+	margin-bottom: 50px;
+}
+
+.section-2-title-text {
+	display: inline-block;
+	font-size: 36pt;
+	font-weight: bold;
+	margin-top: -20px;
+	margin-right: 20px;	
+}
+
+.section-2-title-logo {
+	display: inline-block;
+	width: 331px;
+	height: 60px;
+	padding-top: 20px;
+	margin-bottom: -10px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
 .section-2-description {
-	color: #757575;
-	font-size: 14pt;
-	line-height: 30px;
+	font-size: 16pt;
+	line-height: 35px;
+	
 }
 
 .section-3 {
 	width: 100%;
-	height: 500px;
+	height: 600px;
 	overflow-y: hidden;
 	margin: 0 auto;
-	padding: 100px 0 0;
-	background-color: #F5F5F5;
+	padding: 120px 0 0;
 }
 
 .section-3 .section-content {
@@ -137,9 +153,27 @@
 }
 
 .section-3-title {
+	margin-bottom: 50px;
+	text-align: center;	
+}
+
+.section-3-title-text {
+	display: inline-block;
 	font-size: 36pt;
-	margin-bottom: 20px;
-	text-align: center;
+	font-weight: bold;
+	margin-top: -20px;
+	margin-right: 20px;
+}
+
+.section-3-title-logo {
+	display: inline-block;
+	width: 331px;
+	height: 60px;
+	padding-top: 20px;
+	margin-bottom: -10px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .mengapa-item {
@@ -174,103 +208,6 @@
 	text-align: center;
 }
 
-.section-4 {
-	width: 100%;
-	max-width: 1160px;
-	height: 850px;
-	overflow-y: hidden;
-	margin: 0 auto;
-	padding: 100px 0 0;
-}
-
-.section-4-title {
-	font-size: 36pt;
-	margin-bottom: 20px;
-	text-align: center;
-}
-
-.section-4 .section-content {
-	width: 770px;
-	margin: 0 auto;
-}
-
-.section-4-step {
-	overflow: hidden;
-	min-height: 70px;
-	position: relative;
-}
-
-.section-4-step-left, .section-4-step-icon, .section-4-step-right {
-	float: left;
-	overflow: hidden;
-}
-
-.section-4-step-left, .section-4-step-right {
-	display: inline-block;
-	width: 320px;
-	min-height: 1px;
-	padding: 15px 10px 0;
-	
-}
-
-.section-4-step-left {
-	float: left;
-	padding-left: 0;
-	opacity: 0;
-}
-
-.section-4-step-right {
-	float: right;
-	padding-right: 0;
-	opacity: 0;
-}
-
-.section-4-step-icon {
-	width: 70px;
-	height: 70px;
-	position: absolute;
-	margin: auto;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-size: 60%;
-	background-repeat: no-repeat;
-	background-position: center;
-	border-radius: 100%;
-	border: 2px solid black;
-}
-
-.step-number {
-	display: inline-block;
-	width: 130px;
-	min-height: 1px;
-	padding-top: 12px;
-	font-size: 28pt;
-	font-weight: bold;
-}
-
-.step-number.right {
-	text-align: right;
-}
-
-.section-4-step.step-3 .section-4-step-right {
-	padding-top: 23px;
-}
-
-.section-4-vertical-line {
-	width: 1px;
-	height: 25px;
-	background-color: #999;
-	margin: 10px auto;
-}
-
-.step-1 .step-number.right, .step-2 .step-number, .step-3 .step-number.right, .step-4 .step-number, .step-5 .step-number.right {
-	opacity: 0;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
-}
-
 .section-2 .section-content.show, .section-3 .section-content.show {
 	animation-name: show;
 	animation-duration: 0.5s;
@@ -278,72 +215,72 @@
 	animation-fill-mode: forwards;
 }
 
-@keyframes section-4-step-number {
-	to {
-		opacity: 1;
-	}
+.section-4 {
+	width: 100%;
+	height: 600px;
+	overflow-y: hidden;
+	margin: 0 auto;
+	padding: 100px 0 0;
+	background-color: #F5F5F5;
 }
 
-@keyframes section-4-step-desc {
-	to {
-		opacity: 1;
-	}
+.section-4-title {
+	margin-bottom: 80px;
+	text-align: center;	
 }
 
-.section-4 .section-content.show .step-1 .step-number.right {
-	animation-name: section-4-step-number;
+.section-4-title-text {
+	display: inline-block;
+	font-size: 36pt;
+	font-weight: bold;
+	margin-top: -20px;
+	margin-right: 20px;
 }
 
-.section-4 .section-content.show .step-2 .step-number {
-	animation-name: section-4-step-number;
-	animation-delay: 0.5s;
+.section-4-title-logo {
+	display: inline-block;
+	width: 331px;
+	height: 60px;
+	padding-top: 20px;
+	margin-bottom: -10px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
-.section-4 .section-content.show .step-3 .step-number.right {
-	animation-name: section-4-step-number;
-	animation-delay: 1s;
+.section-4 .section-content {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
 }
 
-.section-4 .section-content.show .step-4 .step-number {
-	animation-name: section-4-step-number;
-	animation-delay: 1.5s;
+.section-4-step {
+	display: inline-block;
+	width: 200px;
+	vertical-align: top;
 }
 
-.section-4 .section-content.show .step-5 .step-number.right {
-	animation-name: section-4-step-number;
-	animation-delay: 2s;
+.section-4-horizontal-line {
+	display: inline-block;
+	width: 130px;
+	height: 2px;
+	margin: 42px -45px 0;
+	background-color: #000;
 }
 
-.section-4 .section-content.show .step-1 .section-4-step-right {
-	animation-name: section-4-step-desc;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
+.section-4-step-icon {
+	width: 90px;
+	height: 90px;
+	margin: 0 auto;
+	background-size: 50px;
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 3px solid #000;
+	border-radius: 100%;
 }
 
-.section-4 .section-content.show .step-2 .section-4-step-left {
-	animation-name: section-4-step-desc;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
-	animation-delay: 0.5s;
-}
-
-.section-4 .section-content.show .step-3 .section-4-step-right {
-	animation-name: section-4-step-desc;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
-	animation-delay: 1s;
-}
-
-.section-4 .section-content.show .step-4 .section-4-step-left {
-	animation-name: section-4-step-desc;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
-	animation-delay: 1.5s;
-}
-
-.section-4 .section-content.show .step-5 .section-4-step-right {
-	animation-name: section-4-step-desc;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
-	animation-delay: 2s;
+.section-4-step-description {
+	font-size: 14pt;
+	font-weight: bold;
+	margin-top: 20px;
 }
