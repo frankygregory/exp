@@ -8,7 +8,4 @@
 </div>
 </div>
 <script>
-$(function() {
-	setLoading(".section-1");
-});
 </script>

@@ -22,7 +22,9 @@ class User_model extends CI_Model{
 		for ($i = 1; $i < $iLength; $i++) {
 			$str .= " OR ug.group_id = " . $group_ids[$i];
 		}
-		$str .= ");";
+		$str .= ")
+		GROUP BY u.user_id;";
+
 		$data = $this->db->query($str);
 		return $data->result();
 	}

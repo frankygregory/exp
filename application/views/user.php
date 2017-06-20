@@ -450,12 +450,12 @@ function addUserToTable(result) {
 				adminChecked = " checked";
 				dataUserLevel = "admin";
 			}
-			var tdUserLevel = "<label class='label-user-super-admin'><input type='radio' name='user-level' val='super'" + superAdminChecked + " /> Super Admin</label>";
-			tdUserLevel += "<label class='label-user-admin'><input type='radio' name='user-level' val='admin'" + adminChecked + " /> Admin</label>";
+			var tdUserLevel = "<label class='label-user-super-admin'><input type='radio' name='user-level-" + result[i].user_id + "' val='super'" + superAdminChecked + " /> Super Admin</label>";
+			tdUserLevel += "<label class='label-user-admin'><input type='radio' name='user-level-" + result[i].user_id + "' val='admin'" + adminChecked + " /> Admin</label>";
 			
-			var status = "aktif";
+			var status = "Aktif";
 			if (result[i].user_status == 0) {
-				status = "tidak aktif";
+				status = "Tidak Aktif";
 			}
 			
 			var btnEdit = "<button class='btn-default btn-edit-user'>Edit</button>";
