@@ -33,7 +33,7 @@
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
-					<div class="table-empty-state">tidak ada data</div>
+					<div class="table-empty-state shown">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="2">
@@ -56,7 +56,7 @@
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
-					<div class="table-empty-state">tidak ada data</div>
+					<div class="table-empty-state shown">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="3">
@@ -79,7 +79,7 @@
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
-					<div class="table-empty-state">tidak ada data</div>
+					<div class="table-empty-state shown">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="4">
@@ -102,7 +102,7 @@
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
-					<div class="table-empty-state">tidak ada data</div>
+					<div class="table-empty-state shown">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="5">
@@ -125,7 +125,7 @@
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
-					<div class="table-empty-state">tidak ada data</div>
+					<div class="table-empty-state shown">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="6">
@@ -147,7 +147,7 @@
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
-					<div class="table-empty-state">tidak ada data</div>
+					<div class="table-empty-state shown">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="7">
@@ -171,7 +171,7 @@
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
-					<div class="table-empty-state">tidak ada data</div>
+					<div class="table-empty-state shown">tidak ada data</div>
 				</div>
 			</div>
 			<div class="tabs-content" data-tabs-number="8">
@@ -190,7 +190,7 @@
 						<tbody class="tbody-kiriman">
 						</tbody>
 					</table>
-					<div class="table-empty-state">tidak ada data</div>
+					<div class="table-empty-state shown">tidak ada data</div>
 				</div>
 			</div>
 		</div>
@@ -517,7 +517,12 @@ function assignKirimanCount(result) {
 }
 
 function getKiriman(url, tabsNumber, tabs) {
+	abortAjaxCall();
+	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");
+	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .table-empty-state").addClass("shown");
+	setLoading(".tabs-content[data-tabs-number='" + tabsNumber + "'] .table-empty-state");
 	ajaxCall(url, null, function(json) {
+		removeLoading();
 		var result = jQuery.parseJSON(json);
 		addKirimanToTable(result, tabsNumber, tabs);
 	});

@@ -21,6 +21,12 @@ class Kiriman extends MY_Controller
 		
         parent::template('kiriman', $data);
 	}
+
+	public function getInfoEkspedisi() {
+		$shipment_id = $this->input->post("shipment_id");
+		$info = $this->Kiriman_model->getInfoEkspedisi($shipment_id);
+		echo json_encode($info);
+	}
 	
 	function secondsToTime($seconds) {
 		$dtF = new \DateTime('@0');

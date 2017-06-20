@@ -162,6 +162,7 @@ $(function() {
 	getKiriman(kirimanUrl[1], 1, "open");
 
 	$(".tabs-item").on("click", function() {
+		abortAjaxCall();
 		var tabsNumber = $(this).data("tabs-number");
 		getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
 	});
@@ -189,6 +190,19 @@ $(function() {
 		cancelShipment();
 	});
 
+	$(document).on("click", ".tabs-content[data-tabs-number='2'] .btn-view-kontak", function() {
+		var tr = $(this).closest(".tr-kiriman");
+		var detailElement = $(tr).next();
+		if ($(detailElement).height() == 0) {
+			$(detailElement).addClass("show");
+			if ($(detailElement).find(".row-detail-td-content").html().trim() == "") {
+				getDetailPengirim(tr);
+			}
+		} else {
+			$(detailElement).removeClass("show");
+		}
+	});
+
 	function scrollDownEvent() {
 		var scrollTop = $(".container-content").scrollTop();
 		if (scrollTop >= tbodyPosition) {
@@ -207,6 +221,21 @@ $(function() {
 		}
 	}
 });
+
+function getDetailPengirim(element) {
+	var shipment_id = $(element).data("id");
+	ajaxCall("<?= base_url("kiriman-saya/getInfoEkspedisi") ?>", {shipment_id: shipment_id}, function(json) {
+		var result = jQuery.parseJSON(json);
+		result = result[0];
+		var content = "";
+		content += "<div class='detail-title'>Info Ekspedisi</div>";
+		content += "<div class='detail-row'><span class='detail-label'>Nama</span><span class='detail-titikdua'> : </span><span>" + result["user_fullname"] + "</span></div>";
+		content += "<div class='detail-row'><span class='detail-label'>Alamat</span><span class='detail-titikdua'> : </span><span>" + result["user_address"] + "</span></div>";
+		content += "<div class='detail-row'><span class='detail-label'>Telepon</span><span class='detail-titikdua'> : </span><span>" + result["user_telephone"] + "</span></div>";
+		content += "<div><span class='detail-label'>Handphone</span><span class='detail-titikdua'> : </span><span>" + result["user_handphone"] + "</span></div>";
+		$(element).next().find(".row-detail-td-content").html(content);
+	});
+}
 
 function cancelShipment() {
 	var shipment_id = $(".dialog-konfirmasi-cancel-transaction").data("id");
@@ -373,6 +402,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				statusTd = "<td data-col='status' data-align='center'>" + statusDetail[status] + "</td>";
 				break;
 			case "cancel":
+				btnViewKontak = "";
 				cancelByTd += "<td data-col='cancel-by'><a href='" + profilUrl + result[i].cancel_by + "'>" + result[i].cancel_username + "</a></td>";
 				actionTd = "";
 				break;

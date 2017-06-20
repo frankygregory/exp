@@ -188,7 +188,7 @@
 				<tbody class="tbody-user">
 				</tbody>
 			</table>
-			<div class="table-empty-state"></div>
+			<div class="table-empty-state">Tidak ada user</div>
 		</div>
 	</div>
 	<div class="section-2">
@@ -204,6 +204,7 @@
 			<tbody class="tbody-group">
 			</tbody>
 		</table>
+		<div class="table-empty-state">Tidak ada group</div>
 	</div>
 </div>
 </div>
@@ -419,7 +420,11 @@ function insertUser() {
 }
 
 function getUser() {
+	$(".tbody-user").html("");
+	$(".section-1 .table-empty-state").addClass("shown");
+	setLoading(".section-1 .table-empty-state");
 	ajaxCall("<?= base_url("user/getUser") ?>", null, function(json) {
+		removeLoading(".section-1 .table-empty-state");
 		var result = jQuery.parseJSON(json);
 		addUserToTable(result);
 	});
@@ -469,13 +474,12 @@ function addUserToTable(result) {
 	}
 	
 	if (iLength == 0) {
-		$(".table-empty-state").addClass("shown");
+		$(".section-1 .table-empty-state").addClass("shown");
 		
 	} else {
-		$(".table-empty-state").removeClass("shown");
+		$(".section-1 .table-empty-state").removeClass("shown");
 	}
-	$(".tbody-user").html("");
-	$(".tbody-user").append(element);
+	$(".tbody-user").html(element);
 }
 
 function deleteGroup() {
@@ -528,8 +532,11 @@ function insertGroup() {
 }
 
 function getMyGroups() {
+	$(".tbody-group").html("");
+	$(".section-2 .table-empty-state").addClass("shown");
+	setLoading(".section-2 .table-empty-state");
 	ajaxCall("<?= base_url("user/getMyGroups") ?>", null, function(json) {
-		$(".tbody-group").html("");
+		removeLoading(".section-2 .table-empty-state");
 		var result = jQuery.parseJSON(json);
 		addGroupsToTable(result);
 	});
@@ -558,14 +565,19 @@ function addGroupsToTable(result) {
 		checkbox += "<label class='label-checkbox-group'><input type='checkbox' class='input-insert-user_group_id' value='" + result[i].group_id + "' /> " + group_name + "</label>";
 		checkboxEdit += "<label class='label-checkbox-group'><input type='checkbox' class='input-edit-user_group_id' value='" + result[i].group_id + "' /> " + group_name + "</label>";
 	}
-	$(".tbody-group").html("");
+
+	if (iLength == 0) {
+		$(".section-2 .table-empty-state").addClass("shown");
+		
+	} else {
+		$(".section-2 .table-empty-state").removeClass("shown");
+	}
+
 	$(".tbody-group").html(element);
 	
-	$(".td-insert-grup").html("");
 	$(".td-insert-grup").html(checkbox);
 	$(".td-insert-grup").append("<div class='error'></div>");
 	
-	$(".td-edit-grup").html("");
 	$(".td-edit-grup").html(checkboxEdit);
 	$(".td-edit-grup").append("<div class='error'></div>");
 }

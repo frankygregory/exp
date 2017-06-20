@@ -561,7 +561,12 @@ function assignKirimanCount(result) {
 }
 
 function getKiriman(url, tabsNumber, tabs) {
+	abortAjaxCall();
+	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .tbody-kiriman").html("");
+	$(".tabs-content[data-tabs-number='" + tabsNumber + "'] .table-empty-state").addClass("shown");
+	setLoading(".tabs-content[data-tabs-number='" + tabsNumber + "'] .table-empty-state");
 	ajaxCall(url, null, function(json) {
+		removeLoading();
 		var result = jQuery.parseJSON(json);
 		addKirimanToTable(result, tabsNumber, tabs);
 	});

@@ -37,7 +37,11 @@ class Kiriman_model extends CI_Model
 	}*/
 
 	public function getInfoEkspedisi($shipment_id) {
-		
+		$query = $this->db->query("
+			SELECT u.user_id, u.username, u.user_email, u.user_fullname, u.user_address, u.user_telephone, u.user_handphone
+			FROM `m_shipment` s, `t_bidding` t, `m_user` u
+			WHERE u.user_id = t.user_id AND s.shipment_id = t.shipment_id AND t.bidding_status = 1 AND s.shipment_id = '" . $shipment_id . "'");
+		return $query->result();
 	}
 
 	public function getOpenKiriman($user_id) {

@@ -3,8 +3,12 @@
 <div class="page-title"><?= $page_title ?></div>
 <div class="content">
 	<div class="section-1">
-		
 	</div>
 </div>
 </div>
 </div>
+<script>
+$(function() {
+	setLoading(".section-1");
+});
+</script>

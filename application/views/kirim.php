@@ -190,7 +190,7 @@
 				<tbody class="tbody-kiriman">
 				</tbody>
 			</table>
-			<div class="table-empty-state">Tidak ada hasil</div>
+			<div class="table-empty-state shown">Tidak ada hasil</div>
 		</div>
 	</div>
 	<div class="paging-section">
@@ -389,6 +389,10 @@ function scrollToTop() {
 }
 
 function getKiriman(changePage = false) {
+	abortAjaxCall();
+	$(".tbody-kiriman").html("");
+	$(".table-empty-state").addClass("shown");
+	setLoading(".table-empty-state");
 	var jarak_min = parseInt($(".input-jarak-min").val()) || 0;
 	var jarak_max = parseInt($(".input-jarak-max").val()) || 0;
 	var lowest_bid = parseInt($(".input-lowest-bid").val()) || 0;
@@ -425,7 +429,7 @@ function getKiriman(changePage = false) {
 		change_page: changePage
 	};
 	ajaxCall("<?= base_url("kirim/getKiriman") ?>", data, function(json) {
-		$(".tbody-kiriman").html("");
+		removeLoading();
 		var result = jQuery.parseJSON(json);
 		scrollToTop();
 		if (!changePage) {
@@ -441,6 +445,7 @@ function getKiriman(changePage = false) {
 		}
 		$(".result-paging").html(resultPagingFrom + " - " + resultPagingTo);
 
+		$(".tbody-kiriman").html("");
 		var iLength = result.data.length;
 		for (var i = 0; i < iLength; i++) {
 			addKirimanToTable((i + 1), result.data[i]);

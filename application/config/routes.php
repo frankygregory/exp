@@ -93,6 +93,7 @@ $route['kirim/update-items'] = 'panel/kirim/updateItems';
 $route['kirim/setujuPenawaran'] = 'panel/kirim/setujuPenawaran';
 $route['kiriman-saya'] = 'panel/kiriman';
 $route['kiriman-saya/getKirimanCount'] = 'panel/kiriman/getKirimanCount';
+$route['kiriman-saya/getInfoEkspedisi'] = 'panel/kiriman/getInfoEkspedisi';
 $route['kiriman-saya/getOpenKiriman'] = 'panel/kiriman/getOpenKiriman';
 $route['kiriman-saya/getProgressKiriman'] = 'panel/kiriman/getProgressKiriman';
 $route['kiriman-saya/getSelesaiKiriman'] = 'panel/kiriman/getSelesaiKiriman';
