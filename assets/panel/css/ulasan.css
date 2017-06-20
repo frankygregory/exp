@@ -38,6 +38,14 @@
 	width: 180px;
 }
 
+.feedback-section {
+	clear: both;
+}
+
+.feedback-data {
+	position: relative;
+}
+
 .feedback-item {
 	width: 100%;
 	overflow-y: auto;

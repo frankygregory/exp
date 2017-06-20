@@ -36,8 +36,9 @@
 	margin-bottom: 10px;
 }
 
-.table-statistik-kiriman, .table-statistik-bidding {
+.table-statistik-kiriman-container, .table-statistik-bidding-container {
 	width: 500px;
+	position: relative;
 }
 
 table td {
@@ -103,6 +104,14 @@ table td {
 
 .select-sort {
 	width: 180px;
+}
+
+.feedback-section {
+	clear: both;
+}
+
+.feedback-data {
+	position: relative;
 }
 
 .feedback-item {

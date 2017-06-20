@@ -143,7 +143,7 @@ table td[data-align="center"] {
 	text-align: center;
 }
 
-.table-empty-state {
+.table-empty-state, .default-empty-state {
 	display: none;
 	margin: 0 auto;
 	height: 200px;
@@ -155,7 +155,7 @@ table td[data-align="center"] {
 	color: #AAA;
 }
 
-.table-empty-state.shown {
+.table-empty-state.shown, .default-empty-state.shown {
 	display: block;
 }
 

@@ -19,6 +19,8 @@
 			</select>
 		</div>
 		<div class="feedback-section">
+			<div class="feedback-data"></div>
+			<div class="default-empty-state">Tidak ada ulasan</div>
 		</div>
 	</div>
 </div>
@@ -45,8 +47,12 @@ function getMyRating() {
 }
 
 function getMyFeedback() {
+	$(".feedback-data").html("");
+	$(".default-empty-state").addClass("shown");
+	setLoading(".default-empty-state");
 	var sort = $(".select-sort").val();
 	ajaxCall("<?= base_url("ulasan/getMyFeedback") ?>", {sort: sort}, function(json) {
+		removeLoading();
 		var result = jQuery.parseJSON(json);
 		var element = "";
 		var iLength = result.length;
@@ -77,8 +83,12 @@ function getMyFeedback() {
 			element += '</div>';
 		}
 		
-		$(".feedback-section").html("");
-		$(".feedback-section").append(element);
+		if (iLength == 0) {
+			$(".default-empty-state").addClass("shown");
+		} else {
+			$(".default-empty-state").removeClass("shown");
+		}
+		$(".feedback-data").html(element);
 	});
 }
 

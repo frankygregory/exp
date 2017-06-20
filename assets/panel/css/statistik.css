@@ -10,8 +10,9 @@
 	margin-bottom: 10px;
 }
 
-.table-statistik-kiriman, .table-statistik-bidding {
+.table-statistik-kiriman-container, .table-statistik-bidding-container {
 	width: 500px;
+	position: relative;
 }
 
 table td {

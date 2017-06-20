@@ -5,88 +5,92 @@
     <div class="section-2 section">
         <div class="subsection subsection-kiriman">
             <div class="section-title">Statistik Kiriman</div>
-            <table class="table-statistik-kiriman">
-                <tbody>
-                    <tr class="tr-col-header">
-                        <td class="td-row-header"></td>
-                        <td class="td">Total</td>
-                        <td>1 Bulan</td>
-                        <td>6 Bulan</td>
-                        <td>12 Bulan</td>
-                    </tr>
-                    <tr class="tr-kiriman-berhasil">
-                        <td class="td-row-header">Berhasil</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                    <tr class="tr-kiriman-gagal">
-                        <td class="td-row-header">Gagal</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                    <tr class="tr-kiriman-total">
-                        <td class="td-row-header">Total</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                    <tr class="tr-kiriman-persen">
-                        <td class="td-row-header">Persen</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                </tbody>
-            </table>
+			<div class="table-statistik-kiriman-container">
+				<table class="table-statistik-kiriman">
+					<tbody>
+						<tr class="tr-col-header">
+							<td class="td-row-header"></td>
+							<td class="td">Total</td>
+							<td>1 Bulan</td>
+							<td>6 Bulan</td>
+							<td>12 Bulan</td>
+						</tr>
+						<tr class="tr-kiriman-berhasil">
+							<td class="td-row-header">Berhasil</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+						</tr>
+						<tr class="tr-kiriman-gagal">
+							<td class="td-row-header">Gagal</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+						</tr>
+						<tr class="tr-kiriman-total">
+							<td class="td-row-header">Total</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+						</tr>
+						<tr class="tr-kiriman-persen">
+							<td class="td-row-header">Persen</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
         </div>
     <?php	if ($user[0]->role_id == 2) { ?>
 		<div class="subsection">
 			<div class="section-title">Statistik Penawaran</div>
-			<table class="table-statistik-bidding">
-				<tbody>
-					<tr class="tr-col-header">
-						<td class="td-row-header"></td>
-						<td class="td">Total</td>
-						<td>1 Bulan</td>
-						<td>6 Bulan</td>
-						<td>12 Bulan</td>
-					</tr>
-					<tr class="tr-bidding-berhasil">
-						<td class="td-row-header">Berhasil</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-					</tr>
-					<tr class="tr-bidding-gagal">
-						<td class="td-row-header">Gagal</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-					</tr>
-					<tr class="tr-bidding-total">
-						<td class="td-row-header">Total</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-					</tr>
-					<tr class="tr-bidding-persen">
-						<td class="td-row-header">Persen</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="table-statistik-bidding-container">
+				<table class="table-statistik-bidding">
+					<tbody>
+						<tr class="tr-col-header">
+							<td class="td-row-header"></td>
+							<td class="td">Total</td>
+							<td>1 Bulan</td>
+							<td>6 Bulan</td>
+							<td>12 Bulan</td>
+						</tr>
+						<tr class="tr-bidding-berhasil">
+							<td class="td-row-header">Berhasil</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+						</tr>
+						<tr class="tr-bidding-gagal">
+							<td class="td-row-header">Gagal</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+						</tr>
+						<tr class="tr-bidding-total">
+							<td class="td-row-header">Total</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+						</tr>
+						<tr class="tr-bidding-persen">
+							<td class="td-row-header">Persen</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+							<td>0</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 <?php	}	?>
     </div>
@@ -109,6 +113,8 @@
                 </select>
             </div>
             <div class="feedback-section">
+				<div class="feedback-data"></div>
+				<div class="default-empty-state">Tidak ada ulasan</div>
             </div>
         </div>
     </div>
@@ -122,11 +128,17 @@ $(function() {
     if ($user[0]->role_id == 2) { ?>
         getMyRating();
         getMyFeedback();
+
+		$(".select-sort").on("change", function() {
+			getMyFeedback();
+		});
 <?php } ?>
 });
 
 function getStatistik() {
+	setLoading(".table-statistik-kiriman-container, .table-statistik-bidding-container");
 	ajaxCall("<?= base_url("home/getStatistik") ?>", {user_id: <?= $user[0]->user_id ?>}, function(result) {
+		removeLoading(".table-statistik-kiriman-container, .table-statistik-bidding-container");
 		result = jQuery.parseJSON(result);
 	
 		var total = result[0].jumlah_transaksi_total;
@@ -148,7 +160,6 @@ function getStatistik() {
 		element += "<td>" + berhasil_30 + "</td>";
 		element += "<td>" + berhasil_180 + "</td>";
 		element += "<td>" + berhasil_365 + "</td>";
-		$(".tr-kiriman-berhasil").html("");
 		$(".tr-kiriman-berhasil").html(element);
 		
 		element = "";
@@ -157,7 +168,6 @@ function getStatistik() {
 		element += "<td>" + gagal_30 + "</td>";
 		element += "<td>" + gagal_180 + "</td>";
 		element += "<td>" + gagal_365 + "</td>";
-		$(".tr-kiriman-gagal").html("");
 		$(".tr-kiriman-gagal").html(element);
 		
 		element = "";
@@ -166,7 +176,6 @@ function getStatistik() {
 		element += "<td>" + total_30 + "</td>";
 		element += "<td>" + total_180 + "</td>";
 		element += "<td>" + total_365 + "</td>";
-		$(".tr-kiriman-total").html("");
 		$(".tr-kiriman-total").html(element);
 		
 		element = "";
@@ -180,7 +189,6 @@ function getStatistik() {
 		element += "<td>" + persen_30 + "%</td>";
 		element += "<td>" + persen_180 + "%</td>";
 		element += "<td>" + persen_365 + "%</td>";
-		$(".tr-kiriman-persen").html("");
 		$(".tr-kiriman-persen").html(element);
 
 <?php	if ($user[0]->role_id == 2) { ?>
@@ -203,7 +211,6 @@ function getStatistik() {
 		element += "<td>" + bidding_berhasil_30 + "</td>";
 		element += "<td>" + bidding_berhasil_180 + "</td>";
 		element += "<td>" + bidding_berhasil_365 + "</td>";
-		$(".tr-bidding-berhasil").html("");
 		$(".tr-bidding-berhasil").html(element);
 		
 		element = "";
@@ -212,7 +219,6 @@ function getStatistik() {
 		element += "<td>" + bidding_gagal_30 + "</td>";
 		element += "<td>" + bidding_gagal_180 + "</td>";
 		element += "<td>" + bidding_gagal_365 + "</td>";
-		$(".tr-bidding-gagal").html("");
 		$(".tr-bidding-gagal").html(element);
 		
 		element = "";
@@ -221,7 +227,6 @@ function getStatistik() {
 		element += "<td>" + bidding_total_30 + "</td>";
 		element += "<td>" + bidding_total_180 + "</td>";
 		element += "<td>" + bidding_total_365 + "</td>";
-		$(".tr-bidding-total").html("");
 		$(".tr-bidding-total").html(element);
 		
 		element = "";
@@ -234,7 +239,6 @@ function getStatistik() {
 		element += "<td>" + persen_30 + "%</td>";
 		element += "<td>" + persen_180 + "%</td>";
 		element += "<td>" + persen_365 + "%</td>";
-		$(".tr-bidding-persen").html("");
 		$(".tr-bidding-persen").html(element);
 <?php	}	?>
 	});
@@ -243,6 +247,7 @@ function getStatistik() {
 <?php	if ($user[0]->role_id == 2) { ?>
 function getMyRating() {
 	ajaxCall("<?= base_url("home/getProfilRating") ?>", {user_id: <?= $user[0]->user_id ?>}, function(json) {
+		removeLoading(".default-empty-state");
 		var result = jQuery.parseJSON(json);
 		var rating = parseFloat(parseFloat(result[0].user_details_rating).toFixed(2));
 		$(".rating-total-number").html(rating);
@@ -250,8 +255,12 @@ function getMyRating() {
 }
 
 function getMyFeedback() {
+	$(".feedback-data").html("");
+	$(".default-empty-state").addClass("shown");
+	setLoading(".default-empty-state");
 	var sort = $(".select-sort").val();
 	ajaxCall("<?= base_url("home/getProfilFeedback") ?>", {sort: sort, user_id: <?= $user[0]->user_id ?>}, function(json) {
+		removeLoading(".default-empty-state");
 		var result = jQuery.parseJSON(json);
 		var element = "";
 		var iLength = result.length;
@@ -282,8 +291,12 @@ function getMyFeedback() {
 			element += '</div>';
 		}
 		
-		$(".feedback-section").html("");
-		$(".feedback-section").append(element);
+		if (iLength == 0) {
+			$(".default-empty-state").addClass("shown");
+		} else {
+			$(".default-empty-state").removeClass("shown");
+		}
+		$(".feedback-data").html(element);
 	});
 }
 
