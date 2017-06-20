@@ -78,23 +78,24 @@
 	<div class="section-1">
 		<button type="button" class="btn-default btn-tambah">Tambah Lokasi</button>
 		<div class="table-container">
-			<table class="table">
+			<table class="table table-lokasi">
 				<thead>
 					<tr>
-						<td>No.</td>
-						<td>Nama Lokasi</td>
-						<td>Lokasi Google Map</td>
-						<td>Detail Lokasi</td>
-						<td>Kontak</td>
-						<td>Asal</td>
-						<td>Tujuan</td>
-						<td>Action</td>
+						<td data-col='no' data-align='center'>No.</td>
+						<td data-col='nama-lokasi'>Nama Lokasi</td>
+						<td data-col='lokasi-google-map'>Lokasi Google Map</td>
+						<td data-col='detail-lokasi'>Detail Lokasi</td>
+						<td data-col='kontak'>Kontak</td>
+						<td data-col='asal'>Asal</td>
+						<td data-col='tujuan'>Tujuan</td>
+						<td data-col='action'>Action</td>
 					</tr>
 				</thead>
 				<tbody class="tbody-lokasi">
 				
 				</tbody>
 			</table>
+			<div class="table-empty-state">Anda belum menambahkan lokasi</div>
 		</div>
 	</div>
 </div>
@@ -280,7 +281,11 @@ function addLocation() {
 }
 
 function getMyLocation() {
+	$(".tbody-lokasi").html("");
+	setLoading(".table-empty-state");
+	$(".table-empty-state").addClass("shown");
 	ajaxCall("lokasi/getMyLocation", null, function(json) {
+		removeLoading();
 		var result = jQuery.parseJSON(json);
 		addLocationToTable(result);
 	});
@@ -301,7 +306,7 @@ function addLocationToTable(result) {
 		var btnEdit = "<button class='btn-default btn-edit'>Edit</button>";
 		var btnDelete = "<button class='btn-negative btn-delete'>Delete</button>";
 		element += "<tr class='tr-lokasi' data-id='" + result[i].location_id + "' data-lat='" + result[i].location_lat + "' data-lng='" + result[i].location_lng + "'>";
-		element += "<td>" + (i + 1) + "</td>";
+		element += "<td data-align='center'>" + (i + 1) + "</td>";
 		element += "<td class='td-location_name'>" + result[i].location_name + "</td>";
 		element += "<td class='td-location_address'>" + result[i].location_address + "</td>";
 		element += "<td class='td-location_detail'>" + result[i].location_detail + "</td>";
@@ -312,8 +317,12 @@ function addLocationToTable(result) {
 		element += "</tr>";
 	}
 	
-	$(".tbody-lokasi").html("");
-	$(".tbody-lokasi").append(element);
+	if (iLength == 0) {
+		$(".table-empty-state").addClass("shown");
+	} else {
+		$(".table-empty-state").removeClass("shown");
+	}
+	$(".tbody-lokasi").html(element);
 }
 
 function updatePosition(div, lat, lng) {

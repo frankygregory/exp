@@ -120,6 +120,10 @@
 	</div>
 	<div class="section-3">
 		<div class="section-title">Diskusi</div>
+		<div class="discussions">
+			<div class="discussions-data"></div>
+			<div class="default-empty-state">Tidak ada diskusi</div>
+		</div>
 <?php	if ($role_id == 2 && $shipment_status == -1) { ?>
 		<div class="detail-pertanyaan">
 			<div class="form-item">
@@ -129,8 +133,6 @@
 			<button class="btn-default btn-submit-pertanyaan">Submit Pertanyaan</button>
 		</div>
 <?php	}	?>
-		<div class="discussions">
-		</div>
 	</div>
 	<div class="section-4">
 		<div class="section-title">Penawaran</div>
@@ -187,20 +189,23 @@
 				<button type="button" class="btn-neutral btn-batal-kirim-penawaran">Batal</button>
 			</div>
 <?php	}	?>
-		<table class='table table-list-penawaran'>
-			<thead>
-				<tr>
-					<td class="td-harga">Harga</td>
-					<td>Jenis</td>
-					<td>Ekspedisi</td>
-					<td>Detail</td>
-					<td class="td-action">Status</td>
-				</tr>
-			</thead>
-			<tbody class="tbody-list-penawaran">
-			
-			</tbody>
-		</table>
+		<div class="table-list-penawaran-container">
+			<table class='table table-list-penawaran'>
+				<thead>
+					<tr>
+						<td class="td-harga">Harga</td>
+						<td>Jenis</td>
+						<td>Ekspedisi</td>
+						<td>Detail</td>
+						<td class="td-action">Status</td>
+					</tr>
+				</thead>
+				<tbody class="tbody-list-penawaran">
+				
+				</tbody>
+			</table>
+			<div class="table-empty-state">Tidak ada penawaran</div>
+		</div>
 	</div>
 </div>
 <div class="dialog-background">
@@ -548,6 +553,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 			};
 			ajaxCall("<?= base_url("kirim/kirimPenawaran") ?>", data, function(result) {
 				if (result == "success") {
+					$(".btn-tawar").prop("disabled", true);
 					hideDetailPenawaran();
 					getBiddingList();
 				}
@@ -582,11 +588,16 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 });
 
 function getDiscussions() {
+	$(".discussions-data").html("");
+	setLoading(".discussions .default-empty-state");
+	$(".discussions .default-empty-state").addClass("shown");
+
 	var shipment_id = data_shipment_id;
 	var data = {
 		shipment_id: shipment_id
 	};
 	ajaxCall("<?= base_url("kirim/getDiscussions") ?>", data, function(json) {
+		removeLoading(".discussions .default-empty-state");
 		var result = jQuery.parseJSON(json);
 		addDiscussionToTable(result);
 	});
@@ -617,20 +628,24 @@ function addDiscussionToTable(result) {
 	}
 	
 	if (iLength == 0) {
-		element += "<div class='empty-state discussions-empty-state'>Tidak ada diskusi</div>";
+		$(".discussions .default-empty-state").addClass("shown");
+	} else {
+		$(".discussions .default-empty-state").removeClass("shown");
 	}
 	
-	$(".discussions").html("");
-	$(".discussions").append(element);
+	$(".discussions-data").html(element);
 }
 
 function getBiddingList() {
+	$(".tbody-list-penawaran").html("");
+	setLoading(".table-list-penawaran-container .table-empty-state");
+	$(".table-list-penawaran-container .table-empty-state").addClass("shown");
 	var shipment_id = data_shipment_id;
 	var data = {
 		shipment_id: shipment_id
 	};
 	ajaxCall("<?= base_url("kirim/getBiddingList") ?>", data, function(json) {
-		
+		removeLoading(".table-list-penawaran-container .table-empty-state");
 		var result = jQuery.parseJSON(json);
 		addBiddingListToTable(result);
 	});
@@ -667,9 +682,14 @@ function addBiddingListToTable(result) {
 		element += "</td>";
 		element += "</tr>";
 	}
+
+	if (iLength == 0) {
+		$(".table-list-penawaran-container .table-empty-state").addClass("shown");
+	} else {
+		$(".table-list-penawaran-container .table-empty-state").removeClass("shown");
+	}
 	
-	$(".tbody-list-penawaran").html("");
-	$(".tbody-list-penawaran").append(element);
+	$(".tbody-list-penawaran").html(element);
 	if (result["canBid"]) {
 		$(".btn-tawar").prop("disabled", false);
 	}

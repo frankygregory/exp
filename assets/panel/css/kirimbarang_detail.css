@@ -135,6 +135,8 @@ td {
 
 .discussions {
 	width: 100%;
+	display: relative;
+	margin-bottom: 10px;
 }
 
 .discussions-item {
@@ -213,6 +215,10 @@ td {
 
 .table-detail-penawaran .input-bidding-type {
 	margin-top: 10px;
+}
+
+.table-list-penawaran-container {
+	position: relative;
 }
 
 .table-list-penawaran {

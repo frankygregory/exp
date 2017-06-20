@@ -35,3 +35,8 @@
 .table-alat td[data-col="action"] {
 	width: 180px;
 }
+
+.table-empty-state {
+	margin: 0;
+	width: 1185px;
+}

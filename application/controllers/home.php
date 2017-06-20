@@ -249,7 +249,7 @@ class Home extends CI_Controller
 				'terms' => $terms
 			);
 			$this->Registration_model->doRegister($insertData);
-			header("Location: " . base_url("login"));
+			header("Location: " . base_url("#login"));
 		}
 	}
 	

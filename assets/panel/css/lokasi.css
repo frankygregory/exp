@@ -13,3 +13,28 @@
 .btn-submit-tambah, .btn-submit-edit, .btn-batal, .btn-submit-delete {
 	float: right;
 }
+
+.table-lokasi td[data-col="no"] {
+	width: 50px;
+}
+.table-lokasi td[data-col="nama-lokasi"] {
+	width: 150px;
+}
+.table-lokasi td[data-col="lokasi-google-map"] {
+	width: 250px;
+}
+.table-lokasi td[data-col="detail-lokasi"] {
+	width: 200px;
+}
+.table-lokasi td[data-col="kontak"] {
+	width: 100px;
+}
+.table-lokasi td[data-col="asal"] {
+	width: 70px;
+}
+.table-lokasi td[data-col="tujuan"] {
+	width: 70px;
+}
+.table-lokasi td[data-col="action"] {
+	width: 150px;
+}

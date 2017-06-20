@@ -66,9 +66,9 @@
 <?php
 	}	?>
 	<div class="login-dialog">
-		<input type="text" class="input-username" placeholder="username" />
+		<input type="text" class="input-login-username" placeholder="username" />
 		<div class="login-error login-error-username error"></div>
-		<input type="password" class="input-password" placeholder="password" />
+		<input type="password" class="input-login-password" placeholder="password" />
 		<div class="login-error login-error-password error"></div>
 		<div class="remember-me">
 			<label>
@@ -119,7 +119,7 @@ $(function() {
 			toggleLoginDialog();
 		});
 
-		$(".input-username, .input-password").on("keypress", function(e) {
+		$(".input-login-username, .input-login-password").on("keypress", function(e) {
 			if (e.which == 13) {
 				doLogin();
 			}
@@ -131,8 +131,8 @@ $(function() {
 
 		function doLogin() {
 			$(".login-dialog .login-error").html("");
-			var username = $(".input-username").val().trim();
-			var password = $(".input-password").val().trim();
+			var username = $(".input-login-username").val().trim();
+			var password = $(".input-login-password").val().trim();
 			
 			var valid = true;
 			if (username == "") {
@@ -176,7 +176,7 @@ function hideLoading() {
 function toggleLoginDialog() {
 	if ($(".login-dialog").css("display") == "none") {
 		$(".login-dialog").css("display", "block");
-		$(".input-username").select();
+		$(".input-login-username").select();
 	} else {
 		hideLoginDialog();
 	}

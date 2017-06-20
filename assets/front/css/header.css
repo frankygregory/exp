@@ -134,11 +134,7 @@
 	font-size: 10pt;
 }
 
-.input-username {
-	background-color: red;
-}
-
-.input-password {
+.input-login-password {
 	margin-top: 20px;
 }
 
