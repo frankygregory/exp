@@ -9,3 +9,38 @@
 .th-no, .td-no, .th-ketersediaan, .td-ketersediaan, .th-rating, .td-rating, .th-jumlah-transaksi, .td-jumlah-transaksi, .th-status, .th-action {
 	text-align: center;
 }
+
+.table-driver {
+	width: auto !important;
+}
+
+.table-driver td[data-col="no"] {
+	width: 50px;
+}
+.table-driver td[data-col="nama-driver"] {
+	width: 150px;
+}
+.table-driver td[data-col="no-hp"] {
+	width: 150px;
+}
+.table-driver td[data-col="alamat"] {
+	width: 250px;
+}
+.table-driver td[data-col="ketersediaan"] {
+	width: 100px;
+}
+.table-driver td[data-col="rating"] {
+	width: 100px;
+}
+.table-driver td[data-col="jumlah-transaksi"] {
+	width: 80px;
+}
+.table-driver td[data-col="keterangan"] {
+	width: 200px;
+}
+.table-driver td[data-col="status"] {
+	width: 230px;
+}
+.table-driver td[data-col="action"] {
+	width: 170px;
+}

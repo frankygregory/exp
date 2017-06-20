@@ -188,29 +188,26 @@ function hideLoginDialog() {
 }
 
 function ajaxCall(url, data, callback) {
-	setTimeout(function() {
-		ajaxVariable = $.ajax({
-			url: url,
-			data: data,
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				//alert(jqXHR + " : " + jqXHR.responseText + "\n" + exception);
-				if (exception != "abort") {
-					var error = {
-						status: "error",
-						reason: exception
-					};
-					error = JSON.stringify(error);
-					callback(error);
-				}
-			},
-			success: function(result) {
-				callback(result);
-			},
-			timeout: 10000
-		});	
-	}, 1000);
-	
+	ajaxVariable = $.ajax({
+		url: url,
+		data: data,
+		type: 'POST',
+		error: function(jqXHR, exception) {
+			//alert(jqXHR + " : " + jqXHR.responseText + "\n" + exception);
+			if (exception != "abort") {
+				var error = {
+					status: "error",
+					reason: exception
+				};
+				error = JSON.stringify(error);
+				callback(error);
+			}
+		},
+		success: function(result) {
+			callback(result);
+		},
+		timeout: 10000
+	});		
 }
 
 function abortAjaxCall() {

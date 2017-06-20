@@ -108,22 +108,23 @@
 	<div class="section-1">
 		<button type="button" class="btn-default btn-tambah">Tambah Alat</button>
 		<div class="table-container">
-			<table class="table">
+			<table class="table table-alat">
 				<thead>
 					<tr>
-						<td class="th-no">No.</td>
-						<td>Nama Alat</td>
-						<td>Keterangan</td>
-						<td>Email</td>
-						<td class="th-ketersediaan">Ketersediaan</td>
-						<td class="th-status">Status</td>
-						<td class="th-action">Action</td>
+						<td class="th-no" data-col='no'>No.</td>
+						<td data-col='nama-alat'>Nama Alat</td>
+						<td data-col='keterangan'>Keterangan</td>
+						<td data-col='email'>Email</td>
+						<td class="th-ketersediaan" data-col='ketersediaan'>Ketersediaan</td>
+						<td class="th-status" data-col='status'>Status</td>
+						<td class="th-action" data-col='action'>Action</td>
 					</tr>
 				</thead>
 				<tbody class="tbody-alat">
 				
 				</tbody>
 			</table>
+			<div class="table-empty-state">Anda belum menambahkan alat</div>
 		</div>
 	</div>
 </div>
@@ -300,11 +301,20 @@ function tambahAlat() {
 }
 
 function getAlat() {
+	setLoading(".table-empty-state");
+	$(".table-empty-state").addClass("shown");
 	ajaxCall("<?= base_url("alat/getAlat") ?>", null, function(json) {
+		removeLoading();
 		$(".tbody-alat").html("");
 		var result = jQuery.parseJSON(json);
-		for (var i = 0; i < result.length; i++) {
+		var iLength = result.length;
+		for (var i = 0; i < iLength; i++) {
 			addAlatToTable((i + 1), result[i]);
+		}
+		if (iLength == 0) {
+			$(".table-empty-state").addClass("shown");
+		} else {
+			$(".table-empty-state").removeClass("shown");
 		}
 	});
 }

@@ -120,25 +120,26 @@
 	<div class="section-1">
 		<button type="button" class="btn-default btn-tambah">Tambah Driver</button>
 		<div class="table-container">
-			<table class="table">
+			<table class="table table-driver">
 				<thead>
 					<tr>
-						<td class="th-no">No.</td>
-						<td>Nama Driver</td>
-						<td>No. HP</td>
-						<td>Alamat</td>
-						<td class="th-ketersediaan">Ketersediaan</td>
-						<td class="th-rating">Rating</td>
-						<td class="th-jumlah-transaksi">Jumlah Transaksi</td>
-						<td>Keterangan</td>
-						<td class="th-status">Status</td>
-						<td class="th-action">Action</td>
+						<td class="th-no" data-col="no">No.</td>
+						<td data-col="nama-driver">Nama Driver</td>
+						<td data-col="no-hp">No. HP</td>
+						<td data-col="alamat">Alamat</td>
+						<td class="th-ketersediaan" data-col="ketersediaan">Ketersediaan</td>
+						<td class="th-rating" data-col="rating">Rating</td>
+						<td class="th-jumlah-transaksi" data-col="jumlah-transaksi">Jumlah Transaksi</td>
+						<td data-col="keterangan">Keterangan</td>
+						<td class="th-status" data-col="status">Status</td>
+						<td class="th-action" data-col="action">Action</td>
 					</tr>
 				</thead>
 				<tbody class="tbody-supir">
 				
 				</tbody>
 			</table>
+			<div class="table-empty-state">Anda belum menambahkan driver</div>
 		</div>
 	</div>
 </div>
@@ -330,11 +331,20 @@ function tambahSupir() {
 }
 
 function getSupir() {
+	setLoading(".table-empty-state");
+	$(".table-empty-state").addClass("shown");
 	ajaxCall("<?= base_url("supir/getSupir") ?>", null, function(json) {
+		removeLoading();
 		$(".tbody-supir").html("");
 		var result = jQuery.parseJSON(json);
-		for (var i = 0; i < result.length; i++) {
+		var iLength = result.length;
+		for (var i = 0; i < iLength; i++) {
 			addSupirToTable((i + 1), result[i]);
+		}
+		if (iLength == 0) {
+			$(".table-empty-state").addClass("shown");
+		} else {
+			$(".table-empty-state").removeClass("shown");
 		}
 	});
 }

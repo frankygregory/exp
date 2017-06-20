@@ -32,7 +32,7 @@
 			<path d="M0 0h24v24H0z" fill="none"/>
 			<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
 		</svg>
-		<a href="<?= base_url() ?>" class="logo" style="background-image:url('<?= base_url("assets/icons/yukirim3.png") ?>');"></a>
+		<a href="<?= base_url() ?>" class="logo" style="background-image:url('<?= base_url("assets/icons/logo.png") ?>');"></a>
 		<div class="nav-account">
 			<div class="fullname"><?= $this->session->userdata("user_fullname") ?></div>
 			<span class="dropdown-icon">
