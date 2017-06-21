@@ -283,7 +283,6 @@ function addLocation() {
 function getMyLocation() {
 	$(".tbody-lokasi").html("");
 	setLoading(".table-empty-state");
-	$(".table-empty-state").addClass("shown");
 	ajaxCall("lokasi/getMyLocation", null, function(json) {
 		removeLoading();
 		var result = jQuery.parseJSON(json);

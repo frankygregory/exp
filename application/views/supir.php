@@ -332,7 +332,6 @@ function tambahSupir() {
 
 function getSupir() {
 	setLoading(".table-empty-state");
-	$(".table-empty-state").addClass("shown");
 	ajaxCall("<?= base_url("supir/getSupir") ?>", null, function(json) {
 		removeLoading();
 		$(".tbody-supir").html("");

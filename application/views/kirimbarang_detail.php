@@ -464,6 +464,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		setLoading(".default-loading-container-cancel-bidding");
 		var bidding_id = $(".dialog-konfirmasi-cancel-bidding").data("id");
 		ajaxCall("<?= base_url("kirim/cancelBidding") ?>", {bidding_id: bidding_id}, function(result) {
+			removeLoading(".default-loading-container-cancel-bidding");
 			if (result == "success") {
 				location.reload();
 			} else {
@@ -480,7 +481,6 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		if (questions_text != "") {
 			$(".discussions").html("");
 			setLoading(".section-3-content .default-empty-state");
-			$(".section-3-content .default-empty-state").addClass("shown");
 
 			var data = {
 				submit_pertanyaan: true,
@@ -600,7 +600,6 @@ function getDiscussions(load = true) {
 	if (load) {
 		$(".discussions").html("");
 		setLoading(".section-3-content .default-empty-state");
-		$(".section-3-content .default-empty-state").addClass("shown");
 	}
 
 	var shipment_id = data_shipment_id;
@@ -650,7 +649,6 @@ function addDiscussionToTable(result) {
 function getBiddingList() {
 	$(".tbody-list-penawaran").html("");
 	setLoading(".table-list-penawaran-container .table-empty-state");
-	$(".table-list-penawaran-container .table-empty-state").addClass("shown");
 	var shipment_id = data_shipment_id;
 	var data = {
 		shipment_id: shipment_id

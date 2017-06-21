@@ -48,7 +48,6 @@ function getMyRating() {
 
 function getMyFeedback() {
 	$(".feedback-data").html("");
-	$(".default-empty-state").addClass("shown");
 	setLoading(".default-empty-state");
 	var sort = $(".select-sort").val();
 	ajaxCall("<?= base_url("ulasan/getMyFeedback") ?>", {sort: sort}, function(json) {

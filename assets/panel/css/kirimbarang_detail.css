@@ -135,6 +135,7 @@ td {
 
 .section-3-content {
 	position: relative;
+	min-height: 200px;
 }
 
 .default-empty-state {

@@ -302,7 +302,6 @@ function tambahAlat() {
 
 function getAlat() {
 	setLoading(".table-empty-state");
-	$(".table-empty-state").addClass("shown");
 	ajaxCall("<?= base_url("alat/getAlat") ?>", null, function(json) {
 		removeLoading();
 		$(".tbody-alat").html("");

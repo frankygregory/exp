@@ -18,11 +18,9 @@ class Kirim_model extends CI_Model
 		}
 		
 		$query =  $this->db->query(
-			"SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.location_from_city, m.location_to_city, TIMESTAMPDIFF(SECOND, CURRENT_TIMESTAMP(), m.shipment_end_date) AS berakhir, COALESCE(t.bidding_count, 0) AS bidding_count, COALESCE(t.bidding_price, 0) AS low
+			"SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.location_from_city, m.location_to_city, TIMESTAMPDIFF(SECOND, CURRENT_TIMESTAMP(), m.shipment_end_date) AS berakhir, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low
 			FROM `m_shipment` m
-			LEFT JOIN (SELECT COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) t
-			ON m.shipment_id = t.shipment_id
-			WHERE m.shipment_end_date > CURRENT_TIMESTAMP() AND m.shipment_status = -1 AND m.location_from_city LIKE '%" . $data["location_from_city"] . "%' AND m.location_to_city LIKE '%" . $data["location_to_city"] . "%' AND m.shipment_length >= " . $data["shipment_length_min"] . $where_shipment_max . " AND COALESCE(t.bidding_price, 0) >= " . $data["lowest_bid"] . "
+			WHERE m.shipment_end_date > CURRENT_TIMESTAMP() AND m.shipment_status = -1 AND m.location_from_city LIKE '%" . $data["location_from_city"] . "%' AND m.location_to_city LIKE '%" . $data["location_to_city"] . "%' AND m.shipment_length >= " . $data["shipment_length_min"] . $where_shipment_max . " AND get_lowest_bidding_price(m.shipment_id) >= " . $data["lowest_bid"] . "
 			GROUP BY m.shipment_id " . $data["order_by"] . "
 			LIMIT " . $data["limit"] . " OFFSET " . $data["offset"]
 		);
@@ -42,9 +40,7 @@ class Kirim_model extends CI_Model
 		$query =  $this->db->query(
 			"SELECT COUNT(m.shipment_id) AS count
 			FROM `m_shipment` m
-			LEFT JOIN (SELECT COUNT(t.bidding_id) AS bidding_count, MIN(t.bidding_price) AS bidding_price, t.shipment_id FROM `t_bidding` t GROUP BY t.shipment_id ) t
-			ON m.shipment_id = t.shipment_id
-			WHERE m.shipment_end_date > CURRENT_TIMESTAMP() AND m.shipment_status = -1 AND m.location_from_city LIKE '%" . $data["location_from_city"] . "%' AND m.location_to_city LIKE '%" . $data["location_to_city"] . "%' AND m.shipment_length >= " . $data["shipment_length_min"] . $where_shipment_max . " AND COALESCE(t.bidding_price, 0) >= " . $data["lowest_bid"]
+			WHERE m.shipment_end_date > CURRENT_TIMESTAMP() AND m.shipment_status = -1 AND m.location_from_city LIKE '%" . $data["location_from_city"] . "%' AND m.location_to_city LIKE '%" . $data["location_to_city"] . "%' AND m.shipment_length >= " . $data["shipment_length_min"] . $where_shipment_max . " AND get_lowest_bidding_price(m.shipment_id) >= " . $data["lowest_bid"]
 		);
 		return $query->result();
 	}

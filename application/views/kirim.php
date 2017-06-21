@@ -190,7 +190,7 @@
 				<tbody class="tbody-kiriman">
 				</tbody>
 			</table>
-			<div class="table-empty-state shown">Tidak ada hasil</div>
+			<div class="table-empty-state">Tidak ada hasil</div>
 		</div>
 	</div>
 	<div class="paging-section">
@@ -415,7 +415,6 @@ function scrollToTop() {
 function getKiriman(changePage = false) {
 	abortAjaxCall();
 	$(".tbody-kiriman").html("");
-	$(".table-empty-state").addClass("shown");
 	setLoading(".table-empty-state");
 	var jarak_min = parseInt($(".input-jarak-min").val()) || 0;
 	var jarak_max = parseInt($(".input-jarak-max").val()) || 0;

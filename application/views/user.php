@@ -421,7 +421,6 @@ function insertUser() {
 
 function getUser() {
 	$(".tbody-user").html("");
-	$(".section-1 .table-empty-state").addClass("shown");
 	setLoading(".section-1 .table-empty-state");
 	ajaxCall("<?= base_url("user/getUser") ?>", null, function(json) {
 		removeLoading(".section-1 .table-empty-state");
@@ -533,7 +532,6 @@ function insertGroup() {
 
 function getMyGroups() {
 	$(".tbody-group").html("");
-	$(".section-2 .table-empty-state").addClass("shown");
 	setLoading(".section-2 .table-empty-state");
 	ajaxCall("<?= base_url("user/getMyGroups") ?>", null, function(json) {
 		removeLoading(".section-2 .table-empty-state");

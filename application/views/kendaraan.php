@@ -296,7 +296,6 @@ function deleteKendaraan(element) {
 
 function getKendaraan() {
 	$(".tbody-kendaraan").html("");
-	$(".table-empty-state").addClass("shown");
 	setLoading(".table-empty-state");
 	ajaxCall("<?= base_url("kendaraan/getKendaraan") ?>", null, function(json) {
 		removeLoading();
