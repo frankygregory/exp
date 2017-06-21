@@ -133,9 +133,19 @@ td {
 	margin-top: -10px;
 }
 
+.section-3-content {
+	position: relative;
+}
+
+.default-empty-state {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
 .discussions {
 	width: 100%;
-	display: relative;
 	margin-bottom: 10px;
 }
 

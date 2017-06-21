@@ -4,6 +4,7 @@
 	position: fixed;
 	top: 0;
 	background-color: rgb(251, 231, 0);
+	box-shadow: 0 0 10px #999;
 	z-index: 1000;
 	-webkit-user-select: none;  /* Chrome all / Safari all */
 	-moz-user-select: none;     /* Firefox all */

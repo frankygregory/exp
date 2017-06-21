@@ -261,13 +261,20 @@ $(function() {
 	
 	$(".input-kota-asal, .input-kota-tujuan").on("keypress", function(e) {
 		if (e.which == 13) {
-			$(this).blur();
+			var datalistItem = $(this).next().find(".datalist-item.active");
+			if (datalistItem.length > 0) {
+				$(datalistItem).mousedown();
+			}  else {
+				$(this).blur();
+			}
 		}
 	});
 	
-	$(".input-kota-asal, .input-kota-tujuan").on("keypress", function(e) {
-		if (e.which == 13) {
-			$(this).focusout();
+	$(".input-kota-asal, .input-kota-tujuan").on("keydown", function(e) {
+		if (e.which == 40) { //DOWN
+			setActiveDatalistItem(this, 1);
+		} else if (e.which == 38) { //UP
+			setActiveDatalistItem(this, -1);
 		}
 	});
 
@@ -306,6 +313,7 @@ $(function() {
 		var fromto = $(this).data("fromto");
 		$(".input-kota-" + fromto).val(value);
 		hideDatalist();
+		$(this).parent().prev().blur();
 		getKiriman();
 	});
 
@@ -328,6 +336,23 @@ $(function() {
 	};
 
 });
+
+function setActiveDatalistItem(element, arah) {
+	var parent = $(element).next();
+	var count = $(parent).find(".datalist-item").length;
+	if (count > 0) {
+		var current = parseInt($(parent).find(".datalist-item.active").data("index")) || 0;
+		current += arah;
+		if (current <= 0) {
+			current = 1;
+		} else if (current >= count) {
+			current = count;
+		}
+		
+		$(parent).find(".datalist-item.active").removeClass("active");
+		$(parent).find(".datalist-item[data-index='" + current + "']").addClass("active");
+	}
+}
 
 function scrollDownEvent() {
 	var scrollTop = $(this).scrollTop();
@@ -361,13 +386,12 @@ function getKota(fromto, keyword) {
 		var iLength = result.length;
 		if (iLength > 0) {
 			for (var i = 0; i < iLength; i++) {
-				element += "<div class='datalist-item " + fromto + "-city-dropdown-item' data-fromto='" + fromto + "'>" + result[i].city + "</div>";
+				element += "<div class='datalist-item " + fromto + "-city-dropdown-item' data-fromto='" + fromto + "' data-index='" + (i + 1) + "'>" + result[i].city + "</div>";
 			}
 		} else {
 			element += "<div class='datalist-empty-state'>Tidak ada hasil</div>";
 		}
-		$("." + fromto + "-city-dropdown").html("");
-		$("." + fromto + "-city-dropdown").append(element);
+		$("." + fromto + "-city-dropdown").html(element);
 		showDatalist(fromto);
 	});
 }

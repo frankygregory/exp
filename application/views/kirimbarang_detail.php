@@ -120,19 +120,19 @@
 	</div>
 	<div class="section-3">
 		<div class="section-title">Diskusi</div>
-		<div class="discussions">
-			<div class="discussions-data"></div>
+		<div class="section-3-content">
+			<div class="discussions"></div>
+	<?php	if ($role_id == 2 && $shipment_status == -1) { ?>
+			<div class="detail-pertanyaan">
+				<div class="form-item">
+					<div class="form-item-label">Pertanyaan</div>
+					<textarea class="input-pertanyaan"></textarea>
+				</div>
+				<button class="btn-default btn-submit-pertanyaan">Submit Pertanyaan</button>
+			</div>
+	<?php	}	?>
 			<div class="default-empty-state">Tidak ada diskusi</div>
 		</div>
-<?php	if ($role_id == 2 && $shipment_status == -1) { ?>
-		<div class="detail-pertanyaan">
-			<div class="form-item">
-				<div class="form-item-label">Pertanyaan</div>
-				<textarea class="input-pertanyaan"></textarea>
-			</div>
-			<button class="btn-default btn-submit-pertanyaan">Submit Pertanyaan</button>
-		</div>
-<?php	}	?>
 	</div>
 	<div class="section-4">
 		<div class="section-title">Penawaran</div>
@@ -233,6 +233,9 @@
 		<div class="dialog-footer">
 			<button type="button" class="btn-negative btn-submit-cancel-bidding">Batalkan Penawaran</button>
 			<button type="button" class="btn-neutral btn-batal">Tidak Jadi</button>
+		</div>
+		<div class="default-loading-container default-loading-container-cancel-bidding">
+			<div class="default-empty-state"></div>
 		</div>
 	</div>
 </div>
@@ -458,11 +461,13 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	});
 
 	function cancelBidding() {
+		setLoading(".default-loading-container-cancel-bidding");
 		var bidding_id = $(".dialog-konfirmasi-cancel-bidding").data("id");
 		ajaxCall("<?= base_url("kirim/cancelBidding") ?>", {bidding_id: bidding_id}, function(result) {
 			if (result == "success") {
 				location.reload();
 			} else {
+				removeLoading(".default-loading-container-cancel-bidding");
 				alert(result);
 			}
 		});
@@ -473,6 +478,10 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		var shipment_id = data_shipment_id;
 		
 		if (questions_text != "") {
+			$(".discussions").html("");
+			setLoading(".section-3-content .default-empty-state");
+			$(".section-3-content .default-empty-state").addClass("shown");
+
 			var data = {
 				submit_pertanyaan: true,
 				questions_text: questions_text,
@@ -481,7 +490,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 			ajaxCall("<?= base_url("kirim/kirimPertanyaan") ?>", data, function(result) {
 				if (result == "success") {
 					clearQuestion();
-					getDiscussions();
+					getDiscussions(false);
 				}
 			});
 		} else {
@@ -587,17 +596,19 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 <?php } ?>
 });
 
-function getDiscussions() {
-	$(".discussions-data").html("");
-	setLoading(".discussions .default-empty-state");
-	$(".discussions .default-empty-state").addClass("shown");
+function getDiscussions(load = true) {
+	if (load) {
+		$(".discussions").html("");
+		setLoading(".section-3-content .default-empty-state");
+		$(".section-3-content .default-empty-state").addClass("shown");
+	}
 
 	var shipment_id = data_shipment_id;
 	var data = {
 		shipment_id: shipment_id
 	};
 	ajaxCall("<?= base_url("kirim/getDiscussions") ?>", data, function(json) {
-		removeLoading(".discussions .default-empty-state");
+		removeLoading(".section-3-content .default-empty-state");
 		var result = jQuery.parseJSON(json);
 		addDiscussionToTable(result);
 	});
@@ -628,12 +639,12 @@ function addDiscussionToTable(result) {
 	}
 	
 	if (iLength == 0) {
-		$(".discussions .default-empty-state").addClass("shown");
+		$(".section-3-content .default-empty-state").addClass("shown");
 	} else {
-		$(".discussions .default-empty-state").removeClass("shown");
+		$(".section-3-content .default-empty-state").removeClass("shown");
 	}
 	
-	$(".discussions-data").html(element);
+	$(".discussions").html(element);
 }
 
 function getBiddingList() {

@@ -143,22 +143,6 @@ table td[data-align="center"] {
 	text-align: center;
 }
 
-.table-empty-state, .default-empty-state {
-	display: none;
-	margin: 0 auto;
-	height: 200px;
-	position: relative;
-	background-color: #EEE;
-	text-align: center;
-	line-height: 200px;
-	font-size: 24pt;
-	color: #AAA;
-}
-
-.table-empty-state.shown, .default-empty-state.shown {
-	display: block;
-}
-
 .dialog-background {
 	display: none;
 	position: fixed;
@@ -242,7 +226,7 @@ table td[data-align="center"] {
 	white-space: nowrap;
 }
 
-.datalist-item:hover {
+.datalist-item:hover, .datalist-item.active {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -273,4 +257,36 @@ table td[data-align="center"] {
     -ms-transform: translateY(-50%) translateX(-50%);
     -webkit-transform: translateY(-50%) translateX(-50%);
     transform: translateY(-50%) translateX(-50%);
+}
+
+.table-empty-state, .default-empty-state {
+	display: none;
+	margin: 0 auto;
+	height: 200px;
+	position: relative;
+	background-color: #EEE;
+	text-align: center;
+	line-height: 200px;
+	font-size: 24pt;
+	color: #AAA;
+}
+
+.table-empty-state.shown, .default-empty-state.shown {
+	display: block;
+}
+
+.default-loading-container {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.default-loading-container .default-empty-state, .default-loading-container .svg-loader-container {
+	background-color: transparent !important;
+}
+
+.default-loading-container .default-empty-state {
+	height: 100%;
 }
