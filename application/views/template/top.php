@@ -201,21 +201,19 @@ function addCommas(nStr) {
 }
 
 function ajaxCall(url, data, callback) {
-	setTimeout(function() {
-		ajaxVariable = $.ajax({
-			url: url,
-			data: data,
-			type: 'POST',
-			error: function(jqXHR, exception) {
-				if (exception != "abort") {
-					alert(jqXHR + " : " + jqXHR.responseText);
-				}
-			},
-			success: function(result) {
-				callback(result);
+	ajaxVariable = $.ajax({
+		url: url,
+		data: data,
+		type: 'POST',
+		error: function(jqXHR, exception) {
+			if (exception != "abort") {
+				alert(jqXHR + " : " + jqXHR.responseText);
 			}
-		});
-	}, 1000);
+		},
+		success: function(result) {
+			callback(result);
+		}
+	});
 }
 
 function abortAjaxCall() {

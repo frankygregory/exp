@@ -216,8 +216,10 @@ td {
 .detail-penawaran {
 	display: none;
 	width: 600px;
+	height: 330px;
 	margin-bottom: 20px;
 	overflow-y: auto;
+	position: relative;
 }
 
 .table-detail-penawaran .td-label, .table-detail-penawaran .td-titikdua {

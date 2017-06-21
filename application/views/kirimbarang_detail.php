@@ -187,6 +187,9 @@
 				</table>
 				<button type="button" class="btn-default btn-kirim-penawaran">Kirim Penawaran</button>
 				<button type="button" class="btn-neutral btn-batal-kirim-penawaran">Batal</button>
+				<div class="default-loading-container default-loading-container-kirim-penawaran">
+					<div class="default-empty-state"></div>
+				</div>
 			</div>
 <?php	}	?>
 		<div class="table-list-penawaran-container">
@@ -219,6 +222,9 @@
 		<div class="dialog-footer">
 			<button type="button" class="btn-default btn-submit-setuju">Setuju</button>
 			<button type="button" class="btn-neutral btn-batal">Batal Setuju</button>
+		</div>
+		<div class="default-loading-container default-loading-container-setuju-penawaran">
+			<div class="default-empty-state"></div>
 		</div>
 	</div>
 </div>
@@ -323,6 +329,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	});
 	
 	function setujuBidding(element) {
+		setLoading(".default-loading-container-setuju-penawaran");
 		var bidding_id = $(element).closest(".dialog-konfirmasi-setuju").data("bidding_id");
 		var shipment_id = data_shipment_id;
 		var form = "<form action='<?= base_url("kirim/setujuPenawaran") ?>' method='POST'>";
@@ -345,6 +352,9 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		var answers_text = $(discussions_item).find("textarea").val();
 		
 		if (answers_text != "") {
+			$(".discussions").html("");
+			setLoading(".section-3-content .default-empty-state");
+
 			var data = {
 				submit_jawaban: true,
 				questions_id: questions_id,
@@ -352,7 +362,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 			};
 			ajaxCall("<?= base_url("kirim/jawabPertanyaan") ?>", data, function(result) {
 				if (result == "success") {
-					getDiscussions();
+					getDiscussions(false);
 				}
 			});
 		} else {
@@ -373,6 +383,9 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	}
 	
 	function submitTolak(element) {
+		$(".tbody-list-penawaran").html("");
+		setLoading(".table-list-penawaran-container .table-empty-state");
+
 		var bidding_id = $(element).data("bidding_id");
 		var bidding_reason = $(element).siblings(".input-alasan").val();
 		
@@ -383,7 +396,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		};
 		ajaxCall("<?= base_url("kirim/tolakPenawaran") ?>", data, function(result) {
 			if (result == "success") {
-				getBiddingList();
+				getBiddingList(false);
 			}
 		});
 	}
@@ -464,7 +477,6 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		setLoading(".default-loading-container-cancel-bidding");
 		var bidding_id = $(".dialog-konfirmasi-cancel-bidding").data("id");
 		ajaxCall("<?= base_url("kirim/cancelBidding") ?>", {bidding_id: bidding_id}, function(result) {
-			removeLoading(".default-loading-container-cancel-bidding");
 			if (result == "success") {
 				location.reload();
 			} else {
@@ -549,6 +561,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		var valid = cekInputPenawaran(data);
 		
 		if (valid) {
+			setLoading(".default-loading-container-kirim-penawaran");
 			var shipment_id = data_shipment_id;
 			var user_id = <?= $user_id ?>;
 			data = {
@@ -561,6 +574,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 				user_id: user_id
 			};
 			ajaxCall("<?= base_url("kirim/kirimPenawaran") ?>", data, function(result) {
+				removeLoading(".default-loading-container-kirim-penawaran");
 				if (result == "success") {
 					$(".btn-tawar").prop("disabled", true);
 					hideDetailPenawaran();
@@ -646,9 +660,11 @@ function addDiscussionToTable(result) {
 	$(".discussions").html(element);
 }
 
-function getBiddingList() {
-	$(".tbody-list-penawaran").html("");
-	setLoading(".table-list-penawaran-container .table-empty-state");
+function getBiddingList(load = true) {
+	if (load) {
+		$(".tbody-list-penawaran").html("");
+		setLoading(".table-list-penawaran-container .table-empty-state");
+	}
 	var shipment_id = data_shipment_id;
 	var data = {
 		shipment_id: shipment_id
