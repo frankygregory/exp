@@ -447,7 +447,9 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		isNumber(e);
 	});
 	
-	$( ".input-bidding-pickupdate" ).datepicker();
+	$( ".input-bidding-pickupdate" ).datepicker({
+		disableDateBefore: true
+	});
 	
 	$(document).on("click", ".btn-kirim-penawaran", function() {
 		kirimPenawaran();

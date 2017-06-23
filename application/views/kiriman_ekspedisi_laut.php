@@ -292,9 +292,8 @@ kirimanTabs[8] = "cancel";
 var kendaraan = [], supir = [], alat = [];
 	
 $(function() {
-	
-	getKirimanCount();
 	getKiriman(kirimanUrl[1], 1, "deal");
+	getKirimanCount();
 
 	$(".tabs-item").on("click", function() {
 		var tabsNumber = $(this).data("tabs-number");
@@ -305,7 +304,9 @@ $(function() {
 		submitDeal(this);
 	});
 
-	$(".dialog-ubah-input-waktu").datepicker();
+	$(".dialog-ubah-input-waktu").datepicker({
+		disableDateAfter: true
+	});
 	
 	$(document).on("click", ".btn-ubah", function(e) {
 		e.stopPropagation();
@@ -502,9 +503,9 @@ function submitDeal(element) {
 }
 
 function refreshData() {
-	getKirimanCount();
 	var tabsNumber = $(".tabs-item.active").data("tabs-number");
 	getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
+	getKirimanCount();
 }
 
 function getKirimanCount() {

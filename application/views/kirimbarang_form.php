@@ -296,9 +296,15 @@
    var geocoder;
    
 $(function() {
-	$(".input-tanggal-kirim-awal").datepicker();
-	$(".input-tanggal-kirim-akhir").datepicker();
-	$(".input-tanggal-deadline").datepicker();
+	$(".input-tanggal-kirim-awal").datepicker({
+		disableDateBefore: true
+	});
+	$(".input-tanggal-kirim-akhir").datepicker({
+		disableDateBefore: true
+	});
+	$(".input-tanggal-deadline").datepicker({
+		disableDateBefore: true
+	});
 
 	$(".btn-show-tambah-barang").on("click", function() {
 		if ($(".section-3").css("display") == "none") {

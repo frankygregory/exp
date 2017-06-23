@@ -38,7 +38,7 @@
 
 .datepicker-hari-nama {
 	display: inline-block;
-	width: 12%;
+	width: 13.6%;
 	text-align: center;
 	color: #1565C0;
 	font-weight: bold;
@@ -76,6 +76,11 @@
 
 .datepicker-tanggal[data-today="1"] {
 	background-color: #03A9F4;
+	color: white;
+}
+
+.datepicker-tanggal[data-set="1"] {
+	background-color: #00796B;
 	color: white;
 }
 

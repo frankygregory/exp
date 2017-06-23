@@ -7,8 +7,8 @@ var datepickerMonthNames = ["January", "February", "March", "April", "May", "Jun
 		var thisClass = $(this).attr("class");
 		var thisElement = this;
 		var settings = $.extend({
-			disableDateBefore: "",
-			disableDateAfter: ""
+			disableDateBefore: false,
+			disableDateAfter: false
 		}, options);
 		datepickerInitialize(thisClass, this, settings);
 		
@@ -18,7 +18,7 @@ var datepickerMonthNames = ["January", "February", "March", "April", "May", "Jun
 		$(this).css("cursor", "text");
 		
 		$(this).on("click", function() {
-			datepickerShow(datepickerElement, thisElement);
+			datepickerShow(datepickerElement, thisElement, settings);
 		});
 		
 		$("body").on("click", function(e) {
@@ -34,17 +34,36 @@ var datepickerMonthNames = ["January", "February", "March", "April", "May", "Jun
 		});
 		
 		$(datepickerElement).on("click", ".next-month-icon:not([data-disabled='1'])", function() {
-			datepickerNextMonth(datepickerElement);
+			datepickerNextMonth(datepickerElement, settings);
 		});
 		
 		$(datepickerElement).on("click", ".prev-month-icon:not([data-disabled='1'])", function() {
-			datepickerPrevMonth(datepickerElement);
+			datepickerPrevMonth(datepickerElement, settings);
 		});
 	};
 }(jQuery));
 
-function datepickerShow(datepickerElement, thisElement) {
+function datepickerShow(datepickerElement, thisElement, settings) {
 	if ($(datepickerElement).data("shown") == false) {
+		var value = $(thisElement).val();
+		if (value != "") {
+			alert($(datepickerElement).find(".datepicker-tanggal[data-value='" + value + "']").length);
+			$(datepickerElement).find(".datepicker-tanggal[data-value='" + value + "']").attr("data-set", "1");
+			var item = value.split("-");
+			var date = parseInt(item[2]);
+			var month = parseInt(item[1]);
+			var year = parseInt(item[0]);
+			month--;
+			if (month < 0) {
+				month = 11;
+			}
+			if (month % 2 == 1) {
+				month--;
+			}
+
+			changeMonth(datepickerElement, year, month, settings);
+		}
+
 		$(datepickerElement).data("shown", true);
 		$(datepickerElement).offset({
 			top: $(thisElement).offset().top + parseInt($(thisElement).css("height")) + 10,
@@ -68,21 +87,21 @@ function datepickerHide(datepickerElement) {
 	}
 }
 
-function datepickerNextMonth(datepickerElement) {
+function datepickerNextMonth(datepickerElement, settings) {
 	var nextMonth = parseInt($(datepickerElement).data("current-month")) + 2;
 	var currentYear = parseInt($(datepickerElement).data("current-year"));
 	
-	changeMonth(datepickerElement, currentYear, nextMonth);
+	changeMonth(datepickerElement, currentYear, nextMonth, settings);
 }
 
-function datepickerPrevMonth(datepickerElement) {
+function datepickerPrevMonth(datepickerElement, settings) {
 	var prevMonth = parseInt($(datepickerElement).data("current-month")) - 2;
 	var currentYear = parseInt($(datepickerElement).data("current-year"));
 	
-	changeMonth(datepickerElement, currentYear, prevMonth);
+	changeMonth(datepickerElement, currentYear, prevMonth, settings);
 }
 
-function changeMonth(datepickerElement, currentYear, currentMonth) {
+function changeMonth(datepickerElement, currentYear, currentMonth, settings) {
 	var date = new Date(currentYear, currentMonth, 1);
 	var month = date.getMonth();
 	var year = date.getFullYear();
@@ -99,14 +118,14 @@ function changeMonth(datepickerElement, currentYear, currentMonth) {
 		$(datepickerElement).find(".prev-month-icon").removeAttr("data-disabled");
 	}
 	
-	var firstMonth = datepickerAssignDate(date, isThisMonth);
+	var firstMonth = datepickerAssignDate(date, isThisMonth, settings);
 	
 	var isThisMonth2 = false;
 	if (month2 == new Date().getMonth() && year2 == new Date().getFullYear()) {
 		isThisMonth2 = true;
 		secondDate = new Date();
 	}
-	var secondMonth = datepickerAssignDate(secondDate, isThisMonth2);
+	var secondMonth = datepickerAssignDate(secondDate, isThisMonth2, settings);
 	
 	$(datepickerElement).find(".datepicker-bulan-title-name.first-month").html(datepickerMonthNames[month] + " " + year);
 	$(datepickerElement).find(".datepicker-bulan-title-name.second-month").html(datepickerMonthNames[month + 1] + " " + year);
@@ -144,16 +163,13 @@ function datepickerInitialize(thisClass, thisElement, settings) {
 		secondDate = new Date(year, month + 1, 1);
 	}
 
-	var element =	'<div class="datepicker" data-class="' + thisClass + '" data-shown="false" data-current-month="' + month + '" data-current-year="' + year + '"><div class="datepicker-content"><div class="datepicker-bulan-container"><div class="datepicker-bulan-title"><span class="datepicker-bulan-title-name first-month">' + datepickerMonthNames[month] + ' ' + year + '</span><svg class="prev-month-icon" fill="#FFFFFF" height="35" viewBox="0 0 24 24" width="35" ><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg></div><div class="datepicker-hari-container"><span class="datepicker-hari-nama" data-value="0">Mi</span><span class="datepicker-hari-nama" data-value="1">Se</span><span class="datepicker-hari-nama" data-value="2">Se</span><span class="datepicker-hari-nama" data-value="3">Ra</span><span class="datepicker-hari-nama" data-value="4">Ka</span><span class="datepicker-hari-nama" data-value="5">Ju</span><span class="datepicker-hari-nama" data-value="6">Sa</span></div><div class="datepicker-tanggal-container first-month">' + datepickerAssignDate(date, isThisMonth) + '</div></div><div class="datepicker-bulan-container"><div class="datepicker-bulan-title"><span class="datepicker-bulan-title-name second-month">' + datepickerMonthNames[month + 1] + ' ' + year + '</span><svg class="next-month-icon" fill="#FFFFFF" height="35" viewBox="0 0 24 24" width="35"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/><path d="M0 0h24v24H0z" fill="none"/></svg></div><div class="datepicker-hari-container"><span class="datepicker-hari-nama" data-value="0">Mi</span><span class="datepicker-hari-nama" data-value="1">Se</span><span class="datepicker-hari-nama" data-value="2">Se</span><span class="datepicker-hari-nama" data-value="3">Ra</span><span class="datepicker-hari-nama" data-value="4">Ka</span><span class="datepicker-hari-nama" data-value="5">Ju</span><span class="datepicker-hari-nama" data-value="6">Sa</span></div><div class="datepicker-tanggal-container second-month">' + datepickerAssignDate(secondDate, !isThisMonth) + '</div></div></div><div class="datepicker-footer"></div></div>';
+	var element =	'<div class="datepicker" data-class="' + thisClass + '" data-shown="false" data-current-month="' + month + '" data-current-year="' + year + '"><div class="datepicker-content"><div class="datepicker-bulan-container"><div class="datepicker-bulan-title"><span class="datepicker-bulan-title-name first-month">' + datepickerMonthNames[month] + ' ' + year + '</span><svg class="prev-month-icon" fill="#FFFFFF" height="35" viewBox="0 0 24 24" width="35" ><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg></div><div class="datepicker-hari-container"><span class="datepicker-hari-nama" data-value="0">Mi</span><span class="datepicker-hari-nama" data-value="1">Se</span><span class="datepicker-hari-nama" data-value="2">Se</span><span class="datepicker-hari-nama" data-value="3">Ra</span><span class="datepicker-hari-nama" data-value="4">Ka</span><span class="datepicker-hari-nama" data-value="5">Ju</span><span class="datepicker-hari-nama" data-value="6">Sa</span></div><div class="datepicker-tanggal-container first-month">' + datepickerAssignDate(date, isThisMonth, settings) + '</div></div><div class="datepicker-bulan-container"><div class="datepicker-bulan-title"><span class="datepicker-bulan-title-name second-month">' + datepickerMonthNames[month + 1] + ' ' + year + '</span><svg class="next-month-icon" fill="#FFFFFF" height="35" viewBox="0 0 24 24" width="35"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/><path d="M0 0h24v24H0z" fill="none"/></svg></div><div class="datepicker-hari-container"><span class="datepicker-hari-nama" data-value="0">Mi</span><span class="datepicker-hari-nama" data-value="1">Se</span><span class="datepicker-hari-nama" data-value="2">Se</span><span class="datepicker-hari-nama" data-value="3">Ra</span><span class="datepicker-hari-nama" data-value="4">Ka</span><span class="datepicker-hari-nama" data-value="5">Ju</span><span class="datepicker-hari-nama" data-value="6">Sa</span></div><div class="datepicker-tanggal-container second-month">' + datepickerAssignDate(secondDate, !isThisMonth, settings) + '</div></div></div><div class="datepicker-footer"></div></div>';
 	
 	$(".container-content").append(element);
 	$(".datepicker[data-class='" + thisClass + "'] .datepicker-tanggal-container." + monthPosition + "-month .datepicker-tanggal[data-date-of-month='" + today + "']").attr("data-today", "1");
-	if (settings.disableDateBefore == "today") {
-		$(".datepicker[data-class='" + thisClass + "'] .prev-month-icon").attr("data-disabled", "1");
-	}
 }
 
-function datepickerAssignDate(date, thisMonth, disableDateBeforeToday = false) {
+function datepickerAssignDate(date, thisMonth, settings = null) {
 	var today = date.getDate();
 	var month = date.getMonth();
 	var year = date.getFullYear();
@@ -162,61 +178,52 @@ function datepickerAssignDate(date, thisMonth, disableDateBeforeToday = false) {
 	var tgl1Day = tgl1.getDay();
 	var tglMax = new Date(year, month + 1, 0).getDate();
 
-	return datepickerAssignDateForMonth(today, month, year, tgl1Day, tglMax, thisMonth);
+	var disableDateBeforeToday = false, disableDateAfterToday = false;
+	if (settings) {
+		disableDateBeforeToday = settings.disableDateBefore;
+		disableDateAfterToday = settings.disableDateAfter;
+	}
+
+	return datepickerAssignDateForMonth(today, month, year, tgl1Day, tglMax, thisMonth, disableDateBeforeToday, disableDateAfterToday);
 }
 
-function datepickerAssignDateForMonth(today, month, year, tgl1Day, tglMax, thisMonth) {
-	var ctrDate = 1;
+function datepickerAssignDateForMonth(today, month, year, tgl1Day, tglMax, thisMonth, disableDateBeforeToday, disableDateAfterToday) {
 	var element = "";
 	
 	if (thisMonth) {
-		element += '<div class="datepicker-tanggal-row">';
-		for (var i = 0; i < 7; i++) {
-			var value = year + "-" + (month + 1) + "-" + ctrDate;
-			if (i >= tgl1Day) {
-				if (ctrDate < today) {
-					element += '<span class="datepicker-tanggal" data-disabled="1">' + ctrDate + '</span>';
-				} else {
-					element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '">' + ctrDate + '</span>';
-				}
-				ctrDate++;
-			} else {
-				element += '<span class="datepicker-tanggal" data-current-month="0"></span>';
-			}
-		}
-		element += "</div>";
-		for (var i = 1; i < 6; i++) {
-			element += '<div class="datepicker-tanggal-row">';
-			for (var j = 0; j < 7; j++) {
-				var value = year + "-" + (month + 1) + "-" + ctrDate;
-				if (ctrDate <= tglMax) {
-					if (ctrDate < today) {
-						element += '<span class="datepicker-tanggal" data-disabled="1">' + ctrDate + '</span>';
-					} else {
-						element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '">' + ctrDate + '</span>';
-					}
-					ctrDate++;
-				} else {
-					element += '<span class="datepicker-tanggal" data-current-month="0"></span>';
-				}
-			}
-			element += "</div>";
-		}
+		element += datepickerSetAvailableDateWithToday(today, month, year, tgl1Day, tglMax, disableDateBeforeToday, disableDateAfterToday);
 	} else {
-		element += datepickerSetAvailableDate(today, month, year, tgl1Day, tglMax);
+		element += datepickerSetAvailableDate(month, year, tgl1Day, tglMax, disableDateBeforeToday, disableDateAfterToday);
 	}
 	
 	return element;
 }
 
-function datepickerSetAvailableDate(today, month, year, tgl1Day, tglMax) {
+function datepickerSetAvailableDateWithToday(today, month, year, tgl1Day, tglMax, disableDateBeforeToday, disableDateAfterToday) {
+	var thisMonth = new Date().getMonth();
+	var thisYear = new Date().getFullYear();
+	var disabledBefore = "", disabledAfter = "";
+	if (disableDateBeforeToday) {
+		disabledBefore = "data-disabled='1'";
+	}
+
+	if (disableDateAfterToday) {
+		disabledAfter = "data-disabled='1'";
+	}
+
 	var ctrDate = 1;
 	var element = "";
 	element += '<div class="datepicker-tanggal-row">';
 	for (var i = 0; i < 7; i++) {
 		var value = year + "-" + (month + 1) + "-" + ctrDate;
 		if (i >= tgl1Day) {
-			element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '">' + ctrDate + '</span>';
+			if (ctrDate < today) {
+				element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '" ' + disabledBefore + '>' + ctrDate + '</span>';
+			} else if (ctrDate > today) {
+				element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '" ' + disabledAfter + '>' + ctrDate + '</span>';
+			} else {
+				element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '">' + ctrDate + '</span>';
+			}
 			ctrDate++;
 		} else {
 			element += '<span class="datepicker-tanggal" data-current-month="0"></span>';
@@ -228,7 +235,62 @@ function datepickerSetAvailableDate(today, month, year, tgl1Day, tglMax) {
 		for (var j = 0; j < 7; j++) {
 			var value = year + "-" + (month + 1) + "-" + ctrDate;
 			if (ctrDate <= tglMax) {
-				element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '">' + ctrDate + '</span>';
+				if (ctrDate < today) {
+					element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '" ' + disabledBefore + '>' + ctrDate + '</span>';
+				} else if (ctrDate > today) {
+					element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '" ' + disabledAfter + '>' + ctrDate + '</span>';
+				} else {
+					element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '">' + ctrDate + '</span>';
+				}
+				ctrDate++;
+			} else {
+				element += '<span class="datepicker-tanggal" data-current-month="0"></span>';
+			}
+		}
+		element += "</div>";
+	}
+	return element;
+}
+
+function datepickerSetAvailableDate(month, year, tgl1Day, tglMax, disableDateBeforeToday, disableDateAfterToday) {
+	var thisMonth = new Date().getMonth();
+	var thisYear = new Date().getFullYear();
+	var disabled = "";
+	if (disableDateBeforeToday) {
+		if (month < thisMonth) {
+			disabled = "data-disabled='1'";
+		} else if (year < thisYear) {
+			disabled = "data-disabled='1'";
+		}
+	}
+
+	if (disableDateAfterToday) {
+		if (month > thisMonth) {
+			disabled = "data-disabled='1'";
+		} else if (year > thisYear) {
+			disabled = "data-disabled='1'";
+		}
+	}
+	
+	var ctrDate = 1;
+	var element = "";
+	element += '<div class="datepicker-tanggal-row">';
+	for (var i = 0; i < 7; i++) {
+		var value = year + "-" + (month + 1) + "-" + ctrDate;
+		if (i >= tgl1Day) {
+			element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '" ' + disabled + '>' + ctrDate + '</span>';
+			ctrDate++;
+		} else {
+			element += '<span class="datepicker-tanggal" data-current-month="0"></span>';
+		}
+	}
+	element += "</div>";
+	for (var i = 1; i < 6; i++) {
+		element += '<div class="datepicker-tanggal-row">';
+		for (var j = 0; j < 7; j++) {
+			var value = year + "-" + (month + 1) + "-" + ctrDate;
+			if (ctrDate <= tglMax) {
+				element += '<span class="datepicker-tanggal" data-date-of-month="' + ctrDate + '" data-value="' + value + '" ' + disabled + '>' + ctrDate + '</span>';
 				ctrDate++;
 			} else {
 				element += '<span class="datepicker-tanggal" data-current-month="0"></span>';

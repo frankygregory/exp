@@ -158,8 +158,8 @@ var statusDetail = {
 };
 
 $(function() {
-	getKirimanCount();
 	getKiriman(kirimanUrl[1], 1, "open");
+	getKirimanCount();
 
 	$(".tabs-item").on("click", function() {
 		abortAjaxCall();
@@ -272,9 +272,9 @@ function submitRating(element) {
 }
 
 function refreshData() {
-	getKirimanCount();
 	var tabsNumber = $(".tabs-item.active").data("tabs-number");
 	getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
+	getKirimanCount();
 }
 
 function getKirimanCount() {
