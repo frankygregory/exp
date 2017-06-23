@@ -4,7 +4,7 @@
 	top: 0;
 	left: 0;
 	position: absolute;
-	width: 500px;
+	width: 750px;
 	height: 250px;
 	border: 1px solid #BDBDBD;
 	padding: 5px;
@@ -16,8 +16,8 @@
 	user-select: none;          /* Likely future */ 
 }
 
-.datepicker-bulan-container {
-	width: 50%;
+.datepicker-bulan-container, .datepicker-waktu-container {
+	width: 246px;
 	float: left;
 	position: relative;
 }
@@ -128,4 +128,59 @@
 
 .next-month-icon:not([data-disabled="1"]):hover, .prev-month-icon:not([data-disabled="1"]):hover {
 	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.datepicker-waktu-container {
+	height: 238px;
+}
+
+.datepicker-waktu-content {
+	width: 117px;
+	height: 150px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.datepicker-waktu-jam, .datepicker-waktu-menit {
+	width: 50px;
+	height: 100%;
+	float: left;
+}
+
+.datepicker-waktu-titik-dua {
+	float: left;
+	height: 100%;
+	text-align: center;
+	font-size: 14pt;
+	font-weight: bold;
+	padding-top: 60px;
+	margin: 0 5px;
+}
+
+.datepicker-waktu-jam-title, .datepicker-waktu-menit-title {
+	text-align: center;
+	font-weight: bold;
+	margin: 0 auto;
+}
+
+.datepicker-up-icon, .datepicker-down-icon {
+	display: block;
+	width: 40px;
+	cursor: pointer;
+	margin: 0 auto;
+}
+
+.datepicker-up-icon:hover, .datepicker-down-icon:hover {
+	background-color: #EEE;
+}
+
+.datepicker-input-jam, .datepicker-input-menit {
+	display: block;
+	width: 40px !important;
+	text-align: center;
+	margin: 0 auto;
 }
