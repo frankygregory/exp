@@ -17,6 +17,7 @@
     width: 100%;
     position: absolute;
     bottom: 130px;
+    padding: 0 5%;
     color: white;
     text-align: center;
 }
@@ -31,8 +32,8 @@
 }
 
 .section-2 {
-	width: 700px;
-	height: 750px;
+	width: 770px;
+	height: 1100px;
     margin: 0 auto;
     padding: 100px 0;
 }
@@ -46,27 +47,17 @@
 .section-2 .section-content {
 	width: 100%;
 	margin: 0 auto;
-	text-align: center;
 }
 
 .section-2-step {
-	display: inline-block;
-	width: 200px;
-	vertical-align: top;
-}
-
-.section-2-horizontal-line {
-	display: inline-block;
-	width: 100px;
-	height: 2px;
-	margin: 42px -30px 0;
-	background-color: #000;
+    height: 90px;
+    display: table;
 }
 
 .section-2-step-icon {
 	width: 90px;
 	height: 90px;
-	margin: 0 auto;
+	display: table-cell;
 	background-size: 50px;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -74,14 +65,69 @@
 	border-radius: 100%;
 }
 
-.section-2-step-description {
-	font-size: 13pt;
-	margin-top: 20px;
-	line-height: 30px;
+@keyframes anim {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-.section-2 .new-line {
-    height: 50px;
+.section-2-step-description {
+    width: 340px;
+    min-height: 1px;
+    height: 100%;
+    display: table-cell;
+	font-size: 18pt;
+    vertical-align: middle;
+    opacity: 0;
+}
+
+.section-2 .section-content.show .section-2-step-description {
+    -webkit-animation-name: anim;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-fill-mode: forwards;
+    animation-name: anim;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.section-2 .section-content.show .step-2 .section-2-step-description {
+    -webkit-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+}
+
+.section-2 .section-content.show .step-3 .section-2-step-description {
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}
+
+.section-2 .section-content.show .step-4 .section-2-step-description {
+    -webkit-animation-delay: 1.5s;
+    animation-delay: 1.5s;
+}
+
+.section-2 .section-content.show .step-5 .section-2-step-description {
+    -webkit-animation-delay: 2s;
+    animation-delay: 2s;
+}
+
+.section-2 .section-content.show .step-6 .section-2-step-description {
+    -webkit-animation-delay: 2.5s;
+    animation-delay: 2.5s;
+}
+
+.section-2-step-description:first-child {
+    padding-right: 15px;
+    text-align: right;
+}
+
+.section-2-step-icon + .section-2-step-description {
+    padding-left: 15px;
+}
+
+.section-2-vertical-line {
+    width: 1px;
+    height: 30px;
+    background-color: #777;
+    margin: 20px auto;
 }
 
 .btn-daftar {

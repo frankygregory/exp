@@ -1,9 +1,5 @@
 <div class="content">
 	<div class="section-1">
-		<div class="image-container">
-			<div class="background-image" style="background-image:url('<?= base_url("assets/front/images/background_1080.jpg") ?>');" ></div>
-			<div class="image-wrapper"></div>
-		</div>
 		<div class="section-1-right">
 			<div class="section-1-title">
 				<div class="title-description">
@@ -15,6 +11,10 @@
 					<a class="btn-penerima" href="<?= base_url("how/pemilik-kendaraan") ?>" >SAYA PEMILIK KENDARAAN</a>
 				</div>
 			</div>
+		</div>
+		<div class="image-container">
+			<div class="background-image" style="background-image:url('<?= base_url("assets/front/images/background_1080.png") ?>');" ></div>
+			<div class="image-wrapper"></div>
 		</div>
 	</div>
 	<div class="section-2">
@@ -66,7 +66,7 @@
 						</div>
 					</div>
 					<div class="mengapa-item mengapa-item-6">
-						<div class="mengapa-item-icon" style="background-image: url('<?= base_url("assets/icons/3-stars.svg") ?>');"></div>
+						<div class="mengapa-item-icon" style="background-image: url('<?= base_url("assets/icons/5-stars.svg") ?>');"></div>
 						<div class="mengapa-item-right">
 							<div class="mengapa-item-title">Rating</div>
 							<div class="mengapa-item-description">Lihat ulasan dan rating pemilik kendaraan</div>
@@ -81,17 +81,17 @@
 		<div class="section-content">
 			<div class="section-4-step step-1">
 				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_assignment_black_24dp_2x.png") ?>');"></div>
-				<div class="section-4-step-description"><strong>1. Isi jenis Barang</strong> serta lokasi dan tujuan</div>
+				<div class="section-4-step-description">1. Isi jenis Barang serta lokasi dan tujuan</div>
 			</div>
 			<div class="section-4-horizontal-line"></div>
 			<div class="section-4-step step-2">
 				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_check_circle_black_24dp_2x.png") ?>');"></div>
-				<div class="section-4-step-description"><strong>2. Bandingkan</strong> dan pesan kendaraan</div>
+				<div class="section-4-step-description">2. Bandingkan dan pesan kendaraan</div>
 			</div>
 			<div class="section-4-horizontal-line"></div>
 			<div class="section-4-step step-3">
 				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/delivery-truck.svg") ?>');"></div>
-				<div class="section-4-step-description"><strong>3. Kirim barang</strong> dan selesai</div>
+				<div class="section-4-step-description">3. Kirim barang dan selesai</div>
 			</div>
 		</div>
 	</div>
