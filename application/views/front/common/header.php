@@ -18,7 +18,7 @@
 	</style>
 	<link href="<?=base_url()?>assets/front/css/default.css" rel="stylesheet">
 	<link href="<?=base_url()?>assets/front/css/header.css" rel="stylesheet" media="(orientation: landscape)">
-	<link href="<?=base_url()?>assets/front/css/header - portrait.css" rel="stylesheet" media="(orientation: portrait)">
+	<!--<link href="<?=base_url()?>assets/front/css/header - portrait.css" rel="stylesheet" media="(orientation: portrait)">-->
 	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css" rel="stylesheet">
 	<?= $additional_file ?>
 
@@ -28,7 +28,7 @@
 </head>
 <body>
 <div class="header">
-	<a href="<?= base_url() ?>" class="logo" style="background-image: url('<?= base_url("assets/icons/logo.png") ?>');"></a>
+	<a href="<?= base_url() ?>" class="logo" style="background-image: url('<?= base_url("assets/icons/logo2.png") ?>');"></a>
 	<div class="header-right">
 <?php   if ($isLoggedIn == 1) {	?>
 			<a href="<?= base_url('dashboard') ?>" class="header-menu header-menu-dashboard">My Dashboard

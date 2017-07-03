@@ -32,7 +32,7 @@
 
 .section-2 {
 	width: 700px;
-	height: 850px;
+	height: 1100px;
     margin: 0 auto;
     padding: 100px 0;
 }
@@ -40,43 +40,66 @@
 .section-2 .section-title {
     font-size: 3em;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
 }
 
-.section-2-item {
+.section-2 .section-content {
+	width: 520px;
+	margin: 0 auto;
+}
+
+.section-2-step {
     overflow: auto;
-    margin-bottom: 30px;
 }
 
-.section-2-left {
-    float: left;
-    width: 100px;
-    height: 50px;
+.section-2-step-icon {
+	width: 90px;
+	height: 90px;
+	float: left;
+    margin-left: 15px;
+    margin-top: 15px;
+	background-size: 50px;
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 3px solid #000;
+	border-radius: 100%;
+}
+
+.step-5 .section-2-step-icon {
     background-size: 40px;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-top: 30px;
 }
 
-.section-2-right {
-    width: 600px;
-    float: right;
+.step-6 .section-2-step-icon {
+    background-size: 80px;
+    overflow: visible;
 }
 
-.section-2-item-title {
-    font-size: 1.1em;
-}
-
-.section-2-item-description {
-    color: #333;
-    line-height: 30px;
-}
-
-.horizontal-line {
+.section-2-step-icon-number {
     width: 40px;
-    height: 3px;
-    background-color: #555;
-    margin: 10px 0;
+    height: 40px;
+    margin-left: -15px;
+    margin-top: -15px;
+    text-align: center;
+    font-size: 18pt;
+    font-weight: bold;
+    line-height: 40px;
+    border-radius: 100%;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.section-2-step-description {
+    float: left;
+	font-size: 16pt;
+    margin-top: 40px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.section-2-vertical-line {
+    width: 1px;
+    height: 30px;
+    margin-left: 45px;
 }
 
 .btn-daftar {
