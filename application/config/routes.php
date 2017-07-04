@@ -64,6 +64,8 @@ $route['register'] = 'home/register';
 $route['login'] = 'login';
 $route['dologin'] = 'login/dologin';
 $route['logout'] = 'login/logout';
+$route['api/driver/(:any)'] = 'api/driver_get_shipment/$1';
+$route['api/driver/shipment/(:any)'] = 'api/driver_get_shipment_detail/$1';
 
 $route['dashboard'] = 'panel/dashboard';
 $route['cari-kiriman'] = 'panel/kirim';
