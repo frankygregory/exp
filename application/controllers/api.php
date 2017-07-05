@@ -7,6 +7,7 @@ class Api extends CI_Controller
 {
 	public function __construct() {
 		parent::__construct();
+		$this->output->set_header('Access-Control-Allow-Origin: *');
 		$this->load->model("Api_model");
 	}
 

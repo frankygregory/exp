@@ -576,6 +576,7 @@ function addItem() {
 			kubikasi_satuan = dimensi_satuan + "3";
 			select_kubikasi = kubikasi + " " + kubikasi_satuan;
 			input_kubikasi = "<input type='hidden' value='" + kubikasi + "' name='item-kubikasi-" + count + "' />";
+			input_kubikasi_satuan = "<input type='hidden' value='" + kubikasi_satuan + "' name='item-kubikasi-satuan-" + count + "' />";
 		} else if (select_kubikasi != "") {
 			input_kubikasi = "<input type='hidden' value='" + kubikasi + "' name='item-kubikasi-" + count + "' />";
 			input_kubikasi_satuan = "<input type='hidden' value='" + kubikasi_satuan + "' name='item-kubikasi-satuan-" + count + "' />";
