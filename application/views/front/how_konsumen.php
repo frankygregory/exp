@@ -2,7 +2,7 @@
 	<div class="section-1">
 		<div class="section-1-image" style="background-image: url('<?= base_url("assets/front/images/konsumen.jpg") ?>');"></div>
 		<div class="section-1-text">
-			<div class="section-1-title">KIRIM BARANG DALAM JUMLAH BESAR<br>MENJADI LEBIH MUDAH DAN CEPAT</div>
+			<div class="section-1-title">KIRIM BARANG DALAM JUMLAH BESAR MENJADI LEBIH MUDAH DAN CEPAT</div>
 			<div class="section-1-description">Daftarkan kiriman barang Anda dan rasakan manfaatnya.</div>
 			<a href="<?= base_url("register") ?>" class="btn btn-daftar">DAFTAR SEKARANG</a>
 		</div>

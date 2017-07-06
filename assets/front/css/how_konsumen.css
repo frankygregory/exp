@@ -1,7 +1,8 @@
 .section-1 {
     width: 100%;
-    height: 600px;
+    height: calc(100vh - 70px);
     position: relative;
+    display: table;
 }
 
 .section-1-image {
@@ -11,17 +12,24 @@
 	background-repeat: no-repeat;
 	background-position: center;
     filter: brightness(30%);
+    position: absolute;
+    top: 0;
+    left: 0;
 }
+
 
 .section-1-text {
     width: 100%;
-    position: absolute;
-    bottom: 130px;
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
     color: white;
     text-align: center;
 }
 
 .section-1-title {
+    max-width: 900px;
+    margin: 0 auto;
     font-size: 3em;
 }
 

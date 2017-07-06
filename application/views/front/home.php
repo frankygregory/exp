@@ -3,7 +3,7 @@
 		<div class="section-1-right">
 			<div class="section-1-title">
 				<div class="title-description">
-					<div class="title-description-1">Tempat bertemunya pemilik barang dengan pemilik kendaraan</div>
+					<div class="title-description-1">TEMPAT BERTEMUNYA PEMILIK BARANG DENGAN PEMILIK KENDARAAN</div>
 					<div class="title-description-2">Terobosan baru pengiriman barang dalam jumlah besar dan banyak</div>
 				</div>
 				<div class="section-1-buttons">
@@ -77,21 +77,23 @@
 		</div>
 	</div>
 	<div class="section-4">
-		<div class="section-4-title"><span class="section-4-title-text">Bagaimana cara kerja <span class="section-title-logo" style="background-image: url('<?= base_url("assets/icons/logo-text-only.png") ?>');"></span> ?</span></div>
-		<div class="section-content">
-			<div class="section-4-step step-1">
-				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_assignment_black_24dp_2x.png") ?>');"></div>
-				<div class="section-4-step-description">1. Isi jenis Barang serta lokasi dan tujuan</div>
-			</div>
-			<div class="section-4-horizontal-line"></div>
-			<div class="section-4-step step-2">
-				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_check_circle_black_24dp_2x.png") ?>');"></div>
-				<div class="section-4-step-description">2. Bandingkan dan pesan kendaraan</div>
-			</div>
-			<div class="section-4-horizontal-line"></div>
-			<div class="section-4-step step-3">
-				<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/delivery-truck.svg") ?>');"></div>
-				<div class="section-4-step-description">3. Kirim barang dan selesai</div>
+		<div class="section-4-content">
+			<div class="section-4-title"><span class="section-4-title-text">Bagaimana cara kerja <span class="section-title-logo" style="background-image: url('<?= base_url("assets/icons/logo-text-only.png") ?>');"></span> ?</span></div>
+			<div class="section-content">
+				<div class="section-4-step step-1">
+					<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_assignment_black_24dp_2x.png") ?>');"></div>
+					<div class="section-4-step-description">1. Isi jenis Barang serta lokasi dan tujuan</div>
+				</div>
+				<div class="section-4-horizontal-line"></div>
+				<div class="section-4-step step-2">
+					<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/ic_check_circle_black_24dp_2x.png") ?>');"></div>
+					<div class="section-4-step-description">2. Bandingkan dan pesan kendaraan</div>
+				</div>
+				<div class="section-4-horizontal-line"></div>
+				<div class="section-4-step step-3">
+					<div class="section-4-step-icon" style="background-image: url('<?= base_url("assets/icons/delivery-truck.svg") ?>');"></div>
+					<div class="section-4-step-description">3. Kirim barang dan selesai</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -154,7 +156,7 @@ function showSection4() {
 	var section4 = section4Top - scrollTop;
 
 	if (section4 < innerHeight - 300) {
-		$(".section-4 .section-content").addClass("show");
+		$(".section-4-content").addClass("show");
 		$(document).off("scroll", showSection3);
 	}
 }

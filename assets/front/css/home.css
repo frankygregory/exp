@@ -21,16 +21,17 @@
 
 .section-1 {
 	width: 100%;
-	height: 600px;
+	height: calc(100vh - 70px);
 	position: relative;
 	text-align: center;
 }
 
 .image-container {
 	display: inline-block;
-	width: 45%;
+	width: 49%;
 	height: 100%;
 	position: relative;
+	vertical-align: middle;
 }
 
 .background-image {
@@ -52,28 +53,24 @@
 .section-1-right {
 	display: inline-block;
 	width: 50%;
-	height: 100%;
 	position: relative;
-	vertical-align: center;
+	vertical-align: middle;
 }
 
 .section-1-title {
-	position: absolute;
-	width: 100%;
-	bottom: 160px;
-	right: 0;
 	color: #000;
 	text-align: center;
+	padding-left: 5%;
 }
 
 .title-description-1 {
-	font-size: 30pt;
+	font-size: 3em;
 	font-weight: bold;
 	margin-bottom: 25px;
 }
 
 .title-description-2 {
-	font-size: 20pt;
+	font-size: 1.5em;
 }
 
 .section-1-buttons {
@@ -83,17 +80,20 @@
 
 .btn-pemilik, .btn-penerima {
 	display: inline-block;
-	padding: 15px 40px;
+	padding: 15px 30px;
 	font-size: 14pt;
 	cursor: pointer;
 	text-decoration: none;
 	font-weight: bold;
+	border: 2px solid #000;
 }
 
 .btn-pemilik {
 	background-color: #000;
 	color: rgb(251, 231, 0);
 	margin-right: -5px;
+	
+	margin-right: 10px;
 }
 
 .btn-penerima {
@@ -219,7 +219,7 @@
 	line-height: 30px;
 }
 
-.section-2 .section-content.show, .section-3 .section-content.show {
+.section-2 .section-content.show, .section-3 .section-content.show, .section-4-content.show {
 	animation-name: show;
 	animation-duration: 0.5s;
 	animation-timing-function: ease;
@@ -228,11 +228,16 @@
 
 .section-4 {
 	width: 100%;
-	height: 600px;
+	height: 550px;
 	overflow-y: hidden;
 	margin: 0 auto;
-	padding: 100px 0 0;
+	padding-top: 100px;
 	background-color: #F5F5F5;
+}
+
+.section-4-content {
+	opacity: 0;
+	overflow: auto;
 }
 
 .section-4-title {
@@ -244,7 +249,6 @@
 	display: inline-block;
 	font-size: 36pt;
 	font-weight: bold;
-	margin-top: -20px;
 	margin-right: 20px;
 }
 
