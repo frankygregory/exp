@@ -31,9 +31,10 @@ var datepickerMonthNames = ["January", "February", "March", "April", "May", "Jun
 		
 		$(datepickerElement).on("click", ".datepicker-tanggal:not([data-disabled='1'])", function() {
 			var value = $(this).data("value");
-			$(thisElement).val(value);
 			$(thisElement).data("value-date", value);
-			datepickerHide(datepickerElement);
+
+			datepickerSetDate(datepickerElement, thisElement);
+			datepickerSetTime(datepickerElement, thisElement);
 		});
 		
 		$(datepickerElement).on("click", ".next-month-icon:not([data-disabled='1'])", function() {
@@ -45,20 +46,24 @@ var datepickerMonthNames = ["January", "February", "March", "April", "May", "Jun
 		});
 
 		$(datepickerElement).on("click", ".datepicker-up-icon", function() {
-			datepickerUpClick(this);
+			datepickerUpClick(this, datepickerElement, thisElement);
 		});
 
 		$(datepickerElement).on("click", ".datepicker-down-icon", function() {
-			datepickerDownClick(this);
+			datepickerDownClick(this, datepickerElement, thisElement);
 		});
 
 		$(datepickerElement).on("keydown", ".datepicker-input-jam, .datepicker-input-menit", function(e) {
 			isNumber(e);
 		});
+
+		$(datepickerElement).on("click", ".datepicker-btn-ok", function() {
+			datepickerHide(datepickerElement);
+		})
 	};
 }(jQuery));
 
-function datepickerUpClick(element) {
+function datepickerUpClick(element, datepickerElement, thisElement) {
 	var type = $(element).data("value");
 	var limit = (type == "jam" ? 23 : 59);
 	var time = parseInt($(element).next().val());
@@ -66,9 +71,12 @@ function datepickerUpClick(element) {
 	time = (time > limit ? 0 : time) + "";
 	time = (time.length == 1 ? "0" + time : time);
 	$(element).next().val(time);
+
+	datepickerSetDate(datepickerElement, thisElement);
+	datepickerSetTime(datepickerElement, thisElement);
 }
 
-function datepickerDownClick(element) {
+function datepickerDownClick(element, datepickerElement, thisElement) {
 	var type = $(element).data("value");
 	var limit = (type == "jam" ? 23 : 59);
 	var time = parseInt($(element).prev().val());
@@ -76,6 +84,27 @@ function datepickerDownClick(element) {
 	time = (time < 0 ? limit : time) + "";
 	time = (time.length == 1 ? "0" + time : time);
 	$(element).prev().val(time);
+
+	datepickerSetDate(datepickerElement, thisElement);
+	datepickerSetTime(datepickerElement, thisElement);
+}
+
+function datepickerSetDate(datepickerElement, thisElement) {
+	var value = $(thisElement).data("value-date");
+	if (value == "") {
+		value = $(datepickerElement).data("today-date");
+		alert(value);
+	}
+	$(thisElement).val(value);
+	$(datepickerElement).find(".datepicker-tanggal[data-set='1']").removeAttr("data-set");
+	$(datepickerElement).find(".datepicker-tanggal[data-value='" + value + "']").attr("data-set", "1");
+}
+
+function datepickerSetTime(datepickerElement, thisElement) {
+	var jam = $(datepickerElement).find(".datepicker-input-jam").val();
+	var menit = $(datepickerElement).find(".datepicker-input-menit").val();
+	var waktu = jam + ":" + menit;
+	$(thisElement).data("value-time", waktu);
 }
 
 function datepickerShow(datepickerElement, thisElement, settings) {
@@ -101,15 +130,15 @@ function datepickerShow(datepickerElement, thisElement, settings) {
 		var valueTime = $(thisElement).data("value-time");
 		if (valueTime != "") {
 			var item = valueTime.split(":");
-			var hour = parseInt(item[0]);
-			var minute = parseInt(item[1]);
+			var hour = parseInt(item[0]) + "";
+			var minute = parseInt(item[1]) + "";
 			hour = (hour.length == 1 ? "0" + hour : hour);
 			minute = (minute.length == 1 ? "0" + minute : minute);
 			$(datepickerElement).find(".datepicker-input-jam").val(hour);
 			$(datepickerElement).find(".datepicker-input-menit").val(minute);
 		} else {
-			var hour = new Date().getHours();
-			var minute = new Date().getMinutes();
+			var hour = new Date().getHours() + "";
+			var minute = new Date().getMinutes() + "";
 			$(thisElement).data("value-time", hour + ":" + minute);
 			hour = (hour.length == 1 ? "0" + hour : hour);
 			minute = (minute.length == 1 ? "0" + minute : minute);
@@ -216,7 +245,7 @@ function datepickerInitialize(thisClass, thisElement, settings) {
 		secondDate = new Date(year, month + 1, 1);
 	}
 
-	var element =	'<div class="datepicker" data-class="' + thisClass + '" data-shown="false" data-current-month="' + month + '" data-current-year="' + year + '"><div class="datepicker-content"><div class="datepicker-bulan-container"><div class="datepicker-bulan-title"><span class="datepicker-bulan-title-name first-month">' + datepickerMonthNames[month] + ' ' + year + '</span><svg class="prev-month-icon" fill="#FFFFFF" height="35" viewBox="0 0 24 24" width="35" ><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg></div><div class="datepicker-hari-container"><span class="datepicker-hari-nama" data-value="0">Mi</span><span class="datepicker-hari-nama" data-value="1">Se</span><span class="datepicker-hari-nama" data-value="2">Se</span><span class="datepicker-hari-nama" data-value="3">Ra</span><span class="datepicker-hari-nama" data-value="4">Ka</span><span class="datepicker-hari-nama" data-value="5">Ju</span><span class="datepicker-hari-nama" data-value="6">Sa</span></div><div class="datepicker-tanggal-container first-month">' + datepickerAssignDate(date, isThisMonth, settings) + '</div></div><div class="datepicker-bulan-container"><div class="datepicker-bulan-title"><span class="datepicker-bulan-title-name second-month">' + datepickerMonthNames[month + 1] + ' ' + year + '</span><svg class="next-month-icon" fill="#FFFFFF" height="35" viewBox="0 0 24 24" width="35"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/><path d="M0 0h24v24H0z" fill="none"/></svg></div><div class="datepicker-hari-container"><span class="datepicker-hari-nama" data-value="0">Mi</span><span class="datepicker-hari-nama" data-value="1">Se</span><span class="datepicker-hari-nama" data-value="2">Se</span><span class="datepicker-hari-nama" data-value="3">Ra</span><span class="datepicker-hari-nama" data-value="4">Ka</span><span class="datepicker-hari-nama" data-value="5">Ju</span><span class="datepicker-hari-nama" data-value="6">Sa</span></div><div class="datepicker-tanggal-container second-month">' + datepickerAssignDate(secondDate, !isThisMonth, settings) + '</div></div><div class="datepicker-waktu-container"><div class="datepicker-waktu-content"><div class="datepicker-waktu-jam"><div class="datepicker-waktu-jam-title">Jam</div><svg class="datepicker-up-icon" data-value="jam" fill="#000000" height="35" viewBox="0 0 24 24" width="35" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/><path d="M0 0h24v24H0z" fill="none"/></svg><input class="datepicker-input-jam" type="text" maxlength="2" /><svg class="datepicker-down-icon" data-value="jam" fill="#000000" height="35" viewBox="0 0 24 24" width="35" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/><path d="M0-.75h24v24H0z" fill="none"/></svg></div><div class="datepicker-waktu-titik-dua">:</div><div class="datepicker-waktu-menit"><div class="datepicker-waktu-menit-title">Menit</div><svg class="datepicker-up-icon" data-value="menit" fill="#000000" height="35" viewBox="0 0 24 24" width="35" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/><path d="M0 0h24v24H0z" fill="none"/></svg><input class="datepicker-input-menit" type="text" maxlength="2" /><svg class="datepicker-down-icon" data-value="menit" fill="#000000" height="35" viewBox="0 0 24 24" width="35" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/><path d="M0-.75h24v24H0z" fill="none"/></svg></div></div></div></div><div class="datepicker-footer"></div></div>';
+	var element =	'<div class="datepicker" data-class="' + thisClass + '" data-shown="false" data-today-date="' + year + '-' + month + '-' + today + '" data-current-month="' + month + '" data-current-year="' + year + '"><div class="datepicker-content"><div class="datepicker-bulan-container"><div class="datepicker-bulan-title"><span class="datepicker-bulan-title-name first-month">' + datepickerMonthNames[month] + ' ' + year + '</span><svg class="prev-month-icon" fill="#FFFFFF" height="35" viewBox="0 0 24 24" width="35" ><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg></div><div class="datepicker-hari-container"><span class="datepicker-hari-nama" data-value="0">Mi</span><span class="datepicker-hari-nama" data-value="1">Se</span><span class="datepicker-hari-nama" data-value="2">Se</span><span class="datepicker-hari-nama" data-value="3">Ra</span><span class="datepicker-hari-nama" data-value="4">Ka</span><span class="datepicker-hari-nama" data-value="5">Ju</span><span class="datepicker-hari-nama" data-value="6">Sa</span></div><div class="datepicker-tanggal-container first-month">' + datepickerAssignDate(date, isThisMonth, settings) + '</div></div><div class="datepicker-bulan-container"><div class="datepicker-bulan-title"><span class="datepicker-bulan-title-name second-month">' + datepickerMonthNames[month + 1] + ' ' + year + '</span><svg class="next-month-icon" fill="#FFFFFF" height="35" viewBox="0 0 24 24" width="35"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/><path d="M0 0h24v24H0z" fill="none"/></svg></div><div class="datepicker-hari-container"><span class="datepicker-hari-nama" data-value="0">Mi</span><span class="datepicker-hari-nama" data-value="1">Se</span><span class="datepicker-hari-nama" data-value="2">Se</span><span class="datepicker-hari-nama" data-value="3">Ra</span><span class="datepicker-hari-nama" data-value="4">Ka</span><span class="datepicker-hari-nama" data-value="5">Ju</span><span class="datepicker-hari-nama" data-value="6">Sa</span></div><div class="datepicker-tanggal-container second-month">' + datepickerAssignDate(secondDate, !isThisMonth, settings) + '</div></div><div class="datepicker-waktu-container"><div class="datepicker-waktu-content"><div class="datepicker-waktu-jam"><div class="datepicker-waktu-jam-title">Jam</div><svg class="datepicker-up-icon" data-value="jam" fill="#000000" height="35" viewBox="0 0 24 24" width="35" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/><path d="M0 0h24v24H0z" fill="none"/></svg><input class="datepicker-input-jam" type="text" maxlength="2" /><svg class="datepicker-down-icon" data-value="jam" fill="#000000" height="35" viewBox="0 0 24 24" width="35" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/><path d="M0-.75h24v24H0z" fill="none"/></svg></div><div class="datepicker-waktu-titik-dua">:</div><div class="datepicker-waktu-menit"><div class="datepicker-waktu-menit-title">Menit</div><svg class="datepicker-up-icon" data-value="menit" fill="#000000" height="35" viewBox="0 0 24 24" width="35" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/><path d="M0 0h24v24H0z" fill="none"/></svg><input class="datepicker-input-menit" type="text" maxlength="2" /><svg class="datepicker-down-icon" data-value="menit" fill="#000000" height="35" viewBox="0 0 24 24" width="35" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/><path d="M0-.75h24v24H0z" fill="none"/></svg></div></div><button class="btn-default datetimepicker-btn-ok">OK</button></div></div><div class="datepicker-footer"></div></div>';
 	
 	$(".container-content").append(element);
 	$(".datepicker[data-class='" + thisClass + "'] .datepicker-tanggal-container." + monthPosition + "-month .datepicker-tanggal[data-date-of-month='" + today + "']").attr("data-today", "1");

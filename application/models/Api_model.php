@@ -7,11 +7,11 @@ class Api_model extends CI_Model
         parent::__construct();
     }
 	
-    public function getKirimanDriverById($driver_id) {
+    public function getKirimanDriverByDeviceId($device_id) {
         $query = $this->db->query("
             SELECT s.*, sd.vehicle_id, sd.driver_id, sd.device_id
             FROM `m_shipment_darat` sd, `m_shipment` s
-            WHERE sd.driver_id = '" . $driver_id . "' AND s.shipment_id = sd.shipment_id AND s.shipment_status < 6
+            WHERE sd.device_id = '" . $device_id . "' AND s.shipment_id = sd.shipment_id AND s.shipment_status < 6
         ");
         return $query->result();
     }

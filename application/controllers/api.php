@@ -11,12 +11,12 @@ class Api extends CI_Controller
 		$this->load->model("Api_model");
 	}
 
-	public function driver_get_shipment($id) {
-		$result = $this->Api_model->getKirimanDriverById($id);
+	public function device_get_shipment($id) {
+		$result = $this->Api_model->getKirimanDriverByDeviceId($id);
 		echo json_encode($result);
 	}
 
-	public function driver_get_shipment_detail($id) {
+	public function device_get_shipment_detail($id) {
 		$result = $this->Api_model->getKirimanDetail($id);
 		echo json_encode($result);
 	}
