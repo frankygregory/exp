@@ -28,7 +28,8 @@ class Api_model extends CI_Model
         $insertData = array(
             "device_id" => $data["device_id"],
             "device_gps_lat" => $data["device_gps_lat"],
-            "device_gps_lng" => $data["device_gps_lng"]
+            "device_gps_lng" => $data["device_gps_lng"],
+            "device_gps_accuracy" => $data["device_gps_accuracy"]
         );
         $this->db->insert("t_device_gps", $insertData);
         return $this->db->affected_rows();
