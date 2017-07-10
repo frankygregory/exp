@@ -66,6 +66,7 @@ $route['dologin'] = 'login/dologin';
 $route['logout'] = 'login/logout';
 $route['api/device/(:any)'] = 'api/device_get_shipment/$1';
 $route['api/device/shipment/(:any)'] = 'api/device_get_shipment_detail/$1';
+$route['api/post-coordinate'] = 'api/post_coordinate';
 
 $route['dashboard'] = 'panel/dashboard';
 $route['cari-kiriman'] = 'panel/kirim';
