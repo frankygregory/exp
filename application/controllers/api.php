@@ -29,6 +29,25 @@ class Api extends CI_Controller
 		}
 	}
 
+	public function login() {
+		$username = $this->input->post("username", true);
+		$password = $this->input->post("password", true);
+		if ($username != null && $password != null) {
+			$data = array(
+				"username" => $username,
+				"password" => $password
+			);
+			$count = $this->Api_model->login($data);
+			if (sizeof($count) > 0) {
+				echo "success";
+			} else {
+				echo "failed";
+			}
+		} else {
+			echo "null";
+		}
+	}
+
 	public function device_get_shipment($id) {
 		$result = $this->Api_model->getKirimanDriverByDeviceId($id);
 		echo json_encode($result);
@@ -58,7 +77,45 @@ class Api extends CI_Controller
 				echo "failed";
 			}
 		} else {
-			echo "no data found <br>" . $device_id . "<br>" . $device_gps_lat . "<br>" . $device_gps_lng;
+			echo "no input found";
+		}
+	}
+
+	public function submit_ambil() {
+		$shipment_id = $this->input->post("shipment_id", true);
+		$device_id = $this->input->post("device_id", true);
+		if ($shipment_id != null && $device_id != null) {
+			$data = array(
+				"shipment_id" => $shipment_id,
+				"user_id" => 0
+			);
+			$affected_rows = $this->Api_model->submitAmbil($data);
+			if ($affected_rows > 0) {
+				echo "success";
+			} else {
+				echo "failed";
+			}
+		} else {
+			echo "no input found";
+		}
+	}
+
+	public function submit_kirim() {
+		$shipment_id = $this->input->post("shipment_id", true);
+		$device_id = $this->input->post("device_id", true);
+		if ($shipment_id != null && $device_id != null) {
+			$data = array(
+				"shipment_id" => $shipment_id,
+				"user_id" => 0
+			);
+			$affected_rows = $this->Api_model->submitKirim($data);
+			if ($affected_rows > 0) {
+				echo "success";
+			} else {
+				echo "failed";
+			}
+		} else {
+			echo "no input found";
 		}
 	}
 }

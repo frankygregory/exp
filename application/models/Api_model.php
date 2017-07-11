@@ -6,6 +6,17 @@ class Api_model extends CI_Model
     {
         parent::__construct();
     }
+
+    public function login($data) {
+        $data["password"] = md5($data["password"]);
+        $query = $this->db->query("
+            SELECT user_id
+            FROM `m_user`
+            WHERE username = '" . $data["username"] . "' AND password = '" . $data["password"] . "' AND role_id = 2
+            LIMIT 1
+        ");
+        return $query->result();
+    }
 	
     public function getKirimanDriverByDeviceId($device_id) {
         $query = $this->db->query("
@@ -34,4 +45,19 @@ class Api_model extends CI_Model
         $this->db->insert("t_device_gps", $insertData);
         return $this->db->affected_rows();
     }
+
+    public function submitAmbil($data) {
+		$this->db->query("CALL ambil_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
+		return 1;
+	}
+
+    public function submitKirim($data) {
+		$this->db->query("CALL kirim_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
+		return 1;
+	}
+	
+	public function submitTerima($data) {
+		$this->db->query("CALL terima_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
+		return 1;
+	}
 }
