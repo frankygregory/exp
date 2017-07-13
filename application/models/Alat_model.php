@@ -8,10 +8,12 @@ class Alat_model extends CI_Model
     }
 	
 	public function addAlat($data) {
+		$data["device_password"] = md5($data["device_password"]);
 		$insertData = array(
 			"device_name" => $data["device_name"],
 			"device_information" => $data["device_information"],
 			"device_email" => $data["device_email"],
+			"device_password" => $data["device_password"],
 			"device_status" => $data["device_status"],
 			"user_id" => $data["user_id"],
 			"created_by" => $data["user_id"],

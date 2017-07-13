@@ -8,21 +8,25 @@ class Api_model extends CI_Model
     }
 
     public function login($data) {
-        $data["password"] = md5($data["password"]);
+        $data["device_password"] = md5($data["device_password"]);
+        $query = $this->db->query("CALL device_login('" . $data["device_email"] . "', '" . $data["device_password"] . "');");
+        return $query->result();
+    }
+
+    public function cekToken($data) {
+        $data["token"] = hash("sha256", $data["token"]);
         $query = $this->db->query("
-            SELECT user_id
-            FROM `m_user`
-            WHERE username = '" . $data["username"] . "' AND password = '" . $data["password"] . "' AND role_id = 2
-            LIMIT 1
+            SELECT device_id
+            FROM `m_device_customer`
+            WHERE device_id = '" . $data["device_id"] . "' AND token = '" . $data["token"] . "'
         ");
         return $query->result();
     }
 	
-    public function getKirimanDriverByDeviceId($device_id) {
+    public function getKirimanDriverByDeviceId($data) {
+        $data["token"] = hash("sha256", $data["token"]);
         $query = $this->db->query("
-            SELECT s.*, sd.vehicle_id, sd.driver_id, sd.device_id
-            FROM `m_shipment_darat` sd, `m_shipment` s
-            WHERE sd.device_id = '" . $device_id . "' AND s.shipment_id = sd.shipment_id AND s.shipment_status < 6
+            CALL device_get_shipment('" . $data["device_id"] . "', '" . $data["token"] . "');
         ");
         return $query->result();
     }

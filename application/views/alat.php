@@ -30,6 +30,20 @@
 						</td>
 					</tr>
 					<tr>
+						<td class="">Password</td>
+						<td>
+							<input type="password" class="input-password" />
+							<div class="error"></div>
+						</td>
+					</tr>
+					<tr>
+						<td class="">Confirm Password</td>
+						<td>
+							<input type="password" class="input-confirm-password" />
+							<div class="error"></div>
+						</td>
+					</tr>
+					<tr>
 						<td class="">Status</td>
 						<td>
 							<select name="input-status" class="input-status">
@@ -211,7 +225,32 @@ function clearErrors() {
 	$(".error").html("");
 }
 
-function cekInputError(device_name, device_email) {
+function cekInsertInputError(device_name, device_email, device_password, device_confirm_password) {
+	clearErrors();
+	var valid = true;
+	if (device_name == "") {
+		valid = false;
+		$(".input-nama").next().html("Nama alat harus diisi");
+	}
+	if (device_email == "") {
+		valid = false;
+		$(".input-email").next().html("Email harus diisi");
+	}
+	if (device_password == "") {
+		valid = false;
+		$(".input-password").next().html("Password harus diisi");
+	}
+	if (device_confirm_password == "") {
+		valid = false;
+		$(".input-confirm-password").next().html("Confirm Password harus diisi");
+	} else if (device_confirm_password != device_password) {
+		valid = false;
+		$(".input-confirm-password").next().html("Confirm Password harus sama dengan password");
+	}
+	return valid;
+}
+
+function cekUpdateInputError(device_name, device_email) {
 	clearErrors();
 	var valid = true;
 	if (device_name == "") {
@@ -255,7 +294,7 @@ function updateAlat() {
 	var device_information = $(".dialog-edit .input-keterangan").val();
 	var driver_status = $(".dialog-edit .input-status").val();
 	
-	var valid = cekInputError(device_name, device_email);
+	var valid = cekUpdateInputError(device_name, device_email);
 	if (valid) {
 		var data = {
 			submit_update: true,
@@ -279,15 +318,18 @@ function updateAlat() {
 function tambahAlat() {
 	var device_name = $(".dialog-tambah .input-nama").val();
 	var device_email = $(".dialog-tambah .input-email").val();
+	var device_password = $(".dialog-tambah .input-password").val();
+	var device_confirm_password = $(".dialog-tambah .input-confirm-password").val();
 	var device_information = $(".dialog-tambah .input-keterangan").val();
 	var device_status = $(".dialog-tambah .input-status").val();
 	
-	var valid = cekInputError(device_name, device_email);
+	var valid = cekInsertInputError(device_name, device_email, device_password, device_confirm_password);
 	if (valid) {
 		var data = {
 			submit_tambah: true,
 			device_name: device_name,
 			device_email: device_email,
+			device_password: device_password,
 			device_information: device_information,
 			device_status: device_status
 		};
@@ -321,7 +363,7 @@ function getAlat() {
 function addAlatToTable(no, result) {
 	var ketersediaan = "Tersedia";
 	if (result.shipment_id != "") {
-		ketersediaan = "<a href='<?= base_url("kirim/detail/") ?>" + result.shipment_id + " (No. Kirim)</a>";
+		ketersediaan = "<a href='<?= base_url("kirim/detail/") ?>" + result.shipment_id + "'>" + result.shipment_id + " (No. Kirim)</a>";
 	}
 	
 	var aktifDisabled = "disabled", tidakAktifDisabled = "";

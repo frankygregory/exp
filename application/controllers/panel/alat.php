@@ -29,17 +29,19 @@ class Alat extends MY_Controller
 	public function tambahAlat() {
 		$submit_tambah = $this->input->post("submit_tambah");
 		if ($submit_tambah != null) {
-			$device_name = $this->input->post("device_name");
-			$device_information = $this->input->post("device_information");
-			$device_email = $this->input->post("device_email");
-			$device_status = intval($this->input->post("device_status"));
-			$user_id = $this->session->userdata("user_id");
-			$group_id = $this->session->userdata("group_id");
+			$device_name = $this->input->post("device_name", true);
+			$device_information = $this->input->post("device_information", true);
+			$device_email = $this->input->post("device_email", true);
+			$device_password = $this->input->post("device_password", true);
+			$device_status = intval($this->input->post("device_status", true));
+			$user_id = $this->session->userdata("user_id", true);
+			$group_id = $this->session->userdata("group_id", true);
 			
 			$insertData = array(
 				"device_name" => $device_name,
 				"device_information" => $device_information,
 				"device_email" => $device_email,
+				"device_password" => $device_password,
 				"device_status" => $device_status,
 				"user_id" => $user_id,
 				"group_id" => $group_id

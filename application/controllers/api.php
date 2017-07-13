@@ -10,7 +10,7 @@ class Api extends CI_Controller
 		$this->output->set_header('Access-Control-Allow-Origin: *');
 		$this->load->model("Api_model");
 		
-		if (isset($_SERVER['HTTP_ORIGIN'])) {
+		/*if (isset($_SERVER['HTTP_ORIGIN'])) {
 			header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
 			header('Access-Control-Allow-Credentials: true');
 			header('Access-Control-Max-Age: 86400');    // cache for 1 day
@@ -26,31 +26,37 @@ class Api extends CI_Controller
 				header("Access-Control-Allow-Headers:        {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
 	
 			exit(0);
-		}
+		}*/
 	}
 
 	public function login() {
-		$username = $this->input->post("username", true);
-		$password = $this->input->post("password", true);
-		if ($username != null && $password != null) {
+		$device_email = $this->input->post("email", true);
+		$device_password = $this->input->post("password", true);
+		if ($device_email != null && $device_password != null) {
 			$data = array(
-				"username" => $username,
-				"password" => $password
+				"device_email" => $device_email,
+				"device_password" => $device_password
 			);
-			$count = $this->Api_model->login($data);
-			if (sizeof($count) > 0) {
-				echo "success";
-			} else {
-				echo "failed";
-			}
+			$result = $this->Api_model->login($data)[0];
+			echo json_encode($result);
 		} else {
-			echo "null";
+			echo "{}";
 		}
 	}
 
 	public function device_get_shipment($id) {
-		$result = $this->Api_model->getKirimanDriverByDeviceId($id);
-		echo json_encode($result);
+		$token = $this->input->post("token", true);
+		$data = array(
+			"device_id" => $id,
+			"token" => $token
+		);
+		
+		if ($token != null) {
+			$result = $this->Api_model->getKirimanDriverByDeviceId($data);
+			echo json_encode($result);
+		} else {
+			echo "{}";
+		}
 	}
 
 	public function device_get_shipment_detail($id) {
