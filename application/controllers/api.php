@@ -60,8 +60,20 @@ class Api extends CI_Controller
 	}
 
 	public function device_get_shipment_detail($id) {
-		$result = $this->Api_model->getKirimanDetail($id);
-		echo json_encode($result);
+		$token = $this->input->post("token", true);
+		$device_id = $this->input->post("device_id", true);
+		$data = array(
+			"shipment_id" => $id,
+			"token" => $token,
+			"device_id" => $device_id
+		);
+
+		if ($token != null && $device_id != null) {
+			$result = $this->Api_model->getKirimanDetail($data);
+			echo json_encode($result);
+		} else {
+			echo "{}";
+		}
 	}
 
 	public function post_coordinate() {
@@ -87,41 +99,54 @@ class Api extends CI_Controller
 		}
 	}
 
-	public function submit_ambil() {
-		$shipment_id = $this->input->post("shipment_id", true);
+	public function submit_terima() {
+		$token = $this->input->post("token", true);
 		$device_id = $this->input->post("device_id", true);
-		if ($shipment_id != null && $device_id != null) {
+		$shipment_id = $this->input->post("shipment_id", true);
+		if ($shipment_id != null && $device_id != null && $token != null) {
 			$data = array(
-				"shipment_id" => $shipment_id,
-				"user_id" => 0
+				"token" => $token,
+				"device_id" => $device_id,
+				"shipment_id" => $shipment_id
 			);
-			$affected_rows = $this->Api_model->submitAmbil($data);
-			if ($affected_rows > 0) {
-				echo "success";
-			} else {
-				echo "failed";
-			}
+			$result = $this->Api_model->submitTerima($data);
+			echo json_encode($result);
 		} else {
-			echo "no input found";
+			echo "{}";
+		}
+	}
+
+	public function submit_ambil() {
+		$token = $this->input->post("token", true);
+		$device_id = $this->input->post("device_id", true);
+		$shipment_id = $this->input->post("shipment_id", true);
+		if ($shipment_id != null && $device_id != null && $token != null) {
+			$data = array(
+				"token" => $token,
+				"device_id" => $device_id,
+				"shipment_id" => $shipment_id
+			);
+			$result = $this->Api_model->submitAmbil($data);
+			echo json_encode($result);
+		} else {
+			echo "{}";
 		}
 	}
 
 	public function submit_kirim() {
-		$shipment_id = $this->input->post("shipment_id", true);
+		$token = $this->input->post("token", true);
 		$device_id = $this->input->post("device_id", true);
-		if ($shipment_id != null && $device_id != null) {
+		$shipment_id = $this->input->post("shipment_id", true);
+		if ($shipment_id != null && $device_id != null && $token != null) {
 			$data = array(
-				"shipment_id" => $shipment_id,
-				"user_id" => 0
+				"token" => $token,
+				"device_id" => $device_id,
+				"shipment_id" => $shipment_id
 			);
-			$affected_rows = $this->Api_model->submitKirim($data);
-			if ($affected_rows > 0) {
-				echo "success";
-			} else {
-				echo "failed";
-			}
+			$result = $this->Api_model->submitKirim($data);
+			echo json_encode($result);
 		} else {
-			echo "no input found";
+			echo "{}";
 		}
 	}
 }

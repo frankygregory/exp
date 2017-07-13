@@ -31,11 +31,9 @@ class Api_model extends CI_Model
         return $query->result();
     }
 
-    public function getKirimanDetail($shipment_id) {
-        $query = $this->db->query("
-        SELECT sd.*
-        FROM `m_shipment_details` sd
-        WHERE sd.shipment_id = '" . $shipment_id . "';");
+    public function getKirimanDetail($data) {
+        $data["token"] = hash("sha256", $data["token"]);
+        $query = $this->db->query("CALL device_get_shipment_detail('" . $data["device_id"] . "', '" . $data["token"] . "', '" . $data["shipment_id"] . "');");
         return $query->result();
     }
 
@@ -51,17 +49,20 @@ class Api_model extends CI_Model
     }
 
     public function submitAmbil($data) {
-		$this->db->query("CALL ambil_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
-		return 1;
+		$data["token"] = hash("sha256", $data["token"]);
+		$query = $this->db->query("CALL device_ambil_kiriman('" . $data["shipment_id"] . "', '" . $data["device_id"] . "', '" . $data["token"] . "');");
+		return $query->result();
 	}
 
     public function submitKirim($data) {
-		$this->db->query("CALL kirim_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
-		return 1;
+        $data["token"] = hash("sha256", $data["token"]);
+		$query = $this->db->query("CALL device_kirim_kiriman('" . $data["shipment_id"] . "', '" . $data["device_id"] . "', '" . $data["token"] . "');");
+		return $query->result();
 	}
 	
 	public function submitTerima($data) {
-		$this->db->query("CALL terima_kiriman('" . $data["shipment_id"] . "', '" . $data["user_id"] . "');");
-		return 1;
+		$data["token"] = hash("sha256", $data["token"]);
+		$query = $this->db->query("CALL device_terima_kiriman('" . $data["shipment_id"] . "', '" . $data["device_id"] . "', '" . $data["token"] . "');");
+		return $query->result();
 	}
 }

@@ -67,6 +67,7 @@ $route['logout'] = 'login/logout';
 $route['api/device/(:any)'] = 'api/device_get_shipment/$1';
 $route['api/device/shipment/(:any)'] = 'api/device_get_shipment_detail/$1';
 $route['api/post-coordinate'] = 'api/post_coordinate';
+$route['api/submit-terima'] = 'api/submit_terima';
 $route['api/submit-ambil'] = 'api/submit_ambil';
 $route['api/submit-kirim'] = 'api/submit_kirim';
 
