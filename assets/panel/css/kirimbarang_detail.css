@@ -124,8 +124,10 @@ td {
 }
 
 .detail-pertanyaan {
+	position: relative;
 	width: 600px;
 	height: 140px;
+	z-index: 10;
 }
 
 .btn-submit-pertanyaan {
@@ -143,6 +145,11 @@ td {
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+
+.section-3-empty-state {
+	position: relative;
+	margin-top: 0px;
 }
 
 .discussions {

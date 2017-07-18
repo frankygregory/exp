@@ -131,7 +131,7 @@
 				<button class="btn-default btn-submit-pertanyaan">Submit Pertanyaan</button>
 			</div>
 	<?php	}	?>
-			<div class="default-empty-state">Tidak ada diskusi</div>
+			<div class="default-empty-state section-3-empty-state">Tidak ada diskusi</div>
 		</div>
 	</div>
 	<div class="section-4">
@@ -493,6 +493,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		var shipment_id = data_shipment_id;
 		
 		if (questions_text != "") {
+			$(".detail-pertanyaan").css("display", "none");
 			$(".discussions").html("");
 			setLoading(".section-3-content .default-empty-state");
 
@@ -502,6 +503,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 				shipment_id: shipment_id
 			};
 			ajaxCall("<?= base_url("kirim/kirimPertanyaan") ?>", data, function(result) {
+				$(".detail-pertanyaan").css("display", "block");
 				if (result == "success") {
 					clearQuestion();
 					getDiscussions(false);
