@@ -91,33 +91,6 @@ class Kirim extends MY_Controller
 		echo json_encode($range);
 	}
 
-    /*public function privates()
-    {
-        $data = array(
-            'title' => 'Privates'
-        );
-
-        parent::template('kirim_private', $data);
-    }
-
-    public function publics()
-    {
-        $data = array(
-            'title' => 'Public'
-        );
-
-        parent::template('kirim_public', $data);
-    }
-
-    public function penawaran()
-    {
-        $data = array(
-            'title' => 'Penawaran'
-        );
-
-        parent::template('kirim_penawaran', $data);
-    }*/
-
     public function kirimbarang()
     {
 		parent::__second_construct();

@@ -32,7 +32,7 @@
 					<div class="form-item-label">Foto Barang</div>
 					<div class="form-item-input-group">
 						<div class="error"></div>
-						<input type="file" class="input-gambar" name="shipment_pictures" />
+						<input type="file" class="input-gambar" name="shipment_pictures" accept="image/jpeg, image/png" />
 						<input type="hidden" class="input-gambar-nama" name="shipment_pictures_name" value="<?= $shipment_pictures ?>" />
 					</div>
 				</div>
@@ -156,26 +156,40 @@
 					</div>
 					<textarea rows="3" class="input-deskripsi-barang" name="item_desc" ></textarea>
 				</div>
+				<div class="pilihan-pengisian">
+					<div class="pilihan-pengisian-judul">Pilihan Pengisian : </div>
+					<label class="pilihan-pengisian-label">
+						<input type="radio" name="pilihan-pengisian" class="pilihan-pengisian-1" data-value="1" checked />
+						<span class="pilihan-pengisian-text"> Dimensi dan Berat</span>
+					</label>
+					<label class="pilihan-pengisian-label">
+						<input type="radio" name="pilihan-pengisian" class="pilihan-pengisian-2" data-value="2" />
+						<span class="pilihan-pengisian-text"> Kubikasi dan Berat</span>
+					</label>
+					<label class="pilihan-pengisian-label">
+						<input type="radio" name="pilihan-pengisian" class="pilihan-pengisian-3" data-value="3" />
+						<span class="pilihan-pengisian-text"> Kubikasi saja</span>
+					</label>
+					<label class="pilihan-pengisian-label">
+						<input type="radio" name="pilihan-pengisian" class="pilihan-pengisian-4" data-value="4" />
+						<span class="pilihan-pengisian-text"> Berat saja</span>
+					</label>
+				</div>
 				<div class="pilihan-container">
 					<div class="pilihan-dimensi pilihan" data-checked="1">
-						<label class="label-pilihan">
-							<input type="radio" name="pilihan" value="dimensi" checked="checked"/> Dimensi
-						</label>
+						<label class="label-pilihan">Dimensi</label>
 						<div class="pilihan-content">
 							<div class="form-item form-panjang-barang">
 								<div class="form-item-label">Panjang</div>
 								<input type="text" name="" class="input-panjang-barang" data-type="number" maxlength="11" />
-								<div class="error" data-type="panjang"></div>
 							</div>
 							<div class="form-item form-lebar-barang">
 								<div class="form-item-label">Lebar</div>
 								<input type="text" name="" class="input-lebar-barang" data-type="number" maxlength="11" />
-								<div class="error" data-type="lebar"></div>
 							</div>
 							<div class="form-item form-tinggi-barang">
 								<div class="form-item-label">Tinggi</div>
 								<input type="text" name="" class="input-tinggi-barang" data-type="number" maxlength="11" />
-								<div class="error" data-type="tinggi"></div>
 							</div>
 							<div class="form-item form-satuan-dimensi-barang">
 								<div class="form-item-label">Satuan</div>
@@ -185,35 +199,31 @@
 								</select>
 							</div>
 						</div>
+						<div class="error" data-type="dimensi"></div>
 					</div>
 					<div class="pilihan-kubikasi pilihan">
-						<label class="label-pilihan">
-							<input type="radio" name="pilihan" value="kubikasi" /> Kubikasi
-						</label>
+						<label class="label-pilihan">Kubikasi</label>
 						<div class="pilihan-content">
 							<div class="form-item form-kubikasi-barang">
 								<div class="form-item-label">Kubikasi</div>
 								<input type="text" name="" class="input-kubikasi-barang" data-type="number" maxlength="11" />
-								<div class="error" data-type="kubikasi"></div>
 							</div>
 							<div class="form-item form-satuan-kubikasi-barang">
 								<div class="form-item-label">Satuan</div>
 								<select name="satuan-kubikasi-barang" class="input-satuan-kubikasi-barang">
-									<option value="cm3">Cm3</option>
-									<option value="m3">M3</option>
+									<option value="cm3">Cm&sup3</option>
+									<option value="m3">M&sup3</option>
 								</select>
 							</div>
 						</div>
+						<div class="error" data-type="kubikasi"></div>
 					</div>
-					<div class="pilihan-berat pilihan">
-						<label class="label-pilihan">
-							<input type="radio" name="pilihan" value="berat" /> Berat
-						</label>
+					<div class="pilihan-berat pilihan" data-checked="1">
+						<label class="label-pilihan">Berat</label>
 						<div class="pilihan-content">
 							<div class="form-item form-berat-barang">
 								<div class="form-item-label">Berat</div>
 								<input type="text" name="" class="input-berat-barang" data-type="number" maxlength="11" />
-								<div class="error" data-type="berat"></div>
 							</div>
 							<div class="form-item form-satuan-berat-barang">
 								<div class="form-item-label">Satuan</div>
@@ -223,6 +233,7 @@
 								</select>
 							</div>
 						</div>
+						<div class="error" data-type="berat"></div>
 					</div>
 				</div>
 			</div>
@@ -256,7 +267,6 @@
 					<div class="form-item form-item-harga">
 						<div class="form-item-label">Harga</div>
 						<input type="text" name="shipment_price" class="input-harga" data-type="number" maxlength="11" />
-						<div class="error"></div>
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Tipe Penawaran</div>
@@ -280,7 +290,7 @@
    var type = $("#type").val();
    var url;
    var error = {
-		nama: "", qty: "", deskripsi: "", panjang: "", lebar: "", tinggi: "", kubikasi: "", berat: ""
+		nama: "", qty: "", deskripsi: "", dimensi: "", kubikasi: "", berat: ""
    };
    
    var location_from_address = {
@@ -320,9 +330,26 @@ $(function() {
 		}
 	});
 	
-	$("input[type='radio'][name='pilihan']").on("change", function() {
-		$(".pilihan").removeAttr("data-checked");
-		$(this).closest(".pilihan").attr("data-checked", "1");
+	$("input[type='radio'][name='pilihan-pengisian']").on("change", function() {
+		var value = $(this).data("value");
+		clearPilihanError();
+		$(".pilihan[data-checked='1']").removeAttr("data-checked");
+		switch (value) {
+			case 1:
+				$(".pilihan-dimensi").attr("data-checked", "1");
+				$(".pilihan-berat").attr("data-checked", "1");
+				break;
+			case 2:
+				$(".pilihan-kubikasi").attr("data-checked", "1");
+				$(".pilihan-berat").attr("data-checked", "1");
+				break;
+			case 3:
+				$(".pilihan-kubikasi").attr("data-checked", "1");
+				break;
+			case 4:
+				$(".pilihan-berat").attr("data-checked", "1");
+				break;
+		}
 	});
 	
 	$(".saved-location").on("click", function(e) {
@@ -447,11 +474,6 @@ $(function() {
 			valid = false;
 			$(".input-tanggal-deadline").next().html("Tanggal harus diisi");
 		}
-		var harga = $(".input-harga").val();
-		if (harga == "") {
-			valid = false;
-			$(".input-harga").next().html("Harga harus diisi");
-		}
 
 		if (!valid) {
 			e.preventDefault();
@@ -512,39 +534,20 @@ function addItem() {
 		valid = false;
 	}
 	
-	var checked = $("input[name='pilihan']:checked").val();
+	var checked = $("input[name='pilihan-pengisian']:checked").data("value");
 	switch (checked) {
-		case "dimensi":
+		case 1:
 			panjang = parseInt($(".input-panjang-barang").val().trim()) || 0;
 			lebar = parseInt($(".input-lebar-barang").val().trim()) || 0;
 			tinggi = parseInt($(".input-tinggi-barang").val().trim()) || 0;
 			dimensi_satuan = $(".input-satuan-dimensi-barang").val();
 			select_dimensi = panjang + " " + dimensi_satuan + "<br>" + lebar + " " + dimensi_satuan + "<br>" + tinggi + " " + dimensi_satuan;
 			
-			if (panjang == 0) {
+			if (panjang == 0 || lebar == 0 || tinggi == 0) {
 				valid = false;
-				error.panjang = "Panjang harus diisi";
+				error.dimensi = "Panjang, Lebar, dan Tinggi harus diisi";
 			}
-			if (lebar == 0) {
-				valid = false;
-				error.lebar = "Lebar harus diisi";
-			}
-			if (tinggi == 0) {
-				valid = false;
-				error.tinggi = "Tinggi harus diisi";
-			}
-			
-			break;
-		case "kubikasi":
-			kubikasi = parseInt($(".input-kubikasi-barang").val().trim()) || 0;
-			kubikasi_satuan = $(".input-satuan-kubikasi-barang").val();
-			select_kubikasi = kubikasi + " " + kubikasi_satuan;
-			if (kubikasi == 0) {
-				valid = false;
-				error.kubikasi = "Kubikasi harus diisi";
-			}
-			break;
-		case "berat":
+
 			berat = parseInt($(".input-berat-barang").val().trim()) || 0;
 			berat_satuan = $(".input-satuan-berat-barang").val();
 			select_berat = berat + " " + berat_satuan;
@@ -552,6 +555,45 @@ function addItem() {
 				valid = false;
 				error.berat = "Berat harus diisi";
 			}
+			
+			break;
+		case 2:
+			kubikasi = parseInt($(".input-kubikasi-barang").val().trim()) || 0;
+			kubikasi_satuan = $(".input-satuan-kubikasi-barang").val();
+			select_kubikasi = kubikasi + " " + kubikasi_satuan;
+			if (kubikasi == 0) {
+				valid = false;
+				error.kubikasi = "Kubikasi harus diisi";
+			}
+
+			berat = parseInt($(".input-berat-barang").val().trim()) || 0;
+			berat_satuan = $(".input-satuan-berat-barang").val();
+			select_berat = berat + " " + berat_satuan;
+			if (berat == 0) {
+				valid = false;
+				error.berat = "Berat harus diisi";
+			}
+
+			break;
+		case 3:
+			kubikasi = parseInt($(".input-kubikasi-barang").val().trim()) || 0;
+			kubikasi_satuan = $(".input-satuan-kubikasi-barang").val();
+			select_kubikasi = kubikasi + " " + kubikasi_satuan;
+			if (kubikasi == 0) {
+				valid = false;
+				error.kubikasi = "Kubikasi harus diisi";
+			}
+
+			break;
+		case 4:
+			berat = parseInt($(".input-berat-barang").val().trim()) || 0;
+			berat_satuan = $(".input-satuan-berat-barang").val();
+			select_berat = berat + " " + berat_satuan;
+			if (berat == 0) {
+				valid = false;
+				error.berat = "Berat harus diisi";
+			}
+
 			break;
 	}
 	
@@ -577,10 +619,12 @@ function addItem() {
 			select_kubikasi = kubikasi + " " + kubikasi_satuan;
 			input_kubikasi = "<input type='hidden' value='" + kubikasi + "' name='item-kubikasi-" + count + "' />";
 			input_kubikasi_satuan = "<input type='hidden' value='" + kubikasi_satuan + "' name='item-kubikasi-satuan-" + count + "' />";
-		} else if (select_kubikasi != "") {
+		}
+		if (select_kubikasi != "") {
 			input_kubikasi = "<input type='hidden' value='" + kubikasi + "' name='item-kubikasi-" + count + "' />";
 			input_kubikasi_satuan = "<input type='hidden' value='" + kubikasi_satuan + "' name='item-kubikasi-satuan-" + count + "' />";
-		} else {
+		}
+		if (select_berat != "") {
 			input_berat = "<input type='hidden' value='" + berat + "' name='item-berat-" + count + "' />";
 			input_berat_satuan = "<input type='hidden' value='" + berat_satuan + "' name='item-berat-satuan-" + count + "' />";
 		}
@@ -592,6 +636,8 @@ function addItem() {
 		$(".detail-count").val((count + 1));
 		
 		clearTambahBarang();
+
+		$(".section-3").css("display", "none");
 	}
 }
 
@@ -604,28 +650,33 @@ function clearTambahBarang() {
 	$(".input-tinggi-barang").val("");
 	$(".input-kubikasi-barang").val("");
 	$(".input-berat-barang").val("");
+
+	clearAllErrors();
 }
 
 function clearAllErrors() {
 	error.nama = "";
 	error.qty = "";
 	error.deskripsi = "";
-	error.panjang = "";
-	error.lebar = "";
-	error.tinggi = "";
+	error.dimensi = "";
 	error.kubikasi = "";
 	error.berat = "";
 
 	$(".error").html("");
 }
 
+function clearPilihanError() {
+	error.dimensi = "";
+	error.kubikasi = "";
+	error.berat = "";
+	$(".error[data-type='dimensi'], .error[data-type='kubikasi'], .error[data-type='berat']").html("");
+}
+
 function showErrors() {
 	$(".error[data-type='nama']").html(error.nama);
 	$(".error[data-type='qty']").html(error.qty);
 	$(".error[data-type='deskripsi']").html(error.deskripsi);
-	$(".error[data-type='panjang']").html(error.panjang);
-	$(".error[data-type='lebar']").html(error.lebar);
-	$(".error[data-type='tinggi']").html(error.tinggi);
+	$(".error[data-type='dimensi']").html(error.dimensi);
 	$(".error[data-type='kubikasi']").html(error.kubikasi);
 	$(".error[data-type='berat']").html(error.berat);
 }
