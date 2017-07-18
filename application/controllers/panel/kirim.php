@@ -160,6 +160,11 @@ class Kirim extends MY_Controller
 				break;
 			}
 		}
+
+		for ($i = 0; $i < sizeof($bidding); $i++) {
+			$bidding[$i]->bidding_pickupdate = date_format(new DateTime($bidding[$i]->bidding_pickupdate), "d-m-Y H:i");
+		}
+
 		$result = new stdClass();
 		$result->data = $bidding;
 		$result->canBid = $canBid;
@@ -339,7 +344,11 @@ class Kirim extends MY_Controller
 				$ship_status = -1;
 				
 				$user_id = $this->session->userdata('user_id');
-				
+
+				$shipment_delivery_date_from = date_format(new DateTime($this->input->post('tanggal-kirim-awal')), "Y-m-d H:i:s");
+				$shipment_delivery_date_to = date_format(new DateTime($this->input->post('tanggal-kirim-akhir')), "Y-m-d H:i:s");
+				$shipment_end_date = date_format(new DateTime($this->input->post('tanggal-deadline')), "Y-m-d H:i:s");
+
 				$data = array(
 					'shipment_title' => $this->input->post('shipment_title'),
 					'shipment_information' => $this->input->post('shipment_information'),
@@ -360,9 +369,9 @@ class Kirim extends MY_Controller
 					'location_to_detail' => $this->input->post('location_to_detail'),
 					'location_to_lat' => $location_to_lat,
 					'location_to_lng' => $location_to_lng,
-					'shipment_delivery_date_from' => date($this->input->post('tanggal-kirim-awal')),//date('Y-m-d G:i:s'),
-					'shipment_delivery_date_to' => date($this->input->post('tanggal-kirim-akhir')),
-					'shipment_end_date' => date($this->input->post('tanggal-deadline')),
+					'shipment_delivery_date_from' => $shipment_delivery_date_from,//date('Y-m-d G:i:s'),
+					'shipment_delivery_date_to' => $shipment_delivery_date_to,
+					'shipment_end_date' => $shipment_end_date,
 					'shipment_price' => $this->input->post('shipment_price'),
 					'shipment_status' => $ship_status,
 					'shipment_type' => $this->input->post('shipment_type'),
@@ -457,6 +466,7 @@ class Kirim extends MY_Controller
 			$bidding_type = $this->input->post("bidding_type");
 			$bidding_price = $this->input->post("bidding_price");
 			$bidding_pickupdate = $this->input->post("bidding_pickupdate");
+			$bidding_pickupdate = date_format(new DateTime($bidding_pickupdate), "Y-m-d H:i:s");
 			$bidding_information = $this->input->post("bidding_information");
 			$shipment_id = $this->input->post("shipment_id");
 			$user_id = $this->session->userdata("user_id");

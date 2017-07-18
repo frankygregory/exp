@@ -112,6 +112,10 @@
 			<input type="hidden" id="shipment_length" name="shipment_length" value="" />
 		</div>
 		<div class="section-4">
+			<?php
+				$tgl = new DateTime("05-07-2017 11:22");
+				echo date_format($tgl, "Y-m-d H:i:s");
+			?>
 			<div class="section-title">3 | List Barang</div>
 			<div class="section-4-content">
 				<input type="hidden" class="detail-count" name="detail-count" value="0" />
@@ -483,7 +487,6 @@ $(function() {
 
 		var value = $(".input-harga").val().replace(/,/g, "");
 		$(".input-harga").val(value);
-		alert(value);
 		
 		if (!valid) {
 			e.preventDefault();

@@ -22,19 +22,19 @@
 						<td><?php echo ($shipment_price == 0) ? "Tidak ditentukan" : number_format($shipment_price, 0, ".", ",") . " IDR" ?></td>
 					</tr>
 					<tr>
-						<td class="td-label">Tanggal Buat</td>
+						<td class="td-label">Tanggal Kirim</td>
 						<td class="td-titikdua">:</td>
-						<td><?= $created_date ?></td>
+						<td><?= date_format(new DateTime($shipment_delivery_date_from), "d-m-Y H:i") ?></td>
 					</tr>
 					<tr>
-						<td class="td-label">Perubahan Terakhir</td>
+						<td class="td-label">Sampai Dengan</td>
 						<td class="td-titikdua">:</td>
-						<td><?= $modified_date ?></td>
+						<td><?= date_format(new DateTime($shipment_delivery_date_to), "d-m-Y H:i") ?></td>
 					</tr>
 					<tr>
 						<td class="td-label">Berakhir</td>
 						<td class="td-titikdua">:</td>
-						<td><?= $shipment_end_date ?></td>
+						<td><?= date_format(new DateTime($shipment_end_date), "d-m-Y H:i") ?></td>
 					</tr>
 					<tr>
 						<td class="td-label">Cara Pesan</td>
@@ -83,7 +83,7 @@
 								<tr>
 									<td class="td-item-label">Total Kubikasi</td>
 									<td class="td-titikdua">:</td>
-									<td class="td-item-value"><?php echo ($items[$i]['item_kubikasi'] == "") ? "" : number_format($items[$i]['item_kubikasi'], 0, ".", ",") ?>  <?= $items[$i]['item_kubikasi_unit'] ?></td>
+									<td class="td-item-value"><?php echo ($items[$i]['item_kubikasi'] == "") ? "" : number_format($items[$i]['item_kubikasi'], 0, ".", ",") ?>  <?php echo ($items[$i]['item_kubikasi_unit'] == "") ? "" : substr($items[$i]['item_kubikasi_unit'], 0, 2) . "&sup3" ?></td>
 								</tr>
 								<tr>
 									<td class="td-item-label">Total Berat</td>
@@ -464,6 +464,12 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 		kirimPertanyaan();
 	});
 
+	$(document).on("input", ".input-bidding-price", function() {
+		var value = $(this).val().replace(/,/g, "");
+		value = addCommas(value);
+		$(this).val(value);
+	});
+
 	$(document).on("click", ".btn-cancel-bidding", function() {
 		var trBidding = $(this).closest(".tr-bidding");
 		var bidding_id = $(trBidding).data("bidding_id");
@@ -555,7 +561,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	
 	function kirimPenawaran() {
 		var bidding_type = $(".input-bidding-type:checked").val();
-		var bidding_price = $(".input-bidding-price").val();
+		var bidding_price = $(".input-bidding-price").val().replace(/,/g, "");
 		var bidding_pickupdate = $(".input-bidding-pickupdate").val();
 		var bidding_vehicle = $(".input-kendaraan").val();
 		var bidding_information = $(".input-bidding-information").val();
@@ -763,7 +769,9 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 		if (status === "OK") {
 			directionsDisplay.setDirections(response);
 		} else {
-			alert(status);
+			if (status != "ZERO_RESULTS") {
+				alert(status);
+			}
 		}
 	});
 }

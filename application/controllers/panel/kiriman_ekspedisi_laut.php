@@ -116,7 +116,7 @@ class Kiriman_ekspedisi_laut extends MY_Controller
 		$ship_id = $this->input->post("ship_id");
 		$shipment_details_container_number = $this->input->post("shipment_details_container_number");
 		$shipment_status = $this->input->post("shipment_status");
-		$datetime = $this->input->post("datetime");
+		$datetime = date_format(new DateTime($this->input->post("datetime")), "Y-m-d H:i:s");
 		$user_id = $this->session->userdata("user_id");
 		
 		$data = array(

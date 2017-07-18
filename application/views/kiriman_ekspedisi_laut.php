@@ -333,7 +333,7 @@ $(function() {
 		var shipment_title = $(".dialog-ubah").data("shipment_title");
 		var shipment_status = $(".dialog-ubah-input-status-value").val();
 		var shipment_status_name = $(".dialog-ubah-input-status").val();
-		var datetime = $(".dialog-ubah-input-waktu").val() + " 00:00:00";
+		var datetime = $(".dialog-ubah-input-waktu").val();
 		var shipment_details_container_number = $(".dialog-ubah").data("shipment_details_container_number");
 		var ship_id = $(".dialog-ubah").data("ship_id");
 
@@ -451,7 +451,16 @@ function showUbahDialog(element) {
 
 		$(".dialog-ubah-button[data-value='" + (status + 1) + "']").click();
 		var date = new Date();
-		var strDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+		var month = (date.getMonth() + 1) + "";
+		month = (month.length == 1) ? "0" + month : month;
+		var tgl = date.getDate() + "";
+		tgl = (tgl.length == 1) ? "0" + tgl : tgl;
+
+		var hour = date.getHours() + "";
+		hour = (hour.length == 1) ? "0" + hour : hour;
+		var minute = date.getMinutes() + "";
+		minute = (minute.length == 1) ? "0" + minute : minute;
+		var strDate = tgl + "-" + month + "-" + date.getFullYear() + " " + hour + ":" + minute;
 		$(".dialog-ubah-input-waktu").val(strDate);
 		$(".dialog-ubah").css("display", "block");
 	}
