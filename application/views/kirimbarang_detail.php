@@ -17,6 +17,11 @@
 						<td><a href="<?= base_url("profil/") . $shipment_user_id ?>"><?= $shipment_owner_username ?></a></td>
 					</tr>
 					<tr>
+						<td class="td-label">Harga</td>
+						<td class="td-titikdua">:</td>
+						<td><?php echo ($shipment_price == 0) ? "Tidak ditentukan" : number_format($shipment_price, 0, ".", ",") . " IDR" ?></td>
+					</tr>
+					<tr>
 						<td class="td-label">Tanggal Buat</td>
 						<td class="td-titikdua">:</td>
 						<td><?= $created_date ?></td>
