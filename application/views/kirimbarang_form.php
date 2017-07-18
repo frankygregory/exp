@@ -266,7 +266,7 @@
 				<div class="section-5-right">
 					<div class="form-item form-item-harga">
 						<div class="form-item-label">Harga</div>
-						<input type="text" name="shipment_price" class="input-harga" data-type="number" maxlength="11" />
+						<input type="text" name="shipment_price" class="input-harga" data-type="number" maxlength="11" /><span>IDR<span>
 					</div>
 					<div class="form-item">
 						<div class="form-item-label">Tipe Penawaran</div>
@@ -403,6 +403,12 @@ $(function() {
 	$("input[data-type='number']").on("keydown", function(e) {
 		isNumber(e);
 	});
+
+	$(".input-harga").on("input", function() {
+		var value = $(this).val().replace(/,/g, "");
+		value = addCommas(value);
+		$(this).val(value);
+	});
 	
 	$("#kirimForm").on("submit", function(e) {
 		clearAllErrors();
@@ -475,6 +481,10 @@ $(function() {
 			$(".input-tanggal-deadline").next().html("Tanggal harus diisi");
 		}
 
+		var value = $(".input-harga").val().replace(/,/g, "");
+		$(".input-harga").val(value);
+		alert(value);
+		
 		if (!valid) {
 			e.preventDefault();
 		}

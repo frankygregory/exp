@@ -297,7 +297,15 @@
 }
 
 .form-item-harga {
-	width: 200px;
+	width: 240px;
+}
+
+.input-harga {
+	width: 200px !important;
+}
+
+.form-item-harga span {
+	margin-left: -35px;
 }
 
 .label-shipment-type {

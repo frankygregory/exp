@@ -50,7 +50,7 @@
 				{	
 					$item_dimension = "";
 					if ($items[$i]["item_length"] != "") {
-						$item_dimension = $items[$i]["item_length"] . " " . $items[$i]["item_dimension_unit"] . " X " . $items[$i]["item_width"] . " " . $items[$i]["item_dimension_unit"] . " X " . $items[$i]["item_height"] . " " . $items[$i]["item_dimension_unit"];
+						$item_dimension = number_format($items[$i]["item_length"], 0, ".", ",") . " " . $items[$i]["item_dimension_unit"] . " X " . number_format($items[$i]["item_width"], 0, ".", ",") . " " . $items[$i]["item_dimension_unit"] . " X " . number_format($items[$i]["item_height"], 0, ".", ".") . " " . $items[$i]["item_dimension_unit"];
 					}
 					?>
 					<div class="item">
@@ -83,12 +83,12 @@
 								<tr>
 									<td class="td-item-label">Total Kubikasi</td>
 									<td class="td-titikdua">:</td>
-									<td class="td-item-value"><?= $items[$i]['item_kubikasi'] ?>  <?= $items[$i]['item_kubikasi_unit'] ?></td>
+									<td class="td-item-value"><?php echo ($items[$i]['item_kubikasi'] == "") ? "" : number_format($items[$i]['item_kubikasi'], 0, ".", ",") ?>  <?= $items[$i]['item_kubikasi_unit'] ?></td>
 								</tr>
 								<tr>
 									<td class="td-item-label">Total Berat</td>
 									<td class="td-titikdua">:</td>
-									<td class="td-item-value"><?= $items[$i]['item_weight'] ?>  <?= $items[$i]['item_weight_unit'] ?></td>
+									<td class="td-item-value"><?php echo ($items[$i]['item_weight'] == "") ? "" : number_format($items[$i]['item_weight'], 0, ".", ",") ?>  <?= $items[$i]['item_weight_unit'] ?></td>
 								</tr>
 							</tbody>
 						</table>
