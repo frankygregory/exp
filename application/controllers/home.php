@@ -51,7 +51,7 @@ class Home extends CI_Controller
             'title' => 'List Kiriman',
             'page_name' => "kirim",
 			'page_title'=> 'List Kiriman',
-			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirim.css" rel="stylesheet">',
+			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirim.css?v=1" rel="stylesheet">',
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
 			"activePage" => $this->activePage
