@@ -28,6 +28,11 @@
 	width: 150px;
 }
 
+.table-kiriman td[data-col="nama-kirim"] a {
+	color: blue !important;
+	text-decoration: underline !important;
+}
+
 .table-kiriman td[data-col="harga"] {
 	width: 180px;
 }
