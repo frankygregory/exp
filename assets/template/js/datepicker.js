@@ -3,7 +3,6 @@ var datepickerMonthNames = ["January", "February", "March", "April", "May", "Jun
 ];
 (function($) {
 	$.fn.datepicker = function(options) {
-		
 		var thisClass = $(this).attr("class");
 		var thisElement = this;
 		var settings = $.extend({
@@ -14,22 +13,26 @@ var datepickerMonthNames = ["January", "February", "March", "April", "May", "Jun
 		
 		var datepickerElement = $(".datepicker[data-class='" + thisClass + "']");
 		
-		$(this).prop("readonly", true);
-		$(this).css("cursor", "text");
-		$(this).data("value-date", "");
-		$(this).data("value-time", "");
+		thisElement.prop("readonly", true);
+		thisElement.css("cursor", "text");
+		thisElement.data("value-date", "");
+		thisElement.data("value-time", "");
 		
-		$(this).on("click", function() {
+		thisElement.on("focusin", function(e) {
 			datepickerShow(datepickerElement, thisElement, settings);
 		});
 		
-		$("body").on("click", function(e) {
-			if (!$(e.target).is(thisElement) && $(e.target).closest(datepickerElement).length === 0) {
-				datepickerHide(datepickerElement);
+		$("body").on("focusin click", function(e) {
+			if (!$(e.target).is(thisElement) && !$(e.target).is(datepickerElement)) {
+				datepickerHide(datepickerElement, thisElement);
 			}
 		});
+
+		datepickerElement.on("click", function(e) {
+			e.stopPropagation();
+		});
 		
-		datepickerElement.on("click", ".datepicker-tanggal:not([data-disabled='1'])", function() {
+		datepickerElement.on("click", ".datepicker-tanggal:not([data-disabled='1'])", function(e) {
 			var value = $(this).data("value");
 			thisElement.data("value-date", value);
 
@@ -37,19 +40,19 @@ var datepickerMonthNames = ["January", "February", "March", "April", "May", "Jun
 			datepickerSetTime(datepickerElement, thisElement);
 		});
 		
-		datepickerElement.on("click", ".next-month-icon:not([data-disabled='1'])", function() {
+		datepickerElement.on("click", ".next-month-icon:not([data-disabled='1'])", function(e) {
 			datepickerNextMonth(datepickerElement, thisElement, settings);
 		});
 		
-		datepickerElement.on("click", ".prev-month-icon:not([data-disabled='1'])", function() {
+		datepickerElement.on("click", ".prev-month-icon:not([data-disabled='1'])", function(e) {
 			datepickerPrevMonth(datepickerElement, thisElement, settings);
 		});
 
-		datepickerElement.on("click", ".datepicker-up-icon", function() {
+		datepickerElement.on("click", ".datepicker-up-icon", function(e) {
 			datepickerUpClick($(this), datepickerElement, thisElement);
 		});
 
-		datepickerElement.on("click", ".datepicker-down-icon", function() {
+		datepickerElement.on("click", ".datepicker-down-icon", function(e) {
 			datepickerDownClick($(this), datepickerElement, thisElement);
 		});
 
@@ -62,8 +65,9 @@ var datepickerMonthNames = ["January", "February", "March", "April", "May", "Jun
 			isNumber(e);
 		});
 
-		datepickerElement.on("click", ".datetimepicker-btn-ok", function() {
-			datepickerHide(datepickerElement);
+		datepickerElement.on("click", ".datetimepicker-btn-ok", function(e) {
+			datepickerHide(datepickerElement, thisElement);
+			thisElement.trigger("datetimeSelected");
 		})
 	};
 }(jQuery));
@@ -126,6 +130,7 @@ function datepickerSetTime(datepickerElement, thisElement) {
 
 function datepickerShow(datepickerElement, thisElement, settings) {
 	if (datepickerElement.data("shown") == false) {
+		thisElement.trigger("datetimeShow");
 		var valueDate = thisElement.data("value-date");
 		if (valueDate != "") {
 			var item = valueDate.split("-");
@@ -175,7 +180,7 @@ function datepickerShow(datepickerElement, thisElement, settings) {
 	}
 }
 
-function datepickerHide(datepickerElement) {
+function datepickerHide(datepickerElement, thisElement) {
 	if (datepickerElement.data("shown") == true) {
 		datepickerElement.data("shown", false);
 		datepickerElement.velocity({
@@ -183,6 +188,8 @@ function datepickerHide(datepickerElement) {
 		}, 150, function() {
 			datepickerElement.css("visibility", "hidden");
 		});
+
+		thisElement.trigger("datetimeHidden");
 	}
 }
 

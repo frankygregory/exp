@@ -296,6 +296,11 @@
 	width: 200px;
 }
 
+.section-5-left input.focus {
+	box-shadow: 0 0 10px #2196F3;
+	border: 1px solid #64B5F6;
+}
+
 .form-item-harga {
 	width: 240px;
 }
