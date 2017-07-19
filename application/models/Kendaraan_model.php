@@ -18,7 +18,7 @@ class Kendaraan_model extends CI_Model
 			"modified_by" => $data["user_id"]
 		);
 		$this->db->insert("m_vehicle", $insertData);
-		return $this->db->affected_rows();
+		return $this->db;
 	}
 	
 	public function updateKendaraan($data) {

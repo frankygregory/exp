@@ -271,10 +271,15 @@ function tambahKendaraan() {
 			vehicle_information: vehicle_information,
 			vehicle_status: vehicle_status
 		};
-		ajaxCall("<?= base_url("kendaraan/tambahKendaraan") ?>", data, function(result) {
-			if (result == "success") {
+		ajaxCall("<?= base_url("kendaraan/tambahKendaraan") ?>", data, function(json) {
+			var result = JSON.parse(json);
+			if (result.status == "success") {
 				closeDialog();
 				getKendaraan();
+			} else {
+				if (result.error_code == "1062") {
+					alert("Nopol " + vehicle_nomor + " sudah terdaftar. Silakan masukkan nopol lain");
+				}
 			}
 		});
 	}

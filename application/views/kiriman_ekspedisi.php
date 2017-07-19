@@ -417,12 +417,11 @@ function submitPesan(element) {
 	var driver_id = $(element).closest(".tr-kiriman").find(".select-supir").val();
 	var vehicle_id = $(element).closest(".tr-kiriman").find(".select-kendaraan").val();
 	var device_id = $(element).closest(".tr-kiriman").find(".select-alat").val();
-	
-	if (driver_id == "") {
+	if (driver_id == "" || driver_id == null) {
 		alert("tidak ada supir yang dipilih");
-	} else if (vehicle_id == "") {
+	} else if (vehicle_id == "" || vehicle_id == null) {
 		alert("tidak ada kendaraan yang dipilih");
-	} else if (device_id == "") {
+	} else if (device_id == "" || device_id == null) {
 		alert("tidak ada alat yang dipilih");
 	} else {
 		var data = {

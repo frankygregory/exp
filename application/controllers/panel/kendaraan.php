@@ -54,11 +54,15 @@ class Kendaraan extends MY_Controller
 				"user_id" => $user_id,
 				"group_id" => $group_id
 			);
-			$affected_rows = $this->Kendaraan_model->addKendaraan($insertData);
-			if ($affected_rows > 0) {
-				echo "success";
+			$db = $this->Kendaraan_model->addKendaraan($insertData);
+			if ($db->affected_rows() > 0) {
+				echo json_encode(array("status" => "success"));
 			} else {
-				echo "no rows affected. WHY??";
+				echo json_encode(array(
+					"status" => "error",
+					"error_code" => $db->error()["code"],
+					"error_message" => $db->error()["message"]
+				));
 			}
 		} else {
 			header("Location: " . base_url("dashboard"));
