@@ -285,7 +285,7 @@
 		</div>
 	</div>
 </form>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo&callback=initMap&libraries=places" async defer></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo&callback=initMap&libraries=places&language=id-ID" async defer></script>
 <script>
    var type = $("#type").val();
    var url;
@@ -781,6 +781,9 @@ function getCityFromPlace(place) {
 	for (var i = 0; i < address_components.length; i++) {
 		var ac = address_components[i];
 		if (ac.types.indexOf("administrative_area_level_2") >= 0) {
+			city = ac.long_name;
+			break;
+		} else if (ac.types.indexOf("administrative_area_level_1") >= 0) {
 			city = ac.long_name;
 			break;
 		}

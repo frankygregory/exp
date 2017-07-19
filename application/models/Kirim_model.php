@@ -47,9 +47,12 @@ class Kirim_model extends CI_Model
 	
 	public function getShipment($shipment_id) {
 		$query = $this->db->query(
-			"SELECT s.*, u.username
+			"SELECT s.*, u.username, b.user_id AS expedition_id
 			FROM `m_shipment` s, `m_user` u
-			WHERE s.created_by = u.user_id AND s.shipment_id = " . $shipment_id . ";"
+			LEFT JOIN (SELECT shipment_id, user_id FROM `t_bidding` WHERE bidding_status = 1) b
+			ON b.shipment_id = " . $shipment_id . "
+			WHERE s.user_id = u.user_id AND s.shipment_id = " . $shipment_id . "
+			LIMIT 1;"
 		);
 		return $query->result();
 	}
@@ -67,7 +70,7 @@ class Kirim_model extends CI_Model
 		$query = $this->db->query("
 			SELECT DISTINCT location_from_city AS city
 			FROM `m_shipment`
-			WHERE shipment_status = -1 AND location_from_city LIKE '%" . $keyword . "%'
+			WHERE shipment_end_date > CURRENT_TIMESTAMP() AND shipment_status = -1 AND location_from_city LIKE '%" . $keyword . "%'
 			LIMIT 5
 		");
 		return $query->result();
@@ -77,7 +80,7 @@ class Kirim_model extends CI_Model
 		$query = $this->db->query("
 			SELECT DISTINCT location_to_city AS city
 			FROM `m_shipment`
-			WHERE shipment_status = -1 AND location_to_city LIKE '%" . $keyword . "%'
+			WHERE shipment_end_date > CURRENT_TIMESTAMP() AND shipment_status = -1 AND location_to_city LIKE '%" . $keyword . "%'
 			LIMIT 5
 		");
 		return $query->result();

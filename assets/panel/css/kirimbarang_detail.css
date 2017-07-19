@@ -55,20 +55,24 @@ td {
 
 .td-titikdua {
 	width: 10px;
-	padding-top: 17px;
 }
 
 .asal-title {
 	font-size: 14pt;
 	font-weight: bold;
+	margin-bottom: 10px;
 }
 
 .asal {
 	margin-bottom: 20px;
 }
 
+.table-lokasi {
+	margin-bottom: 15px;
+}
+
 .table-lokasi td {
-	padding: 5px;
+	padding: 0 5px;
 }
 
 .td-address-label {
@@ -247,11 +251,6 @@ td {
 
 td.td-label {
 	width: 150px;
-	padding-top: 10px;
-}
-
-td.td-titikdua {
-	width: 10px;
 	padding-top: 10px;
 }
 

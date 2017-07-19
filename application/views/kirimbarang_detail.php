@@ -104,16 +104,50 @@
 				<div class="asal-title">Lokasi</div>
 				<table class="table-lokasi">
 					<tbody>
+						<?php
+							$detail_lokasi = false;
+							if ($shipment_status < 6 && ($isOwner || $expedition_id == $user_id)) {
+								$detail_lokasi = true;
+							}
+						?>
 						<tr>
 							<td class="td-address-label">Asal</td>
 							<td class="td-titikdua">:</td>
-							<td><?= $location_from_city ?></td>
+							<td><?php echo ($detail_lokasi) ? $location_from_address : $location_from_city; ?></td>
 						</tr>
+						<?php if ($detail_lokasi) { ?>
+							<tr>
+								<td class="td-address-label">Detail</td>
+								<td class="td-titikdua">:</td>
+								<td><?php echo $location_from_detail ?></td>
+							</tr>
+							<tr>
+								<td class="td-address-label">Kontak</td>
+								<td class="td-titikdua">:</td>
+								<td><?php echo $location_from_contact ?></td>
+							</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+				<table class="table-lokasi">
+					<tbody>
 						<tr>
 							<td class="td-address-label">Tujuan</td>
 							<td class="td-titikdua">:</td>
-							<td><?= $location_to_city ?></td>
+							<td><?php echo ($detail_lokasi) ? $location_to_address : $location_to_city; ?></td>
 						</tr>
+						<?php if ($detail_lokasi) { ?>
+							<tr>
+								<td class="td-address-label">Detail</td>
+								<td class="td-titikdua">:</td>
+								<td><?php echo $location_to_detail ?></td>
+							</tr>
+							<tr>
+								<td class="td-address-label">Kontak</td>
+								<td class="td-titikdua">:</td>
+								<td><?php echo $location_to_contact ?></td>
+							</tr>
+						<?php } ?>
 					</tbody>
 				</table>
 				<div class="form-group" id="map_asal" style="width: 100%; height: 200px"></div>
