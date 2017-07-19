@@ -17,24 +17,29 @@
 						<td><a href="<?= base_url("profil/") . $shipment_user_id ?>"><?= $shipment_owner_username ?></a></td>
 					</tr>
 					<tr>
-						<td class="td-label">Harga</td>
+						<td class="td-label">Harga yang ditawarkan</td>
 						<td class="td-titikdua">:</td>
 						<td><?php echo ($shipment_price == 0) ? "Tidak ditentukan" : number_format($shipment_price, 0, ".", ",") . " IDR" ?></td>
 					</tr>
 					<tr>
 						<td class="td-label">Tanggal Kirim</td>
 						<td class="td-titikdua">:</td>
-						<td><?= date_format(new DateTime($shipment_delivery_date_from), "d-m-Y H:i") ?></td>
-					</tr>
-					<tr>
-						<td class="td-label">Sampai Dengan</td>
-						<td class="td-titikdua">:</td>
-						<td><?= date_format(new DateTime($shipment_delivery_date_to), "d-m-Y H:i") ?></td>
+						<td><?= date_format(new DateTime($shipment_delivery_date_from), "d-m-Y H:i") ?> s/d <?= date_format(new DateTime($shipment_delivery_date_to), "d-m-Y H:i") ?></td>
 					</tr>
 					<tr>
 						<td class="td-label">Berakhir</td>
 						<td class="td-titikdua">:</td>
 						<td><?= date_format(new DateTime($shipment_end_date), "d-m-Y H:i") ?></td>
+					</tr>
+					<tr>
+						<td class="td-label">Dibuat Tanggal</td>
+						<td class="td-titikdua">:</td>
+						<td><?= date_format(new DateTime($created_date), "d-m-Y H:i") ?></td>
+					</tr>
+					<tr>
+						<td class="td-label">Update terakhir</td>
+						<td class="td-titikdua">:</td>
+						<td><?= date_format(new DateTime($created_date), "d-m-Y H:i") ?></td>
 					</tr>
 					<tr>
 						<td class="td-label">Cara Pesan</td>

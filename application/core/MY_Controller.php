@@ -53,16 +53,19 @@ class MY_Controller extends CI_Controller
 		$this->modules .= "<link href='" . base_url("assets/template/css/" . $moduleName . ".css") . "' rel='stylesheet'>" . "<script src='" . base_url("assets/template/js/" . $moduleName . ".js?v=3") . "'></script>";
 	}
 
-    public function upload_file_settings($path = '', $max_size = '')
+    public function upload_file_settings($path = '', $max_size = '', $file_name = "")
     {
         $config['upload_path'] = $path;
-        $config['allowed_types'] = 'jpg|png|jpeg';
+        //$config['allowed_types'] = 'jpg|png|jpeg';
         $config['max_size'] = $max_size;
         $config['remove_spaces'] = true;
-        $config['overwrite'] = false;
+        $config['overwrite'] = true;
         $config['encrypt_name'] = false;
         $config['max_width'] = '';
         $config['max_height'] = '';
+        if ($file_name != "") {
+            $config["file_name"] = $file_name;
+        }
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
     }

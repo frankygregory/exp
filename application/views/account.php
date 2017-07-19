@@ -65,15 +65,15 @@
 				</tr>
 				<tr>
 					<td class="td-label">NPWP</td>
-					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="" data-input-type="">Edit</span></td>
+					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="user_details_npwp" data-input-type="file">Edit</span></td>
 				</tr>
 				<tr>
 					<td class="td-label">SIUP</td>
-					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="" data-input-type="">Edit</span></td>
+					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="user_details_siup" data-input-type="file">Edit</span></td>
 				</tr>
 				<tr>
 					<td class="td-label">TDP</td>
-					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="" data-input-type="">Edit</span></td>
+					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="user_details_tdp" data-input-type="file">Edit</span></td>
 				</tr>
 			</tbody>
 		</table>
@@ -145,6 +145,9 @@ $(function() {
 				element += "<div class='error'></div>";
 				element += "</div>";
 				break;
+			case "file":
+				element = "<input class='input-value' type='file' name='file' /><div class='error'></div>";
+				break;
 		}
 		
 		$(".dialog-edit .dialog-body").html(element);
@@ -152,6 +155,13 @@ $(function() {
 		$(".dialog-edit").data("type", type);
 		$(".dialog-edit").data("table", table);
 		showDialog(".dialog-edit");
+	});
+
+	$(document).on("change", "input[type='file']", function(e) {
+		var value = $(this).val();
+		if (!value) {
+			alert("Tidak ada file yang dipilih");
+		}
 	});
 	
 	$(document).on("keydown", "input[data-type='number']", function(e) {
@@ -217,6 +227,9 @@ function updateData() {
 			value = $(".dialog-edit .input-value").val();
 		} else if (type == "tipe") {
 			value = $(".dialog-edit .input-value[name='" + field + "']:checked").val();
+		} else if (type == "file") {
+			value = $(".dialog-edit .input-value")[0].files[0];
+			console.log(value);
 		}
 		
 		var data = {
