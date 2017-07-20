@@ -33,7 +33,7 @@ class Account_model extends CI_Model
 		} else {
 			$this->db->update("m_user_details", $updateData);
 		}
-		return $this->db->affected_rows();
+		return $this->db;
 	}
 	
 }

@@ -65,15 +65,15 @@
 				</tr>
 				<tr>
 					<td class="td-label">NPWP</td>
-					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="user_details_npwp" data-input-type="file">Edit</span></td>
+					<td class="td-value"><span class="span-value"><?php echo ($data->user_details_npwp == "") ? "Anda belum mengupload NPWP" : "Sudah terupload" ?></span><span class="edit-icon" data-table="2" data-field="user_details_npwp" data-input-type="file">Edit</span></td>
 				</tr>
 				<tr>
 					<td class="td-label">SIUP</td>
-					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="user_details_siup" data-input-type="file">Edit</span></td>
+					<td class="td-value"><span class="span-value"><?php echo ($data->user_details_siup == "") ? "Anda belum mengupload SIUP" : "Sudah terupload" ?></span><span class="edit-icon" data-table="2" data-field="user_details_siup" data-input-type="file">Edit</span></td>
 				</tr>
 				<tr>
 					<td class="td-label">TDP</td>
-					<td class="td-value"><span class="span-value"></span><span class="edit-icon" data-table="2" data-field="user_details_tdp" data-input-type="file">Edit</span></td>
+					<td class="td-value"><span class="span-value"><?php echo ($data->user_details_tdp == "") ? "Anda belum mengupload TDP" : "Sudah terupload" ?></span><span class="edit-icon" data-table="2" data-field="user_details_tdp" data-input-type="file">Edit</span></td>
 				</tr>
 			</tbody>
 		</table>
@@ -229,7 +229,6 @@ function updateData() {
 			value = $(".dialog-edit .input-value[name='" + field + "']:checked").val();
 		} else if (type == "file") {
 			value = $(".dialog-edit .input-value")[0].files[0];
-			console.log(value);
 		}
 		
 		var data = {
@@ -237,15 +236,42 @@ function updateData() {
 			value: value,
 			table: table
 		};
-		ajaxCall("<?= base_url("account-settings/updateCertainField") ?>", data, function(result) {
-			if (result == "success") {
-				window.location.reload(true);
-			} else if (result == "null") {
-				if ($(".dialog-edit").data("type") == "password") {
-					alert("Password lama salah");
+
+		if (type != "file") {
+			ajaxCall("<?= base_url("account-settings/updateCertainField") ?>", data, function(json) {
+				var result = JSON.parse(json);
+				if (result.status == "success") {
+					window.location.reload(true);
+				} else if (result.status == "error") {
+					if ($(".dialog-edit").data("type") == "password") {
+						alert("Password lama salah");
+					} else {
+						alert(result.error_message);
+					}
 				}
-			}
-		});
+			});
+		} else {
+			var formData = new FormData();
+			formData.append("field", field);
+			formData.append("value", value);
+			formData.append("table", table);
+			$.ajax({
+				url: "<?= base_url("account-settings/updateCertainField") ?>",
+				type: "POST",
+				data: formData,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function (json) {
+					var result = JSON.parse(json);
+					if (result.status == "success") {
+						window.location.reload(true);
+					} else {
+						alert(JSON.stringify(result.error_message));
+					}
+				}
+			});
+		}
 	}
 }
 </script>

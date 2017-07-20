@@ -56,7 +56,7 @@ class MY_Controller extends CI_Controller
     public function upload_file_settings($path = '', $max_size = '', $file_name = "")
     {
         $config['upload_path'] = $path;
-        //$config['allowed_types'] = 'jpg|png|jpeg';
+        $config['allowed_types'] = '*';
         $config['max_size'] = $max_size;
         $config['remove_spaces'] = true;
         $config['overwrite'] = true;

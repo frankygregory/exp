@@ -1,0 +1,86 @@
+Cek:
+//1. Tanggal kirim kurang enak pakainya dan ga menampilkan sampai jam menit
+//2. Kenapa harga harus diisi?
+//3. Pengisian barang bisa isi dimensi dan berat atau kubikasi dan berat atau berat atau kubikasi saja
+//4. Tampilan List judul yang bisa diklik, diberikan perbedaan misal warna biru ada garis bawah spy isa tahu kalau bisa diklik
+//5. Detail kiriman tidak menampilkan alamat yang sesuai waktu input
+//6. Tidak ada pilihan untuk diskusi
+7. Tidak ada menu untuk Mengetahui yang sudah ditawar (sebagai ekspedisi)
+//8. Harga munculkan titik/koma biar jelas
+//9. Tanggal berakhir tidak ambil sampai jam menit
+//10. List Kota perlu dicheck
+11. Verifikasi alamat email
+12. Edit account setting untuk npwp, siup, tdp berupa upload file
+//13. klik Pesan di List kiriman darat tidak berjalan (error)
+//14. Tambahan data di list kiriman detail (sebelah kiri atas) --> Harga yang ditawarkan (ubah labeh dari "Harga" yang lama), Harga penawaran terkecil, tanggal buat, tangal ubah terakhir, tanggal kirim (dibuat sebaris), KM
+15. Perbedaan warna antara penawaran yang disetujui, ditolak dan masih open
+16. Error di list kiriman darat (sebagai ekspedisi) di tab selesai
+//17. Harga bisa ketik "." (titik)
+18. Kiriman sudah selesai, Di menu alat, supir dan kendaraan di bagian ketersediaan belum terupdate dimana seharusnya menjadi available. Kondisi sekarang masih mengarah ke kiriman sebelumnya
+
+
+
+***** yang sudah dikerjakan *****
+1, 2, 3, 4, 5, 6, 8, 9, 10, 13, 14, 17
+
+
+(16:31) IT Franky: ini keterangan detail kiriman
+(16:31) IT Franky: sblh kiri atas kan ada tampilkan data2
+(16:32) IT Franky: judul kiriman, keterangan, pelanggan, harga,dkk
+(16:32) IT Franky: harga itu judul labelnya --> Harga yang ditawarkan
+(16:33) IT Franky: Tanggal kirim dibuat 1 baris aja, misal: Tanggal Kirim 01-08-2017 15:40 s/d 22-07-2017 15:48
+(16:33) christ: "harga yang ditawarkan" itu harga yg diketik manual oleh pemilik barang?
+(16:34) IT Franky: iya
+(16:34) IT Franky: itu maksudnya dia kasih harga 2jt, tapi tergantung yg nawar kasih harga brp
+(16:34) christ: ya
+(16:35) IT Franky: perlu tambahan lagi christ, seperti tanggal buatnya kapan dan tanggal perubahan terakhir kapan
+(16:35) IT Franky: terus total KM nya brp
+(16:36) christ: total KM itu bagi semua orang ato bagi ekspedisi yg sedang ngirim?
+(16:36) christ: yg bisa liat total KM
+(16:36) christ: o bagi semua orang ya
+(16:37) IT Franky: semua orang christ
+(16:38) IT Franky: ini ada error di menu kiriman darat
+(16:38) IT Franky: di tab selesai
+(16:38) IT Franky: ini sebagai ekspedisi ya
+(16:38) IT Franky: [object Object] : 
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>An uncaught Exception was encountered</h4>
+
+<p>Type: Exception</p>
+<p>Message: DateTime::__construct(): Failed to parse time string (@) at position 0 (@): Unexpected character</p>
+<p>Filename: /home/wahanafu/public_html/yukirim/application/controllers/panel/Kiriman_ekspedisi.php</p>
+<p>Line Number: 90</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+			<p style="margin-left:10px">
+			File: /home/wahanafu/public_html/yukirim/application/controllers/panel/Kiriman_ekspedisi.php<br />
+			Line: 90<br />
+			Function: __construct			</p>
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/wahanafu/public_html/yukirim/application/controllers/panel/Kiriman_ekspedisi.php<br />
+			Line: 70<br />
+			Function: secondsToDay			</p>
+		
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /home/wahanafu/public_html/yukirim/index.php<br />
+			Line: 316<br />
+			Function: require_once			</p>
+(16:38) christ: ya thanks
+(16:39) IT Franky: untuk penawaran yang sudah disetujui, perlu dibedakan warnanya christ
+(16:40) IT Franky: terus kalau penawaran belum ada disetujui, perlu dbedakan warnanya antara penawaran yang ditolak dan masih open
+(16:40) IT Franky: biar ga bingung
+(16:42) IT Franky: terus di list kiriman di data sblh kiri atas tadi, perlu ada tambahan data lowest bid nya brp christ, biar isa tahu penawaran terendah yg masih open berapa
+(16:42) christ: ya
