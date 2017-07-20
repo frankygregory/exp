@@ -66,7 +66,7 @@ class Kiriman_ekspedisi extends MY_Controller
 		$kiriman = $this->Kiriman_ekspedisi_model->getSelesaiKiriman($user_id);
 		$iLength = sizeof($kiriman);
 		for ($i = 0; $i < $iLength; $i++) {
-			$waktu = $kiriman[$i]->waktu_kiriman;
+			$waktu = intval($kiriman[$i]->waktu_kiriman);
 			$kiriman[$i]->waktu_kiriman = $this->secondsToDay($waktu);
 			$waktu = $kiriman[$i]->total_waktu;
 			$kiriman[$i]->total_waktu = $this->secondsToDay($waktu);
@@ -89,6 +89,7 @@ class Kiriman_ekspedisi extends MY_Controller
 		$dtF = new \DateTime('@0');
 		$dtT = new \DateTime("@$seconds");
 		return $dtF->diff($dtT)->format('%a');
+		return $seconds;
 	}
 		
 	public function getKirimanSaya() {
