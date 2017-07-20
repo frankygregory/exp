@@ -15,7 +15,7 @@ class Home extends CI_Controller
 	public function loadModule($moduleName) {
 		$this->modules .= "<link href='" . base_url("assets/template/css/" . $moduleName . ".css") . "' rel='stylesheet'>" . "<script src='" . base_url("assets/template/js/" . $moduleName . ".js") . "'></script>";
 	}
-	//utk cek login
+	
 	public function cekLogin()
     {
 		$isLoggedIn = false;
@@ -186,6 +186,13 @@ class Home extends CI_Controller
     }
 	
 	public function doRegisterConsumer() {
+		$config["protocol"] = "smtp";
+		$config["smtp_host"] = "mail.wahanafurniture.com";
+		$config["smtp_user"] = "admin@wahanafurniture.com";
+		$config["smtp_pass"] = "admin123123";
+		$config["smtp_port"] = 587;
+		$this->load->library("email", $config);
+
 		$role = $this->input->post("role", true);
 		$konsumenChecked = "";
 		$ekspedisiChecked = "";
@@ -248,8 +255,20 @@ class Home extends CI_Controller
 				'password' => $password,
 				'terms' => $terms
 			);
-			$this->Registration_model->doRegister($insertData);
-			header("Location: " . base_url("#login"));
+			$result = $this->Registration_model->doRegister($insertData)[0];
+			if ($result->status == "success") {
+				$this->email->set_newline("\r\n");
+				$this->email->from("admin@wahanafurniture.com");
+				$this->email->to($email);
+				$this->email->subject("Verifikasi Yukirim");
+				$this->email->message("Terima kasih telah mendaftar. Untuk mengaktifkan account anda, silakan mengklik link di bawah ini:\n" . base_url("verify-email/" . $result->generated_token));
+				$this->email->send();
+
+				$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $email);
+				header("Location: " . base_url());
+			} else {
+				echo "error";
+			}
 		}
 	}
 	
@@ -279,6 +298,25 @@ class Home extends CI_Controller
 			}
 			echo $kembar;
 		}
+	}
+
+	public function verify_email($token) {
+		$isLoggedIn = $this->cekLogin();
+        $data = array(
+            'title' => 'Verifikasi',
+            'page_name' => "verify",
+			'additional_file' => "",
+			"isLoggedIn" => $isLoggedIn,
+			"modules" => $this->modules,
+			"activePage" => $this->activePage
+        );
+
+		$result = $this->Registration_model->verifyEmail($token)[0];
+		$data["result"] = $result;
+
+		$this->load->view('front/common/header', $data);
+        $this->load->view('front/verify', $data);
+		$this->load->view('front/common/footer', $data);
 	}
 
     public function getValue($inputname)

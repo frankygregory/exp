@@ -11,8 +11,14 @@ class Registration_model extends CI_Model
 
         $data["password"] = md5($data["password"]);
 		
-		$this->db->query("CALL register_user('" . $data["role"] . "', '" . $data["type"] . "', '" . $data["username"] . "', '" . $data["email"] . "', '" . $data["nama"] . "', '" . $data["alamat"] . "', '" . $data["telp"] . "', '" . $data["handphone"] . "', '" . $data["password"] . "', '" . $data["terms"] . "');");
+		$query = $this->db->query("CALL register_user('" . $data["role"] . "', '" . $data["type"] . "', '" . $data["username"] . "', '" . $data["email"] . "', '" . $data["nama"] . "', '" . $data["alamat"] . "', '" . $data["telp"] . "', '" . $data["handphone"] . "', '" . $data["password"] . "', '" . $data["terms"] . "');");
+		return $query->result();
     }
+
+	public function verifyEmail($token) {
+		$query = $this->db->query("CALL verify_user_email('" . $token . "');");
+		return $query->result();
+	}
 	
 	public function getUsername($username) {
 		$this->db->select('username');

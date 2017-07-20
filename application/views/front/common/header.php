@@ -19,7 +19,7 @@
 	<link href="<?=base_url()?>assets/front/css/default.css" rel="stylesheet">
 	<link href="<?=base_url()?>assets/front/css/header.css" rel="stylesheet" media="(orientation: landscape)">
 	<!--<link href="<?=base_url()?>assets/front/css/header - portrait.css" rel="stylesheet" media="(orientation: portrait)">-->
-	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css" rel="stylesheet">
+	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css?v=1" rel="stylesheet">
 	<?= $additional_file ?>
 
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>

@@ -57,6 +57,7 @@ $route['profil/(:any)'] = 'home/profil/$1';
 $route['profil/getStatistik'] = 'home/profil/getStatistik';
 $route['profil/getProfilRating'] = 'home/profil/getProfilRating';
 $route['profil/getProfilFeedback'] = 'home/profil/getProfilFeedback';
+$route["verify-email/(:any)"] = "home/verify_email/$1";
 $route['list-kiriman'] = 'home/list_kiriman';
 $route['how/pemilik-kendaraan'] = 'home/how/pemilik-kendaraan';
 $route['how/pemilik-barang'] = 'home/how/pemilik-barang';

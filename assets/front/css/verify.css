@@ -1,0 +1,14 @@
+.text {
+	text-align: center;
+	margin-top: 100px;
+}
+
+.text, .text a {
+	font-size: 14pt;
+}
+
+.footer {
+	width: 100vw;
+	position: absolute;
+	bottom: 0;
+}

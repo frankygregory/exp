@@ -1,5 +1,8 @@
 <div class="content">
 	<div class="section-1">
+		<?php if (isset($_SESSION["flash_message"])) { ?>
+		<div class="flash-message"><?php echo $_SESSION["flash_message"]; ?></div>
+		<?php } ?>
 		<div class="section-1-right">
 			<div class="section-1-title">
 				<div class="title-description">
