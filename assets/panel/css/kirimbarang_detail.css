@@ -94,6 +94,10 @@ td {
 	margin-bottom: 50px;
 }
 
+.table-section-1a .td-label {
+	width: 180px;
+}
+
 .item {
 	width: 100%;
 	padding: 1%;

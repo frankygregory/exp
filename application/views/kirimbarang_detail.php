@@ -22,6 +22,11 @@
 						<td><?php echo ($shipment_price == 0) ? "Tidak ditentukan" : number_format($shipment_price, 0, ".", ",") . " IDR" ?></td>
 					</tr>
 					<tr>
+						<td class="td-label">Penawaran terendah</td>
+						<td class="td-titikdua">:</td>
+						<td><?php echo ($bidding_price == 0) ? "Belum ada penawaran" : number_format($bidding_price, 0, ".", ",") . " IDR" ?></td>
+					</tr>
+					<tr>
 						<td class="td-label">Tanggal Kirim</td>
 						<td class="td-titikdua">:</td>
 						<td><?= date_format(new DateTime($shipment_delivery_date_from), "d-m-Y H:i") ?> s/d <?= date_format(new DateTime($shipment_delivery_date_to), "d-m-Y H:i") ?></td>
@@ -153,6 +158,15 @@
 								<td><?php echo $location_to_contact ?></td>
 							</tr>
 						<?php } ?>
+					</tbody>
+				</table>
+				<table class="table-lokasi">
+					<tbody>
+						<tr>
+							<td class="td-address-label">Jarak</td>
+							<td class="td-titikdua">:</td>
+							<td><?php echo number_format(intval($shipment_length), 0, ".", ",") ?> Km</td>
+						</tr>
 					</tbody>
 				</table>
 				<div class="form-group" id="map_asal" style="width: 100%; height: 200px"></div>

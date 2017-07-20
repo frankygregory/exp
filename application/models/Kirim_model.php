@@ -47,7 +47,7 @@ class Kirim_model extends CI_Model
 	
 	public function getShipment($shipment_id) {
 		$query = $this->db->query(
-			"SELECT s.*, u.username, b.user_id AS expedition_id
+			"SELECT s.*, u.username, b.user_id AS expedition_id, get_lowest_bidding_price(" . $shipment_id . ") AS bidding_price
 			FROM `m_shipment` s, `m_user` u
 			LEFT JOIN (SELECT shipment_id, user_id FROM `t_bidding` WHERE bidding_status = 1) b
 			ON b.shipment_id = " . $shipment_id . "

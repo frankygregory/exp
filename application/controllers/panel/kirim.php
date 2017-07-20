@@ -224,7 +224,7 @@ class Kirim extends MY_Controller
 			'title' => 'home',
 			'page_name' => "kirimbarang_detail",
 			'page_title'=> 'Detail Kiriman',
-			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css" rel="stylesheet">',
+			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css?v=1" rel="stylesheet">',
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => "",
 			"activePage" => $activePage,
@@ -278,6 +278,7 @@ class Kirim extends MY_Controller
 			'order_type_name' => $order_type_name,
 			'shipment_information' => $data[0]->shipment_information,
 			'shipment_status' => $data[0]->shipment_status,
+			'shipment_length' => $data[0]->shipment_length,
 			'location_from_contact' => $data[0]->location_from_contact,
 			'location_from_name' => $data[0]->location_from_name,
 			'location_from_city' => $data[0]->location_from_city,
@@ -296,6 +297,7 @@ class Kirim extends MY_Controller
 			'shipment_delivery_date_to' => $data[0]->shipment_delivery_date_to,
 			'shipment_end_date' => $data[0]->shipment_end_date,
 			'shipment_price' => $data[0]->shipment_price,
+			'bidding_price' => $data[0]->bidding_price,
 			'shipment_pictures' => $data[0]->shipment_pictures,
 			'items' => $items
 		);
