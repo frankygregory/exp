@@ -73,6 +73,9 @@
 			<a href="<?= base_url("kirim") ?>" class="<?= $activeMenu["cari_kiriman"] ?>">
 				<div>Cari Kiriman</div>
 			</a>
+			<a href="<?= base_url("penawaran") ?>" class="<?= $activeMenu["penawaran"] ?>">
+				<div>Penawaran</div>
+			</a>
 			<a href="<?= base_url("kiriman-darat-ekspedisi") ?>" class="<?= $activeMenu["kiriman_darat"] ?>">
 				<div>Kiriman Darat</div>
 			</a>

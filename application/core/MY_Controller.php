@@ -15,6 +15,7 @@ class MY_Controller extends CI_Controller
         "kiriman_saya" => "",
         "lokasi" => "",
         "cari_kiriman" => "",
+        "penawaran" => "",
         "kiriman_darat" => "",
         "kiriman_laut" => "",
         "kendaraan" => "",
