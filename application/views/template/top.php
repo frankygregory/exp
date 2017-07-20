@@ -165,10 +165,23 @@ function toggleProfileDropdown(e) {
 	e.stopPropagation();
 }
 
-function isNumber(e) {
+/*function isNumber(e) {
 	if ((e.which >= 65 && e.which <= 90) || e.which >= 186) {
 		e.preventDefault();
 	}
+}*/
+
+function isNumber(e) {
+	if (e.key.length == 1) {
+		if ("0123456789".indexOf(e.key) < 0) {
+			e.preventDefault();
+		}
+	}
+}
+
+function isInputNumber(element) {
+	let value = element.val();
+	
 }
 
 function showDialog(dialog) {
