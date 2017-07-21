@@ -13,21 +13,25 @@ class Kirim extends MY_Controller
 
     public function index()
     {
-		$this->loadModule("pagination");
-		$role_id = $this->session->userdata("role_id");
-		$page_title = "List Kiriman";
-		if ($role_id == 2) {
-			$page_title = "Cari Kiriman";
-			$this->activeMenu["cari_kiriman"] = "active";
-		}
-		
-        $data = array(
-            'title' => 'All',
-			'role_id' => $role_id,
-			'page_title' => $page_title,
-        );
+		if ($this->session->userdata("user_id")) {
+			$this->loadModule("pagination");
+			$role_id = $this->session->userdata("role_id");
+			$page_title = "List Kiriman";
+			if ($role_id == 2) {
+				$page_title = "Cari Kiriman";
+				$this->activeMenu["cari_kiriman"] = "active";
+			}
+			
+			$data = array(
+				'title' => 'All',
+				'role_id' => $role_id,
+				'page_title' => $page_title,
+			);
 
-        parent::template('kirim', $data);
+			parent::template('kirim', $data);
+		} else {
+			header("Location: " . base_url("list-kiriman"));
+		}
     }
 	
 	function secondsToTime($seconds) {
