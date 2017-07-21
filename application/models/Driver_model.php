@@ -20,7 +20,7 @@ class Driver_model extends CI_Model
 		);
 			
 		$this->db->insert("m_driver", $insertData);
-		return $this->db->affected_rows();
+		return $this->db;
 	}
 	
 	public function updateDriver($data) {
@@ -34,7 +34,7 @@ class Driver_model extends CI_Model
 			"modified_by" => $data["modified_by"]
 		);
 		$this->db->update("m_driver", $updateData);
-		return $this->db->affected_rows();
+		return $this->db;
 	}
 	
 	public function toggleDriverAktif($data) {
@@ -44,7 +44,7 @@ class Driver_model extends CI_Model
 			"modified_by" => $data["modified_by"]
 		);
 		$this->db->update("m_driver", $updateData);
-		return $this->db->affected_rows();
+		return $this->db;
 	}
 	
 	public function getDriverByUserId($user_id) {
@@ -60,11 +60,12 @@ class Driver_model extends CI_Model
 	}
 	
 	public function deleteDriver($driver_id, $user_id) {
-		$query = $this->db->query("
-			UPDATE `m_driver`
-			SET driver_status = -1, modified_by = '" . $user_id . "'
-			WHERE driver_id = '" . $driver_id . "'
-		");
-		return 1;
+		$this->db->where("driver_id", $driver_id);
+		$updateData = array(
+			"driver_status" => -1,
+			"modified_by" => $user_id
+		);
+		$this->db->update("m_driver", $updateData);
+		return $this->db;
 	}
 }

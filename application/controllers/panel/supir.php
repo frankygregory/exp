@@ -33,15 +33,15 @@ class Supir extends MY_Controller
 	
 	public function tambahSupir() {
 		$submit_tambah = $this->input->post("submit_tambah");
-		if ($submit_tambah != null) {
-			$driver_name = $this->input->post("driver_name");
-			$driver_handphone = $this->input->post("driver_handphone");
-			$driver_address = $this->input->post("driver_address");
-			$driver_information = $this->input->post("driver_information");
-			$driver_status = intval($this->input->post("driver_status"));
-			$user_id = $this->session->userdata("user_id");
-			$group_id = $this->session->userdata("group_id");
-			
+		$driver_name = $this->input->post("driver_name");
+		$driver_handphone = $this->input->post("driver_handphone");
+		$driver_address = $this->input->post("driver_address");
+		$driver_information = $this->input->post("driver_information");
+		$driver_status = intval($this->input->post("driver_status"));
+		$user_id = $this->session->userdata("user_id");
+		$group_id = $this->session->userdata("group_id");
+
+		if ($submit_tambah && $driver_name && $driver_handphone && $driver_address && $driver_information) {
 			$insertData = array(
 				"driver_name" => $driver_name,
 				"driver_handphone" => $driver_handphone,
@@ -51,28 +51,22 @@ class Supir extends MY_Controller
 				"user_id" => $user_id,
 				"group_id" => $group_id
 			);
-			$affected_rows = $this->Driver_model->addDriver($insertData);
-			if ($affected_rows > 0) {
-				echo "success";
-			} else {
-				echo "no rows affected. WHY??";
-			}
-		} else {
-			
+			$db = $this->Driver_model->addDriver($insertData);
+			parent::generate_common_results($db, "ci");
 		}
 	}
 	
 	public function updateSupir() {
 		$submit_update = $this->input->post("submit_update");
-		if ($submit_update != null) {
-			$driver_id = $this->input->post("driver_id");
-			$driver_name = $this->input->post("driver_name");
-			$driver_handphone = $this->input->post("driver_handphone");
-			$driver_address = $this->input->post("driver_address");
-			$driver_information = $this->input->post("driver_information");
-			$driver_status = intval($this->input->post("driver_status"));
-			$user_id = $this->session->userdata("user_id");
-			
+		$driver_id = $this->input->post("driver_id");
+		$driver_name = $this->input->post("driver_name");
+		$driver_handphone = $this->input->post("driver_handphone");
+		$driver_address = $this->input->post("driver_address");
+		$driver_information = $this->input->post("driver_information");
+		$driver_status = intval($this->input->post("driver_status"));
+		$user_id = $this->session->userdata("user_id");
+
+		if ($submit_update && $driver_id && $driver_name && $driver_handphone && $driver_address) {
 			$data = array(
 				"driver_id" => $driver_id,
 				"driver_name" => $driver_name,
@@ -82,14 +76,8 @@ class Supir extends MY_Controller
 				"driver_status" => $driver_status,
 				"modified_by" => $user_id
 			);
-			$affected_rows = $this->Driver_model->updateDriver($data);
-			if ($affected_rows > 0) {
-				echo "success";
-			} else {
-				echo "no rows affected. WHY??";
-			}
-		} else {
-			
+			$db = $this->Driver_model->updateDriver($data);
+			parent::generate_common_results($db, "ci");
 		}
 	}
 	
@@ -102,22 +90,16 @@ class Supir extends MY_Controller
 			"driver_status" => $driver_status,
 			"modified_by" => $user_id
 		);
-		$affected_rows = $this->Driver_model->toggleDriverAktif($data);
-		if ($affected_rows > 0) {
-			echo "success";
-		} else {
-			echo "no rows affected. WHY??";
-		}
+		$db = $this->Driver_model->toggleDriverAktif($data);
+		parent::generate_common_results($db, "ci");
 	}
 	
 	public function deleteSupir() {
 		$driver_id = $this->input->post("driver_id");
 		$user_id = $this->session->userdata("user_id");
-		$affected_rows = $this->Driver_model->deleteDriver($driver_id, $user_id);
-		if ($affected_rows > 0) {
-			echo "success";
-		} else {
-			echo "no rows affected. WHY??";
+		if ($driver_id) {
+			$db = $this->Driver_model->deleteDriver($driver_id, $user_id);
+			parent::generate_common_results($db, "ci");
 		}
 	}
 }

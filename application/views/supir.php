@@ -196,12 +196,13 @@ function deleteSupir(element) {
 		submit_delete: true,
 		driver_id: driver_id
 	};
-	ajaxCall("<?= base_url("supir/deleteSupir") ?>", data, function(result) {
-		if (result == "success") {
-			closeDialog();
+	ajaxCall("<?= base_url("supir/deleteSupir") ?>", data, function(json) {
+		closeDialog();
+		var result = JSON.parse(json);
+		if (result.status == "success") {
 			getSupir();
 		} else {
-			alert(result);
+			alert("terjadi kesalahan");
 		}
 	});
 }
@@ -214,12 +215,13 @@ function toggleDriverAktif(element) {
 		driver_id: driver_id,
 		driver_status: driver_status
 	};
-	ajaxCall("<?= base_url("supir/toggleSupirAktif") ?>", data, function(result) {
-		if (result == "success") {
-			closeDialog();
+	ajaxCall("<?= base_url("supir/toggleSupirAktif") ?>", data, function(json) {
+		closeDialog();
+		var result = JSON.parse(json);
+		if (result.status == "success") {
 			getSupir();
 		} else {
-			alert(result);
+			alert("terjadi kesalahan");
 		}
 	});
 }
@@ -290,12 +292,13 @@ function updateSupir() {
 			driver_information: driver_information,
 			driver_status: driver_status
 		};
-		ajaxCall("<?= base_url("supir/updateSupir") ?>", data, function(result) {
-			if (result == "success") {
-				closeDialog();
+		ajaxCall("<?= base_url("supir/updateSupir") ?>", data, function(json) {
+			closeDialog();
+			var result = JSON.parse(json);
+			if (result.status == "success") {
 				getSupir();
 			} else {
-				alert(result);
+				alert("terjadi kesalahan");
 			}
 		});
 	}
@@ -318,12 +321,13 @@ function tambahSupir() {
 			driver_information: driver_information,
 			driver_status: driver_status
 		};
-		ajaxCall("<?= base_url("supir/tambahSupir") ?>", data, function(result) {
-			if (result == "success") {
-				closeDialog();
+		ajaxCall("<?= base_url("supir/tambahSupir") ?>", data, function(json) {
+			var result = JSON.parse(json);
+			closeDialog();
+			if (result.status == "success") {
 				getSupir();
 			} else {
-				
+				alert("terjadi kesalahan");
 			}
 		});
 	}
