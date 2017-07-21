@@ -12,7 +12,7 @@
 					<tr>
 						<td class="">Username</td>
 						<td>
-							<input type="text" class="input-insert-username" />
+							<input type="text" class="input-insert-username" maxlength="15" />
 							<div class="error"></div>
 						</td>
 					</tr>
@@ -410,10 +410,14 @@ function insertUser() {
 			user_level: user_level
 		};
 		
-		ajaxCall("<?= base_url("user/addOtherUser") ?>", data, function(result) {
-			if (result == "success") {
-				closeDialog();
+		ajaxCall("<?= base_url("user/addOtherUser") ?>", data, function(json) {
+			closeDialog();
+			var result = JSON.parse(json);
+			if (result.status == "success") {
+				alert(result.message);
 				getUser();
+			} else {
+				alert(result.status);
 			}
 		});
 	}

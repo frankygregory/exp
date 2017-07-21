@@ -108,11 +108,12 @@ var innerHeight = window.innerHeight;
 
 $(function() {
 	initialize();
-
-	var hash = window.location.hash;
-	if (hash == "#login") {
-		toggleLoginDialog();
-	}
+	<?php if (!$isLoggedIn) { ?>
+		var hash = window.location.hash;
+		if (hash == "#login") {
+			toggleLoginDialog();
+		}
+	<?php } ?>
 	
 	$(window).on("resize", function() {
 		initialize();

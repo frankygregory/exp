@@ -31,8 +31,8 @@ class User_model extends CI_Model{
 	
 	public function add_other_user($data) {
 		$data["password"] = md5($data["password"]);
-		$this->db->query("CALL add_other_user('" . $data["role_id"] . "', '" . $data["type_id"] . "', '" . $data["username"] . "', '" . $data["user_email"] . "', '" . $data["group_ids"] . "', '" . $data["user_level"] . "', '" . $data["user_id_ref"] . "', '" . $data["password"] . "', '" . $data["user_fullname"] . "');");
-		return 1;
+		$query = $this->db->query("CALL add_other_user('" . $data["role_id"] . "', '" . $data["type_id"] . "', '" . $data["username"] . "', '" . $data["user_email"] . "', '" . $data["group_ids"] . "', '" . $data["user_level"] . "', '" . $data["user_id_ref"] . "', '" . $data["password"] . "', '" . $data["user_fullname"] . "');");
+		return $query->result();
 	}
 	
 	public function updateUser($data) {

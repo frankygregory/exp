@@ -96,6 +96,15 @@ class MY_Controller extends CI_Controller
         }
     }
 
+    public function get_default_email_config() {
+        $config["protocol"] = "smtp";
+		$config["smtp_host"] = "mail.wahanafurniture.com";
+		$config["smtp_user"] = "admin@wahanafurniture.com";
+		$config["smtp_pass"] = "admin123123";
+		$config["smtp_port"] = 587;
+        return $config;
+    }
+
     public function queryData($select) {
         return $this->M_GenFunc->querydata($select);
     }

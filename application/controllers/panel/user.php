@@ -9,30 +9,14 @@ class User extends MY_Controller
 		$this->load->model("User_model");
     }
 	
-	/*function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
+	function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
 		$str = '';
 		$max = mb_strlen($keyspace, '8bit') - 1;
 		for ($i = 0; $i < $length; ++$i) {
-			$str .= $keyspace[random_int(0, $max)];
+			$str .= $keyspace[mt_rand(0, $max)];
 		}
 		return $str;
-	}*/
-	
-	function random_str($qtd){ 
-		//Under the string $Caracteres you write all the characters you want to be used to randomly generate the code. 
-		$Caracteres = 'ABCDEFGHIJKLMOPQRSTUVXWYZ0123456789'; 
-		$QuantidadeCaracteres = strlen($Caracteres); 
-		$QuantidadeCaracteres--; 
-
-		$Hash=NULL; 
-			for($x=1;$x<=$qtd;$x++){ 
-				$Posicao = rand(0,$QuantidadeCaracteres); 
-				$Hash .= substr($Caracteres,$Posicao,1); 
-			} 
-
-		//return $Hash; 
-		return "123456";
-	} 
+	}
 
     public function index()
     {
@@ -115,6 +99,9 @@ class User extends MY_Controller
 	}
 	
 	public function addOtherUser() {
+		$config = parent::get_default_email_config();
+		$this->load->library("email", $config);
+
 		$username = $this->input->post("username");
 		$user_email = $this->input->post("user_email");
 		$user_fullname = $this->input->post("user_fullname");
@@ -142,11 +129,24 @@ class User extends MY_Controller
 			"user_fullname" => $user_fullname
 		);
 		
-		$affected_rows = $this->User_model->add_other_user($data);
-		if ($affected_rows > 0) {
-			echo "success";
+		$result = $this->User_model->add_other_user($data)[0];
+		if ($result->status == "success") {
+			$this->email->set_newline("\r\n");
+			$this->email->from("admin@wahanafurniture.com");
+			$this->email->to($user_email);
+			$this->email->subject("Verifikasi Yukirim");
+			$this->email->message("Terima kasih telah mendaftar.\nPassword untuk account ini adalah :\n\n" . $password . "\n\nUntuk mengaktifkan account anda, silakan mengklik link di bawah ini:\n" . base_url("verify-email/" . $result->generated_token));
+			$this->email->send();
+
+			$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $user_email);
+			echo json_encode(array(
+				"status" => "success",
+				"message" => "Password dan kode verifikasi untuk mengaktifkan account anda telah dikirim ke " . $user_email
+			));
 		} else {
-			echo "no rows affected. WHY??";
+			echo json_encode(array(
+				"status" => "error"
+			));
 		}
 	}
 	
