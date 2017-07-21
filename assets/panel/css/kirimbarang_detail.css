@@ -253,6 +253,22 @@ td {
 	width: 100% !important;
 }
 
+.tr-bidding {
+	background-color: white !important;
+}
+
+.tr-bidding[data-status="1"] {
+	background-color: #CCFF90 !important;
+}
+
+.tr-bidding[data-status="-1"], .tr-bidding[data-status="2"] {
+	opacity: 0.7;
+}
+
+.tr-bidding[data-status="-1"]:hover, .tr-bidding[data-status="2"]:hover {
+	opacity: 1;
+}
+
 td.td-label {
 	width: 150px;
 	padding-top: 10px;

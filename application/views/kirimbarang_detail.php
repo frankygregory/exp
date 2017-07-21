@@ -752,7 +752,8 @@ function addBiddingListToTable(result) {
 		if (result.data[i].bidding_type == 2) {
 			bidding_type = "Laut";
 		}
-		element += "<tr class='tr-bidding' <?= $tr_bidding ?>>";
+
+		element += "<tr class='tr-bidding' data-status='" + result.data[i].bidding_status + "' <?= $tr_bidding ?>>";
 		element += "<td class='td-bidding-price' data-value='" + result.data[i].bidding_price + "'>" + addCommas(result.data[i].bidding_price) + " IDR</td>";
 		element += "<td class='td-bidding-type' data-value='" + bidding_type + "'>" + bidding_type + "</td>";
 		element += "<td class='td-bidding-username'><a href='" + profilUrl + result.data[i].user_id + "'>" + result.data[i].username + "</a></td>";
