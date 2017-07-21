@@ -38,14 +38,14 @@ class Kendaraan extends MY_Controller
 	
 	public function tambahKendaraan() {
 		$submit_tambah = $this->input->post("submit_tambah");
-		if ($submit_tambah != null) {
-			$vehicle_nomor = $this->input->post("vehicle_nomor");
-			$vehicle_name = $this->input->post("vehicle_name");
-			$vehicle_information = $this->input->post("vehicle_information");
-			$vehicle_status = intval($this->input->post("vehicle_status"));
-			$user_id = $this->session->userdata("user_id");
-			$group_id = $this->session->userdata("group_id");
-			
+		$vehicle_nomor = $this->input->post("vehicle_nomor");
+		$vehicle_name = $this->input->post("vehicle_name");
+		$vehicle_information = $this->input->post("vehicle_information");
+		$vehicle_status = intval($this->input->post("vehicle_status"));
+		$user_id = $this->session->userdata("user_id");
+		$group_id = $this->session->userdata("group_id");
+
+		if ($submit_tambah && $vehicle_nomor && $vehicle_name && $vehicle_information) {
 			$insertData = array(
 				"vehicle_nomor" => $vehicle_nomor,
 				"vehicle_name" => $vehicle_name,
@@ -55,30 +55,22 @@ class Kendaraan extends MY_Controller
 				"group_id" => $group_id
 			);
 			$db = $this->Kendaraan_model->addKendaraan($insertData);
-			if ($db->affected_rows() > 0) {
-				echo json_encode(array("status" => "success"));
-			} else {
-				echo json_encode(array(
-					"status" => "error",
-					"error_code" => $db->error()["code"],
-					"error_message" => $db->error()["message"]
-				));
-			}
+			parent::generate_common_results($db, "ci");
 		} else {
-			header("Location: " . base_url("dashboard"));
+			header("Location: " . base_url());
 		}
 	}
 	
 	public function updateKendaraan() {
 		$submit_update = $this->input->post("submit_update");
-		if ($submit_update != null) {
-			$vehicle_id = $this->input->post("vehicle_id");
-			$vehicle_nomor = $this->input->post("vehicle_nomor");
-			$vehicle_name = $this->input->post("vehicle_name");
-			$vehicle_information = $this->input->post("vehicle_information");
-			$vehicle_status = intval($this->input->post("vehicle_status"));
-			$user_id = $this->session->userdata("user_id");
-			
+		$vehicle_id = $this->input->post("vehicle_id");
+		$vehicle_nomor = $this->input->post("vehicle_nomor");
+		$vehicle_name = $this->input->post("vehicle_name");
+		$vehicle_information = $this->input->post("vehicle_information");
+		$vehicle_status = intval($this->input->post("vehicle_status"));
+		$user_id = $this->session->userdata("user_id");
+
+		if ($submit_update && $vehicle_id && $vehicle_nomor && $vehicle_name && $vehicle_information) {
 			$updateData = array(
 				"vehicle_id" => $vehicle_id,
 				"vehicle_nomor" => $vehicle_nomor,
@@ -87,14 +79,10 @@ class Kendaraan extends MY_Controller
 				"vehicle_status" => $vehicle_status,
 				"user_id" => $user_id
 			);
-			$affected_rows = $this->Kendaraan_model->updateKendaraan($updateData);
-			if ($affected_rows > 0) {
-				echo "success";
-			} else {
-				echo "no rows affected. WHY??";
-			}
+			$db = $this->Kendaraan_model->updateKendaraan($updateData);
+			parent::generate_common_results($db, "ci");
 		} else {
-			header("Location: " . base_url("dashboard"));
+			header("Location: " . base_url());
 		}
 	}
 	
@@ -102,32 +90,27 @@ class Kendaraan extends MY_Controller
 		$vehicle_status = intval($this->input->post("vehicle_status"));
 		$vehicle_id = $this->input->post("vehicle_id");
 		$user_id = $this->session->userdata("user_id");
-		$data = array(
-			"vehicle_id" => $vehicle_id,
-			"vehicle_status" => $vehicle_status,
-			"modified_by" => $user_id
-		);
-		$affected_rows = $this->Kendaraan_model->toggleKendaraanAktif($data);
-		if ($affected_rows > 0) {
-			echo "success";
-		} else {
-			echo "no rows affected. WHY??";
+		if ($vehicle_id) {
+			$data = array(
+				"vehicle_id" => $vehicle_id,
+				"vehicle_status" => $vehicle_status,
+				"modified_by" => $user_id
+			);
+			$db = $this->Kendaraan_model->toggleKendaraanAktif($data);
+			parent::generate_common_results($db, "ci");
 		}
 	}
 	
 	public function deleteKendaraan() {
 		$submit_delete = $this->input->post("submit_delete");
-		if ($submit_delete != null) {
-			$vehicle_id = $this->input->post("vehicle_id");
-			$user_id = $this->session->userdata("user_id");
-			$affected_rows = $this->Kendaraan_model->deleteKendaraan($vehicle_id, $user_id);
-			if ($affected_rows > 0) {
-				echo "success";
-			} else {
-				echo "no rows affected. WHY??";
-			}
+		$vehicle_id = $this->input->post("vehicle_id");
+		$user_id = $this->session->userdata("user_id");
+
+		if ($submit_delete && $vehicle_id) {
+			$db = $this->Kendaraan_model->deleteKendaraan($vehicle_id, $user_id);
+			parent::generate_common_results($db, "ci");
 		} else {
-			
+			header("Location: " . base_url());
 		}
 	}
 

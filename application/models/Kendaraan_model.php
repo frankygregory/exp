@@ -31,7 +31,7 @@ class Kendaraan_model extends CI_Model
 			"modified_by" => $data["user_id"]
 		);
 		$this->db->update("m_vehicle", $updateData);
-		return $this->db->affected_rows();
+		return $this->db;
 	}
 	
 	public function toggleKendaraanAktif($data) {
@@ -41,7 +41,7 @@ class Kendaraan_model extends CI_Model
 			"modified_by" => $data["modified_by"]
 		);
 		$this->db->update("m_vehicle", $updateData);
-		return $this->db->affected_rows();
+		return $this->db;
 	}
 	
 	public function getKendaraanByUserId($user_id) {
@@ -57,11 +57,12 @@ class Kendaraan_model extends CI_Model
 	}
 	
 	public function deleteKendaraan($vehicle_id, $user_id) {
-		$query = $this->db->query("
-			UPDATE `m_vehicle`
-			SET vehicle_status = -1, modified_by = '" . $user_id . "'
-			WHERE vehicle_id = '" . $vehicle_id . "'
-		");
-		return 1;
+		$this->db->where("vehicle_id", $vehicle_id);
+		$updateData = array(
+			"vehicle_status" => -1,
+			"modified_by" => $user_id
+		);
+		$this->db->update("m_vehicle", $updateData);
+		return $this->db;
 	}
 }
