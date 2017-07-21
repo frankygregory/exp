@@ -97,6 +97,20 @@ button {
 	color: white !important;
 }
 
+.btn-action {
+  width: 40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: center;
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+.btn-action:hover {
+  border: 1px solid black;
+}
+
 .error {
 	color: red;
 	font-weight: normal;

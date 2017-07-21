@@ -302,8 +302,8 @@ function addLocationToTable(result) {
 			tujuan = "Tidak";
 		}
 		
-		var btnEdit = "<button class='btn-default btn-edit'>Edit</button>";
-		var btnDelete = "<button class='btn-negative btn-delete'>Delete</button>";
+		var btnEdit = "<button class='btn-action btn-edit' title='edit' style='background-image: url(" + editIconUrl + ");'></button>";
+		var btnDelete = "<button class='btn-action btn-delete' title='delete' style='background-image: url(" + deleteIconUrl + ");'></button>";
 		element += "<tr class='tr-lokasi' data-id='" + result[i].location_id + "' data-lat='" + result[i].location_lat + "' data-lng='" + result[i].location_lng + "'>";
 		element += "<td data-align='center'>" + (i + 1) + "</td>";
 		element += "<td class='td-location_name'>" + result[i].location_name + "</td>";

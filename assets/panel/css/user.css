@@ -35,8 +35,12 @@ label {
 	display: block;
 }
 
+.table-user {
+	width: 1150px !important;
+}
+
 .table-group {
-	width: 450px !important;
+	width: 400px !important;
 }
 
 td[data-col="no"] {
@@ -64,7 +68,7 @@ td[data-col="status"] {
 }
 
 td[data-col="action"] {
-	width: 200px;
+	width: 150px;
 }
 
 .error {
@@ -76,9 +80,9 @@ td[data-col="action"] {
 }
 
 .section-1 .table-empty-state {
-	width: 1200px;
+	width: 1150px;
 }
 
 .section-2 .table-empty-state {
-	width: 450px;
+	width: 400px;
 }

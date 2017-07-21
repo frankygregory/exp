@@ -457,8 +457,8 @@ function addUserToTable(result) {
 				status = "Tidak Aktif";
 			}
 			
-			var btnEdit = "<button class='btn-default btn-edit-user'>Edit</button>";
-			var btnDelete = "<button class='btn-negative btn-delete-user'>Delete</button>";
+			var btnEdit = "<button class='btn-action btn-edit-user' title='edit' style='background-image: url(" + editIconUrl + ");'></button>";
+			var btnDelete = "<button class='btn-action btn-delete-user' title='delete' style='background-image: url(" + deleteIconUrl + ");'></button>";
 			
 			element += "<tr class='tr-user' data-id='" + result[i].user_id + "'>";
 			element += "<td data-col='no' data-align='center'>" + (i + 1) + "</td>";
@@ -545,7 +545,7 @@ function addGroupsToTable(result) {
 	var checkbox = "", checkboxEdit = "";
 	var group_name = "";
 	var iLength = result.length;
-	var btnDelete = "<button class='btn-negative btn-delete-group'>Delete</button>";
+	var btnDelete = "<button class='btn-action btn-delete-group' title='delete' style='background-image: url(" + deleteIconUrl + ");'></button>";
 	if (iLength == 1) {
 		btnDelete = "";
 	}
@@ -557,7 +557,7 @@ function addGroupsToTable(result) {
 		element += "<tr class='tr-group' data-id='" + result[i].group_id + "' data-name='" + group_name + "'>";
 		element += "<td data-col='no' data-align='center'>" + (i + 1) + "</td>";
 		element += "<td class='td-group_name' data-col='nama'>" + group_name + "</td>";
-		element += "<td data-col='action'><button class='btn-default btn-edit-group'>Edit</button>" + btnDelete + "</td>";
+		element += "<td data-col='action'><button class='btn-action btn-edit-group' title='edit' style='background-image: url(" + editIconUrl + ");'></button>" + btnDelete + "</td>";
 		element += "</tr>";
 		
 		checkbox += "<label class='label-checkbox-group'><input type='checkbox' class='input-insert-user_group_id' value='" + result[i].group_id + "' /> " + group_name + "</label>";

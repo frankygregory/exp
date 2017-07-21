@@ -52,7 +52,7 @@ td[data-col="status"] {
 }
 
 td[data-col="action"] {
-  width: 160px;
+  width: 100px;
 }
 
 @media screen and (max-width: 600px) {

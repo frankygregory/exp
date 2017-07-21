@@ -33,7 +33,7 @@
 	width: 180px;
 }
 .table-alat td[data-col="action"] {
-	width: 180px;
+	width: 100px;
 }
 
 .table-empty-state {

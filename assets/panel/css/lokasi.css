@@ -36,7 +36,7 @@
 	width: 70px;
 }
 .table-lokasi td[data-col="action"] {
-	width: 150px;
+	width: 100px;
 }
 
 .table-empty-state {

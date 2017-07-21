@@ -16,10 +16,10 @@
 			src: url(<?= base_url("assets/fonts/Roboto-Regular.ttf") ?>);
 		}
 	</style>
-	<link href="<?=base_url()?>assets/panel/css/default.css" rel="stylesheet">
+	<link href="<?=base_url()?>assets/panel/css/default.css?v=1" rel="stylesheet">
 	<link href="<?=base_url()?>assets/template/css/top.css" rel="stylesheet" media="(orientation: landscape)">
 	<link href="<?=base_url()?>assets/template/css/top - portrait.css" rel="stylesheet" media="(orientation: portrait)">
-	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=6" rel="stylesheet">
+	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=7" rel="stylesheet">
 	
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
 	<script src="<?=base_url('assets/panel/js/velocity.min.js')?>"></script>
@@ -111,7 +111,8 @@ var dialog = {
 	shown: false
 };
 var ajaxVariable;
-
+var editIconUrl = "<?php echo base_url("assets/icons/ic_edit_black_24px.svg") ?>";
+var deleteIconUrl = "<?php echo base_url("assets/icons/ic_delete_forever_black_24px.svg") ?>";
 $(function() {
 	$(".nav-account").on("click", function(e) {
 		toggleProfileDropdown(e);

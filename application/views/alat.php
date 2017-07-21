@@ -373,8 +373,8 @@ function addAlatToTable(no, result) {
 	var btnAktif = "<button class='btn-default btn-toggle btn-aktif' data-value='1' " + aktifDisabled + ">Aktif</button>";
 	var btnTidakAktif = "<button class='btn-default btn-toggle btn-tidak-aktif' data-value='0' " + tidakAktifDisabled + ">Tidak Aktif</button>";
 	
-	var btnEdit = "<button class='btn-default btn-edit' data-id='" + result.device_id + "'>Edit</button>";
-	var btnDelete = "<button class='btn-negative btn-delete' data-id='" + result.device_id + "'>Delete</button>";
+	var btnEdit = "<button class='btn-action btn-edit' title='edit' style='background-image: url(" + editIconUrl + ");' data-id='" + result.device_id + "'></button>";
+	var btnDelete = "<button class='btn-action btn-delete' title='delete' style='background-image: url(" + deleteIconUrl + ");' data-id='" + result.device_id + "'></button>";
 	
 	var element = "<tr class='tr-alat' data-id='" + result.device_id + "'><td class='td-no'>" + no + "</td><td class='td-name'>" + result.device_name + "</td><td class='td-information'>" + result.device_information + "</td><td class='td-email'>" + result.device_email + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td class='td-status'>" + btnAktif + btnTidakAktif + "</td><td class='td-action'>" + btnEdit + btnDelete + "</td></tr>";
 	$(".tbody-alat").append(element);
