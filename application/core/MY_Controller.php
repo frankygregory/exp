@@ -80,6 +80,22 @@ class MY_Controller extends CI_Controller
         $this->load->view('template/bottom');
     }
 
+    public function generate_common_results($db, $source = "ci") {
+        if ($source == "ci") {
+            if ($db->error()["code"] == "0") {
+                echo json_encode(array(
+                    "status" => "success"
+                ));
+            } else {
+                echo json_encode(array(
+                    "status" => "error",
+                    "error_code" => $db->error()["code"],
+                    "error_message" => $db->error()["message"]
+                ));
+            }
+        }
+    }
+
     public function queryData($select) {
         return $this->M_GenFunc->querydata($select);
     }

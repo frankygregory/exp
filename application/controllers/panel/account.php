@@ -63,7 +63,7 @@ class Account extends MY_Controller
 				} else {
 					echo json_encode(array(
 						"status" => "error",
-						"error_message" => $db->error()
+						"error_message" => $db->error()["message"]
 					));
 				}
 			} else {

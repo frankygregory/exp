@@ -21,7 +21,7 @@ class Alat_model extends CI_Model
 		);
 			
 		$this->db->insert("m_device_customer", $insertData);
-		return $this->db->affected_rows();
+		return $this->db;
 	}
 	
 	public function updateAlat($data) {
@@ -34,7 +34,7 @@ class Alat_model extends CI_Model
 			"modified_by" => $data["modified_by"]
 		);
 		$this->db->update("m_device_customer", $updateData);
-		return $this->db->affected_rows();
+		return $this->db;
 	}
 	
 	public function toggleAlatAktif($data) {
@@ -44,7 +44,7 @@ class Alat_model extends CI_Model
 			"modified_by" => $data["modified_by"]
 		);
 		$this->db->update("m_device_customer", $updateData);
-		return $this->db->affected_rows();
+		return $this->db;
 	}
 	
 	public function getAlatByUserId($user_id) {
@@ -60,11 +60,12 @@ class Alat_model extends CI_Model
 	}
 	
 	public function deleteAlat($device_id, $user_id) {
-		$query = $this->db->query("
-			UPDATE `m_device_customer`
-			SET device_status = -1, modified_by = '" . $user_id . "'
-			WHERE device_id = '" . $device_id . "'
-		");
-		return 1;
+		$this->db->where("device_id", $device_id);
+		$updateData = array(
+			"device_status" => -1,
+			"modified_by" => $user_id
+		);
+		$this->db->update("m_device_customer", $updateData);
+		return $this->db;
 	}
 }

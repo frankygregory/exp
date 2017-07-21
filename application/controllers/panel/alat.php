@@ -28,12 +28,13 @@ class Alat extends MY_Controller
 	
 	public function tambahAlat() {
 		$submit_tambah = $this->input->post("submit_tambah");
-		if ($submit_tambah != null) {
-			$device_name = $this->input->post("device_name", true);
-			$device_information = $this->input->post("device_information", true);
-			$device_email = $this->input->post("device_email", true);
-			$device_password = $this->input->post("device_password", true);
-			$device_status = intval($this->input->post("device_status", true));
+		$device_name = $this->input->post("device_name", true);
+		$device_information = $this->input->post("device_information", true);
+		$device_email = $this->input->post("device_email", true);
+		$device_password = $this->input->post("device_password", true);
+		$device_status = intval($this->input->post("device_status", true));
+
+		if ($submit_tambah && $device_name && $device_information && $device_email && $device_password) {
 			$user_id = $this->session->userdata("user_id", true);
 			$group_id = $this->session->userdata("group_id", true);
 			
@@ -46,25 +47,20 @@ class Alat extends MY_Controller
 				"user_id" => $user_id,
 				"group_id" => $group_id
 			);
-			$affected_rows = $this->Alat_model->addAlat($insertData);
-			if ($affected_rows > 0) {
-				echo "success";
-			} else {
-				echo "no rows affected. WHY??";
-			}
-		} else {
-			
+			$db = $this->Alat_model->addAlat($insertData);
+			parent::generate_common_results($db, "ci");
 		}
 	}
 	
 	public function updateAlat() {
 		$submit_update = $this->input->post("submit_update");
-		if ($submit_update != null) {
-			$device_id = $this->input->post("device_id");
-			$device_name = $this->input->post("device_name");
-			$device_email = $this->input->post("device_email");
-			$device_information = $this->input->post("device_information");
-			$device_status = intval($this->input->post("device_status"));
+		$device_id = $this->input->post("device_id");
+		$device_name = $this->input->post("device_name");
+		$device_email = $this->input->post("device_email");
+		$device_information = $this->input->post("device_information");
+		$device_status = intval($this->input->post("device_status"));
+
+		if ($submit_update && $device_id && $device_name && $device_email && $device_information) {
 			$user_id = $this->session->userdata("user_id");
 			
 			$data = array(
@@ -75,14 +71,8 @@ class Alat extends MY_Controller
 				"device_status" => $device_status,
 				"modified_by" => $user_id
 			);
-			$affected_rows = $this->Alat_model->updateAlat($data);
-			if ($affected_rows > 0) {
-				echo "success";
-			} else {
-				echo "no rows affected. WHY??";
-			}
-		} else {
-			
+			$db = $this->Alat_model->updateAlat($data);
+			parent::generate_common_results($db, "ci");
 		}
 	}
 	
@@ -90,27 +80,21 @@ class Alat extends MY_Controller
 		$device_id = $this->input->post("device_id");
 		$device_status = intval($this->input->post("device_status"));
 		$user_id = $this->session->userdata("user_id");
-		$data = array(
-			"device_id" => $device_id,
-			"device_status" => $device_status,
-			"modified_by" => $user_id
-		);
-		$affected_rows = $this->Alat_model->toggleAlatAktif($data);
-		if ($affected_rows > 0) {
-			echo "success";
-		} else {
-			echo "no rows affected. WHY??";
+		if ($device_id) {
+			$data = array(
+				"device_id" => $device_id,
+				"device_status" => $device_status,
+				"modified_by" => $user_id
+			);
+			$db = $this->Alat_model->toggleAlatAktif($data);
+			parent::generate_common_results($db, "ci");
 		}
 	}
 	
 	public function deleteAlat() {
 		$device_id = $this->input->post("device_id");
 		$user_id = $this->session->userdata("user_id");
-		$affected_rows = $this->Alat_model->deleteAlat($device_id, $user_id);
-		if ($affected_rows > 0) {
-			echo "success";
-		} else {
-			echo "no rows affected. WHY??";
-		}
+		$db = $this->Alat_model->deleteAlat($device_id, $user_id);
+		parent::generate_common_results($db, "ci");
 	}
 }

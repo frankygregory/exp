@@ -193,12 +193,11 @@ function deleteAlat(element) {
 		submit_delete: true,
 		device_id: device_id
 	};
-	ajaxCall("<?= base_url("alat/deleteAlat") ?>", data, function(result) {
-		if (result == "success") {
+	ajaxCall("<?= base_url("alat/deleteAlat") ?>", data, function(json) {
+		var result = JSON.parse(json);
+		if (result.status == "success") {
 			closeDialog();
 			getAlat();
-		} else {
-			alert(result);
 		}
 	});
 }
@@ -211,12 +210,11 @@ function toggleAlatAktif(element) {
 		device_id: device_id,
 		device_status: device_status
 	};
-	ajaxCall("<?= base_url("alat/toggleAlatAktif") ?>", data, function(result) {
-		if (result == "success") {
+	ajaxCall("<?= base_url("alat/toggleAlatAktif") ?>", data, function(json) {
+		var result = JSON.parse(json);
+		if (result.status == "success") {
 			closeDialog();
 			getAlat();
-		} else {
-			alert(result);
 		}
 	});
 }
@@ -292,7 +290,7 @@ function updateAlat() {
 	var device_name = $(".dialog-edit .input-nama").val();
 	var device_email = $(".dialog-edit .input-email").val();
 	var device_information = $(".dialog-edit .input-keterangan").val();
-	var driver_status = $(".dialog-edit .input-status").val();
+	var device_status = $(".dialog-edit .input-status").val();
 	
 	var valid = cekUpdateInputError(device_name, device_email);
 	if (valid) {
@@ -302,14 +300,13 @@ function updateAlat() {
 			device_name: device_name,
 			device_email: device_email,
 			device_information: device_information,
-			driver_status: driver_status
+			device_status: device_status
 		};
-		ajaxCall("<?= base_url("alat/updateAlat") ?>", data, function(result) {
-			if (result == "success") {
+		ajaxCall("<?= base_url("alat/updateAlat") ?>", data, function(json) {
+			var result = JSON.parse(json);
+			if (result.status == "success") {
 				closeDialog();
 				getAlat();
-			} else {
-				alert(result);
 			}
 		});
 	}
@@ -333,8 +330,9 @@ function tambahAlat() {
 			device_information: device_information,
 			device_status: device_status
 		};
-		ajaxCall("<?= base_url("alat/tambahAlat") ?>", data, function(result) {
-			if (result == "success") {
+		ajaxCall("<?= base_url("alat/tambahAlat") ?>", data, function(json) {
+			var result = JSON.parse(json);
+			if (result.status == "success") {
 				closeDialog();
 				getAlat();
 			}
