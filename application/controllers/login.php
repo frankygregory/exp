@@ -11,19 +11,7 @@ class Login extends CI_Controller
 
     public function index()
     {
-        /*if ($this->session->userdata('isLoggedIn') == 1) {
-            redirect($this->session->userdata('urlpage'));
-        } else {
-			
-            $data = array(
-                'title' => 'Login Yukirim',
-				"page_name" => "login",
-                'error' => ''
-            );
-			$this->load->view('front/common/header', $data);
-            $this->load->view('front/login', $data);
-			$this->load->view('front/common/footer', $data);
-        }*/
+        header("Location: " . base_url());
     }
 
     public function doLogin()
@@ -35,50 +23,43 @@ class Login extends CI_Controller
 		//$browser = get_browser();
 		//$browser_name = $browser->browser_name_pattern . ";" . $browser->platform . ";" . $browser->browser . ";" . $browser->version;
 		
-        $username = $this->input->post('username', true);
+        $user_email = $this->input->post('user_email', true);
         $password = $this->input->post('password', true);
         
-        if (!preg_match('/^[a-zA-Z0-9_\.]+$/', $username) OR !preg_match('/^[a-zA-Z0-9_\.]+$/', $password)) {
-            $result = new stdClass();
-            $result->status = "error";
-            $result->reason = "isian harus huruf / angka";
-            echo json_encode($result);
-        } else {
-            if ((strlen($username) > 0) OR (strlen($password) > 0)) {
-                $insertData = array(
-                    "username" => $username,
-                    "password" => $password,
-                    "ip" => $ip,
-                    "location" => $location,
-                    "browser" => $_SERVER["HTTP_USER_AGENT"]
-                );
-                $user = $this->Login_model->login($insertData);
-                if (sizeof($user) > 0) {
-                    if ($user[0]["result"] == "false") {
-                        $result = new stdClass();
-                        $result->status = "error";
-                        $result->reason = "Username / Password salah";
-                        echo json_encode($result);
-                    } else {
-                        $this->setuserdata(
-                            $user[0]['user_id'],
-                            $user[0]['username'],
-                            $user[0]['user_fullname'],
-                            $user[0]['group_ids'],
-                            $user[0]['user_level'],
-                            $user[0]['role_id'],
-                            $user[0]['type_id'],
-                            'menu',
-                            'dashboard'
-                        );
-                        $result = new stdClass();
-                        $result->status = "success";
-                        echo json_encode($result);
-                    }
+        if ((strlen($user_email) > 0) OR (strlen($password) > 0)) {
+            $insertData = array(
+                "user_email" => $user_email,
+                "password" => $password,
+                "ip" => $ip,
+                "location" => $location,
+                "browser" => $_SERVER["HTTP_USER_AGENT"]
+            );
+            $user = $this->Login_model->login($insertData);
+            if (sizeof($user) > 0) {
+                if ($user[0]["result"] == "false") {
+                    $result = new stdClass();
+                    $result->status = "error";
+                    $result->reason = "Email / Password salah";
+                    echo json_encode($result);
+                } else {
+                    $this->setuserdata(
+                        $user[0]['user_id'],
+                        $user[0]['username'],
+                        $user[0]['user_fullname'],
+                        $user[0]['group_ids'],
+                        $user[0]['user_level'],
+                        $user[0]['role_id'],
+                        $user[0]['type_id'],
+                        'menu',
+                        'dashboard'
+                    );
+                    $result = new stdClass();
+                    $result->status = "success";
+                    echo json_encode($result);
                 }
             }
         }
-		
+        
     }
 
     public function logout()

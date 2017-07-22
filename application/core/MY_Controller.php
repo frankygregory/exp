@@ -68,7 +68,6 @@ class MY_Controller extends CI_Controller
             $config["file_name"] = $file_name;
         }
         $this->load->library('upload', $config);
-        $this->upload->initialize($config);
     }
 
     public function template($file, $data){

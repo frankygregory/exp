@@ -43,6 +43,20 @@
 							<label class="label-radio"><input type="radio" name="user_level" class="input-insert-user_level" value="admin" />Admin</label>
 						</td>
 					</tr>
+					<tr>
+						<td class="">Password</td>
+						<td>
+							<input type="password" class="input-insert-password" maxlength="30" />
+							<div class="error"></div>
+						</td>
+					</tr>
+					<tr>
+						<td class="">Confirm Password</td>
+						<td>
+							<input type="password" class="input-insert-confirm-password" maxlength="30" />
+							<div class="error"></div>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -90,6 +104,7 @@
 					</tr>
 				</tbody>
 			</table>
+			<button type="button" class="btn-negative btn-override-password">Override Password</button>
 		</div>
 		<div class="dialog-footer">
 			<button type="button" class="btn-default btn-submit-edit-user">Simpan</button>
@@ -210,6 +225,7 @@
 </div>
 </div>
 <script type="text/javascript">
+var validPoints = 0;
 $(function() {
 	getUser();
 	getMyGroups();
@@ -301,7 +317,7 @@ function clearAllErrors() {
 	$(".error").html("");
 }
 
-function cekUserInputError(username, user_email, user_fullname, group_ids, user_level) {
+function cekUserInputError(username, user_email, user_fullname, group_ids, user_level, password, confirmPassword) {
 	clearAllErrors();
 	var valid = true;
 	if (username == "") {
@@ -322,6 +338,17 @@ function cekUserInputError(username, user_email, user_fullname, group_ids, user_
 	} else if (user_level == "admin" && group_ids.indexOf(";") >= 0) {
 		valid = false;
 		$(".td-insert-grup .error").html("Admin hanya boleh berada pada 1 group");
+	}
+	if (password == "") {
+		valid = false;
+		$(".input-insert-password").next().html("Password harus diisi");
+	}
+	if (confirmPassword == "") {
+		valid = false;
+		$(".input-insert-confirm-password").next().html("Confirm Password harus diisi");
+	} else if (password != confirmPassword) {
+		valid = false;
+		$(".input-insert-confirm-password").next().html("Confirm Password harus sama dengan Password");
 	}
 	return valid;
 }
@@ -390,6 +417,8 @@ function insertUser() {
 	var username = $(".input-insert-username").val().trim();
 	var user_email = $(".input-insert-user_email").val().trim();
 	var user_fullname = $(".input-insert-user_fullname").val().trim();
+	var password = $(".input-insert-password").val();
+	var confirmPassword = $(".input-insert-confirm-password").val();
 	var group_ids = "";
 	$(".input-insert-user_group_id[type='checkbox']:checked").each(function() {
 		var group_id = $(this).val();
@@ -400,16 +429,52 @@ function insertUser() {
 	});
 	var user_level = $(".input-insert-user_level:checked").val();
 	
-	var valid = cekUserInputError(username, user_email, user_fullname, group_ids, user_level);
+	var valid = cekUserInputError(username, user_email, user_fullname, group_ids, user_level, password, confirmPassword);
 	if (valid) {
+		validPoints = 0;
 		var data = {
 			username: username,
 			user_email: user_email,
 			user_fullname: user_fullname,
 			group_ids: group_ids,
-			user_level: user_level
+			user_level: user_level,
+			password: password
 		};
-		
+
+		checkUsernameKembar(data);
+		checkEmailKembar(data);
+	}
+}
+
+function checkUsernameKembar(data) {
+	ajaxCall("<?= base_url("user/checkUserKembar") ?>", {username: data.username}, function(json) {
+		var result = JSON.parse(json);
+		if (result.status == "success") {
+			if (result.result == "tidak_kembar") {
+				addValidPoints(data);
+			} else {
+				$(".input-insert-username").next().html("Username sudah ada");
+			}
+		}
+	});
+}
+
+function checkEmailKembar(data) {
+	ajaxCall("<?= base_url("user/checkEmailKembar") ?>", {user_email: data.user_email}, function(json) {
+		var result = JSON.parse(json);
+		if (result.status == "success") {
+			if (result.result == "tidak_kembar") {
+				addValidPoints(data);
+			} else {
+				$(".input-insert-user_email").next().html("Email sudah ada");
+			}
+		}
+	});
+}
+
+function addValidPoints(data) {
+	validPoints++;
+	if (validPoints == 2) {
 		ajaxCall("<?= base_url("user/addOtherUser") ?>", data, function(json) {
 			closeDialog();
 			var result = JSON.parse(json);
@@ -417,6 +482,7 @@ function insertUser() {
 				alert(result.message);
 				getUser();
 			} else {
+				console.log(result.status);
 				alert(result.status);
 			}
 		});
@@ -443,6 +509,9 @@ function addUserToTable(result) {
 			group_names += group_name[0];
 			for (var j = 1; j < group_name.length; j++) {
 				group_names += ", " + group_name[j];
+			}
+			if (group_names == "") {
+				group_names = "default";
 			}
 			
 			var superAdminChecked = "", adminChecked = "", dataUserLevel = "";

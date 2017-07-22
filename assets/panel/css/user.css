@@ -75,6 +75,10 @@ td[data-col="action"] {
 	color: red;
 }
 
+.btn-override-password {
+	margin-top: 20px;
+}
+
 .table-empty-state {
 	margin: 0;
 }

@@ -178,7 +178,7 @@ function cekInput() {
 	var type = $(".dialog-edit").data("type");
 	if (type == "text" || type == "textarea") {
 		var label = $(".dialog-edit .dialog-title").html();
-		var value = $(".dialog-edit " + type).val();
+		var value = (type == "text") ? $(".dialog-edit input[type='text']").val() : $(".dialog-edit " + type).val();
 		if (value == "" || value === undefined) {
 			valid = false;
 			$(".dialog-edit .error").html(label + " harus diisi");

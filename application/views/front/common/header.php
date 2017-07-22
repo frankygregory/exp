@@ -66,7 +66,7 @@
 <?php
 	}	?>
 	<div class="login-dialog">
-		<input type="text" class="input-login-username" placeholder="username" />
+		<input type="text" class="input-login-user_email" placeholder="email" />
 		<div class="login-error login-error-username error"></div>
 		<input type="password" class="input-login-password" placeholder="password" />
 		<div class="login-error login-error-password error"></div>
@@ -119,7 +119,7 @@ $(function() {
 			toggleLoginDialog();
 		});
 
-		$(".input-login-username, .input-login-password").on("keypress", function(e) {
+		$(".input-login-user_email, .input-login-password").on("keypress", function(e) {
 			if (e.which == 13) {
 				doLogin();
 			}
@@ -131,11 +131,11 @@ $(function() {
 
 		function doLogin() {
 			$(".login-dialog .login-error").html("");
-			var username = $(".input-login-username").val().trim();
+			var user_email = $(".input-login-user_email").val().trim();
 			var password = $(".input-login-password").val().trim();
 			
 			var valid = true;
-			if (username == "") {
+			if (user_email == "") {
 				valid = false;
 				$(".login-error.login-error-username").html("Username harus diisi");
 			}
@@ -147,7 +147,7 @@ $(function() {
 			if (valid) {
 				showLoading();
 				var data = {
-					username: username,
+					user_email: user_email,
 					password: password
 				};
 				ajaxCall("<?= base_url('login/doLogin') ?>", data, function(json) {
@@ -176,7 +176,7 @@ function hideLoading() {
 function toggleLoginDialog() {
 	if ($(".login-dialog").css("display") == "none") {
 		$(".login-dialog").css("display", "block");
-		$(".input-login-username").select();
+		$(".input-login-user_email").select();
 	} else {
 		hideLoginDialog();
 	}

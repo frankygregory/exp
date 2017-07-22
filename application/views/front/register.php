@@ -117,6 +117,7 @@
 	</div>
 </div>
 <script>
+var validPoints = 0;
 $(function() {
 	var hash = window.location.hash;
 	if (hash == "#pemilik-kendaraan") {
@@ -124,30 +125,39 @@ $(function() {
 	}
 
 	$("input.input-username").on("focusout", function() {
+		validPoints = 0;
 		var valid = cekUsername();
 	});
 	$("input.input-email").on("focusout", function() {
+		validPoints = 0;
 		var valid = cekEmail();
 	});
 	$("input.input-nama").on("focusout", function() {
+		validPoints = 0;
 		var valid = cekNama();
 	});
 	$(".input-alamat").on("focusout", function() {
+		validPoints = 0;
 		var valid = cekAlamat();
 	});
 	$("input.input-telp").on("focusout", function() {
+		validPoints = 0;
 		var valid = cekTelp();
 	});
 	$("input.input-handphone").on("focusout", function() {
+		validPoints = 0;
 		var valid = cekHandphone();
 	});
 	$("input.input-password").on("focusout", function() {
+		validPoints = 0;
 		var valid = cekPassword();
 	});
 	$("input.input-konfirmasi").on("focusout", function() {
+		validPoints = 0;
 		var valid = cekKonfirmasi();
 	});
 	$(".input-terms").on("change", function() {
+		validPoints = 0;
 		var valid = cekTerms();
 		if (valid) {
 			$(this).next().removeClass("active");
@@ -165,6 +175,7 @@ $(function() {
 	
 	
 	$(".btn-daftar").on("click", function(e) {
+		validPoints = 0;
 		var valid = true;
 		valid &= cekUsername();
 		valid &= cekEmail();
@@ -176,11 +187,16 @@ $(function() {
 		valid &= cekKonfirmasi();
 		valid &= cekTerms();
 		
-		if (!valid) {
-			e.preventDefault();
-		}
+		e.preventDefault();
 	});
 });
+
+function addValidPoints() {
+	validPoints++;
+	if (validPoints == 9) {
+		$("form.register-role").submit();
+	}
+}
 
 function cekUsername() {
 	var valid = true;
@@ -209,6 +225,9 @@ function cekUsername() {
 				}
 			});
 		}
+	}
+	if (valid) {
+		addValidPoints();
 	}
 	return valid;
 }
@@ -242,6 +261,9 @@ function cekEmail() {
 			});
 		}
 	}
+	if (valid) {
+		addValidPoints();
+	}
 	return valid;
 }
 
@@ -252,6 +274,9 @@ function cekNama() {
 		valid = false;
 		displayError($(".input-nama").next(), "Nama Lengkap harus diisi");
 	}
+	if (valid) {
+		addValidPoints();
+	}
 	return valid;
 }
 
@@ -261,6 +286,9 @@ function cekAlamat() {
 	if (alamat == "") {
 		valid = false;
 		displayError($(".input-alamat").next(), "Alamat harus diisi");
+	}
+	if (valid) {
+		addValidPoints();
 	}
 	return valid;
 }
@@ -277,6 +305,9 @@ function cekTelp() {
 			displayError($(".input-telp").next(), "No. Telp minimal 6 angka");
 		}
 	}
+	if (valid) {
+		addValidPoints();
+	}
 	return valid;
 }
 
@@ -291,6 +322,9 @@ function cekHandphone() {
 			valid = false;
 			displayError($(".input-handphone").next(), "No. Handphone minimal 10 angka");
 		}
+	}
+	if (valid) {
+		addValidPoints();
 	}
 	return valid;
 }
@@ -307,6 +341,9 @@ function cekPassword() {
 			displayError($(".input-password").next(), "Password harus huruf atau angka");
 		}
 	}
+	if (valid) {
+		addValidPoints();
+	}
 	return valid;
 }
 
@@ -322,6 +359,9 @@ function cekKonfirmasi() {
 			displayError($(".input-konfirmasi").next(), "Konfirmasi Password harus sama dengan Password");
 		}
 	}
+	if (valid) {
+		addValidPoints();
+	}
 	return valid;
 }
 
@@ -331,6 +371,9 @@ function cekTerms() {
 	if (!checked) {
 		valid = false;
 		displayError($(".input-terms").next(), "Anda harus setuju dengan Syarat dan Ketentuan");
+	}
+	if (valid) {
+		addValidPoints();
 	}
 	return valid;
 }

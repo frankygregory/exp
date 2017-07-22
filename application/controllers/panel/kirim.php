@@ -321,28 +321,18 @@ class Kirim extends MY_Controller
     public function doKirimBarang()
     {
         parent::__second_construct();
-
+		$user_id = $this->session->userdata("user_id");
 		$item_count = intval($this->input->post("detail-count", true));
 		if ($item_count > 0) {
-			$shipment_pictures = '';
-			$err = 0;
-			if ($_FILES['shipment_pictures']['name']) {
-				parent::upload_file_settings('assets/panel/images/', '5000000');
-				if (!$this->upload->do_upload('shipment_pictures')) {
-					echo json_encode(array("error" => 'Cek type atau ukuran gambar. Type harus JPG/JPEG, PNG. Ukuran Maks.300kB!'));
-					$err = 1;
-				} else {
-					$image = $this->upload->data();
-					if ($image['file_name']) {
-						$shipment_pictures = $image['file_name'];
-					}
-				}
+			$file_name = '';
+			$error_upload = false;
+			$file_name = "image_" . $user_id;
+			parent::upload_file_settings('assets/panel/images/', '5000000', $file_name);
+			if (!$this->upload->do_upload('shipment_pictures')) {
+				$error_upload = true;
 			}
-			else {
-				$shipment_pictures = $this->input->post('shipment_pictures_name');
-			}
-
-			if (!$err) {
+			
+			if (!$error_upload) {
 				$shipment_length = $this->input->post('shipment_length');
 				$location_from_latlng = $this->input->post('location_from_latlng');
 				$location_from_lat = substr($location_from_latlng,0,strpos($location_from_latlng,",")-1);
@@ -361,7 +351,7 @@ class Kirim extends MY_Controller
 				$data = array(
 					'shipment_title' => $this->input->post('shipment_title'),
 					'shipment_information' => $this->input->post('shipment_information'),
-					'shipment_pictures' => $shipment_pictures,
+					'shipment_pictures' => $file_name,
 					'user_id' => $user_id,
 					'shipment_length' => $shipment_length,
 					'location_from_name' => $this->input->post('location_from_name'),
@@ -416,10 +406,12 @@ class Kirim extends MY_Controller
 				
 				header("Location: " . base_url("kiriman-saya"));
 			} else {
-				
+				echo json_encode(array(
+					"status" => "error",
+					"error_message" => $this->upload->display_errors()
+				));
 			}
 		}
-        
     }
 	
 	public function setujuPenawaran() {

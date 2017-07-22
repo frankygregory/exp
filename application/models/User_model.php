@@ -28,10 +28,24 @@ class User_model extends CI_Model{
 		$data = $this->db->query($str);
 		return $data->result();
 	}
+
+	public function getUsername($username) {
+		$this->db->select('username');
+		$this->db->where('username', $username);
+		$this->db->limit(1);
+		return $this->db->get('verifikasi')->result();
+	}
+	
+	public function getEmail($email) {
+		$this->db->select('user_email');
+		$this->db->where('user_email', $email);
+		$this->db->limit(1);
+		return $this->db->get('verifikasi')->result();
+	}
 	
 	public function add_other_user($data) {
 		$data["password"] = md5($data["password"]);
-		$query = $this->db->query("CALL add_other_user('" . $data["role_id"] . "', '" . $data["type_id"] . "', '" . $data["username"] . "', '" . $data["user_email"] . "', '" . $data["group_ids"] . "', '" . $data["user_level"] . "', '" . $data["user_id_ref"] . "', '" . $data["password"] . "', '" . $data["user_fullname"] . "');");
+		$query = $this->db->query("CALL add_other_user(" . $data["role_id"] . ", " . $data["type_id"] . ", '" . $data["username"] . "', '" . $data["user_email"] . "', '" . $data["group_ids"] . "', " . $data["user_level"] . ", " . $data["user_id_ref"] . ", '" . $data["password"] . "', '" . $data["user_fullname"] . "');");
 		return $query->result();
 	}
 	

@@ -23,12 +23,14 @@ class Registration_model extends CI_Model
 	public function getUsername($username) {
 		$this->db->select('username');
 		$this->db->where('username', $username);
-		return $this->db->get('m_user')->result();
+		$this->db->limit(1);
+		return $this->db->get('verifikasi')->result();
 	}
 	
 	public function getEmail($email) {
 		$this->db->select('user_email');
 		$this->db->where('user_email', $email);
-		return $this->db->get('m_user')->result();
+		$this->db->limit(1);
+		return $this->db->get('verifikasi')->result();
 	}
 }

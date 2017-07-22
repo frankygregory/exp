@@ -8,12 +8,14 @@ class Account_model extends CI_Model
     }
 	
 	public function getMyInfo($user_id) {
-		$query = $this->db->query(
-			"SELECT u.*, d.*, t.*
-			FROM m_user u, m_user_details d, m_type t
-			WHERE u.user_id = '" . $user_id . "' AND t.type_id = u.type_id AND u.user_id = d.user_id
-			LIMIT 1"
-		);
+		$query = $this->db->query("
+			SELECT u.*, d.*, t.*
+			FROM `m_user_details` d, `m_user` u
+            LEFT JOIN `m_type` t
+            ON u.type_id = t.type_id
+            WHERE u.user_id = " . $user_id . " AND u.user_id = d.user_id
+			LIMIT 1
+		");
 		return $query->result();
 	}
 	

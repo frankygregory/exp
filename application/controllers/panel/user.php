@@ -97,6 +97,42 @@ class User extends MY_Controller
 			echo "no rows affected. WHY??";
 		}
 	}
+
+	public function checkUserKembar() {
+		$username = $this->input->post("username", true);
+		if ($username) {
+			$user = $this->User_model->getUsername($username);
+			if (sizeof($user) > 0) {
+				echo json_encode(array(
+					"status" => "success",
+					"result" => "kembar"
+				));
+			} else {
+				echo json_encode(array(
+					"status" => "success",
+					"result" => "tidak_kembar"
+				));
+			}
+		}
+	}
+
+	public function checkEmailKembar() {
+		$email = $this->input->post("user_email", true);
+		if ($email) {
+			$email = $this->User_model->getEmail($email);
+			if (sizeof($email) > 0) {
+				echo json_encode(array(
+					"status" => "success",
+					"result" => "kembar"
+				));
+			} else {
+				echo json_encode(array(
+					"status" => "success",
+					"result" => "tidak_kembar"
+				));
+			}
+		}
+	}
 	
 	public function addOtherUser() {
 		$config = parent::get_default_email_config();
@@ -112,10 +148,10 @@ class User extends MY_Controller
 		} else {
 			$user_level = 3;
 		}
+		$password = $this->input->post("password");
 		$role_id = $this->session->userdata("role_id");
 		$type_id = $this->session->userdata("type_id");
 		$user_id_ref = $this->session->userdata("user_id");
-		$password = $this->random_str(6);
 		
 		$data = array(
 			"username" => $username,
@@ -135,17 +171,17 @@ class User extends MY_Controller
 			$this->email->from("admin@wahanafurniture.com");
 			$this->email->to($user_email);
 			$this->email->subject("Verifikasi Yukirim");
-			$this->email->message("Terima kasih telah mendaftar.\nPassword untuk account ini adalah :\n\n" . $password . "\n\nUntuk mengaktifkan account anda, silakan mengklik link di bawah ini:\n" . base_url("verify-email/" . $result->generated_token));
+			$this->email->message("Terima kasih telah mendaftar.\nUntuk mengaktifkan account anda, silakan mengklik link di bawah ini:\n" . base_url("verify-email/" . $result->generated_token));
 			$this->email->send();
 
 			$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $user_email);
 			echo json_encode(array(
 				"status" => "success",
-				"message" => "Password dan kode verifikasi untuk mengaktifkan account anda telah dikirim ke " . $user_email
+				"message" => "Kode verifikasi untuk mengaktifkan account anda telah dikirim ke " . $user_email
 			));
 		} else {
 			echo json_encode(array(
-				"status" => "error"
+				"status" => $result->status
 			));
 		}
 	}

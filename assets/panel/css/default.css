@@ -166,14 +166,15 @@ table td[data-align="center"] {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 1000;
+	overflow-y: scroll;
 }
 
 .dialog {
 	display: none;
 	width: 500px;
-	vertical-align: center;
+	vertical-align: top;
 	position: relative;
-	margin: 15vh auto 0;
+	margin: 50px auto 100px;
 	box-shadow: 0 0 20px #333333;
 	font-size: 12pt;
 	z-index: 1001;
