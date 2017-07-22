@@ -9,9 +9,6 @@ class Kendaraan extends MY_Controller
     {
         parent::__construct();
 		$this->load->model("Kendaraan_model");
-        $this->query = 'select a.*,if((isVehichleInUsed(a.vehicle_id)<>0),"Tidak","Ya") available_status,' .
-            'if((getVehicleInUsedTrx(a.vehicle_id)<0),"-",getVehicleInUsedTrx(a.vehicle_id)) ref_transaksi ' .
-            'from m_vehicle a';
     }
 
     public function index()
