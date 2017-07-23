@@ -104,6 +104,44 @@ class MY_Controller extends CI_Controller
         return $config;
     }
 
+    public function checkUserKembar() {
+        $this->load->model("Common_model");
+		$username = $this->input->post("username", true);
+		if ($username) {
+			$user = $this->Common_model->getUsername($username);
+			if (sizeof($user) > 0) {
+				echo json_encode(array(
+					"status" => "success",
+					"result" => "kembar"
+				));
+			} else {
+				echo json_encode(array(
+					"status" => "success",
+					"result" => "tidak_kembar"
+				));
+			}
+		}
+	}
+
+	public function checkEmailKembar() {
+        $this->load->model("Common_model");
+		$email = $this->input->post("user_email", true);
+		if ($email) {
+			$email = $this->Common_model->getEmail($email);
+			if (sizeof($email) > 0) {
+				echo json_encode(array(
+					"status" => "success",
+					"result" => "kembar"
+				));
+			} else {
+				echo json_encode(array(
+					"status" => "success",
+					"result" => "tidak_kembar"
+				));
+			}
+		}
+	}
+
     public function queryData($select) {
         return $this->M_GenFunc->querydata($select);
     }

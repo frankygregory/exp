@@ -12,34 +12,34 @@
 					<tr>
 						<td class="">Nama Alat</td>
 						<td>
-							<input type="text" class="input-nama" />
+							<input type="text" class="input-nama" maxlength="20" />
 							<div class="error"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="">Keterangan</td>
 						<td>
-							<input type="text" class="input-keterangan" />
+							<input type="text" class="input-keterangan" maxlength="100" />
 						</td>
 					</tr>
 					<tr>
 						<td class="">Email</td>
 						<td>
-							<input type="text" class="input-email" />
+							<input type="text" class="input-email" maxlength="50" />
 							<div class="error"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="">Password</td>
 						<td>
-							<input type="password" class="input-password" />
+							<input type="password" class="input-password" maxlength="30" />
 							<div class="error"></div>
 						</td>
 					</tr>
 					<tr>
 						<td class="">Confirm Password</td>
 						<td>
-							<input type="password" class="input-confirm-password" />
+							<input type="password" class="input-confirm-password" maxlength="30" />
 							<div class="error"></div>
 						</td>
 					</tr>
@@ -82,7 +82,7 @@
 					<tr>
 						<td class="">Email</td>
 						<td>
-							<input type="text" class="input-email" />
+							<span class="input-email"></span>
 							<div class="error"></div>
 						</td>
 					</tr>
@@ -97,6 +97,7 @@
 					</tr>
 				</tbody>
 			</table>
+			<button type="button" class="btn-negative btn-ganti-password">Ganti Password</button>
 		</div>
 		<div class="dialog-footer">
 			<button type="button" class="btn-default btn-submit-edit">Simpan</button>
@@ -187,6 +188,30 @@ $(function() {
 	
 });
 
+function checkEmailKembar(data) {
+	ajaxCall("<?= base_url("alat/checkEmailKembar") ?>", {user_email: data.device_email}, function(json) {
+		var result = JSON.parse(json);
+		if (result.status == "success") {
+			if (result.result == "tidak_kembar") {
+				addValidPoints(data);
+			} else {
+				$(".input-email").next().html("Email sudah ada");
+			}
+		}
+	});
+}
+
+function addValidPoints(data) {
+	ajaxCall("<?= base_url("alat/tambahAlat") ?>", data, function(json) {
+		var result = JSON.parse(json);
+		if (result.status == "success") {
+			alert(result.message);
+			closeDialog();
+			getAlat();
+		}
+	});
+}
+
 function deleteAlat(element) {
 	var device_id = $(".dialog-konfirmasi-delete").data("id");
 	var data = {
@@ -248,16 +273,12 @@ function cekInsertInputError(device_name, device_email, device_password, device_
 	return valid;
 }
 
-function cekUpdateInputError(device_name, device_email) {
+function cekUpdateInputError(device_name) {
 	clearErrors();
 	var valid = true;
 	if (device_name == "") {
 		valid = false;
 		$(".input-nama").next().html("Nama alat harus diisi");
-	}
-	if (device_email == "") {
-		valid = false;
-		$(".input-email").next().html("Email harus diisi");
 	}
 	return valid;
 }
@@ -278,7 +299,7 @@ function editAlat(element) {
 	
 	$(".dialog-edit").data("id", id);
 	$(".dialog-edit .input-nama").val(device_name);
-	$(".dialog-edit .input-email").val(device_email);
+	$(".dialog-edit .input-email").html(device_email);
 	$(".dialog-edit .input-keterangan").val(device_information);
 	$(".dialog-edit .input-status").val(device_status);
 	
@@ -288,17 +309,15 @@ function editAlat(element) {
 function updateAlat() {
 	var device_id = $(".dialog-edit").data("id");
 	var device_name = $(".dialog-edit .input-nama").val();
-	var device_email = $(".dialog-edit .input-email").val();
 	var device_information = $(".dialog-edit .input-keterangan").val();
 	var device_status = $(".dialog-edit .input-status").val();
 	
-	var valid = cekUpdateInputError(device_name, device_email);
+	var valid = cekUpdateInputError(device_name);
 	if (valid) {
 		var data = {
 			submit_update: true,
 			device_id: device_id,
 			device_name: device_name,
-			device_email: device_email,
 			device_information: device_information,
 			device_status: device_status
 		};
@@ -330,13 +349,8 @@ function tambahAlat() {
 			device_information: device_information,
 			device_status: device_status
 		};
-		ajaxCall("<?= base_url("alat/tambahAlat") ?>", data, function(json) {
-			var result = JSON.parse(json);
-			if (result.status == "success") {
-				closeDialog();
-				getAlat();
-			}
-		});
+
+		checkEmailKembar(data);
 	}
 }
 

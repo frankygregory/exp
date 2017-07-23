@@ -7,10 +7,10 @@
 			<div class="dialog-title"></div>
 		</div>
 		<div class="dialog-body">
-			<table>
+			<table class="table-tambah-lokasi">
 				<tbody>
 					<tr>
-						<td class="">Nama Lokasi</td>
+						<td class="td-label">Nama Lokasi</td>
 						<td>
 							<input type="text" class="input-nama" id="location_address" />
 							<div class="error"></div>
@@ -26,21 +26,21 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="">Detail Lokasi</td>
+						<td class="td-label">Detail Lokasi</td>
 						<td>
 							<textarea class="input-detail" id="location_detail"></textarea>
 							<div class="error"></div>
 						</td>
 					</tr>
 					<tr>
-						<td class="">Kontak</td>
+						<td class="td-label">Kontak</td>
 						<td>
 							<input type="text" class="input-kontak" id="location_contact" />
 							<div class="error"></div>
 						</td>
 					</tr>
 					<tr>
-						<td class="">Jenis</td>
+						<td class="td-label">Jenis</td>
 						<td>
 							<label class="label-asal">
 								<input type="checkbox" class="input-asal" id="location_from" checked="checked" /> Asal

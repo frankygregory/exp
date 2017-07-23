@@ -28,20 +28,6 @@ class User_model extends CI_Model{
 		$data = $this->db->query($str);
 		return $data->result();
 	}
-
-	public function getUsername($username) {
-		$this->db->select('username');
-		$this->db->where('username', $username);
-		$this->db->limit(1);
-		return $this->db->get('verifikasi')->result();
-	}
-	
-	public function getEmail($email) {
-		$this->db->select('user_email');
-		$this->db->where('user_email', $email);
-		$this->db->limit(1);
-		return $this->db->get('verifikasi')->result();
-	}
 	
 	public function add_other_user($data) {
 		$data["password"] = md5($data["password"]);

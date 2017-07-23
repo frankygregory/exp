@@ -25,8 +25,19 @@ class Alat extends MY_Controller
 		$alat = $this->Alat_model->getAlatByUserId($user_id);
 		echo json_encode($alat);
 	}
+
+	public function checkUserKembar() {
+		parent::checkUserKembar();
+	}
+
+	public function checkEmailKembar() {
+		parent::checkEmailKembar();
+	}
 	
 	public function tambahAlat() {
+		$config = parent::get_default_email_config();
+		$this->load->library("email", $config);
+
 		$submit_tambah = $this->input->post("submit_tambah");
 		$device_name = $this->input->post("device_name", true);
 		$device_information = $this->input->post("device_information", true);
@@ -47,8 +58,25 @@ class Alat extends MY_Controller
 				"user_id" => $user_id,
 				"group_id" => $group_id
 			);
-			$db = $this->Alat_model->addAlat($insertData);
-			parent::generate_common_results($db, "ci");
+			$result = $this->Alat_model->addAlat($insertData)[0];
+			if ($result->status == "success") {
+				$this->email->set_newline("\r\n");
+				$this->email->from("admin@wahanafurniture.com");
+				$this->email->to($device_email);
+				$this->email->subject("Verifikasi Yukirim");
+				$this->email->message("Untuk mengaktifkan account alat, silakan mengklik link di bawah ini:\n" . base_url("verify-device-email/" . $result->generated_token));
+				$this->email->send();
+
+				$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account pada ' . $device_name . ' telah dikirim ke ' . $device_email);
+				echo json_encode(array(
+					"status" => "success",
+					"message" => "Kode verifikasi untuk mengaktifkan account pada " . $device_name . " telah dikirim ke " . $device_email
+				));
+			} else {
+				echo json_encode(array(
+					"status" => $result->status
+				));
+			}
 		}
 	}
 	
@@ -56,17 +84,15 @@ class Alat extends MY_Controller
 		$submit_update = $this->input->post("submit_update");
 		$device_id = $this->input->post("device_id");
 		$device_name = $this->input->post("device_name");
-		$device_email = $this->input->post("device_email");
 		$device_information = $this->input->post("device_information");
 		$device_status = intval($this->input->post("device_status"));
 
-		if ($submit_update && $device_id && $device_name && $device_email && $device_information) {
+		if ($submit_update && $device_id && $device_name && $device_information) {
 			$user_id = $this->session->userdata("user_id");
 			
 			$data = array(
 				"device_id" => $device_id,
 				"device_name" => $device_name,
-				"device_email" => $device_email,
 				"device_information" => $device_information,
 				"device_status" => $device_status,
 				"modified_by" => $user_id

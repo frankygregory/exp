@@ -6,6 +6,10 @@
 	float: right;
 }
 
+.btn-ganti-password {
+	margin-top: 20px;
+}
+
 .th-no, .td-no, .th-ketersediaan, .td-ketersediaan, .th-status, .td-status, .th-action, .td-action {
 	text-align: center;
 }
@@ -38,5 +42,5 @@
 
 .table-empty-state {
 	margin: 0;
-	width: 1185px;
+	width: 1105px;
 }

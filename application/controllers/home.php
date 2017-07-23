@@ -319,6 +319,26 @@ class Home extends CI_Controller
 		$this->load->view('front/common/footer', $data);
 	}
 
+	public function verify_device_email($token) {
+		$isLoggedIn = $this->cekLogin();
+        $data = array(
+            'title' => 'Verifikasi',
+            'page_name' => "verify",
+			'additional_file' => "",
+			"isLoggedIn" => $isLoggedIn,
+			"modules" => $this->modules,
+			"activePage" => $this->activePage
+        );
+
+		$result = $this->Registration_model->verifyDeviceEmail($token)[0];
+		$data["result"] = $result;
+		$data["is_device"] = true;
+
+		$this->load->view('front/common/header', $data);
+        $this->load->view('front/verify', $data);
+		$this->load->view('front/common/footer', $data);
+	}
+
     public function getValue($inputname)
     {
         return $this->input->post($inputname);

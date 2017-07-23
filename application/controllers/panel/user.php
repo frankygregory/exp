@@ -99,39 +99,11 @@ class User extends MY_Controller
 	}
 
 	public function checkUserKembar() {
-		$username = $this->input->post("username", true);
-		if ($username) {
-			$user = $this->User_model->getUsername($username);
-			if (sizeof($user) > 0) {
-				echo json_encode(array(
-					"status" => "success",
-					"result" => "kembar"
-				));
-			} else {
-				echo json_encode(array(
-					"status" => "success",
-					"result" => "tidak_kembar"
-				));
-			}
-		}
+		parent::checkUserKembar();
 	}
 
 	public function checkEmailKembar() {
-		$email = $this->input->post("user_email", true);
-		if ($email) {
-			$email = $this->User_model->getEmail($email);
-			if (sizeof($email) > 0) {
-				echo json_encode(array(
-					"status" => "success",
-					"result" => "kembar"
-				));
-			} else {
-				echo json_encode(array(
-					"status" => "success",
-					"result" => "tidak_kembar"
-				));
-			}
-		}
+		parent::checkEmailKembar();
 	}
 	
 	public function addOtherUser() {

@@ -19,6 +19,11 @@ class Registration_model extends CI_Model
 		$query = $this->db->query("CALL verify_user_email('" . $token . "');");
 		return $query->result();
 	}
+
+	public function verifyDeviceEmail($token) {
+		$query = $this->db->query("CALL verify_device_email('" . $token . "');");
+		return $query->result();
+	}
 	
 	public function getUsername($username) {
 		$this->db->select('username');

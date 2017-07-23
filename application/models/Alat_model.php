@@ -9,7 +9,7 @@ class Alat_model extends CI_Model
 	
 	public function addAlat($data) {
 		$data["device_password"] = md5($data["device_password"]);
-		$insertData = array(
+		/*$insertData = array(
 			"device_name" => $data["device_name"],
 			"device_information" => $data["device_information"],
 			"device_email" => $data["device_email"],
@@ -20,15 +20,15 @@ class Alat_model extends CI_Model
 			"modified_by" => $data["user_id"]
 		);
 			
-		$this->db->insert("m_device_customer", $insertData);
-		return $this->db;
+		$this->db->insert("m_device_customer", $insertData);*/
+		$query = $this->db->query("CALL add_device('" . $data["device_name"] . "', '" . $data["device_information"] . "', '" . $data["device_email"] . "', '" . $data["device_password"] . "', '" . $data["device_status"] . "', '" . $data["user_id"] . "');");
+		return $query->result();
 	}
 	
 	public function updateAlat($data) {
 		$this->db->where("device_id", $data["device_id"]);
 		$updateData = array(
 			"device_name" => $data["device_name"],
-			"device_email" => $data["device_email"],
 			"device_information" => $data["device_information"],
 			"device_status" => $data["device_status"],
 			"modified_by" => $data["modified_by"]

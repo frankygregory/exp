@@ -122,6 +122,8 @@
 .navigation-menu {
 	width: 220px;
 	height: 100%;
+	padding-bottom: 50px;
+	overflow-y: auto;
 	background-color: #616161;
 	float: left;
 	padding-top: 10px;

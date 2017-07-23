@@ -24,6 +24,10 @@
 	width: 1300px;
 }
 
+.tabs-content[data-tabs-number="8"] .table-empty-state {
+	width: 920px;
+}
+
 .table-kiriman td[data-col="nama-kirim"] {
 	width: 150px;
 }
