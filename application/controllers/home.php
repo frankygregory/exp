@@ -262,9 +262,12 @@ class Home extends CI_Controller
 				$this->email->to($email);
 				$this->email->subject("Verifikasi Yukirim");
 				$this->email->message("Terima kasih telah mendaftar. Untuk mengaktifkan account anda, silakan mengklik link di bawah ini:\n" . base_url("verify-email/" . $result->generated_token));
-				$this->email->send();
+				if ($this->email->send()) {
+					$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $email);
+				} else {
+					$this->session->set_flashdata('flash_message', "gagal mengirim email");
+				}
 
-				$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $email);
 				$this->session->keep_flashdata("flash_message");
 				header("Location: " . base_url());
 			} else {

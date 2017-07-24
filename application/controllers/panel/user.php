@@ -177,6 +177,30 @@ class User extends MY_Controller
 			echo "no rows affected. WHY??";
 		}
 	}
+
+	public function updateOtherUserPassword() {
+		$other_user_id = $this->input->post("user_id", true);
+		$other_user_password = $this->input->post("password", true);
+		if ($other_user_id && $other_user_password) {
+			$user_id = $this->session->userdata("user_id");
+			$data = array(
+				"other_user_id" => $other_user_id,
+				"other_user_password" => $other_user_password,
+				"user_id" => $user_id
+			);
+			$result = $this->User_model->updateUserPassword($data);
+			if ($result->error()["code"] == 0) {
+				echo json_encode(array(
+					"status" => "success"
+				));
+			} else {
+				echo json_encode(array(
+					"status" => "error",
+					"error_message" => $result->error()["message"]
+				));
+			}
+		}
+	}
 	
 	public function deleteOtherUser() {
 		$other_user_id = $this->input->post("user_id");

@@ -189,6 +189,7 @@ $route['user/checkUserKembar'] = 'panel/user/checkUserKembar';
 $route['user/checkEmailKembar'] = 'panel/user/checkEmailKembar';
 $route['user/addOtherUser'] = 'panel/user/addOtherUser';
 $route['user/updateOtherUser'] = 'panel/user/updateOtherUser';
+$route['user/updateOtherUserPassword'] = 'panel/user/updateOtherUserPassword';
 $route['user/deleteOtherUser'] = 'panel/user/deleteOtherUser';
 $route['user/getMyGroups'] = 'panel/user/getMyGroups';
 $route['user/insertGroup'] = 'panel/user/insertGroup';

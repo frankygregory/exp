@@ -39,6 +39,17 @@ class User_model extends CI_Model{
 		$query = $this->db->query("CALL update_other_user('" . $data["other_user_id"] . "', '" . $data["other_user_fullname"] . "', '" . $data["group_ids"] . "', '" . $data["other_user_level"] . "', '" . $data["other_user_status"] . "', '" . $data["user_id"] . "');");
 		return 1;
 	}
+
+	public function updateUserPassword($data) {
+		$data["other_user_password"] = md5($data["other_user_password"]);
+		$this->db->where("user_id", $data["other_user_id"]);
+		$updateData = array(
+			"password" => $data["other_user_password"],
+			"modified_by" => $data["user_id"]
+		);
+		$this->db->update("m_user", $updateData);
+		return $this->db;
+	}
 	
 	public function deleteUser($data) {
 		$query = $this->db->query("CALL delete_other_user('" . $data["other_user_id"] . "', '" . $data["user_id"] . "');");

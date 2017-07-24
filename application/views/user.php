@@ -113,6 +113,37 @@
 	</div>
 </div>
 <div class="dialog-background">
+	<div class="dialog dialog-override-password">
+		<div class="dialog-header">
+			<div class="dialog-title">Override Password User</div>
+		</div>
+		<div class="dialog-body">
+			<table>
+				<tbody>
+					<tr>
+						<td class="">Password baru</td>
+						<td>
+							<input type="password" class="input-edit-password" maxlength="30" />
+							<div class="error"></div>
+						</td>
+					</tr>
+					<tr>
+						<td class="">Confirm Password baru</td>
+						<td>
+							<input type="password" class="input-edit-confirm-password" maxlength="30" />
+							<div class="error"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-confirm-override-password">Override Password</button>
+			<button type="button" class="btn-neutral btn-batal">Batal</button>
+		</div>
+	</div>
+</div>
+<div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-delete-user">
 		<div class="dialog-header">
 			<div class="dialog-title">Delete User</div>
@@ -298,6 +329,33 @@ $(function() {
 		$(".dialog-edit-group input.input-group_name").val(group_name);
 		showDialog(".dialog-edit-group");
 	});
+
+	$(document).on("click", ".btn-override-password", function() {
+		var user_id = $(".dialog-edit-user").data("id");
+		$(".dialog-override-password").data("id", user_id);
+		showDialog(".dialog-override-password");
+	});
+
+	$(document).on("click", ".btn-confirm-override-password", function() {
+		var password = $(".input-edit-password").val().trim();
+		var confirmPassword =$(".input-edit-confirm-password").val().trim();
+		var valid = cekUserOverridePasswordError(password, confirmPassword);
+		if (valid) {
+			var user_id = $(".dialog-override-password").data("id");
+
+			var data = {
+				user_id: user_id,
+				password: password
+			};
+			ajaxCall("<?= base_url("user/updateOtherUserPassword") ?>", data, function(json) {
+				var result = JSON.parse(json);
+				if (result.status == "success") {
+					closeDialog();
+					getUser();
+				}
+			});
+		}
+	});
 	
 	$(document).on("click", ".btn-delete-group", function() {
 		var group_id = $(this).closest(".tr-group").data("id");
@@ -315,6 +373,23 @@ $(function() {
 
 function clearAllErrors() {
 	$(".error").html("");
+}
+
+function cekUserOverridePasswordError(password, confirmPassword) {
+	clearAllErrors();
+	var valid = true;
+	if (password == "") {
+		valid = false;
+		$(".input-edit-password").next().html("Password harus diisi");
+	}
+	if (confirmPassword == "") {
+		valid = false;
+		$(".input-edit-confirm-password").next().html("Confirm Password harus diisi");
+	} else if (password != confirmPassword) {
+		valid = false;
+		$(".input-edit-confirm-password").next().html("Confirm Password harus sama dengan Password");
+	}
+	return valid;
 }
 
 function cekUserInputError(username, user_email, user_fullname, group_ids, user_level, password, confirmPassword) {
