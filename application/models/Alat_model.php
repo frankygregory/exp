@@ -46,6 +46,18 @@ class Alat_model extends CI_Model
 		$this->db->update("m_device_customer", $updateData);
 		return $this->db;
 	}
+
+	public function gantiPassword($data) {
+		$data["device_password"] = md5($data["device_password"]);
+		$this->db->where("device_id", $data["device_id"]);
+		$updateData = array(
+			"device_password" => $data["device_password"],
+			"token" => "",
+			"modified_by" => $data["user_id"]
+		);
+		$this->db->update("m_device_customer", $updateData);
+		return $this->db;
+	}
 	
 	public function getAlatByUserId($user_id) {
 		$query = $this->db->query("

@@ -106,6 +106,37 @@
 	</div>
 </div>
 <div class="dialog-background">
+	<div class="dialog dialog-ganti-password">
+		<div class="dialog-header">
+			<div class="dialog-title">Ganti Password</div>
+		</div>
+		<div class="dialog-body">
+			<table>
+				<tbody>
+					<tr>
+						<td class="">Password baru</td>
+						<td>
+							<input type="password" class="input-ganti-password" maxlength="30" />
+							<div class="error"></div>
+						</td>
+					</tr>
+					<tr>
+						<td class="">Confirm Password baru</td>
+						<td>
+							<input type="password" class="input-confirm-ganti-password" maxlength="30" />
+							<div class="error"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-confirm-ganti-password">Ganti Password</button>
+			<button type="button" class="btn-neutral btn-batal">Batal</button>
+		</div>
+	</div>
+</div>
+<div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-delete">
 		<div class="dialog-header">
 			<div class="dialog-title">Delete Alat</div>
@@ -181,6 +212,35 @@ $(function() {
 		$(".dialog-konfirmasi-delete .dialog-body").html("Delete " + namaAlat + "?");
 		showDialog(".dialog-konfirmasi-delete");
 	});
+
+	$(document).on("click", ".btn-ganti-password", function() {
+		var device_id = $(".dialog-edit").data("id");
+		$(".dialog-ganti-password").data("id", device_id);
+		showDialog(".dialog-ganti-password");
+	});
+
+	$(document).on("click", ".btn-confirm-ganti-password", function() {
+		var device_password = $(".input-ganti-password").val().trim();
+		var device_confirm_password = $(".input-confirm-ganti-password").val().trim();
+
+		var valid = cekInputGantiPassword(device_password, device_confirm_password);
+		if (valid) {
+			var device_id = $(".dialog-ganti-password").data("id");
+			var data = {
+				device_id: device_id,
+				device_password: device_password
+			};
+
+			ajaxCall("<?= base_url("alat/gantiPassword") ?>", data, function(json) {
+				var result = JSON.parse(json);
+				if (result.status == "success") {
+					closeDialog();
+					getAlat();
+				}
+			});
+		}
+
+	});
 	
 	$(".btn-submit-delete").on("click", function() {
 		deleteAlat(this);
@@ -246,6 +306,23 @@ function toggleAlatAktif(element) {
 
 function clearErrors() {
 	$(".error").html("");
+}
+
+function cekInputGantiPassword(device_password, device_confirm_password) {
+	clearErrors();
+	var valid = true;
+	if (device_password == "") {
+		valid = false;
+		$(".input-ganti-password").next().html("Password harus diisi");
+	}
+	if (device_confirm_password == "") {
+		valid = false;
+		$(".input-confirm-ganti-password").next().html("Confirm Password harus diisi");
+	} else if (device_confirm_password != device_password) {
+		valid = false;
+		$(".input-confirm-ganti-password").next().html("Confirm Password harus sama dengan password");
+	}
+	return valid;
 }
 
 function cekInsertInputError(device_name, device_email, device_password, device_confirm_password) {

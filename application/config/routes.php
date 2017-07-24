@@ -157,6 +157,7 @@ $route['alat/checkUserKembar'] = 'panel/alat/checkUserKembar';
 $route['alat/checkEmailKembar'] = 'panel/alat/checkEmailKembar';
 $route["alat/tambahAlat"] = "panel/alat/tambahAlat";
 $route["alat/updateAlat"] = "panel/alat/updateAlat";
+$route['alat/gantiPassword'] = 'panel/alat/gantiPassword';
 $route["alat/toggleAlatAktif"] = "panel/alat/toggleAlatAktif";
 $route["alat/deleteAlat"] = "panel/alat/deleteAlat";
 $route['kendaraan'] = 'panel/kendaraan';

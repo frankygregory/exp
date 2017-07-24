@@ -101,6 +101,30 @@ class Alat extends MY_Controller
 			parent::generate_common_results($db, "ci");
 		}
 	}
+
+	public function gantiPassword() {
+		$device_id = $this->input->post("device_id", true);
+		$device_password = $this->input->post("device_password", true);
+		if ($device_id && $device_password) {
+			$user_id = $this->session->userdata("user_id");
+			$data = array(
+				"device_id" => $device_id,
+				"device_password" => $device_password,
+				"user_id" => $user_id
+			);
+			$result = $this->Alat_model->gantiPassword($data);
+			if ($result->error()["code"] == 0) {
+				echo json_encode(array(
+					"status" => "success"
+				));
+			} else {
+				echo json_encode(array(
+					"status" => "error",
+					"error_message" => $result->error()["message"]
+				));
+			}
+		}
+	}
 	
 	public function toggleAlatAktif() {
 		$device_id = $this->input->post("device_id");
