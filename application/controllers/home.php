@@ -265,6 +265,7 @@ class Home extends CI_Controller
 				$this->email->send();
 
 				$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $email);
+				$this->session->keep_flashdata("flash_message");
 				header("Location: " . base_url());
 			} else {
 				echo "error";
@@ -308,7 +309,8 @@ class Home extends CI_Controller
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
-			"activePage" => $this->activePage
+			"activePage" => $this->activePage,
+			"verifikasi_type" => 1
         );
 
 		$result = $this->Registration_model->verifyEmail($token)[0];
@@ -327,13 +329,86 @@ class Home extends CI_Controller
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
-			"activePage" => $this->activePage
+			"activePage" => $this->activePage,
+			"verifikasi_type" => 2
         );
 
 		$result = $this->Registration_model->verifyDeviceEmail($token)[0];
 		$data["result"] = $result;
-		$data["is_device"] = true;
 
+		$this->load->view('front/common/header', $data);
+        $this->load->view('front/verify', $data);
+		$this->load->view('front/common/footer', $data);
+	}
+
+	function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyz') {
+		$str = '';
+		$max = mb_strlen($keyspace, '8bit') - 1;
+		for ($i = 0; $i < $length; ++$i) {
+			$str .= $keyspace[mt_rand(0, $max)];
+		}
+		return $str;
+	}
+
+	public function forgot_password() {
+		$isLoggedIn = $this->cekLogin();
+        $data = array(
+            'title' => 'Lupa Password',
+            'page_name' => "forgot_password",
+			'additional_file' => "",
+			"isLoggedIn" => $isLoggedIn,
+			"modules" => $this->modules,
+			"activePage" => $this->activePage,
+			"post" => 0
+        );
+
+		$user_email = $this->input->post("user_email", true);
+		if ($user_email) {
+			$config["protocol"] = "smtp";
+			$config["smtp_host"] = "mail.wahanafurniture.com";
+			$config["smtp_user"] = "admin@wahanafurniture.com";
+			$config["smtp_pass"] = "admin123123";
+			$config["smtp_port"] = 587;
+			$this->load->library("email", $config);
+
+			$data["post"] = 1;
+			$password = $this->random_str(6);
+			$resetData = array(
+				"user_email" => $user_email,
+				"password" => $password
+			);
+			$result = $this->Registration_model->forgotPassword($resetData)[0];
+			$data["result"] = $result;
+
+			if ($result->status == "success") {
+				$this->email->set_newline("\r\n");
+				$this->email->from("admin@wahanafurniture.com");
+				$this->email->to($user_email);
+				$this->email->subject("Reset Password Yukirim");
+				$this->email->message("Password baru anda adalah :\n\n" . $password . "\n\nUntuk mengaktifkan password baru anda, silakan mengklik link di bawah ini:\n" . base_url("reset-password/" . $result->generated_token));
+				$this->email->send();
+			}
+		}
+
+		$this->load->view('front/common/header', $data);
+        $this->load->view('front/forgot_password', $data);
+		$this->load->view('front/common/footer', $data);
+	}
+
+	public function reset_password($token) {
+		$isLoggedIn = $this->cekLogin();
+        $data = array(
+            'title' => 'Reset Password',
+            'page_name' => "verify",
+			'additional_file' => "",
+			"isLoggedIn" => $isLoggedIn,
+			"modules" => $this->modules,
+			"activePage" => $this->activePage,
+			"verifikasi_type" => 3
+        );
+
+		$result = $this->Registration_model->verifyResetPassword($token)[0];
+		$data["result"] = $result;
 		$this->load->view('front/common/header', $data);
         $this->load->view('front/verify', $data);
 		$this->load->view('front/common/footer', $data);

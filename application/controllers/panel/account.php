@@ -33,7 +33,7 @@ class Account extends MY_Controller
 			$error_upload = false;
 
 			if ($field == "password") {
-				$old = md5($this->input->post("old"));
+				$old = md5($this->input->post("old", true));
 				$value = md5($value);
 			} else if ($field == "user_details_npwp" || $field == "user_details_siup" || $field == "user_details_tdp") {
 				$kolom = ($field == "user_details_npwp") ? "npwp" : ($field == "user_details_siup") ? "siup" : "tdp";
@@ -58,7 +58,8 @@ class Account extends MY_Controller
 				$db = $this->Account_model->updateCertainField($data);
 				if ($db->error()["code"] == "0") {
 					echo json_encode(array(
-						"status" => "success"
+						"status" => "success",
+						"affected_rows" => $db->affected_rows()
 					));
 				} else {
 					echo json_encode(array(

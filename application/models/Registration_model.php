@@ -38,4 +38,15 @@ class Registration_model extends CI_Model
 		$this->db->limit(1);
 		return $this->db->get('verifikasi')->result();
 	}
+
+	public function forgotPassword($data) {
+		$data["password"] = md5($data["password"]);
+		$query = $this->db->query("CALL reset_user_password('" . $data["user_email"] . "', '" . $data["password"] . "');");
+		return $query->result();
+	}
+
+	public function verifyResetPassword($token) {
+		$query = $this->db->query("CALL verify_reset_user_password('" . $token . "');");
+		return $query->result();
+	}
 }

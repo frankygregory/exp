@@ -131,17 +131,17 @@ $(function() {
 			case "password":
 				element = "<div class='form-item'>";
 				element += "<div class='form-item-label'>Password lama</div>";
-				element += "<input type='password' class='input-password-lama' maxlength='40' />";
+				element += "<input type='password' class='input-value-old input-password-lama' maxlength='30' />";
 				element += "<div class='error'></div>";
 				element += "</div>";
 				element += "<div class='form-item'>";
 				element += "<div class='form-item-label'>Password baru</div>";
-				element += "<input type='password' class='input-value input-password-baru' maxlength='40' />";
+				element += "<input type='password' class='input-value input-password-baru' maxlength='30' />";
 				element += "<div class='error'></div>";
 				element += "</div>";
 				element += "<div class='form-item'>";
 				element += "<div class='form-item-label'>Konfirmasi password baru</div>";
-				element += "<input type='password' class='input-konfirmasi-password' maxlength='40' />";
+				element += "<input type='password' class='input-konfirmasi-password' maxlength='30' />";
 				element += "<div class='error'></div>";
 				element += "</div>";
 				break;
@@ -222,6 +222,7 @@ function updateData() {
 		var field = $(".dialog-edit").data("field");
 		var table = $(".dialog-edit").data("table");
 		var type = $(".dialog-edit").data("type");
+		var old = "";
 		var value;
 		if (type == "text" || type == "textarea") {
 			value = $(".dialog-edit .input-value").val();
@@ -229,11 +230,15 @@ function updateData() {
 			value = $(".dialog-edit .input-value[name='" + field + "']:checked").val();
 		} else if (type == "file") {
 			value = $(".dialog-edit .input-value")[0].files[0];
+		} else if (type == "password") {
+			value = $(".dialog-edit .input-value").val();
+			old = $(".dialog-edit .input-value-old").val();
 		}
 		
 		var data = {
 			field: field,
 			value: value,
+			old: old,
 			table: table
 		};
 
@@ -241,13 +246,13 @@ function updateData() {
 			ajaxCall("<?= base_url("account-settings/updateCertainField") ?>", data, function(json) {
 				var result = JSON.parse(json);
 				if (result.status == "success") {
-					window.location.reload(true);
-				} else if (result.status == "error") {
-					if ($(".dialog-edit").data("type") == "password") {
+					if (type == "password" && result.affected_rows == 0) {
 						alert("Password lama salah");
 					} else {
-						alert(result.error_message);
+						window.location.reload(true);
 					}
+				} else if (result.status == "error") {
+					alert(result.error_message);
 				}
 			});
 		} else {

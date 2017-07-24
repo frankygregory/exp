@@ -70,6 +70,7 @@
 		<div class="login-error login-error-username error"></div>
 		<input type="password" class="input-login-password" placeholder="password" />
 		<div class="login-error login-error-password error"></div>
+		<a class="forgot-password-link" href="<?php echo base_url("forgot-password"); ?>">Lupa Password</a>
 		<div class="remember-me">
 			<label>
 				<input type="checkbox" class="input-remember-me" value="remember-me" /> Ingat saya

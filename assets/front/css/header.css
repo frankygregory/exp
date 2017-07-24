@@ -126,6 +126,13 @@
 	border: 1px solid #757575;
 }
 
+.login-dialog .forgot-password-link {
+	display: block;
+	font-size: 11pt;
+	margin-top: 15px;
+	float: right;
+}
+
 .remember-me {
 	margin-top: 20px;
 	color: #616161;
