@@ -116,7 +116,7 @@
 					<tbody>
 						<?php
 							$detail_lokasi = false;
-							if ($isOwner OR ($shipment_status < 6 && $shipment_status > 0 && $expedition_id == $user_id)) {
+							if ($isOwner OR $expedition_id == $user_id) {
 								$detail_lokasi = true;
 							}
 						?>

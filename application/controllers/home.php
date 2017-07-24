@@ -258,16 +258,16 @@ class Home extends CI_Controller
 			$result = $this->Registration_model->doRegister($insertData)[0];
 			if ($result->status == "success") {
 				$this->email->set_newline("\r\n");
-				$this->email->from("admin@wahanafurniture.com");
+				$this->email->from("admin@wahanafurniture.com", "Yukirim");
 				$this->email->to($email);
 				$this->email->subject("Verifikasi Yukirim");
-				$this->email->message("Terima kasih telah mendaftar. Untuk mengaktifkan account anda, silakan mengklik link di bawah ini:\n" . base_url("verify-email/" . $result->generated_token));
-				if ($this->email->send()) {
+				$this->email->message("Dear " . $nama . ",\n\nTerima kasih telah mendaftar. Untuk mengaktifkan account anda, silakan mengklik link di bawah ini:\n" . base_url("verify-email/" . $result->generated_token) . "\n\nBest regards,\n\nYukirim");
+				/*if ($this->email->send()) {
 					$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $email);
 				} else {
 					$this->session->set_flashdata('flash_message', "gagal mengirim email");
-				}
-
+				}*/
+				$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $email);
 				$this->session->keep_flashdata("flash_message");
 				header("Location: " . base_url());
 			} else {
@@ -385,10 +385,10 @@ class Home extends CI_Controller
 
 			if ($result->status == "success") {
 				$this->email->set_newline("\r\n");
-				$this->email->from("admin@wahanafurniture.com");
+				$this->email->from("admin@wahanafurniture.com", "Yukirim");
 				$this->email->to($user_email);
 				$this->email->subject("Reset Password Yukirim");
-				$this->email->message("Password baru anda adalah :\n\n" . $password . "\n\nUntuk mengaktifkan password baru anda, silakan mengklik link di bawah ini:\n" . base_url("reset-password/" . $result->generated_token));
+				$this->email->message("Dear " . $result->user_fullname . ",\n\nPassword baru anda adalah :\n\n" . $password . "\n\nUntuk mengaktifkan password baru anda, silakan mengklik link di bawah ini:\n" . base_url("reset-password/" . $result->generated_token) . "\n\nBest regards,\n\nYukirim");
 				$this->email->send();
 			}
 		}

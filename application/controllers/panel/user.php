@@ -131,10 +131,10 @@ class User extends MY_Controller
 		$result = $this->User_model->add_other_user($data)[0];
 		if ($result->status == "success") {
 			$this->email->set_newline("\r\n");
-			$this->email->from("admin@wahanafurniture.com");
+			$this->email->from("admin@wahanafurniture.com", "Yukirim");
 			$this->email->to($user_email);
 			$this->email->subject("Verifikasi Yukirim");
-			$this->email->message("Terima kasih telah mendaftar.\nUntuk mengaktifkan account anda, silakan mengklik link di bawah ini:\n" . base_url("verify-email/" . $result->generated_token));
+			$this->email->message("Dear " . $user_fullname . ",\n\nTerima kasih telah mendaftar.\nUntuk mengaktifkan account anda, silakan mengklik link di bawah ini:\n" . base_url("verify-email/" . $result->generated_token) . "\n\nBest regards,\n\nYukirim");
 			$this->email->send();
 
 			$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $user_email);

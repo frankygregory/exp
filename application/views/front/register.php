@@ -173,12 +173,11 @@ $(function() {
 		isNumber(e);
 	});
 	
-	
 	$(".btn-daftar").on("click", function(e) {
 		validPoints = 0;
 		var valid = true;
-		valid &= cekUsername();
-		valid &= cekEmail();
+		valid &= cekUsername(true);
+		valid &= cekEmail(true);
 		valid &= cekNama();
 		valid &= cekAlamat();
 		valid &= cekTelp();
@@ -186,8 +185,12 @@ $(function() {
 		valid &= cekPassword();
 		valid &= cekKonfirmasi();
 		valid &= cekTerms();
-		
-		e.preventDefault();
+	});
+
+	$("form.register-role").on("submit", function(e) {
+		if (validPoints < 9) {
+			return false;
+		}
 	});
 });
 
@@ -198,7 +201,7 @@ function addValidPoints() {
 	}
 }
 
-function cekUsername() {
+function cekUsername(cekKembar = false) {
 	var valid = true;
 	var username = $(".input-username").val();
 	if (username == "") {
@@ -209,30 +212,31 @@ function cekUsername() {
 			valid = false;
 			displayError($(".input-username").next(), "Username hanya boleh huruf atau angka");
 		} else {
-			$.ajax({
-				url: '<?= base_url("home/cekUsernameKembar") ?>',
-				data: {username: username},
-				type: 'POST',
-				error: function() {
-					valid = false;
-					displayError($(".input-username").next(), "Unknown Error saat pengecekan kembar");
-				},
-				success: function(data) {
-					if (data == "true") { //berarti username kembar
+			if (cekKembar) {
+				$.ajax({
+					url: '<?= base_url("home/cekUsernameKembar") ?>',
+					data: {username: username},
+					type: 'POST',
+					error: function() {
 						valid = false;
-						displayError($(".input-username").next(), "Username sudah ada");
+						displayError($(".input-username").next(), "Unknown Error saat pengecekan kembar");
+					},
+					success: function(data) {
+						if (data == "true") { //berarti username kembar
+							valid = false;
+							displayError($(".input-username").next(), "Username sudah ada");
+						} else {
+							addValidPoints();
+						}
 					}
-				}
-			});
+				});
+			}
 		}
-	}
-	if (valid) {
-		addValidPoints();
 	}
 	return valid;
 }
 
-function cekEmail() {
+function cekEmail(cekKembar = false) {
 	var valid = true;
 	var email = $(".input-email").val();
 	if (email == "") {
@@ -244,25 +248,26 @@ function cekEmail() {
 			valid = false;
 			displayError($(".input-email").next(), "Email tidak valid");
 		} else {
-			$.ajax({
-				url: '<?= base_url("home/cekEmailKembar") ?>',
-				data: {email: email},
-				type: 'POST',
-				error: function() {
-					valid = false;
-					displayError($(".input-username").next(), "Unknown Error saat pengecekan kembar");
-				},
-				success: function(data) {
-					if (data == "true") { //berarti email kembar
+			if (cekKembar) {
+				$.ajax({
+					url: '<?= base_url("home/cekEmailKembar") ?>',
+					data: {email: email},
+					type: 'POST',
+					error: function() {
 						valid = false;
-						displayError($(".input-email").next(), "Email sudah ada");
+						displayError($(".input-username").next(), "Unknown Error saat pengecekan kembar");
+					},
+					success: function(data) {
+						if (data == "true") { //berarti email kembar
+							valid = false;
+							displayError($(".input-email").next(), "Email sudah ada");
+						} else {
+							addValidPoints();
+						}
 					}
-				}
-			});
+				});
+			}
 		}
-	}
-	if (valid) {
-		addValidPoints();
 	}
 	return valid;
 }

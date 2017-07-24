@@ -8,7 +8,7 @@
 				<tr>
 					<td class="td-label">Tipe</td>
 					<td class="td-value">
-						<span class="span-value"><?= $data->type_name ?></span>
+						<span class="span-value"><?= ucfirst($data->type_name) ?></span>
 						<span class="edit-icon" data-table="1" data-field="type_id" data-input-type="tipe" data-value="<?= $data->type_id ?>">Edit</span>
 					</td>
 				</tr>

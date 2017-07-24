@@ -61,10 +61,10 @@ class Alat extends MY_Controller
 			$result = $this->Alat_model->addAlat($insertData)[0];
 			if ($result->status == "success") {
 				$this->email->set_newline("\r\n");
-				$this->email->from("admin@wahanafurniture.com");
+				$this->email->from("admin@wahanafurniture.com", "Yukirim");
 				$this->email->to($device_email);
-				$this->email->subject("Verifikasi Yukirim");
-				$this->email->message("Untuk mengaktifkan account alat, silakan mengklik link di bawah ini:\n" . base_url("verify-device-email/" . $result->generated_token));
+				$this->email->subject("Verifikasi Alat Yukirim");
+				$this->email->message("Untuk mengaktifkan account alat, silakan mengklik link di bawah ini:\n" . base_url("verify-device-email/" . $result->generated_token) . "\n\nBest regards,\n\nYukirim");
 				$this->email->send();
 
 				$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account pada ' . $device_name . ' telah dikirim ke ' . $device_email);

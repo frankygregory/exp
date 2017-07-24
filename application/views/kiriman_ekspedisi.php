@@ -530,23 +530,23 @@ function addKirimanToTable(result, tabsNumber, tab) {
 	var element = {
 		"deal": {
 			value: "",
-			btn: "<td><button class='btn-default btn-action btn-deal'>Konfirmasi</button><button class='btn-negative btn-action btn-batal-pengiriman'>Tolak</button></td>"
+			btn: "<td><button class='btn-default btn-deal'>Konfirmasi</button><button class='btn-negative btn-batal-pengiriman'>Tolak</button></td>"
 		},
 		"pending": {
 			value: "",
-			btn: "<td><button class='btn-default btn-action btn-pesan'>Pesan</button><button class='btn-negative btn-action btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: "<td><button class='btn-default btn-pesan'>Pesan</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
 		},
 		"pesanan": {
 			value: "",
-			btn: "<td><button class='btn-default btn-action btn-dikirim'>Dikirim</button><button class='btn-negative btn-action btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: "<td><button class='btn-default btn-dikirim'>Dikirim</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
 		},
 		"dikirim": {
 			value: "",
-			btn: "<td><button class='btn-default btn-action btn-diambil'>Diambil</button><button class='btn-negative btn-action btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: "<td><button class='btn-default btn-diambil'>Diambil</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
 		},
 		"diambil": {
 			value: "",
-			btn: "<td><button class='btn-default btn-action btn-diterima'>Diterima</button><button class='btn-negative btn-action btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: "<td><button class='btn-default btn-diterima'>Diterima</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
 		},
 		"diterima": {
 			value: "",
