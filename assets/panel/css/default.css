@@ -310,3 +310,37 @@ table td[data-align="center"] {
 .default-loading-container .default-empty-state {
 	height: 100%;
 }
+
+.verified-icon {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin-bottom: -3px;
+	margin-left: 5px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	position: relative;
+	overflow: visible !important;
+	cursor: pointer;
+	
+}
+
+.verified-icon-explanation {
+	display: none;
+	width: 200px;
+	position: absolute;
+	background-color: white;
+	box-shadow: 0 0 5px #AAA;
+	border-radius: 2px;
+	padding: 10px;
+	color: #333;
+	z-index: 1000;
+}
+
+.verified-icon-explanation:after {
+	content: "User ini telah diverifikasi oleh pihak Yukirim"
+}
+
+.verified-icon-explanation.visible {
+	display: block;
+}

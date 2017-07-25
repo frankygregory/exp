@@ -181,3 +181,8 @@ table td {
 	right: 10px;
 	color: #888;
 }
+
+.verified-icon {
+	width: 30px !important;
+	height: 30px !important;
+}

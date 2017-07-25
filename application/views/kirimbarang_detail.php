@@ -700,9 +700,11 @@ function addDiscussionToTable(result) {
 	var iLength = questions.length;
 	var element = "";
 	for (var i = 0; i < iLength; i++) {
+		var icon = (questions[i].user_verified == 0) ? "" : "<span class='verified-icon' style='background-image: url(" + verifiedIconUrl + ");'><div></div></span>";
+
 		element += "<div class='discussions-item'>";
 		<?= $divQuestions ?>
-		element += "<div class='questions-user-id'><a href='" + profilUrl + questions[i].user_id + "'>" + questions[i].username + "</a></div>";
+		element += "<div class='questions-user-id'><a href='" + profilUrl + questions[i].user_id + "'>" + questions[i].username + "</a>" + icon + "</div>";
 		element += "<div class='questions-text'>" + questions[i].questions_text + "</div>";
 		<?= $btnJawabPertanyaan ?>
 		element += "</div>";
@@ -752,11 +754,13 @@ function addBiddingListToTable(result) {
 		if (result.data[i].bidding_type == 2) {
 			bidding_type = "Laut";
 		}
-
+		
+		var icon = (result.data[i].user_verified == 0) ? "" : "<span class='verified-icon' style='background-image: url(" + verifiedIconUrl + ");'></span>";
+		
 		element += "<tr class='tr-bidding' data-status='" + result.data[i].bidding_status + "' <?= $tr_bidding ?>>";
 		element += "<td class='td-bidding-price' data-value='" + result.data[i].bidding_price + "'>" + addCommas(result.data[i].bidding_price) + " IDR</td>";
 		element += "<td class='td-bidding-type' data-value='" + bidding_type + "'>" + bidding_type + "</td>";
-		element += "<td class='td-bidding-username'><a href='" + profilUrl + result.data[i].user_id + "'>" + result.data[i].username + "</a></td>";
+		element += "<td class='td-bidding-username'><a href='" + profilUrl + result.data[i].user_id + "'>" + result.data[i].username + "</a>" + icon + "</td>";
 		element += "<td class='td-bidding-tanggal-ambil'>";
 		element += "<div>Tanggal Ambil : " + result.data[i].bidding_pickupdate + "</div>";
 		element += "<div>Keterangan : " + result.data[i].bidding_information + "</div>";

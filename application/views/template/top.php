@@ -16,7 +16,7 @@
 			src: url(<?= base_url("assets/fonts/Roboto-Regular.ttf") ?>);
 		}
 	</style>
-	<link href="<?=base_url()?>assets/panel/css/default.css?v=3" rel="stylesheet">
+	<link href="<?=base_url()?>assets/panel/css/default.css?v=4" rel="stylesheet">
 	<link href="<?=base_url()?>assets/template/css/top.css?v=2" rel="stylesheet" media="(orientation: landscape)">
 	<link href="<?=base_url()?>assets/template/css/top - portrait.css" rel="stylesheet" media="(orientation: portrait)">
 	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=9" rel="stylesheet">
@@ -105,12 +105,14 @@
 			</a>
 		</div>
 		<div class="container-content">
+			<div class="verified-icon-explanation"></div>
 <script>
 String.prototype.padLeft = function(l,c) {return Array(l-this.length+1).join(c||" ")+this}
 var dialog = {
 	shown: false
 };
 var ajaxVariable;
+var verifiedIconUrl = "<?php echo base_url("assets/icons/ic_verified_user_black_24px.svg") ?>";
 var editIconUrl = "<?php echo base_url("assets/icons/ic_edit_black_24px.svg") ?>";
 var deleteIconUrl = "<?php echo base_url("assets/icons/ic_delete_forever_black_24px.svg") ?>";
 $(function() {
@@ -145,6 +147,19 @@ $(function() {
 	$(".menu-hamburger").on("click", function() {
 		toggleNavigationDrawer();
 	});
+
+	/*$(document).on("mouseenter", ".verified-icon", function() {
+		var offset = $(this).offset();
+		$(".verified-icon-explanation").css({
+			"top": offset.top,
+			"left": offset.left
+		})
+		$(".verified-icon-explanation").addClass("visible");
+	});
+
+	$(document).on("mouseleave", ".verified-icon", function() {
+		$(".verified-icon-explanation").removeClass("visible");
+	});*/
 });
 
 function toggleNavigationDrawer() {

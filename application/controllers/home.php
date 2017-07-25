@@ -133,7 +133,7 @@ class Home extends CI_Controller
 				'title' => 'Profil',
 				'page_name' => "profil",
 				'page_title'=> 'Profil',
-				'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css" rel="stylesheet">',
+				'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=1" rel="stylesheet">',
 				"user" => $user,
 				"isLoggedIn" => $isLoggedIn,
 				"modules" => $this->modules,

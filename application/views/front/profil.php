@@ -1,6 +1,6 @@
 <div class="content">
     <div class="section-1">
-        <div class="username"><?= $user[0]->username ?></div>
+        <div class="username"><?php echo $user[0]->username; echo ($user[0]->user_verified == 0) ? "" : "<span class='verified-icon' style='background-image: url(" . base_url("assets/icons/ic_verified_user_black_24px.svg") . ");'><div></div></span>"; ?></div>
     </div>
     <div class="section-2 section">
         <div class="subsection subsection-kiriman">

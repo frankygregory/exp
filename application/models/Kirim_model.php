@@ -47,7 +47,7 @@ class Kirim_model extends CI_Model
 	
 	public function getShipment($shipment_id) {
 		$query = $this->db->query(
-			"SELECT s.*, u.username, b.user_id AS expedition_id, get_lowest_bidding_price(" . $shipment_id . ") AS bidding_price
+			"SELECT s.*, u.username, u.user_verified, b.user_id AS expedition_id, get_lowest_bidding_price(" . $shipment_id . ") AS bidding_price
 			FROM `m_shipment` s, `m_user` u
 			LEFT JOIN (SELECT shipment_id, user_id FROM `t_bidding` WHERE bidding_status = 1) b
 			ON b.shipment_id = " . $shipment_id . "
@@ -116,7 +116,7 @@ class Kirim_model extends CI_Model
 	
 	public function getQuestions($shipment_id) {
 		$query = $this->db->query(
-			"SELECT t.*, u.username
+			"SELECT t.*, u.username, u.user_verified
 			FROM `t_questions` t, `m_user` u
 			WHERE t.user_id = u.user_id AND t.shipment_id = " . $shipment_id . ";"
 		);
@@ -141,7 +141,7 @@ class Kirim_model extends CI_Model
 	
 	public function getBidding($shipment_id) {
 		$query = $this->db->query(
-			"SELECT t.*, u.username
+			"SELECT t.*, u.username, u.user_verified
 			FROM `t_bidding` t, `m_user` u
 			WHERE t.created_by = u.user_id AND shipment_id = " . $shipment_id . ";"
 		);
