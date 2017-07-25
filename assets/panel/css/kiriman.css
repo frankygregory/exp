@@ -100,9 +100,11 @@
 }
 
 .shipment-picture {
-	display: block;
-	width: 100px;
+	width: 70px;
+	margin-right: 5px !important;
+	max-height: 50px;
 	margin: 5px auto 0;
+	vertical-align: middle;
 }
 
 .subsection-sort {

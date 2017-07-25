@@ -351,7 +351,7 @@ class Kirim extends MY_Controller
 				$data = array(
 					'shipment_title' => $this->input->post('shipment_title'),
 					'shipment_information' => $this->input->post('shipment_information'),
-					'shipment_pictures' => $file_name,
+					'shipment_pictures' => $this->upload->data("file_name"),
 					'user_id' => $user_id,
 					'shipment_length' => $shipment_length,
 					'location_from_name' => $this->input->post('location_from_name'),
