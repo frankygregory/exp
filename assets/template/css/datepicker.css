@@ -85,7 +85,6 @@
 }
 
 .datepicker-tanggal[data-disabled="1"] {
-	background-color: white;
 	opacity: 0.3;
 }
 
@@ -132,6 +131,22 @@
 
 .datepicker-waktu-container {
 	height: 238px;
+	position: relative;
+}
+
+.datepicker-waktu-disable {
+	display: none;
+}
+
+.datepicker[data-disable-time="1"] .datepicker-waktu-disable {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.6);
+	z-index: 10;
 }
 
 .datepicker-waktu-content {

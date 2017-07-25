@@ -64,7 +64,7 @@ class Alat extends MY_Controller
 				$this->email->from("admin@wahanafurniture.com", "Yukirim");
 				$this->email->to($device_email);
 				$this->email->subject("Verifikasi Alat Yukirim");
-				$this->email->message("Untuk mengaktifkan account alat, silakan mengklik link di bawah ini:\n" . base_url("verify-device-email/" . $result->generated_token) . "\n\nBest regards,\n\nYukirim");
+				$this->email->message("Dear " . $result->user_fullname . ",\n\nUntuk mengaktifkan account alat, silakan mengklik link di bawah ini:\n" . base_url("verify-device-email/" . $result->generated_token) . "\n\nBest regards,\n\nYukirim");
 				$this->email->send();
 
 				$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account pada ' . $device_name . ' telah dikirim ke ' . $device_email);

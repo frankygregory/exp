@@ -506,7 +506,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	});
 	
 	$( ".input-bidding-pickupdate" ).datepicker({
-		disableDateBefore: true
+		disableDateBefore: new Date()
 	});
 	
 	$(document).on("click", ".btn-kirim-penawaran", function() {

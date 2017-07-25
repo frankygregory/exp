@@ -9,7 +9,7 @@
 			echo "Password untuk email " . $result->user_email . " telah direset.<br><a href='" . base_url("#login") . "'>Silakan Login</a>";
 		}
 	} else {
-		echo "Link ini sudah tidak berlaku<br><a href='" . base_url() . "'>Kembali ke halaman utama</a>";
+		echo "Link ini tidak berlaku<br><a href='" . base_url() . "'>Kembali ke halaman utama</a>";
 	}
 	echo "</div>";
 ?>

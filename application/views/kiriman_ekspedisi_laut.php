@@ -305,7 +305,7 @@ $(function() {
 	});
 
 	$(".dialog-ubah-input-waktu").datepicker({
-		disableDateAfter: true
+		disableDateAfter: new Date()
 	});
 	
 	$(document).on("click", ".btn-ubah", function(e) {
@@ -586,27 +586,27 @@ function addKirimanToTable(result, tabsNumber, tab) {
 	var element = {
 		"deal": {
 			value: "",
-			btn: "<td><button class='btn-default btn-action btn-deal'>Deal</button><button class='btn-negative btn-action btn-batal-pengiriman'>Tolak</button></td>"
+			btn: "<td><button class='btn-default btn-deal'>Deal</button><button class='btn-negative btn-batal-pengiriman'>Tolak</button></td>"
 		},
 		"pending": {
 			value: "",
-			btn: "<td><button class='btn-default btn-action btn-ubah'>Ubah</button><button class='btn-negative btn-action btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: "<td><button class='btn-default btn-ubah'>Ubah</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
 		},
 		"door1": {
 			value: "",
-			btn: "<td><button class='btn-default btn-action btn-ubah'>Ubah</button><button class='btn-negative btn-action btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: "<td><button class='btn-default btn-ubah'>Ubah</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
 		},
 		"port1": {
 			value: "",
-			btn: "<td><button class='btn-default btn-action btn-ubah'>Ubah</button><button class='btn-negative btn-action btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: "<td><button class='btn-default btn-ubah'>Ubah</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
 		},
 		"port2": {
 			value: "",
-			btn: "<td><button class='btn-default btn-action btn-ubah'>Ubah</button><button class='btn-negative btn-action btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: "<td><button class='btn-default btn-ubah'>Ubah</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
 		},
 		"door2": {
 			value: "",
-			btn: "<td><button class='btn-default btn-action btn-ubah'>Ubah</button><button class='btn-negative btn-action btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: "<td><button class='btn-default btn-ubah'>Ubah</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
 		},
 		"selesai": {
 			value: "",

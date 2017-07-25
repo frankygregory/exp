@@ -265,7 +265,7 @@
 				</div>
 				<div class="section-5-right">
 					<div class="form-item form-item-harga">
-						<div class="form-item-label">Harga</div>
+						<div class="form-item-label">Harga yang ditawarkan</div>
 						<input type="text" name="shipment_price" class="input-harga" data-type="number" maxlength="11" /><span>IDR<span>
 					</div>
 					<div class="form-item">
@@ -307,21 +307,66 @@
    
 $(function() {
 	$(".input-tanggal-kirim-awal").datepicker({
-		disableDateBefore: true
+		disableDateBefore: new Date()
 	});
 	$(".input-tanggal-kirim-akhir").datepicker({
-		disableDateBefore: true
+		disableDateBefore: new Date("2017-07-25 00:00:00")
 	});
 	$(".input-tanggal-deadline").datepicker({
-		disableDateBefore: true
+		disableDateBefore: new Date("2017-07-25 00:00:00")
 	});
 
 	$(".input-tanggal-kirim-awal").on("datetimeSelected", function() {
-		$(".input-tanggal-kirim-akhir").focus();
+		var value = $(this).data("value-date");
+		var date = new Date(value);
+
+		var firstValue;
+		var akhirValue = $(".input-tanggal-kirim-akhir").data("value-date");
+		if (akhirValue != "") {
+			var akhirDate = new Date(akhirValue);
+			if (akhirDate >= date) {
+				var akhirValueTime = $(".input-tanggal-kirim-akhir").data("value-time");
+				firstValue = akhirValue + " " + akhirValueTime;
+			}
+		}
+
+		$(".input-tanggal-kirim-akhir").datepicker({
+			disableDateBefore: date,
+			firstValue: firstValue
+		});
+
+		firstValue = null;
+		var berakhirValue = $(".input-tanggal-deadline").data("value-date");
+		if (berakhirValue != "") {
+			var berakhirDate = new Date(berakhirValue);
+			if (berakhirDate <= date) {
+				var berakhirValueTime = $(".input-tanggal-deadline").data("value-time");
+				firstValue = berakhirValue + " " + berakhirValueTime;
+			}
+		}
+
+		$(".input-tanggal-deadline").datepicker({
+			disableDateAfter: date,
+			firstValue: firstValue
+		});
 	});
 
-	$(".input-tanggal-kirim-akhir").on("datetimeSelected", function() {
-		$(".input-tanggal-deadline").focus();
+	$(".input-tanggal-kirim-awal").on("datetimeOkSelected", function() {
+		if ($(this).val() != "") {
+			var akhirValue = $(".input-tanggal-kirim-akhir").data("value-date");
+			if (akhirValue == "") {
+				$(".input-tanggal-kirim-akhir").focus();
+			}
+		}
+	});
+
+	$(".input-tanggal-kirim-akhir").on("datetimeOkSelected", function() {
+		if ($(this).val() != "") {
+			var berakhirValue = $(".input-tanggal-deadline").data("value-date");
+			if (berakhirValue == "") {
+				$(".input-tanggal-deadline").focus();
+			}
+		}
 	});
 
 	$(".section-5-left input").on("datetimeShow", function() {
