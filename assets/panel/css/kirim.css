@@ -113,41 +113,6 @@
 	width: 100%;
 }
 
-.table-kiriman td[data-col="nama-kirim"] {
-	width: 150px;
-}
-
-.table-kiriman td[data-col="harga"] {
-	width: 180px;
-}
-
-.table-kiriman td[data-col="asal"], .table-kiriman td[data-col="tujuan"] {
-	width: 200px;
-}
-
-.table-kiriman td[data-col="km"] {
-	width: 80px;
-}
-
-.table-kiriman td[data-col="berakhir"] {
-	width: 230px;
-}
-
-.table-kiriman a:link, .table-kiriman a:visited {
-	text-decoration: none;
-	color: black;
-}
-
-.table-kiriman tbody tr:hover {
-	background-color: #E0E0E0 !important;
-}
-
-.shipment-picture {
-	display: block;
-	width: 100px;
-	margin: 5px auto 0;
-}
-
 .subsection-sort {
 	float: right;
 	margin-right: -10px;
@@ -156,13 +121,4 @@
 .subsection-sort .form-item {
 	width: 200px;
 	float: right;
-}
-
-.td-nama-kirim, .td-title, .td-km {
-	text-align: center;
-}
-
-.td-title a {
-	color: blue !important;
-	text-decoration: underline !important;
 }

@@ -157,6 +157,91 @@ table td[data-align="center"] {
 	text-align: center;
 }
 
+.table-kiriman tbody .tr-kiriman:hover {
+	background-color: #E0E0E0;
+}
+
+.table-kiriman td[data-col="nama-kirim"] {
+	width: 230px;
+}
+
+.table-kiriman td[data-col="harga"] {
+	width: 180px;
+}
+
+.table-kiriman td[data-col="asal"], .table-kiriman td[data-col="tujuan"] {
+	width: 190px;
+}
+
+.table-kiriman td[data-col="km"] {
+	width: 70px;
+	text-align: center;
+}
+
+.table-kiriman td[data-col="berakhir"] {
+	width: 180px;
+}
+
+.table-kiriman td[data-col="action"] {
+	width: 100px;
+}
+
+.table-kiriman td[data-col="muatan"] {
+	width: 90px;
+}
+
+.table-kiriman td[data-col="supir"] {
+	width: 120px;
+}
+
+.table-kiriman td[data-col="kendaraan"] {
+	width: 120px;
+}
+
+.table-kiriman td[data-col="lacak"] {
+	width: 100px;
+}
+
+.table-kiriman td[data-col="waktu-kiriman"] {
+	width: 70px;
+}
+
+.table-kiriman td[data-col="total-waktu"] {
+	width: 70px;
+}
+
+.table-kiriman td[data-col="berakhir"] {
+	width: 230px;
+}
+
+.table-kiriman td[data-col="cancel-by"] {
+	width: 150px;
+}
+
+.table-kiriman .shipment-picture {
+	width: 70px;
+	margin-right: 5px !important;
+	max-height: 50px;
+	margin: 5px auto 0;
+	vertical-align: middle;
+}
+
+.table-kiriman td[data-col="nama-kirim"] a {
+	display: table;
+	color: blue;
+	text-decoration: underline !important;
+}
+
+.table-kiriman td[data-col="nama-kirim"] a:visited {
+	color: blue;
+}
+
+.table-kiriman td[data-col="nama-kirim"] a span, .table-kiriman td[data-col="nama-kirim"] a img {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: left;
+}
+
 .dialog-background {
 	display: none;
 	position: fixed;
