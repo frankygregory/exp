@@ -19,7 +19,7 @@
 	<link href="<?=base_url()?>assets/panel/css/default.css?v=6" rel="stylesheet">
 	<link href="<?=base_url()?>assets/template/css/top.css?v=2" rel="stylesheet" media="(orientation: landscape)">
 	<link href="<?=base_url()?>assets/template/css/top - portrait.css" rel="stylesheet" media="(orientation: portrait)">
-	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=10" rel="stylesheet">
+	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=11" rel="stylesheet">
 	
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
 	<script src="<?=base_url('assets/panel/js/velocity.min.js')?>"></script>

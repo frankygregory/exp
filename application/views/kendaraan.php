@@ -236,6 +236,7 @@ function updateKendaraan() {
 	
 	var valid = cekInputError(vehicle_name, vehicle_nomor);
 	if (valid) {
+		showFullscreenLoading();
 		var data = {
 			submit_update: true,
 			vehicle_id: vehicle_id,
@@ -245,6 +246,7 @@ function updateKendaraan() {
 			vehicle_status: vehicle_status
 		};
 		ajaxCall("<?= base_url("kendaraan/updateKendaraan") ?>", data, function(json) {
+			hideFullscreenLoading();
 			var result = JSON.parse(json);
 			closeDialog();
 			if (result.status == "success") {
@@ -264,6 +266,7 @@ function tambahKendaraan() {
 	
 	var valid = cekInputError(vehicle_name, vehicle_nomor);
 	if (valid) {
+		showFullscreenLoading();
 		var data = {
 			submit_tambah: true,
 			vehicle_nomor: vehicle_nomor,
@@ -272,6 +275,7 @@ function tambahKendaraan() {
 			vehicle_status: vehicle_status
 		};
 		ajaxCall("<?= base_url("kendaraan/tambahKendaraan") ?>", data, function(json) {
+			hideFullscreenLoading();
 			var result = JSON.parse(json);
 			closeDialog();
 			if (result.status == "success") {
@@ -288,12 +292,14 @@ function tambahKendaraan() {
 }
 
 function deleteKendaraan(element) {
+	showFullscreenLoading();
 	var vehicle_id = $(".dialog-konfirmasi-delete").data("id");
 	var data = {
 		submit_delete: true,
 		vehicle_id: vehicle_id
 	};
 	ajaxCall("<?= base_url("kendaraan/deleteKendaraan") ?>", data, function(json) {
+		hideFullscreenLoading();
 		var result = JSON.parse(json);
 		closeDialog();
 		if (result.status == "success") {

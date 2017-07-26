@@ -171,7 +171,8 @@ class Kirim extends MY_Controller
 
 		for ($i = 0; $i < sizeof($bidding); $i++) {
 			$bidding[$i]->bidding_pickupdate = date_format(new DateTime($bidding[$i]->bidding_pickupdate), "d-m-Y H:i");
-			$bidding[$i]->created_date = date_format(new DateTime($bidding[$i]->created_date), "d-m-Y H:i:s");
+			$bidding[$i]->created_date = date_format(new DateTime($bidding[$i]->created_date), "d-m-Y H:i");
+			$bidding[$i]->modified_date = date_format(new DateTime($bidding[$i]->modified_date), "d-m-Y H:i");
 		}
 
 		$result = new stdClass();
@@ -233,7 +234,7 @@ class Kirim extends MY_Controller
 			'title' => 'home',
 			'page_name' => "kirimbarang_detail",
 			'page_title'=> 'Detail Kiriman',
-			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=6" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css?v=10" rel="stylesheet">',
+			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=6" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css?v=11" rel="stylesheet">',
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => "",
 			"activePage" => $activePage,

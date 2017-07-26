@@ -116,7 +116,7 @@
 					<tbody>
 						<?php
 							$detail_lokasi = false;
-							if ($isOwner OR $expedition_id == $user_id) {
+							if ($user_id && ($isOwner OR $expedition_id == $user_id)) {
 								$detail_lokasi = true;
 							}
 						?>
@@ -773,9 +773,9 @@ function addBiddingListToTable(result) {
 			element += "DITERIMA";
 		}
 		else if (result.data[i].bidding_status == 2) {
-			element += "<div class='alasan-tolak'>DITOLAK<br><strong>Alasan : </strong>" + result.data[i].bidding_reason + "</div>";
+			element += "<div class='alasan-tolak'>DITOLAK <span class='bidding-tanggal-batal'>" + result.data[i].modified_date + "</span><br><strong>Alasan : </strong>" + result.data[i].bidding_reason + "</div>";
 		} else if (result.data[i].bidding_status == -1) {
-			element += "DIBATALKAN";
+			element += "DIBATALKAN <span class='bidding-tanggal-batal'>" + result.data[i].modified_date + "</span>";
 		} else {
 		<?= $btnSetujuBidding ?>
 		<?= $btnCancelBidding ?>

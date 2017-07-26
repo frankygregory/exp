@@ -293,6 +293,12 @@ td.td-action {
 	width: 300px;
 }
 
+.bidding-tanggal-batal {
+	display: inline-block;
+	font-size: 10pt;
+	margin-left: 10px;
+}
+
 .container-tolak {
 	display: none;
 }
