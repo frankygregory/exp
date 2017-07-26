@@ -219,6 +219,8 @@ function cekInput() {
 function updateData() {
 	var valid = cekInput();
 	if (valid) {
+		showFullscreenLoading();
+
 		var field = $(".dialog-edit").data("field");
 		var table = $(".dialog-edit").data("table");
 		var type = $(".dialog-edit").data("type");
@@ -247,11 +249,13 @@ function updateData() {
 				var result = JSON.parse(json);
 				if (result.status == "success") {
 					if (type == "password" && result.affected_rows == 0) {
+						hideFullscreenLoading();
 						alert("Password lama salah");
 					} else {
 						window.location.reload(true);
 					}
 				} else if (result.status == "error") {
+					hideFullscreenLoading();
 					alert(result.error_message);
 				}
 			});
@@ -272,6 +276,7 @@ function updateData() {
 					if (result.status == "success") {
 						window.location.reload(true);
 					} else {
+						hideFullscreenLoading();
 						alert(JSON.stringify(result.error_message));
 					}
 				}

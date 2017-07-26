@@ -138,12 +138,12 @@ class Kirim extends MY_Controller
 		$answers = [];
 		if (sizeof($questions) > 0) {
 			for ($i = 0; $i < sizeof($questions); $i++) {
-				$questions[$i]->created_date = date_format(new DateTime($questions[$i]->created_date), "d-m-Y H:i:s");
+				$questions[$i]->created_date = date_format(new DateTime($questions[$i]->created_date), "d-m-Y H:i");
 				$questions_id = $questions[$i]->questions_id;
 				$answer = $this->Kirim_model->getAnswers($questions_id);
 				
 				for ($j = 0; $j < sizeof($answer); $j++) {
-					$answer[$j]->created_date = date_format(new DateTime($answer[$j]->created_date), "d-m-Y H:i:s");
+					$answer[$j]->created_date = date_format(new DateTime($answer[$j]->created_date), "d-m-Y H:i");
 				}
 				array_push($answers, $answer);
 			}
@@ -233,7 +233,7 @@ class Kirim extends MY_Controller
 			'title' => 'home',
 			'page_name' => "kirimbarang_detail",
 			'page_title'=> 'Detail Kiriman',
-			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=5" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css?v=10" rel="stylesheet">',
+			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=6" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css?v=10" rel="stylesheet">',
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => "",
 			"activePage" => $activePage,

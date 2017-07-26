@@ -259,7 +259,7 @@
 						<td>Ekspedisi</td>
 						<td>Detail</td>
 						<td class="td-action">Status</td>
-						<td class="td-tanggal">Tanggal Bidding</td>
+						<td class="td-tanggal">Tanggal Penawaran</td>
 					</tr>
 				</thead>
 				<tbody class="tbody-list-penawaran">

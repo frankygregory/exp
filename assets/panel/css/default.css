@@ -359,6 +359,38 @@ table td[data-align="center"] {
     transform: translateY(-50%) translateX(-50%);
 }
 
+.fullscreen-transparent-loader {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 1001;
+	margin-top: -15px;
+	margin-left: -15px;
+}
+
+.fullscreen-transparent-loader .svg-loader-container {
+	background-color: transparent;
+}
+
+.fullscreen-transparent-loader.shown {
+	display: block;
+}
+
+.loader-container-absolute {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	bottom: 50px;
+	right: 50px;
+}
+
+.loader-container-relative {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
 .table-empty-state, .default-empty-state {
 	display: none;
 	margin: 0 auto;

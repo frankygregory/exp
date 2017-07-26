@@ -16,7 +16,7 @@
 			src: url(<?= base_url("assets/fonts/Roboto-Regular.ttf") ?>);
 		}
 	</style>
-	<link href="<?=base_url()?>assets/panel/css/default.css?v=5" rel="stylesheet">
+	<link href="<?=base_url()?>assets/panel/css/default.css?v=6" rel="stylesheet">
 	<link href="<?=base_url()?>assets/template/css/top.css?v=2" rel="stylesheet" media="(orientation: landscape)">
 	<link href="<?=base_url()?>assets/template/css/top - portrait.css" rel="stylesheet" media="(orientation: portrait)">
 	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=10" rel="stylesheet">
@@ -105,6 +105,11 @@
 			</a>
 		</div>
 		<div class="container-content">
+			<div class="fullscreen-transparent-loader">
+				<div class="loader-container-absolute">
+					<div class="loader-container-relative"><div class="svg-loader-container"><svg version="1.1" class="svg-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 50 50" xml:space="preserve"><path fill="#fbe700" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.8s" repeatCount="indefinite"/></path></svg></div></div>
+				</div>
+			</div>
 			<div class="verified-icon-explanation"></div>
 <script>
 String.prototype.padLeft = function(l,c) {return Array(l-this.length+1).join(c||" ")+this}
@@ -184,12 +189,6 @@ function toggleProfileDropdown(e) {
 	e.stopPropagation();
 }
 
-/*function isNumber(e) {
-	if ((e.which >= 65 && e.which <= 90) || e.which >= 186) {
-		e.preventDefault();
-	}
-}*/
-
 function isNumber(e) {
 	if (e.key.length == 1) {
 		if ("0123456789".indexOf(e.key) < 0) {
@@ -254,8 +253,16 @@ function abortAjaxCall() {
 	}
 }
 
+function showFullscreenLoading() {
+	$(".fullscreen-transparent-loader").addClass("shown");
+}
+
+function hideFullscreenLoading() {
+	$(".fullscreen-transparent-loader").removeClass("shown");
+}
+
 function setLoading(element) {
-	var loadingSvg = '<div class="svg-loader-container"><svg version="1.1" class="svg-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 50 50" xml:space="preserve"><path fill="#E65100" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.8s" repeatCount="indefinite"/></path></svg></div>';
+	var loadingSvg = '<div class="svg-loader-container"><svg version="1.1" class="svg-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 50 50" xml:space="preserve"><path fill="#fbe700" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.8s" repeatCount="indefinite"/></path></svg></div>';
 	$(element).prepend(loadingSvg);
 	$(element).addClass("shown");
 }
