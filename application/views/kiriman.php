@@ -292,24 +292,12 @@ function assignKirimanCount(result) {
 		t4: 0
 	};
 	
-	for (var i = 0; i < result.length; i++) {
-		switch (result[i].shipment_status) {
-			case "-1":
-				tabs.t1 = result[i].count;
-				break;
-			case "6":
-				tabs.t3 = result[i].count;
-				break;
-			case "7":
-				tabs.t4 = result[i].count;
-				break;
-			default:
-				tabs.t2 += parseInt(result[i].count);
-				break;
-		}
-	}
+	tabs.t1 = result.open_kiriman_count;
+	tabs.t2 = result.progress_kiriman_count;
+	tabs.t3 = result.selesai_kiriman_count;
+	tabs.t4 = result.cancel_kiriman_count;
 	
-	for (var i = 1; i <= 8; i++) {
+	for (var i = 1; i <= 4; i++) {
 		updateTabsItemCount(i, tabs["t" + i]);
 	}
 }

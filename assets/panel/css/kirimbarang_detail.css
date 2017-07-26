@@ -11,10 +11,6 @@ input[type="text"]:focus {
 	border: 1px solid #1E88E5;
 }
 
-* {
-	font-size: 12pt;
-}
-
 .section-1a, .section-1b {
 	float: left;
 }
@@ -41,7 +37,8 @@ input[type="text"]:focus {
 }
 
 .shipment_picture {
-	width: 100%;
+	max-width: 100%;
+	max-height: 200px;
 }
 
 td {
@@ -167,6 +164,14 @@ td {
 
 .discussions-item {
 	overflow: auto;
+	position: relative;
+}
+
+.discussion-item-time {
+	position: absolute;
+	right: 150px;
+	margin-top: 10px;
+	font-size: 10pt;
 }
 
 .detail-jawab-pertanyaan {
@@ -203,6 +208,7 @@ td {
 
 .btn-jawab-pertanyaan {
 	float: right;
+	margin-top: 10px;
 	margin-right: 10px;
 	margin-bottom: 10px;
 }
@@ -262,11 +268,7 @@ td {
 }
 
 .tr-bidding[data-status="-1"], .tr-bidding[data-status="2"] {
-	opacity: 0.7;
-}
-
-.tr-bidding[data-status="-1"]:hover, .tr-bidding[data-status="2"]:hover {
-	opacity: 1;
+	opacity: 0.5;
 }
 
 td.td-label {
@@ -288,7 +290,7 @@ td.td-harga {
 }
 
 td.td-action {
-	width: 400px;
+	width: 300px;
 }
 
 .container-tolak {

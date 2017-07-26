@@ -138,9 +138,13 @@ class Kirim extends MY_Controller
 		$answers = [];
 		if (sizeof($questions) > 0) {
 			for ($i = 0; $i < sizeof($questions); $i++) {
+				$questions[$i]->created_date = date_format(new DateTime($questions[$i]->created_date), "d-m-Y H:i:s");
 				$questions_id = $questions[$i]->questions_id;
 				$answer = $this->Kirim_model->getAnswers($questions_id);
 				
+				for ($j = 0; $j < sizeof($answer); $j++) {
+					$answer[$j]->created_date = date_format(new DateTime($answer[$j]->created_date), "d-m-Y H:i:s");
+				}
 				array_push($answers, $answer);
 			}
 		}
@@ -167,6 +171,7 @@ class Kirim extends MY_Controller
 
 		for ($i = 0; $i < sizeof($bidding); $i++) {
 			$bidding[$i]->bidding_pickupdate = date_format(new DateTime($bidding[$i]->bidding_pickupdate), "d-m-Y H:i");
+			$bidding[$i]->created_date = date_format(new DateTime($bidding[$i]->created_date), "d-m-Y H:i:s");
 		}
 
 		$result = new stdClass();
@@ -326,7 +331,7 @@ class Kirim extends MY_Controller
 		if ($item_count > 0) {
 			$file_name = '';
 			$error_upload = false;
-			$file_name = "image_" . $user_id;
+			$file_name = "image_" . $user_id . "_" . parent::random_str(6);
 			parent::upload_file_settings('assets/panel/images/', '5000000', $file_name);
 			if (!$this->upload->do_upload('shipment_pictures')) {
 				$error_upload = true;

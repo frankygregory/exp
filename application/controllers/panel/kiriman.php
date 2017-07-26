@@ -42,7 +42,7 @@ class Kiriman extends MY_Controller
 	
 	public function getKirimanCount() {
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getKirimanCount($user_id);
+		$kiriman = $this->Kiriman_model->getKirimanCount($user_id)[0];
 		echo json_encode($kiriman);
 	}
 	

@@ -44,7 +44,7 @@
 					<tr>
 						<td class="td-label">Update terakhir</td>
 						<td class="td-titikdua">:</td>
-						<td><?= date_format(new DateTime($created_date), "d-m-Y H:i") ?></td>
+						<td><?= date_format(new DateTime($modified_date), "d-m-Y H:i") ?></td>
 					</tr>
 					<tr>
 						<td class="td-label">Cara Pesan</td>
@@ -259,6 +259,7 @@
 						<td>Ekspedisi</td>
 						<td>Detail</td>
 						<td class="td-action">Status</td>
+						<td class="td-tanggal">Tanggal Bidding</td>
 					</tr>
 				</thead>
 				<tbody class="tbody-list-penawaran">
@@ -707,6 +708,7 @@ function addDiscussionToTable(result) {
 		element += "<div class='questions-user-id'><a href='" + profilUrl + questions[i].user_id + "'>" + questions[i].username + "</a>" + icon + "</div>";
 		element += "<div class='questions-text'>" + questions[i].questions_text + "</div>";
 		<?= $btnJawabPertanyaan ?>
+		element += "<div class='discussion-item-time'>" + questions[i].created_date + "</div>";
 		element += "</div>";
 		
 		var answers = result.answers[i];
@@ -715,6 +717,7 @@ function addDiscussionToTable(result) {
 			element += "<div class='answers'>";
 			element += "<div class='answers-user-id'><a href='" + profilUrl + shipment_user_id + "'><?= $shipment_owner_username ?></a></div>";
 			element += "<div class='answers-text'>" + answers[j].answers_text + "</div>";
+			element += "<div class='discussion-item-time'>" + answers[j].created_date + "</div>";
 			element += "</div>";
 		}
 		<?= $detailJawabPertanyaan ?>
@@ -778,6 +781,7 @@ function addBiddingListToTable(result) {
 		<?= $btnCancelBidding ?>
 		}
 		element += "</td>";
+		element += "<td>" + result.data[i].created_date + "</td>";
 		element += "</tr>";
 	}
 

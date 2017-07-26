@@ -48,7 +48,7 @@ class Kiriman_model extends CI_Model
 		$query = $this->db->query("
 			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, TIMESTAMPDIFF(SECOND, CURRENT_TIMESTAMP(), m.shipment_end_date) AS berakhir, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low
 			FROM `m_shipment` m
-			WHERE m.user_id = '" . $user_id . "' AND m.shipment_status = -1
+			WHERE m.user_id = '" . $user_id . "' AND m.shipment_end_date > CURRENT_TIMESTAMP() AND m.shipment_status = -1
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -207,11 +207,9 @@ class Kiriman_model extends CI_Model
 	
 	public function getKirimanCount($user_id) {
 		$query = $this->db->query("
-			SELECT shipment_status, COUNT(shipment_status) AS count
-			FROM `m_shipment`
-			WHERE user_id = '" . $user_id . "'
-			GROUP BY shipment_status"
-		);
+			SELECT SUM(IF (m.shipment_status = -1 AND m.shipment_end_date > CURRENT_TIMESTAMP(), 1, 0)) AS open_kiriman_count, SUM(IF (m.shipment_status > -1 AND m.shipment_status < 6, 1, 0)) AS progress_kiriman_count, SUM(IF (m.shipment_status = 6, 1, 0)) AS selesai_kiriman_count, SUM(IF (m.shipment_status = 7, 1, 0)) AS cancel_kiriman_count
+			FROM (SELECT shipment_status, shipment_end_date FROM `m_shipment` WHERE user_id = " . $user_id . ") m
+		");
 		return $query->result();
 	}
 	
