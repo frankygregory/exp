@@ -400,6 +400,7 @@ function submitUbah() {
 	var shipment_details_container_number = $(".dialog-konfirmasi-ubah").data("shipment_details_container_number");
 	var ship_id = $(".dialog-konfirmasi-ubah").data("ship_id");
 
+	showFullscreenLoading();
 	var data = {
 		shipment_id: shipment_id,
 		shipment_status: shipment_status,
@@ -409,6 +410,7 @@ function submitUbah() {
 	};
 
 	ajaxCall("<?= base_url("kiriman-laut-ekspedisi/submitUbah"); ?>", data, function(result) {
+		hideFullscreenLoading();
 		if (result == "success") {
 			closeDialog();
 			hideUbahDialog();
@@ -471,8 +473,10 @@ function hideUbahDialog() {
 }
 
 function cancelShipment() {
+	showFullscreenLoading();
 	var shipment_id = $(".dialog-konfirmasi-cancel-transaction").data("shipment_id");
 	ajaxCall("<?= base_url("kiriman-laut-ekspedisi/cancelShipment") ?>", {shipment_id: shipment_id}, function(result) {
+		hideFullscreenLoading();
 		if (result == "success") {
 			closeDialog();
 			refreshData();

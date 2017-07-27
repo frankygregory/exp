@@ -168,7 +168,6 @@ $(function() {
 	$(".btn-submit-delete").on("click", function() {
 		deleteKendaraan(this);
 	});
-	
 });
 
 function toggleKendaraanAktif(element) {

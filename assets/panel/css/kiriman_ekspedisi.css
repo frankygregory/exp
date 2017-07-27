@@ -7,11 +7,6 @@
 	margin: 10px auto 0;
 }
 
-.table-kiriman a:link, .table-kiriman a:visited {
-	text-decoration: none;
-	color: black;
-}
-
 .table-kiriman tbody .tr-kiriman:hover {
 	background-color: #E0E0E0 !important;
 }

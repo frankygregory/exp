@@ -147,6 +147,7 @@ $route["kiriman-laut-ekspedisi/getSelesaiKiriman"] = 'panel/kiriman_ekspedisi_la
 $route["kiriman-laut-ekspedisi/getCancelKiriman"] = 'panel/kiriman_ekspedisi_laut/getCancelKiriman';
 $route['kiriman-laut-ekspedisi/submitDeal'] = 'panel/kiriman_ekspedisi_laut/submitDeal';
 $route['kiriman-laut-ekspedisi/submitUbah'] = 'panel/kiriman_ekspedisi_laut/submitUbah';
+$route['kiriman-laut-ekspedisi/cancelShipment'] = 'panel/kiriman_ekspedisi_laut/cancelShipment';
 //$route['cari-kiriman/private'] = 'panel/cari_kiriman/privates';
 //$route['cari-kiriman/public'] = 'panel/cari_kiriman/publics';
 //$route['cari-kiriman/penawaran'] = 'panel/cari_kiriman/penawaran';

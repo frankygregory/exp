@@ -446,8 +446,10 @@ function cekUserEditInputError(user_fullname, group_ids, user_level) {
 }
 
 function deleteUser() {
+	showFullscreenLoading();
 	var user_id = $(".dialog-konfirmasi-delete-user").data("id");
 	ajaxCall("<?= base_url("user/deleteOtherUser") ?>", {user_id: user_id}, function(result) {
+		hideFullscreenLoading();
 		if (result == "success") {
 			closeDialog();
 			getUser();
@@ -471,6 +473,7 @@ function updateUser() {
 	
 	var valid = cekUserEditInputError(user_fullname, group_ids, user_level);
 	if (valid) {
+		showFullscreenLoading();
 		var data = {
 			user_id: user_id,
 			user_fullname: user_fullname,
@@ -479,9 +482,11 @@ function updateUser() {
 			user_status: user_status
 		};
 		
-		ajaxCall("<?= base_url("user/updateOtherUser") ?>", data, function(result) {
-			if (result == "success") {
-				closeDialog();
+		ajaxCall("<?= base_url("user/updateOtherUser") ?>", data, function(json) {
+			hideFullscreenLoading();
+			closeDialog();
+			var result = JSON.parse(json);
+			if (result.status == "success") {
 				getUser();
 			}
 		});
@@ -506,6 +511,7 @@ function insertUser() {
 	
 	var valid = cekUserInputError(username, user_email, user_fullname, group_ids, user_level, password, confirmPassword);
 	if (valid) {
+		showFullscreenLoading();
 		validPoints = 0;
 		var data = {
 			username: username,
@@ -551,13 +557,13 @@ function addValidPoints(data) {
 	validPoints++;
 	if (validPoints == 2) {
 		ajaxCall("<?= base_url("user/addOtherUser") ?>", data, function(json) {
+			hideFullscreenLoading();
 			closeDialog();
 			var result = JSON.parse(json);
 			if (result.status == "success") {
 				alert(result.message);
 				getUser();
 			} else {
-				console.log(result.status);
 				alert(result.status);
 			}
 		});
@@ -581,6 +587,7 @@ function addUserToTable(result) {
 		if (result[i].user_id != null) {
 			var group_names = "";
 			var group_name = (result[i].group_names + "").split(";");
+			
 			group_names += group_name[0];
 			for (var j = 1; j < group_name.length; j++) {
 				group_names += ", " + group_name[j];
@@ -630,10 +637,12 @@ function addUserToTable(result) {
 }
 
 function deleteGroup() {
+	showFullscreenLoading();
 	var group_id = $(".dialog-konfirmasi-delete-group").data("id");
 	ajaxCall("<?= base_url("user/deleteGroup") ?>", {group_id: group_id}, function(result) {
+		hideFullscreenLoading();
+		closeDialog();
 		if (result == "success") {
-			closeDialog();
 			getMyGroups();
 		} else {
 			alert("Grup ini masih memiliki anggota");
@@ -645,16 +654,20 @@ function updateGroup() {
 	var group_id = $(".dialog-edit-group").data("id");
 	var group_name = $(".dialog-edit-group .input-group_name").val().trim();
 	if (group_name != "") {
+		showFullscreenLoading();
 		var data = {
 			group_id: group_id,
 			group_name: group_name
 		};
-		ajaxCall("<?= base_url("user/updateGroup") ?>", data, function(result) {
-			if (result == "success") {
+		ajaxCall("<?= base_url("user/updateGroup") ?>", data, function(json) {
+			hideFullscreenLoading();
+			var result = JSON.parse(json);
+			if (result.status == "success") {
 				closeDialog();
+				getUser();
 				getMyGroups();
 			} else {
-				alert(result);
+				alert(result.error_message);
 			}
 		});
 	} else {
@@ -665,12 +678,15 @@ function updateGroup() {
 function insertGroup() {
 	var group_name = $(".dialog-tambah-group .input-group_name").val().trim();
 	if (group_name != "") {
-		ajaxCall("<?= base_url("user/insertGroup") ?>", {group_name: group_name}, function(result) {
-			if (result == "success") {
+		showFullscreenLoading();
+		ajaxCall("<?= base_url("user/insertGroup") ?>", {group_name: group_name}, function(json) {
+			hideFullscreenLoading();
+			var result = JSON.parse(json);
+			if (result.status == "success") {
 				closeDialog();
 				getMyGroups();
 			} else {
-				alert(result);
+				alert(result.status);
 			}
 		});
 	} else {

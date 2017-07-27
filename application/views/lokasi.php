@@ -182,8 +182,10 @@ $(function() {
 });
 
 function deleteLocation() {
+	showFullscreenLoading();
 	var location_id = $(".dialog-konfirmasi-delete").data("id");
 	ajaxCall("lokasi/deleteLocation", {location_id: location_id}, function() {
+		hideFullscreenLoading();
 		closeDialog();
 		getMyLocation();
 	});
@@ -204,21 +206,27 @@ function updateLocation() {
 		location_to = 1;
 	}
 	
-	var data = {
-		location_id: location_id,
-		location_name: location_name,
-		location_address: location_address,
-		location_detail: location_detail,
-		location_contact: location_contact,
-		location_latlng: location_latlng,
-		location_from: location_from,
-		location_to: location_to
-	};
-	
-	ajaxCall("lokasi/updateLocation", data, function(result) {
-		closeDialog();
-		getMyLocation();
-	});
+	clearErrors();
+	var valid = cekInputError(location_address, location_latlng, location_detail, location_contact);
+	if (valid) {
+		showFullscreenLoading();
+		var data = {
+			location_id: location_id,
+			location_name: location_name,
+			location_address: location_address,
+			location_detail: location_detail,
+			location_contact: location_contact,
+			location_latlng: location_latlng,
+			location_from: location_from,
+			location_to: location_to
+		};
+		
+		ajaxCall("lokasi/updateLocation", data, function(result) {
+			hideFullscreenLoading();
+			closeDialog();
+			getMyLocation();
+		});
+	}
 }
 
 function cekInputError(location_address, location_latlng, location_detail, location_contact) {
@@ -263,6 +271,7 @@ function addLocation() {
 	clearErrors();
 	var valid = cekInputError(location_address, location_latlng, location_detail, location_contact);
 	if (valid) {
+		showFullscreenLoading();
 		var data = {
 			location_name: location_name,
 			location_address: location_address,
@@ -274,6 +283,7 @@ function addLocation() {
 			location_to: location_to
 		};
 		ajaxCall("lokasi/addLocation", data, function(result) {
+			hideFullscreenLoading();
 			closeDialog();
 			getMyLocation();
 		});

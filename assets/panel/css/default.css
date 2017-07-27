@@ -369,10 +369,6 @@ table td[data-align="center"] {
 	margin-left: -15px;
 }
 
-.fullscreen-transparent-loader .svg-loader-container {
-	background-color: transparent;
-}
-
 .fullscreen-transparent-loader.shown {
 	display: block;
 }

@@ -309,8 +309,10 @@ function getDetailPengirim(element) {
 }
 
 function cancelShipment() {
+	showFullscreenLoading();
 	var shipment_id = $(".dialog-konfirmasi-cancel-transaction").data("shipment_id");
 	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/cancelShipment") ?>", {shipment_id: shipment_id}, function(result) {
+		hideFullscreenLoading();
 		if (result == "success") {
 			closeDialog();
 			refreshData();
@@ -370,11 +372,13 @@ function getAlat() {
 }
 
 function submitTerima(element) {
+	showFullscreenLoading();
 	var shipment_id = $(element).closest(".tr-kiriman").data("id");
 	var data = {
 		shipment_id: shipment_id
 	};
 	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitTerima") ?>", data, function(result) {
+		hideFullscreenLoading();
 		if (result == "success") {
 			refreshData();
 		} else {
@@ -384,11 +388,13 @@ function submitTerima(element) {
 }
 
 function submitAmbil(element) {
+	showFullscreenLoading();
 	var shipment_id = $(element).closest(".tr-kiriman").data("id");
 	var data = {
 		shipment_id: shipment_id
 	};
 	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitAmbil") ?>", data, function(result) {
+		hideFullscreenLoading();
 		if (result == "success") {
 			refreshData();
 		} else {
@@ -398,11 +404,13 @@ function submitAmbil(element) {
 }
 
 function submitKirim(element) {
+	showFullscreenLoading();
 	var shipment_id = $(element).closest(".tr-kiriman").data("id");
 	var data = {
 		shipment_id: shipment_id
 	};
 	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitKirim") ?>", data, function(result) {
+		hideFullscreenLoading();
 		if (result == "success") {
 			refreshData();
 		} else {
@@ -424,6 +432,7 @@ function submitPesan(element) {
 	} else if (device_id == "" || device_id == null) {
 		alert("tidak ada alat yang dipilih");
 	} else {
+		showFullscreenLoading();
 		var data = {
 			shipment_id: shipment_id,
 			jenis_muatan: jenis_muatan,
@@ -432,6 +441,7 @@ function submitPesan(element) {
 			device_id: device_id
 		};
 		ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitPesan") ?>", data, function(result) {
+			hideFullscreenLoading();
 			if (result == "success") {
 				refreshData();
 			} else {
@@ -442,11 +452,13 @@ function submitPesan(element) {
 }
 
 function submitDeal(element) {
+	showFullscreenLoading();
 	var shipment_id = $(element).closest(".tr-kiriman").data("id");
 	var data = {
 		shipment_id: shipment_id
 	};
 	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitDeal") ?>", data, function(result) {
+		hideFullscreenLoading();
 		if (result == "success") {
 			refreshData();
 		} else {

@@ -191,12 +191,14 @@ $(function() {
 });
 
 function deleteSupir(element) {
+	showFullscreenLoading();
 	var driver_id = $(".dialog-konfirmasi-delete").data("id");
 	var data = {
 		submit_delete: true,
 		driver_id: driver_id
 	};
 	ajaxCall("<?= base_url("supir/deleteSupir") ?>", data, function(json) {
+		hideFullscreenLoading();
 		closeDialog();
 		var result = JSON.parse(json);
 		if (result.status == "success") {
@@ -283,6 +285,7 @@ function updateSupir() {
 	
 	var valid = cekInputError(driver_name, driver_address, driver_handphone);
 	if (valid) {
+		showFullscreenLoading();
 		var data = {
 			submit_update: true,
 			driver_id: driver_id,
@@ -293,6 +296,7 @@ function updateSupir() {
 			driver_status: driver_status
 		};
 		ajaxCall("<?= base_url("supir/updateSupir") ?>", data, function(json) {
+			hideFullscreenLoading();
 			closeDialog();
 			var result = JSON.parse(json);
 			if (result.status == "success") {
@@ -313,6 +317,7 @@ function tambahSupir() {
 	
 	var valid = cekInputError(driver_name, driver_address, driver_handphone);
 	if (valid) {
+		showFullscreenLoading();
 		var data = {
 			submit_tambah: true,
 			driver_name: driver_name,
@@ -322,6 +327,7 @@ function tambahSupir() {
 			driver_status: driver_status
 		};
 		ajaxCall("<?= base_url("supir/tambahSupir") ?>", data, function(json) {
+			hideFullscreenLoading();
 			var result = JSON.parse(json);
 			closeDialog();
 			if (result.status == "success") {

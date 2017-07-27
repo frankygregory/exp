@@ -238,12 +238,14 @@ function getDetailPengirim(element) {
 }
 
 function cancelShipment() {
+	showFullscreenLoading();
 	var shipment_id = $(".dialog-konfirmasi-cancel-transaction").data("id");
 	var data = {
 		shipment_id: shipment_id
 	};
 	ajaxCall("<?= base_url("kiriman-saya/cancelShipment") ?>", data, function(result) {
 		if (result == "success") {
+			hideFullscreenLoading();
 			closeDialog();
 			refreshData();
 		} else {
@@ -253,6 +255,7 @@ function cancelShipment() {
 }
 
 function submitRating(element) {
+	showFullscreenLoading();
 	var shipment_rating_number = getRatingValue();
 	var shipment_rating_feedback = $(element).parent().find("textarea.input-rating-feedback").val();
 	var shipment_id = $(element).closest(".tr-kiriman").data("id");
@@ -263,6 +266,7 @@ function submitRating(element) {
 		shipment_rating_feedback: shipment_rating_feedback
 	};
 	ajaxCall("<?= base_url("kiriman-saya/submitRating") ?>", data, function(result) {
+		hideFullscreenLoading();
 		if (result == "success") {
 			refreshData();
 		} else {

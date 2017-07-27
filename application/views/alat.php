@@ -255,6 +255,7 @@ function checkEmailKembar(data) {
 			if (result.result == "tidak_kembar") {
 				addValidPoints(data);
 			} else {
+				hideFullscreenLoading();
 				$(".input-email").next().html("Email sudah ada");
 			}
 		}
@@ -263,6 +264,7 @@ function checkEmailKembar(data) {
 
 function addValidPoints(data) {
 	ajaxCall("<?= base_url("alat/tambahAlat") ?>", data, function(json) {
+		hideFullscreenLoading();
 		var result = JSON.parse(json);
 		if (result.status == "success") {
 			alert(result.message);
@@ -273,12 +275,14 @@ function addValidPoints(data) {
 }
 
 function deleteAlat(element) {
+	showFullscreenLoading();
 	var device_id = $(".dialog-konfirmasi-delete").data("id");
 	var data = {
 		submit_delete: true,
 		device_id: device_id
 	};
 	ajaxCall("<?= base_url("alat/deleteAlat") ?>", data, function(json) {
+		hideFullscreenLoading();
 		var result = JSON.parse(json);
 		if (result.status == "success") {
 			closeDialog();
@@ -391,6 +395,7 @@ function updateAlat() {
 	
 	var valid = cekUpdateInputError(device_name);
 	if (valid) {
+		showFullscreenLoading();
 		var data = {
 			submit_update: true,
 			device_id: device_id,
@@ -399,6 +404,7 @@ function updateAlat() {
 			device_status: device_status
 		};
 		ajaxCall("<?= base_url("alat/updateAlat") ?>", data, function(json) {
+			hideFullscreenLoading();
 			var result = JSON.parse(json);
 			if (result.status == "success") {
 				closeDialog();
@@ -418,6 +424,7 @@ function tambahAlat() {
 	
 	var valid = cekInsertInputError(device_name, device_email, device_password, device_confirm_password);
 	if (valid) {
+		showFullscreenLoading();
 		var data = {
 			submit_tambah: true,
 			device_name: device_name,

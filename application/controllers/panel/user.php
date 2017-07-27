@@ -47,12 +47,11 @@ class User extends MY_Controller
 			"group_name" => $group_name,
 			"user_id" => $user_id
 		);
-		$affected_rows = $this->User_model->insertGroup($data);
-		if ($affected_rows > 0) {
-			echo "success";
-		} else {
-			echo "no rows affected. WHY??";
+		$result = $this->User_model->insertGroup($data)[0];
+		if ($result->status == "success") {
+			$this->session->set_userdata("group_ids", $result->group_ids);
 		}
+		echo json_encode($result);
 	}
 	
 	public function updateGroup() {
@@ -65,12 +64,8 @@ class User extends MY_Controller
 			"group_name" => $group_name,
 			"user_id" => $user_id
 		);
-		$affected_rows = $this->User_model->updateGroup($data);
-		if ($affected_rows > 0) {
-			echo "success";
-		} else {
-			echo "no rows affected. WHY??";
-		}
+		$db = $this->User_model->updateGroup($data);
+		parent::generate_common_results($db, "ci");
 	}
 	
 	public function deleteGroup() {
@@ -170,12 +165,8 @@ class User extends MY_Controller
 			"other_user_status" => $other_user_status,
 			"user_id" => $user_id
 		);
-		$affected_rows = $this->User_model->updateUser($data);
-		if ($affected_rows > 0) {
-			echo "success";
-		} else {
-			echo "no rows affected. WHY??";
-		}
+		$result = $this->User_model->updateUser($data)[0];
+		echo json_encode($result);
 	}
 
 	public function updateOtherUserPassword() {

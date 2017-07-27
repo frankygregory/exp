@@ -5,10 +5,6 @@ class User_model extends CI_Model{
         parent::__construct();
     }
 
-    public function select_user(){
-        return $this->db->query("select * from m_user order by user_id desc")->result_array();
-    }
-	
 	public function getOtherUser($data) {
 		$str = "SELECT u.user_id, u.username, u.user_email, u.user_fullname, u.user_level, u.user_status, GROUP_CONCAT(g.group_id SEPARATOR ';') AS group_ids, GROUP_CONCAT(g.group_name SEPARATOR ';') AS group_names
 			FROM `m_user` u, `m_user_group` ug
@@ -37,7 +33,7 @@ class User_model extends CI_Model{
 	
 	public function updateUser($data) {
 		$query = $this->db->query("CALL update_other_user('" . $data["other_user_id"] . "', '" . $data["other_user_fullname"] . "', '" . $data["group_ids"] . "', '" . $data["other_user_level"] . "', '" . $data["other_user_status"] . "', '" . $data["user_id"] . "');");
-		return 1;
+		return $query->result();
 	}
 
 	public function updateUserPassword($data) {
@@ -73,12 +69,12 @@ class User_model extends CI_Model{
 			"modified_by" => $data["user_id"]
 		);
 		$this->db->update("m_group", $updateData);
-		return $this->db->affected_rows();
+		return $this->db;
 	}
 	
 	public function insertGroup($data) {
-		$this->db->query("CALL create_group('" . $data["group_name"] . "', '" . $data["user_id"] . "');");
-		return 1;
+		$query = $this->db->query("CALL create_group('" . $data["group_name"] . "', '" . $data["user_id"] . "');");
+		return $query->result();
 	}
 	
 	public function deleteGroup($data) {

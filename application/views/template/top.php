@@ -16,10 +16,10 @@
 			src: url(<?= base_url("assets/fonts/Roboto-Regular.ttf") ?>);
 		}
 	</style>
-	<link href="<?=base_url()?>assets/panel/css/default.css?v=6" rel="stylesheet">
+	<link href="<?=base_url()?>assets/panel/css/default.css?v=7" rel="stylesheet">
 	<link href="<?=base_url()?>assets/template/css/top.css?v=2" rel="stylesheet" media="(orientation: landscape)">
 	<link href="<?=base_url()?>assets/template/css/top - portrait.css" rel="stylesheet" media="(orientation: portrait)">
-	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=11" rel="stylesheet">
+	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=12" rel="stylesheet">
 	
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
 	<script src="<?=base_url('assets/panel/js/velocity.min.js')?>"></script>
@@ -107,7 +107,7 @@
 		<div class="container-content">
 			<div class="fullscreen-transparent-loader">
 				<div class="loader-container-absolute">
-					<div class="loader-container-relative"><div class="svg-loader-container"><svg version="1.1" class="svg-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 50 50" xml:space="preserve"><path fill="#fbe700" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.8s" repeatCount="indefinite"/></path></svg></div></div>
+					<div class="loader-container-relative"><div class="svg-loader-container-2"><svg version="1.1" class="svg-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 50 50" xml:space="preserve"><path fill="#fbe700" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.8s" repeatCount="indefinite"/></path></svg></div></div>
 				</div>
 			</div>
 			<div class="verified-icon-explanation"></div>
@@ -238,7 +238,7 @@ function ajaxCall(url, data, callback) {
 		type: 'POST',
 		error: function(jqXHR, exception) {
 			if (exception != "abort") {
-				alert(jqXHR + " : " + jqXHR.responseText);
+				console.log(jqXHR + " : " + jqXHR.responseText);
 			}
 		},
 		success: function(result) {
