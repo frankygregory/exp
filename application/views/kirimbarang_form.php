@@ -130,10 +130,10 @@
 					<tbody>
 					</tbody>
 				</table>
-				<button type="button" class="btn-positive btn-show-tambah-barang">Tambah Barang</button>
 			</div>
 			<div class="error"></div>
 		</div>
+		<button type="button" class="btn-positive btn-show-tambah-barang">Tambah Barang</button>
 		<div class="section-3">
 			<div class="section-title">Tambah Barang</div>
 			<div class="section-3-content">

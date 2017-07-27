@@ -16,10 +16,10 @@
 			src: url(<?= base_url("assets/fonts/Roboto-Regular.ttf") ?>);
 		}
 	</style>
-	<link href="<?=base_url()?>assets/panel/css/default.css?v=7" rel="stylesheet">
+	<link href="<?=base_url()?>assets/panel/css/default.css?v=8" rel="stylesheet">
 	<link href="<?=base_url()?>assets/template/css/top.css?v=2" rel="stylesheet" media="(orientation: landscape)">
 	<link href="<?=base_url()?>assets/template/css/top - portrait.css" rel="stylesheet" media="(orientation: portrait)">
-	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=13" rel="stylesheet">
+	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=14" rel="stylesheet">
 	
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
 	<script src="<?=base_url('assets/panel/js/velocity.min.js')?>"></script>

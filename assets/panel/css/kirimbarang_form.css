@@ -248,9 +248,14 @@
 
 .section-4 {
 	width: 100%;
+	min-height: 210px;
 	border: 1px solid #2196F3;
 	margin-bottom: 50px;
 	overflow-y: auto;
+}
+
+.section-4 .section-title {
+	min-width: 1230px;
 }
 
 .section-4-content {
@@ -264,7 +269,8 @@
 
 .btn-show-tambah-barang {
 	float: right;
-	margin: 20px 0px 15px;
+	margin-top: -105px;
+	margin-right: 20px;
 }
 
 .section-5 {

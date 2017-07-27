@@ -339,6 +339,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 			jenis_muatan = "";
 		}
 		
+		var shipment_picture = (result[i].shipment_pictures == "") ? "default.gif" : result[i].shipment_pictures;
 		var bidding_type = result[i].bidding_type;
 		var keteranganTd = "";
 		var status = result[i].shipment_status;
@@ -404,7 +405,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				break;
 		}
 		
-		element[tab] += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title' data-col='nama-kirim'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + result[i].shipment_pictures + "' /><span>" + result[i].shipment_title + "</span></a></td><td class='td-price' data-col='harga'>Bid : " + result[i].bidding_count + "<br>" + low + addCommas(result[i].low) + " IDR" + btnViewKontak + "</td><td class='td-asal' data-col='asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan' data-col='tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-col='km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + statusTd + keteranganTd + berakhirTd + actionTd + cancelByTd + "</tr>";
+		element[tab] += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "'><td class='td-title' data-col='nama-kirim'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + shipment_picture + "' /><span>" + result[i].shipment_title + "</span></a></td><td class='td-price' data-col='harga'>Bid : " + result[i].bidding_count + "<br>" + low + addCommas(result[i].low) + " IDR" + btnViewKontak + "</td><td class='td-asal' data-col='asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan' data-col='tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-col='km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + statusTd + keteranganTd + berakhirTd + actionTd + cancelByTd + "</tr>";
 
 		element[tab] += "<tr class='row-detail-tr'><td class='row-detail-td' colspan='9'><div class='row-detail-td-content'></div></td></tr>";
 	}

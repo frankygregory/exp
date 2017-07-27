@@ -127,7 +127,7 @@ class Kiriman_ekspedisi_model extends CI_Model
             ON vd.shipment_id = m.shipment_id
             LEFT JOIN (SELECT ded.device_id, ded.shipment_id, de.device_name FROM `m_device_details` ded, `m_device_customer` de WHERE ded.device_id = de.device_id) ded
             ON ded.shipment_id = m.shipment_id
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 7 AND u.user_id = m.cancel_by
+			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 7 AND t.bidding_type = 1 AND u.user_id = m.cancel_by
 			GROUP BY m.shipment_id
 		");
 		return $query->result();

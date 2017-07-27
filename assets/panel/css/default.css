@@ -219,7 +219,7 @@ table td[data-align="center"] {
 }
 
 .table-kiriman .shipment-picture {
-	width: 70px;
+	max-width: 70px;
 	margin-right: 5px !important;
 	max-height: 50px;
 	margin: 5px auto 0;
@@ -228,11 +228,14 @@ table td[data-align="center"] {
 
 .table-kiriman td[data-col="nama-kirim"] a {
 	display: table;
+}
+
+.table-kiriman a:link {
 	color: blue;
 	text-decoration: underline !important;
 }
 
-.table-kiriman td[data-col="nama-kirim"] a:visited {
+.table-kiriman a:visited {
 	color: blue;
 }
 

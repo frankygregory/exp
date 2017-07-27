@@ -230,7 +230,7 @@ class Kirim extends MY_Controller
 			'title' => 'home',
 			'page_name' => "kirimbarang_detail",
 			'page_title'=> 'Detail Kiriman',
-			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=7" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css?v=12" rel="stylesheet">',
+			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=8" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css?v=14" rel="stylesheet">',
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => "",
 			"activePage" => $activePage,
@@ -304,7 +304,7 @@ class Kirim extends MY_Controller
 			'shipment_end_date' => $data[0]->shipment_end_date,
 			'shipment_price' => $data[0]->shipment_price,
 			'bidding_price' => $data[0]->bidding_price,
-			'shipment_pictures' => $data[0]->shipment_pictures,
+			'shipment_pictures' => ($data[0]->shipment_pictures == "") ? "default.gif" : $data[0]->shipment_pictures,
 			'items' => $items
 		);
 
@@ -326,12 +326,16 @@ class Kirim extends MY_Controller
 		$user_id = $this->session->userdata("user_id");
 		$item_count = intval($this->input->post("detail-count", true));
 		if ($item_count > 0) {
-			$file_name = '';
+			$uploaded_file_name = "";
 			$error_upload = false;
-			$file_name = "image_" . $user_id . "_" . parent::random_str(6);
-			parent::upload_file_settings('assets/panel/images/', '5000000', $file_name);
-			if (!$this->upload->do_upload('shipment_pictures')) {
-				$error_upload = true;
+			if (!empty($_FILES["shipment_pictures"]["name"])) {
+				$file_name = "image_" . $user_id . "_" . parent::random_str(6);
+				parent::upload_file_settings('assets/panel/images/', '5000000', $file_name);
+				if (!$this->upload->do_upload('shipment_pictures')) {
+					$error_upload = true;
+				} else {
+					$uploaded_file_name = $this->upload->data("file_name");
+				}
 			}
 			
 			if (!$error_upload) {
@@ -353,7 +357,7 @@ class Kirim extends MY_Controller
 				$data = array(
 					'shipment_title' => $this->input->post('shipment_title'),
 					'shipment_information' => $this->input->post('shipment_information'),
-					'shipment_pictures' => $this->upload->data("file_name"),
+					'shipment_pictures' => $uploaded_file_name,
 					'user_id' => $user_id,
 					'shipment_length' => $shipment_length,
 					'location_from_name' => $this->input->post('location_from_name'),

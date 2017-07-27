@@ -108,7 +108,7 @@
 		</div>
 		<div class="section-1b">
 			<div class="image-container">
-				<img class="shipment_picture" src="<?= base_url("assets/panel/images/") . $shipment_pictures ?>" />
+				<img class="shipment_picture" src="<?= base_url("assets/panel/images/") . $shipment_pictures ?>" onerror="this.onerror=null; this.src='<?php echo base_url("assets/panel/images/default.gif"); ?>';"/>
 			</div>
 			<div class="asal">
 				<div class="asal-title">Lokasi</div>
