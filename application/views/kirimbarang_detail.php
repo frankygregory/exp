@@ -770,7 +770,7 @@ function addBiddingListToTable(result) {
 		element += "</td>";
 		element += "<td>";
 		if (result.data[i].bidding_status == 1) {
-			element += "DITERIMA";
+			element += "DITERIMA <span class='bidding-tanggal-batal'>" + result.data[i].modified_date + "</span>";
 		}
 		else if (result.data[i].bidding_status == 2) {
 			element += "<div class='alasan-tolak'>DITOLAK <span class='bidding-tanggal-batal'>" + result.data[i].modified_date + "</span><br><strong>Alasan : </strong>" + result.data[i].bidding_reason + "</div>";
