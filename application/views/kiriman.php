@@ -19,7 +19,7 @@
 	<div class="tabs" data-id="asd">
 		<div class="tabs-header">
 			<div class="tabs-item-container">
-				<div class="tabs-item active" data-tabs-number="1">Open (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item active" data-tabs-number="1">Terbuka (<span class="tabs-item-count">0</span>)</div>
 				<div class="tabs-item" data-tabs-number="2">On Progress (<span class="tabs-item-count">0</span>)</div>
 				<div class="tabs-item" data-tabs-number="3">Selesai (<span class="tabs-item-count">0</span>)</div>
 				<div class="tabs-item" data-tabs-number="4">Cancel (<span class="tabs-item-count">0</span>)</div>

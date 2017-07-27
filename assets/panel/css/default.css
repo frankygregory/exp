@@ -38,6 +38,21 @@ input[type="file"] {
 	border: 1px solid #9E9E9E;
 }
 
+.tag-premium {
+	display: inline-block;
+	background-color: yellow;
+	color: black;
+	padding: 5px 10px;
+	font-size: 10pt;
+	font-weight: bold;
+	border-radius: 30px;
+	margin-left: 5px;
+}
+
+.tag-premium:after {
+	content: "PRO";
+}
+
 button {
 	cursor: pointer;
 	-webkit-user-select: none;  /* Chrome all / Safari all */

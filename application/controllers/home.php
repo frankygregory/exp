@@ -51,7 +51,7 @@ class Home extends CI_Controller
             'title' => 'List Kiriman',
             'page_name' => "kirim",
 			'page_title'=> 'List Kiriman',
-			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=8" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirim.css?v=14" rel="stylesheet">',
+			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=9" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirim.css?v=14" rel="stylesheet">',
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
 			"activePage" => $this->activePage
@@ -133,7 +133,7 @@ class Home extends CI_Controller
 				'title' => 'Profil',
 				'page_name' => "profil",
 				'page_title'=> 'Profil',
-				'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=8" rel="stylesheet">',
+				'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=9" rel="stylesheet">',
 				"user" => $user,
 				"isLoggedIn" => $isLoggedIn,
 				"modules" => $this->modules,

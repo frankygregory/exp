@@ -16,7 +16,7 @@
 			src: url(<?= base_url("assets/fonts/Roboto-Regular.ttf") ?>);
 		}
 	</style>
-	<link href="<?=base_url()?>assets/panel/css/default.css?v=8" rel="stylesheet">
+	<link href="<?=base_url()?>assets/panel/css/default.css?v=9" rel="stylesheet">
 	<link href="<?=base_url()?>assets/template/css/top.css?v=2" rel="stylesheet" media="(orientation: landscape)">
 	<link href="<?=base_url()?>assets/template/css/top - portrait.css" rel="stylesheet" media="(orientation: portrait)">
 	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=14" rel="stylesheet">
@@ -57,7 +57,10 @@
 				<div>Kirim Barang</div>
 			</a>
 			<a href="<?= base_url("kiriman-saya") ?>" class="<?= $activeMenu["kiriman_saya"] ?>">
-				<div>Kiriman Saya</div>
+				<div>Kiriman Terbuka</div>
+			</a>
+			<a href="<?= base_url("dashboard") ?>">
+				<div>Kiriman Tertutup <span class="tag-premium"></span></div>
 			</a>
 			<a href="<?= base_url("lokasi") ?>" class="<?= $activeMenu["lokasi"] ?>">
 				<div>Lokasi</div>
@@ -70,8 +73,14 @@
 <?php	}	?>
 	<?php
 		if ($this->session->userdata("role_id") == 2) { ?>
+			<a href="#">
+				<div>Cari Kiriman <span class="tag-premium"></span></div>
+			</a>
 			<a href="<?= base_url("kirim") ?>" class="<?= $activeMenu["cari_kiriman"] ?>">
 				<div>Cari Kiriman</div>
+			</a>
+			<a href="#">
+				<div>Penawaran <span class="tag-premium"></span></div>
 			</a>
 			<a href="<?= base_url("penawaran") ?>" class="<?= $activeMenu["penawaran"] ?>">
 				<div>Penawaran</div>
