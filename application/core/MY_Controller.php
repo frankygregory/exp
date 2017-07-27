@@ -101,6 +101,7 @@ class MY_Controller extends CI_Controller
 		$config["smtp_user"] = "admin@wahanafurniture.com";
 		$config["smtp_pass"] = "admin123123";
 		$config["smtp_port"] = 587;
+        $config["smtp_crypto"] = "tls";
         return $config;
     }
 

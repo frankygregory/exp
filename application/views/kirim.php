@@ -19,14 +19,8 @@
 			</div>
 			<div class="form-item form-item-jarak">
 				<div class="form-item-label">Jarak (Km)</div>
-				<span>Min</span>
-				<input type="text" class="input-jarak-min" maxlength="4" />
-				<span>Max</span>
-				<input type="text" class="input-jarak-max" maxlength="4" />
-			</div>
-			<div class="form-item form-item-lowest-bid">
-				<div class="form-item-label">Lowest Bid (IDR)</div>
-				<input type="text" class="input-lowest-bid" maxlength="10"/>
+				<input type="range" class="input-jarak-slider" max="2000" min="0" step="10" value="2000" />
+				<input type="text" class="input-jarak-max" maxlength="4" value="2000" />
 			</div>
 		</div>
 		<div class="subsection-sort">
@@ -245,10 +239,6 @@ $(function() {
 		getKiriman();
 	});
 	
-	$(".input-jarak-min, .input-jarak-max").on("keydown", function(e) {
-		isNumber(e);
-	});
-	
 	$(".input-kota-asal").on("input", function() {
 		var keyword = $(this).val();
 		getKota("from", keyword);
@@ -259,7 +249,7 @@ $(function() {
 		getKota("to", keyword);
 	});
 	
-	$(".input-kota-asal, .input-kota-tujuan").on("keypress", function(e) {
+	$(".input-kota-asal, .input-kota-tujuan, .input-jarak-max").on("keypress", function(e) {
 		if (e.which == 13) {
 			var datalistItem = $(this).next().find(".datalist-item.active");
 			if (datalistItem.length > 0) {
@@ -286,18 +276,30 @@ $(function() {
 			alreadyRefresh = false;
 		}
 	});
-	
-	$(".input-jarak-min, .input-jarak-max, .input-lowest-bid").on("keypress", function(e) {
-		if (e.which == 13) {
-			$(this).blur();
-		}
+
+	$(".input-jarak-slider").on("input", function() {
+		let value = $(this).val();
+		$(".input-jarak-max").val(value);
 	});
-	
-	$(".input-jarak-min, .input-jarak-max, .input-lowest-bid").on("focusout", function() {
+
+	$(".input-jarak-slider").on("change", function() {
 		getKiriman();
 	});
 	
-	$(".input-lowest-bid").on("keydown", function(e) {
+	$(".input-jarak-max").on("change", function(e) {
+		let value = $(this).val();
+		$(".input-jarak-slider").val(value);
+		getKiriman();
+	});
+
+	$(".input-jarak-max").on("change", function() {
+		let value = parseInt($(this).val());
+		if (value > 2000) {
+			$(this).val("2000");
+		}
+	});
+
+	$(".input-jarak-max").on("keydown", function(e) {
 		isNumber(e);
 	});
 	
@@ -416,9 +418,7 @@ function getKiriman(changePage = false) {
 	abortAjaxCall();
 	$(".tbody-kiriman").html("");
 	setLoading(".table-empty-state");
-	var jarak_min = parseInt($(".input-jarak-min").val()) || 0;
 	var jarak_max = parseInt($(".input-jarak-max").val()) || 0;
-	var lowest_bid = parseInt($(".input-lowest-bid").val()) || 0;
 	var order_by = $(".select-sort").val();
 	var keyword_from = $(".input-kota-asal").val();
 	var keyword_to = $(".input-kota-tujuan").val();
@@ -443,9 +443,7 @@ function getKiriman(changePage = false) {
 	var data = {
 		keyword_from: keyword_from,
 		keyword_to: keyword_to,
-		shipment_length_min: jarak_min,
 		shipment_length_max: jarak_max,
-		lowest_bid: lowest_bid,
 		order_by: order_by,
 		view_per_page: view_per_page,
 		page: page,

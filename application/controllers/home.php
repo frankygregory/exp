@@ -51,7 +51,7 @@ class Home extends CI_Controller
             'title' => 'List Kiriman',
             'page_name' => "kirim",
 			'page_title'=> 'List Kiriman',
-			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=7" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirim.css?v=12" rel="stylesheet">',
+			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=7" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirim.css?v=13" rel="stylesheet">',
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
 			"activePage" => $this->activePage
@@ -191,6 +191,7 @@ class Home extends CI_Controller
 		$config["smtp_user"] = "admin@wahanafurniture.com";
 		$config["smtp_pass"] = "admin123123";
 		$config["smtp_port"] = 587;
+		$config["smtp_crypto"] = "tls";
 		$this->load->library("email", $config);
 
 		$role = $this->input->post("role", true);
@@ -262,14 +263,13 @@ class Home extends CI_Controller
 				$this->email->to($email);
 				$this->email->subject("Verifikasi Yukirim");
 				$this->email->message("Dear " . $nama . ",\n\nTerima kasih telah mendaftar. Untuk mengaktifkan account anda, silakan mengklik link di bawah ini:\n" . base_url("verify-email/" . $result->generated_token) . "\n\nBest regards,\n\nYukirim");
-				/*if ($this->email->send()) {
-					$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $email);
+				if (!$this->email->send()) {
+					header("Location: " . base_url("list-kiriman"));
 				} else {
-					$this->session->set_flashdata('flash_message', "gagal mengirim email");
-				}*/
-				$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $email);
-				$this->session->keep_flashdata("flash_message");
-				header("Location: " . base_url());
+					$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $email);
+					$this->session->keep_flashdata("flash_message");
+					header("Location: " . base_url());
+				}
 			} else {
 				echo "error";
 			}
@@ -372,6 +372,7 @@ class Home extends CI_Controller
 			$config["smtp_user"] = "admin@wahanafurniture.com";
 			$config["smtp_pass"] = "admin123123";
 			$config["smtp_port"] = 587;
+			$config["smtp_crypto"] = "tls";
 			$this->load->library("email", $config);
 
 			$data["post"] = 1;
@@ -389,7 +390,9 @@ class Home extends CI_Controller
 				$this->email->to($user_email);
 				$this->email->subject("Reset Password Yukirim");
 				$this->email->message("Dear " . $result->user_fullname . ",\n\nPassword baru anda adalah :\n\n" . $password . "\n\nUntuk mengaktifkan password baru anda, silakan mengklik link di bawah ini:\n" . base_url("reset-password/" . $result->generated_token) . "\n\nBest regards,\n\nYukirim");
-				$this->email->send();
+				if (!$this->email->send()) {
+					
+				}
 			}
 		}
 

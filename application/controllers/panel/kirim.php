@@ -43,9 +43,7 @@ class Kirim extends MY_Controller
 	public function getKiriman() {
 		$location_from_city = $this->input->post("keyword_from");
 		$location_to_city = $this->input->post("keyword_to");
-		$shipment_length_min = $this->input->post("shipment_length_min");
 		$shipment_length_max = $this->input->post("shipment_length_max");
-		$lowest_bid = $this->input->post("lowest_bid");
 		$order_by = $this->input->post("order_by");
 		$limit = $this->input->post("view_per_page");
 		$page = $this->input->post("page");
@@ -55,9 +53,7 @@ class Kirim extends MY_Controller
 		$data = array(
 			"location_from_city" => $location_from_city,
 			"location_to_city" => $location_to_city,
-			"shipment_length_min" => $shipment_length_min,
 			"shipment_length_max" => $shipment_length_max,
-			"lowest_bid" => $lowest_bid,
 			"order_by" => $order_by,
 			"limit" => $limit,
 			"offset" => $offset
