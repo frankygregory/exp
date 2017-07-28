@@ -210,6 +210,7 @@ function deleteSupir(element) {
 }
 
 function toggleDriverAktif(element) {
+	showFullscreenLoading();
 	var driver_id = $(element).closest(".tr-supir").data("id");
 	var driver_status = $(element).data("value");
 	
@@ -218,6 +219,7 @@ function toggleDriverAktif(element) {
 		driver_status: driver_status
 	};
 	ajaxCall("<?= base_url("supir/toggleSupirAktif") ?>", data, function(json) {
+		hideFullscreenLoading();
 		closeDialog();
 		var result = JSON.parse(json);
 		if (result.status == "success") {
@@ -340,9 +342,9 @@ function tambahSupir() {
 }
 
 function getSupir() {
-	setLoading(".table-empty-state");
+	showFullscreenLoading();
 	ajaxCall("<?= base_url("supir/getSupir") ?>", null, function(json) {
-		removeLoading();
+		hideFullscreenLoading();
 		$(".tbody-supir").html("");
 		var result = jQuery.parseJSON(json);
 		var iLength = result.length;

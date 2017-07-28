@@ -225,6 +225,7 @@ $(function() {
 
 		var valid = cekInputGantiPassword(device_password, device_confirm_password);
 		if (valid) {
+			showFullscreenLoading();
 			var device_id = $(".dialog-ganti-password").data("id");
 			var data = {
 				device_id: device_id,
@@ -232,6 +233,7 @@ $(function() {
 			};
 
 			ajaxCall("<?= base_url("alat/gantiPassword") ?>", data, function(json) {
+				hideFullscreenLoading();
 				var result = JSON.parse(json);
 				if (result.status == "success") {
 					closeDialog();
@@ -292,6 +294,7 @@ function deleteAlat(element) {
 }
 
 function toggleAlatAktif(element) {
+	showFullscreenLoading();
 	var device_id = $(element).closest(".tr-alat").data("id");
 	var device_status = $(element).data("value");
 	
@@ -300,6 +303,7 @@ function toggleAlatAktif(element) {
 		device_status: device_status
 	};
 	ajaxCall("<?= base_url("alat/toggleAlatAktif") ?>", data, function(json) {
+		hideFullscreenLoading();
 		var result = JSON.parse(json);
 		if (result.status == "success") {
 			closeDialog();
@@ -439,9 +443,9 @@ function tambahAlat() {
 }
 
 function getAlat() {
-	setLoading(".table-empty-state");
+	showFullscreenLoading();
 	ajaxCall("<?= base_url("alat/getAlat") ?>", null, function(json) {
-		removeLoading();
+		hideFullscreenLoading();
 		$(".tbody-alat").html("");
 		var result = jQuery.parseJSON(json);
 		var iLength = result.length;

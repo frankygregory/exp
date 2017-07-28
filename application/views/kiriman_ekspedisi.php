@@ -197,6 +197,34 @@
 	</div>
 </div>
 <div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-deal-kiriman">
+		<div class="dialog-header">
+			<div class="dialog-title">Konfirmasi Kiriman</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-deal-kiriman">Konfirmasi</button>
+			<button type="button" class="btn-neutral btn-batal">Tidak Jadi</button>
+		</div>
+	</div>
+</div>
+<div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-pesan-kiriman">
+		<div class="dialog-header">
+			<div class="dialog-title">Konfirmasi Pesan Kiriman</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-pesan-kiriman">Pesan</button>
+			<button type="button" class="btn-neutral btn-batal">Tidak Jadi</button>
+		</div>
+	</div>
+</div>
+<div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-cancel-transaction">
 		<div class="dialog-header">
 			<div class="dialog-title">Pembatalan Kiriman</div>
@@ -247,11 +275,50 @@ $(function() {
 	});
 	
 	$(document).on("click", ".btn-deal", function() {
-		submitDeal(this);
+		var trKiriman = $(this).closest(".tr-kiriman");
+		var shipment_id = trKiriman.data("id");
+		var shipment_title = trKiriman.data("shipment-title");
+		var shipment_from = trKiriman.data("asal");
+		var shipment_to = trKiriman.data("tujuan");
+		var shipment_length = trKiriman.find(".td-km").html();
+		
+		$(".dialog-konfirmasi-deal-kiriman").data("id", shipment_id);
+		$(".dialog-konfirmasi-deal-kiriman .dialog-body").html("Nama Kiriman : " + shipment_title + "<br>Asal : " + shipment_from + "<br>Tujuan : " + shipment_to + "<br>Jarak : " + shipment_length + " Km");
+		showDialog(".dialog-konfirmasi-deal-kiriman");
+	});
+
+	$(document).on("click", ".btn-submit-deal-kiriman", function() {
+		submitDeal();
 	});
 	
 	$(document).on("click", ".btn-pesan", function() {
-		submitPesan(this);
+		var trKiriman = $(this).closest(".tr-kiriman");
+		var shipment_id = trKiriman.data("id");
+		var shipment_title = trKiriman.data("shipment-title");
+		var shipment_from = trKiriman.data("asal");
+		var shipment_to = trKiriman.data("tujuan");
+		var shipment_length = trKiriman.find(".td-km").html();
+		var jenis_muatan = trKiriman.find(".select-jenis-muatan").val();
+		var jenis_muatan_text = trKiriman.find(".select-jenis-muatan option:selected").text();
+		var driver_id = trKiriman.find(".select-supir").val();
+		var driver_id_text = trKiriman.find(".select-supir option:selected").text();
+		var vehicle_id = trKiriman.find(".select-kendaraan").val();
+		var vehicle_id_text = trKiriman.find(".select-kendaraan option:selected").text();
+		var device_id = trKiriman.find(".select-alat").val();
+		var device_id_text = trKiriman.find(".select-alat option:selected").text();
+
+		$(".dialog-konfirmasi-pesan-kiriman").data("id", shipment_id);
+		$(".dialog-konfirmasi-pesan-kiriman").data("jenis_muatan", jenis_muatan);
+		$(".dialog-konfirmasi-pesan-kiriman").data("driver_id", driver_id);
+		$(".dialog-konfirmasi-pesan-kiriman").data("vehicle_id", vehicle_id);
+		$(".dialog-konfirmasi-pesan-kiriman").data("device_id", device_id);
+
+		$(".dialog-konfirmasi-pesan-kiriman .dialog-body").html("Nama Kiriman : " + shipment_title + "<br>Asal : " + shipment_from + "<br>Tujuan : " + shipment_to + "<br>Jarak : " + shipment_length + " Km<br>Jenis Muatan : " + jenis_muatan_text + "<br>Supir : " + driver_id_text + "<br>Kendaraan : " + vehicle_id_text + "<br>Alat : " + device_id_text);
+		showDialog(".dialog-konfirmasi-pesan-kiriman");
+	});
+
+	$(document).on("click", ".btn-submit-pesan-kiriman", function() {
+		submitPesan();
 	});
 	
 	$(document).on("click", ".btn-dikirim", function() {
@@ -419,12 +486,13 @@ function submitKirim(element) {
 	});
 }
 
-function submitPesan(element) {
-	var shipment_id = $(element).closest(".tr-kiriman").data("id");
-	var jenis_muatan = $(element).closest(".tr-kiriman").find(".select-jenis-muatan").val();
-	var driver_id = $(element).closest(".tr-kiriman").find(".select-supir").val();
-	var vehicle_id = $(element).closest(".tr-kiriman").find(".select-kendaraan").val();
-	var device_id = $(element).closest(".tr-kiriman").find(".select-alat").val();
+function submitPesan() {
+	var shipment_id = $(".dialog-konfirmasi-pesan-kiriman").data("id");
+	var jenis_muatan =$(".dialog-konfirmasi-pesan-kiriman").data("jenis_muatan");
+	var driver_id = $(".dialog-konfirmasi-pesan-kiriman").data("driver_id");
+	var vehicle_id = $(".dialog-konfirmasi-pesan-kiriman").data("vehicle_id");
+	var device_id =$(".dialog-konfirmasi-pesan-kiriman").data("device_id");
+	
 	if (driver_id == "" || driver_id == null) {
 		alert("tidak ada supir yang dipilih");
 	} else if (vehicle_id == "" || vehicle_id == null) {
@@ -441,6 +509,7 @@ function submitPesan(element) {
 			device_id: device_id
 		};
 		ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitPesan") ?>", data, function(result) {
+			closeDialog();
 			hideFullscreenLoading();
 			if (result == "success") {
 				refreshData();
@@ -451,13 +520,14 @@ function submitPesan(element) {
 	}
 }
 
-function submitDeal(element) {
+function submitDeal() {
 	showFullscreenLoading();
-	var shipment_id = $(element).closest(".tr-kiriman").data("id");
+	var shipment_id = $(".dialog-konfirmasi-deal-kiriman").data("id");
 	var data = {
 		shipment_id: shipment_id
 	};
 	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitDeal") ?>", data, function(result) {
+		closeDialog();
 		hideFullscreenLoading();
 		if (result == "success") {
 			refreshData();
@@ -625,7 +695,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				break;
 		}
 		
-		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "'><td class='td-title' data-col='nama-kirim'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + shipment_picture + "' onerror='this.onerror=null; this.src=\"<?php echo base_url("assets/panel/images/default.gif"); ?>\";' /><span>" + result[i].shipment_title + "</span></a></td><td class='td-price' data-col='harga'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR" + btnViewKontak + "</td><td class='td-asal' data-col='asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan' data-col='tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center' data-col='km'>" + parseInt(result[i].shipment_length) + "</td>" + tdJenisMuatan + tdCancelBy + additionalTd + element[tab].btn + waktu + "</tr>";
+		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "' data-asal='" + result[i].location_from_city + "' data-tujuan='" + result[i].location_to_city + "'><td class='td-title' data-col='nama-kirim'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + shipment_picture + "' onerror='this.onerror=null; this.src=\"<?php echo base_url("assets/panel/images/default.gif"); ?>\";' /><span>" + result[i].shipment_title + "</span></a></td><td class='td-price' data-col='harga'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR" + btnViewKontak + "</td><td class='td-asal' data-col='asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan' data-col='tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center' data-col='km'>" + parseInt(result[i].shipment_length) + "</td>" + tdJenisMuatan + tdCancelBy + additionalTd + element[tab].btn + waktu + "</tr>";
 
 		element[tab].value += "<tr class='row-detail-tr'><td class='row-detail-td' colspan='9'><div class='row-detail-td-content'></div></td></tr>";
 	}

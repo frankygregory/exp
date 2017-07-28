@@ -171,6 +171,7 @@ $(function() {
 });
 
 function toggleKendaraanAktif(element) {
+	showFullscreenLoading();
 	var vehicle_status = $(element).data("value");
 	var vehicle_id = $(element).closest(".tr-kendaraan").data("id");
 	
@@ -179,6 +180,7 @@ function toggleKendaraanAktif(element) {
 		vehicle_status: vehicle_status
 	};
 	ajaxCall("<?= base_url("kendaraan/toggleKendaraanAktif") ?>", data, function(json) {
+		hideFullscreenLoading();
 		var result = JSON.parse(json);
 		if (result.status == "success") {
 			getKendaraan();
@@ -311,9 +313,9 @@ function deleteKendaraan(element) {
 
 function getKendaraan() {
 	$(".tbody-kendaraan").html("");
-	setLoading(".table-empty-state");
+	showFullscreenLoading();
 	ajaxCall("<?= base_url("kendaraan/getKendaraan") ?>", null, function(json) {
-		removeLoading();
+		hideFullscreenLoading();
 		$(".tbody-kendaraan").html("");
 		var result = jQuery.parseJSON(json);
 		var iLength = result.length;
