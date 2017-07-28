@@ -15,6 +15,41 @@ input[type="text"]:focus {
 	border: 1px solid #1E88E5;
 }
 
+.image-viewer {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 1500;
+}
+
+.image-viewer.shown {
+	display: block;
+}
+
+.image-viewer-close-icon {
+	display: block;
+	position: absolute;
+	top: 50px;
+	right: 50px;
+	cursor: pointer;
+}
+
+.image-viewer img {
+	position: absolute;
+	max-width: calc(100vw - 200px);
+	max-height: calc(100vh - 150px);
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	box-shadow: 0 0 50px #222;
+}
+
 .section-1a, .section-1b {
 	float: left;
 }
@@ -43,6 +78,7 @@ input[type="text"]:focus {
 .shipment_picture {
 	max-width: 100%;
 	max-height: 200px;
+	cursor: pointer;
 }
 
 td {

@@ -2,6 +2,13 @@
 <div class="container-fluid">
 <div class="page-title"><?= $page_title ?></div>
 <div class="content">
+	<div class="image-viewer">
+		<svg class="image-viewer-close-icon" fill="#FFFFFF" height="48" viewBox="0 0 24 24" width="48" xmlns="http://www.w3.org/2000/svg">
+			<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+			<path d="M0 0h24v24H0z" fill="none"/>
+		</svg>
+		<img onerror="this.onerror=null; this.src='<?php echo base_url("assets/panel/images/default.gif"); ?>';"/>
+	</div>
 	<div class="section-1">
 		<div class="section-1a">
 			<table class="table-section-1a">
@@ -322,6 +329,17 @@ $(function() {
 	getDiscussions();
 	getBiddingList();
 
+	$(".shipment_picture").on("click", function() {
+		let src = $(this).attr("src");
+		$(".image-viewer img").attr("src", src);
+		$(".image-viewer").addClass("shown");
+	});
+
+	$(".image-viewer").on("click", function(e) {
+		if (!$(e.target).is("img")) {
+			$(this).removeClass("shown");
+		}
+	});
 <?php
 $btnJawabPertanyaan = "";
 $detailJawabPertanyaan = "";
