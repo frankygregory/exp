@@ -313,7 +313,7 @@
 </div>
 <script>
 var map;
-var marker;
+var marker_from, marker_to;
 var lat, lng, center_from;
 var location_from_lat = <?= $location_from_lat ?>;
 var location_from_lng = <?= $location_from_lng ?>;
@@ -849,8 +849,26 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 		if (status === "OK") {
 			directionsDisplay.setDirections(response);
 		} else {
-			if (status != "ZERO_RESULTS") {
-				alert(status);
+			if (status == "ZERO_RESULTS") {
+				var bounds = new google.maps.LatLngBounds();
+				var infowindow = new google.maps.InfoWindow();
+
+				marker_from = new google.maps.Marker({
+					position: new google.maps.LatLng(location_from_lat, location_from_lng),
+					map: map,
+					icon: "https://maps.google.com/mapfiles/marker_greenA.png"
+				});
+
+				marker_to = new google.maps.Marker({
+					position: new google.maps.LatLng(location_to_lat, location_to_lng),
+					map: map,
+					label: "B"
+				});
+
+				bounds.extend(marker_from.position);
+				bounds.extend(marker_to.position);
+
+				map.fitBounds(bounds);
 			}
 		}
 	});

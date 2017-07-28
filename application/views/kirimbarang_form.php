@@ -285,7 +285,7 @@
 		</div>
 	</div>
 </form>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo&callback=initMap&libraries=places&language=id-ID" async defer></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo&callback=initMap&libraries=geometry,places&language=id-ID" async defer></script>
 <script>
    var type = $("#type").val();
    var url;
@@ -754,6 +754,7 @@ function showErrors() {
 var map_asal,map_tujuan, placeService;
 var marker_asal,marker_tujuan;
 var autocomplete_asal, autocomplete_tujuan;
+var map_from_latlng, map_to_latlng;
 var center_from = {lat: 0, lng: 0};
 var center_to = {lat: 0, lng: 0};//{lat: -7.2653524, lng: 112.7454884};
 
@@ -833,10 +834,13 @@ function getCityFromPlace(place) {
 			break;
 		}
 	}
+	
 	return city;
 }
 
 function callDistanceMatrixService(from_latlng, to_latlng) {
+	map_from_latlng = from_latlng;
+	map_to_latlng = to_latlng;
 	var distanceMatrix = new google.maps.DistanceMatrixService();
 	distanceMatrix.getDistanceMatrix({
 		origins: [from_latlng],
@@ -853,10 +857,15 @@ function distanceMatrixCallback(response, status) {
 		var destinations = response.destinationAddresses;
 				
 		var results = response.rows[0].elements;
+		var distance = 0;
 		var element = results[0];
-		var distance = element.distance.value; //distance in meter
+		if (element.status != "ZERO_RESULTS") {
+			distance = element.distance.value; //distance in meter
+		} else {
+			distance = google.maps.geometry.spherical.computeDistanceBetween(map_from_latlng, map_to_latlng);
+		}
 		distance /= 1000;
-		
+		console.log(distance);
 		$("#shipment_length").val(distance);
 	}
 }
