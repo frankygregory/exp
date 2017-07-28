@@ -68,6 +68,7 @@ $route['register'] = 'home/register';
 $route['login'] = 'login';
 $route['dologin'] = 'login/dologin';
 $route['logout'] = 'login/logout';
+
 $route['api/device/(:any)'] = 'api/device_get_shipment/$1';
 $route['api/device/shipment/(:any)'] = 'api/device_get_shipment_detail/$1';
 $route['api/post-coordinate'] = 'api/post_coordinate';
@@ -76,6 +77,11 @@ $route['api/submit-ambil'] = 'api/submit_ambil';
 $route['api/submit-kirim'] = 'api/submit_kirim';
 
 $route['dashboard'] = 'panel/dashboard';
+
+$route['cari-kiriman-bisnis'] = 'panel/kirim/pro';
+$route['cari-kiriman-bisnis/getKirimanPro'] = 'panel/kirim/getKirimanPro';
+$route['cari-kiriman-bisnis/getKota'] = 'panel/kirim/getKotaPro';
+
 $route['cari-kiriman'] = 'panel/kirim';
 $route['cari-kiriman/(:any)'] = 'panel/kirim/$1';
 $route['kirim/getDiscussions'] = 'panel/kirim/getDiscussions';
@@ -85,7 +91,6 @@ $route['kirim/kirimPenawaran'] = 'panel/kirim/kirimPenawaran';
 $route['kirim/tolakPenawaran'] = 'panel/kirim/tolakPenawaran';
 $route['kirim/cancelBidding'] = 'panel/kirim/cancelBidding';
 $route['kirim'] = 'panel/kirim';
-//$route['kirim/(:any)'] = 'panel/kirim/$1';
 $route['kirim/getKiriman'] = 'panel/kirim/getKiriman';
 $route['kirim/private'] = 'panel/kirim/privates';
 $route['kirim/public'] = 'panel/kirim/publics';
@@ -101,10 +106,27 @@ $route['kirim/dokirimbarang'] = 'panel/kirim/doKirimBarang';
 $route['kirim/updatekirimbarang'] = 'panel/kirim/updatekirimBarang';
 $route['kirim/update-items'] = 'panel/kirim/updateItems';
 $route['kirim/setujuPenawaran'] = 'panel/kirim/setujuPenawaran';
+
+$route['penawaran-bisnis'] = 'panel/penawaran_pro';
+$route['penawaran-bisnis/getOpenKiriman'] = 'panel/penawaran_pro/getOpenKiriman';
+$route['penawaran-bisnis/getClosedKiriman'] = 'panel/penawaran_pro/getClosedKiriman';
+$route['penawaran-bisnis/getKirimanCount'] = 'panel/penawaran_pro/getKirimanCount';
+
 $route['penawaran'] = 'panel/penawaran';
 $route['penawaran/getOpenKiriman'] = 'panel/penawaran/getOpenKiriman';
 $route['penawaran/getClosedKiriman'] = 'panel/penawaran/getClosedKiriman';
 $route['penawaran/getKirimanCount'] = 'panel/penawaran/getKirimanCount';
+
+$route['kiriman-saya-bisnis'] = 'panel/kiriman_pro';
+$route['kiriman-saya-bisnis/getKirimanCount'] = 'panel/kiriman_pro/getKirimanCount';
+$route['kiriman-saya-bisnis/getInfoEkspedisi'] = 'panel/kiriman_pro/getInfoEkspedisi';
+$route['kiriman-saya-bisnis/getOpenKiriman'] = 'panel/kiriman_pro/getOpenKiriman';
+$route['kiriman-saya-bisnis/getProgressKiriman'] = 'panel/kiriman_pro/getProgressKiriman';
+$route['kiriman-saya-bisnis/getSelesaiKiriman'] = 'panel/kiriman_pro/getSelesaiKiriman';
+$route['kiriman-saya-bisnis/getCancelKiriman'] = 'panel/kiriman_pro/getCancelKiriman';
+$route['kiriman-saya-bisnis/submitRating'] = 'panel/kiriman_pro/submitRating';
+$route['kiriman-saya-bisnis/cancelShipment'] = 'panel/kiriman_pro/cancelShipment';
+
 $route['kiriman-saya'] = 'panel/kiriman';
 $route['kiriman-saya/getKirimanCount'] = 'panel/kiriman/getKirimanCount';
 $route['kiriman-saya/getInfoEkspedisi'] = 'panel/kiriman/getInfoEkspedisi';
@@ -114,6 +136,7 @@ $route['kiriman-saya/getSelesaiKiriman'] = 'panel/kiriman/getSelesaiKiriman';
 $route['kiriman-saya/getCancelKiriman'] = 'panel/kiriman/getCancelKiriman';
 $route['kiriman-saya/submitRating'] = 'panel/kiriman/submitRating';
 $route['kiriman-saya/cancelShipment'] = 'panel/kiriman/cancelShipment';
+
 $route['kiriman-darat-ekspedisi'] = 'panel/kiriman_ekspedisi';
 $route['kiriman-darat-ekspedisi/getKirimanSaya'] = 'panel/kiriman_ekspedisi/getKirimanSaya';
 $route['kiriman-darat-ekspedisi/getDetailPengirim'] = 'panel/kiriman_ekspedisi/getDetailPengirim';
@@ -134,6 +157,7 @@ $route["kiriman-darat-ekspedisi/getDiambilKiriman"] = 'panel/kiriman_ekspedisi/g
 $route["kiriman-darat-ekspedisi/getDiterimaKiriman"] = 'panel/kiriman_ekspedisi/getDiterimaKiriman';
 $route["kiriman-darat-ekspedisi/getSelesaiKiriman"] = 'panel/kiriman_ekspedisi/getSelesaiKiriman';
 $route["kiriman-darat-ekspedisi/getCancelKiriman"] = 'panel/kiriman_ekspedisi/getCancelKiriman';
+
 $route['kiriman-laut-ekspedisi'] = 'panel/kiriman_ekspedisi_laut';
 $route['kiriman-laut-ekspedisi/getKirimanSaya'] = 'panel/kiriman_ekspedisi_laut/getKirimanSaya';
 $route['kiriman-laut-ekspedisi/getDetailPengirim'] = 'panel/kiriman_ekspedisi_laut/getDetailPengirim';
@@ -148,9 +172,7 @@ $route["kiriman-laut-ekspedisi/getCancelKiriman"] = 'panel/kiriman_ekspedisi_lau
 $route['kiriman-laut-ekspedisi/submitDeal'] = 'panel/kiriman_ekspedisi_laut/submitDeal';
 $route['kiriman-laut-ekspedisi/submitUbah'] = 'panel/kiriman_ekspedisi_laut/submitUbah';
 $route['kiriman-laut-ekspedisi/cancelShipment'] = 'panel/kiriman_ekspedisi_laut/cancelShipment';
-//$route['cari-kiriman/private'] = 'panel/cari_kiriman/privates';
-//$route['cari-kiriman/public'] = 'panel/cari_kiriman/publics';
-//$route['cari-kiriman/penawaran'] = 'panel/cari_kiriman/penawaran';
+
 $route['alat'] = 'panel/alat';
 $route['alat/(:any)'] = 'panel/alat/$1/$2';
 $route["alat/getAlat"] = "panel/alat/getAlat";
@@ -161,6 +183,7 @@ $route["alat/updateAlat"] = "panel/alat/updateAlat";
 $route['alat/gantiPassword'] = 'panel/alat/gantiPassword';
 $route["alat/toggleAlatAktif"] = "panel/alat/toggleAlatAktif";
 $route["alat/deleteAlat"] = "panel/alat/deleteAlat";
+
 $route['kendaraan'] = 'panel/kendaraan';
 $route['kendaraan/(:any)'] = 'panel/kendaraan/$1/$2';
 $route["kendaraan/getKendaraan"] = "panel/kendaraan/getKendaraan";
@@ -174,16 +197,20 @@ $route['lokasi/getMyLocation'] = 'panel/lokasi/getMyLocation';
 $route['lokasi/addLocation'] = 'panel/lokasi/addLocation';
 $route['lokasi/updateLocation'] = 'panel/lokasi/updateLocation';
 $route['lokasi/deleteLocation'] = 'panel/lokasi/deleteLocation';
+
 $route['rekanan'] = 'panel/rekanan';
 $route['rekanan/(:any)'] = 'panel/rekanan/$1/$2';
 $route['report'] = 'panel/report';
+
 $route['supir'] = 'panel/supir';
 $route['supir/(:any)'] = 'panel/supir/$1/$2';
 $route["supir/tambahSupir"] = "panel/supir/tambahSupir";
 $route["supir/updateSupir"] = "panel/supir/updateSupir";
 $route["supir/toggleSupirAktif"] = "panel/supir/toggleSupirAktif";
 $route["supir/deleteSupir"] = "panel/supir/deleteSupir";
+
 $route['tagihan'] = 'panel/tagihan';
+
 $route['user'] = 'panel/user';
 $route['user/(:any)'] = 'panel/user/$1/$2';
 $route['user/getUser'] = 'panel/user/getUser';
@@ -197,9 +224,11 @@ $route['user/getMyGroups'] = 'panel/user/getMyGroups';
 $route['user/insertGroup'] = 'panel/user/insertGroup';
 $route['user/updateGroup'] = 'panel/user/updateGroup';
 $route['user/deleteGroup'] = 'panel/user/deleteGroup';
+
 $route['ulasan'] = 'panel/ulasan';
 $route['ulasan/getMyRating'] = 'panel/ulasan/getMyRating';
 $route['ulasan/getMyFeedback'] = 'panel/ulasan/getMyFeedback';
+
 $route['statistik'] = 'panel/statistik';
 $route['statistik/getStatistik'] = 'panel/statistik/getStatistik';
 $route['confirm'] = 'confirm';

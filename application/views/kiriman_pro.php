@@ -1,6 +1,6 @@
 <div id="page-wrapper">
 <div class="container-fluid">
-<div class="page-title"><?= $page_title ?></div>
+<div class="page-title"><?= $page_title ?><span class="tag-premium-large"></span></div>
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-cancel-transaction">
 		<div class="dialog-header">
@@ -116,10 +116,10 @@
 var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 var profilUrl = "<?= base_url("profil/") ?>";
 var kirimanUrl = [];
-kirimanUrl[1] = "<?= base_url("kiriman-saya/getOpenKiriman") ?>";
-kirimanUrl[2] = "<?= base_url("kiriman-saya/getProgressKiriman") ?>";
-kirimanUrl[3] = "<?= base_url("kiriman-saya/getSelesaiKiriman") ?>";
-kirimanUrl[4] = "<?= base_url("kiriman-saya/getCancelKiriman") ?>";
+kirimanUrl[1] = "<?= base_url("kiriman-saya-bisnis/getOpenKiriman") ?>";
+kirimanUrl[2] = "<?= base_url("kiriman-saya-bisnis/getProgressKiriman") ?>";
+kirimanUrl[3] = "<?= base_url("kiriman-saya-bisnis/getSelesaiKiriman") ?>";
+kirimanUrl[4] = "<?= base_url("kiriman-saya-bisnis/getCancelKiriman") ?>";
 
 var kirimanTabs = [];
 kirimanTabs[1] = "open";
@@ -224,7 +224,7 @@ $(function() {
 
 function getDetailPengirim(element) {
 	var shipment_id = $(element).data("id");
-	ajaxCall("<?= base_url("kiriman-saya/getInfoEkspedisi") ?>", {shipment_id: shipment_id}, function(json) {
+	ajaxCall("<?= base_url("kiriman-saya-bisnis/getInfoEkspedisi") ?>", {shipment_id: shipment_id}, function(json) {
 		var result = jQuery.parseJSON(json);
 		result = result[0];
 		var content = "";
@@ -243,7 +243,7 @@ function cancelShipment() {
 	var data = {
 		shipment_id: shipment_id
 	};
-	ajaxCall("<?= base_url("kiriman-saya/cancelShipment") ?>", data, function(result) {
+	ajaxCall("<?= base_url("kiriman-saya-bisnis/cancelShipment") ?>", data, function(result) {
 		if (result == "success") {
 			hideFullscreenLoading();
 			closeDialog();
@@ -265,7 +265,7 @@ function submitRating(element) {
 		shipment_rating_number: shipment_rating_number,
 		shipment_rating_feedback: shipment_rating_feedback
 	};
-	ajaxCall("<?= base_url("kiriman-saya/submitRating") ?>", data, function(result) {
+	ajaxCall("<?= base_url("kiriman-saya-bisnis/submitRating") ?>", data, function(result) {
 		hideFullscreenLoading();
 		if (result == "success") {
 			refreshData();
@@ -282,7 +282,7 @@ function refreshData() {
 }
 
 function getKirimanCount() {
-	ajaxCall("<?= base_url("kiriman-saya/getKirimanCount") ?>", null, function(json) {
+	ajaxCall("<?= base_url("kiriman-saya-bisnis/getKirimanCount") ?>", null, function(json) {
 		var result = jQuery.parseJSON(json);
 		assignKirimanCount(result);
 	});

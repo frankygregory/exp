@@ -1,0 +1,20 @@
+.table-container {
+	margin: 0 auto 50px;
+}
+
+.table-kiriman {
+	width: auto !important;
+	margin: 10px auto 0;
+}
+
+.tabs-content[data-tabs-number="1"] .table-empty-state {
+	width: 1090px;
+}
+
+.tabs-content[data-tabs-number="2"] .table-empty-state {
+	width: 860px;
+}
+
+.subsection-sort {
+	float: right;
+}

@@ -19,7 +19,7 @@
 	<link href="<?=base_url()?>assets/panel/css/default.css?v=9" rel="stylesheet">
 	<link href="<?=base_url()?>assets/template/css/top.css?v=2" rel="stylesheet" media="(orientation: landscape)">
 	<link href="<?=base_url()?>assets/template/css/top - portrait.css" rel="stylesheet" media="(orientation: portrait)">
-	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=15" rel="stylesheet">
+	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=16" rel="stylesheet">
 	
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
 	<script src="<?=base_url('assets/panel/js/velocity.min.js')?>"></script>
@@ -59,7 +59,7 @@
 			<a href="<?= base_url("kiriman-saya") ?>" class="<?= $activeMenu["kiriman_saya"] ?>">
 				<div>Kiriman Terbuka</div>
 			</a>
-			<a href="<?= base_url("dashboard") ?>">
+			<a href="<?= base_url("kiriman-saya-bisnis") ?>" class="<?= $activeMenu["kiriman_saya_bisnis"] ?>">
 				<div>Kiriman Tertutup <span class="tag-premium"></span></div>
 			</a>
 			<a href="<?= base_url("lokasi") ?>" class="<?= $activeMenu["lokasi"] ?>">
@@ -73,13 +73,13 @@
 <?php	}	?>
 	<?php
 		if ($this->session->userdata("role_id") == 2) { ?>
-			<a href="#">
+			<a href="<?= base_url("cari-kiriman-bisnis") ?>" class="<?= $activeMenu["cari_kiriman_bisnis"] ?>">
 				<div>Cari Kiriman <span class="tag-premium"></span></div>
 			</a>
 			<a href="<?= base_url("kirim") ?>" class="<?= $activeMenu["cari_kiriman"] ?>">
 				<div>Cari Kiriman</div>
 			</a>
-			<a href="#">
+			<a href="<?= base_url("penawaran-bisnis") ?>" class="<?= $activeMenu["penawaran_bisnis"] ?>">
 				<div>Penawaran <span class="tag-premium"></span></div>
 			</a>
 			<a href="<?= base_url("penawaran") ?>" class="<?= $activeMenu["penawaran"] ?>">

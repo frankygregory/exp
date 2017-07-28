@@ -1,0 +1,150 @@
+.tabs-item[data-tabs-number="2"] {
+	width: 150px;
+}
+
+.table-container {
+	margin-bottom: 50px;
+}
+
+.table-kiriman {
+	margin: 10px auto 0;
+	width: auto !important;
+}
+
+.table-kiriman thead, .table-kiriman tbody {
+	display: block;
+}
+
+.table-kiriman thead {
+	background-color: white;
+}
+
+.table-kiriman thead tr {
+	height: 40px;
+}
+
+.table-kiriman.fixed thead {
+	position: fixed;
+	top: 50px;
+	margin-right: 15px;
+}
+
+.table-kiriman.fixed tbody {
+	margin-top: 40px;
+}
+
+.tabs-content[data-tabs-number="1"] .table-empty-state {
+	width: 1290px;
+}
+
+.tabs-content[data-tabs-number="2"] .table-empty-state {
+	width: 1300px;
+}
+
+.tabs-content[data-tabs-number="3"] .table-empty-state {
+	width: 1220px;
+}
+
+.tabs-content[data-tabs-number="4"] .table-empty-state {
+	width: 1010px;
+}
+
+.table-kiriman td[data-col="keterangan"] {
+	width: 260px;
+}
+
+.table-kiriman td[data-col="status"] {
+	width: 100px;
+}
+
+.table-kiriman td[data-col="action"] {
+	width: 200px;
+}
+
+.subsection-sort {
+	float: right;
+}
+
+.btn-cancel-transaction {
+	display: block;
+	margin: 0 auto;
+}
+
+.btn-submit-rating {
+	float: right;
+}
+
+.rating-section {
+	text-align: center;
+	margin: 0 auto;
+}
+
+.stars {
+	overflow: auto;
+}
+
+.btn-view-kontak {
+	margin-top: 10px;
+}
+
+table tbody tr:nth-child(even) {
+	background-color: transparent !important;
+}
+
+table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
+	background-color: #EEE !important;
+}
+
+.row-detail-tr {
+	height: 0;
+}
+
+.row-detail-tr.show {
+	height: 200px;
+}
+
+.row-detail-td {
+	display: none;
+	width: 1000px;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.row-detail-tr.show .row-detail-td {
+	display: table-cell;
+}
+
+.row-detail-td-content {
+	width: 100%;
+	height: 200px;
+	padding: 25px;
+	opacity: 0;
+}
+
+.row-detail-tr.show .row-detail-td-content {
+	animation-name: row-detail-td-show;
+    animation-duration: 0.3s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes row-detail-td-show {
+	to {
+		opacity: 1;
+	}
+}
+
+.detail-title {
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.detail-row {
+	margin-bottom: 10px;
+}
+
+.detail-label {
+	display: inline-block;
+	width: 90px;
+}

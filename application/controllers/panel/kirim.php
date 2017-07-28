@@ -33,6 +33,72 @@ class Kirim extends MY_Controller
 			header("Location: " . base_url("list-kiriman"));
 		}
     }
+
+	public function pro() {
+		parent::__second_construct();
+
+		$this->loadModule("pagination");
+		$role_id = $this->session->userdata("role_id");
+		$page_title = "Cari Kiriman";
+		$this->activeMenu["cari_kiriman_bisnis"] = "active";
+		
+		$data = array(
+			'title' => 'All',
+			'role_id' => $role_id,
+			'page_title' => $page_title,
+		);
+
+		parent::template('kirim_pro', $data);
+	}
+
+	public function getKirimanPro() {
+		parent::__second_construct();
+		parent::checkAjaxRequest();
+
+		$location_from_city = $this->input->post("keyword_from");
+		$location_to_city = $this->input->post("keyword_to");
+		$shipment_length_max = $this->input->post("shipment_length_max");
+		$order_by = $this->input->post("order_by");
+		$limit = $this->input->post("view_per_page");
+		$page = $this->input->post("page");
+		$change_page = $this->input->post("change_page");
+		$offset = ($page - 1) * $limit;
+		
+		$data = array(
+			"location_from_city" => $location_from_city,
+			"location_to_city" => $location_to_city,
+			"shipment_length_max" => $shipment_length_max,
+			"order_by" => $order_by,
+			"limit" => $limit,
+			"offset" => $offset
+		);
+		$kirim = $this->Kirim_model->getListKirimanUmumPro($data);
+		$iLength = sizeof($kirim);
+		for ($i = 0; $i < $iLength; $i++) {
+			$berakhir = $kirim[$i]->berakhir;
+			$kirim[$i]->berakhir = $this->secondsToTime($berakhir);
+		}
+		$result = new stdClass();
+		$result->data = $kirim;
+
+		if ($change_page == "false") {
+			$count = $this->Kirim_model->getListKirimanUmumCountPro($data)[0]->count;
+			$result->count = $count;
+		}
+		echo json_encode($result);
+	}
+
+	public function getKotaPro() {
+		$fromto = $this->input->post("fromto");
+		$keyword = $this->input->post("keyword");
+		$kota;
+		if ($fromto == "from") {
+			$kota = $this->Kirim_model->getFromKotaPro($keyword);
+		} else {
+			$kota = $this->Kirim_model->getToKotaPro($keyword);
+		}
+		echo json_encode($kota);
+	}
 	
 	function secondsToTime($seconds) {
 		$dtF = new \DateTime('@0');

@@ -596,16 +596,14 @@ function addUserToTable(result) {
 				group_names = "default";
 			}
 			
-			var superAdminChecked = "", adminChecked = "", dataUserLevel = "";
+			var user_level = "", adminChecked = "", dataUserLevel = "";
 			if (result[i].user_level == 2) {
-				superAdminChecked = " checked";
+				user_level = "Super Admin";
 				dataUserLevel = "super";
 			} else if (result[i].user_level == 3) {
-				adminChecked = " checked";
+				user_level = " Admin";
 				dataUserLevel = "admin";
 			}
-			var tdUserLevel = "<label class='label-user-super-admin'><input type='radio' name='user-level-" + result[i].user_id + "' val='super'" + superAdminChecked + " /> Super Admin</label>";
-			tdUserLevel += "<label class='label-user-admin'><input type='radio' name='user-level-" + result[i].user_id + "' val='admin'" + adminChecked + " /> Admin</label>";
 			
 			var status = "Aktif";
 			if (result[i].user_status == 0) {
@@ -620,7 +618,7 @@ function addUserToTable(result) {
 			element += "<td class='td-user_fullname' data-col='nama'>" + result[i].user_fullname + "</td>";
 			element += "<td class='td-user_email' data-col='email'>" + result[i].user_email + "</td>";
 			element += "<td class='td-user_group' data-col='group' data-group_ids='" + result[i].group_ids + "'>" + group_names + "</td>";
-			element += "<td class='td-user_level' data-col='level' data-user_level='" + dataUserLevel + "'>" + tdUserLevel + "</td>";
+			element += "<td class='td-user_level' data-col='level' data-user_level='" + dataUserLevel + "'>" + user_level + "</td>";
 			element += "<td class='td-user_status' data-col='status' data-user_status='" + result[i].user_status + "'>" + status + "</td>";
 			element += "<td data-col='action'>" + btnEdit + btnDelete + "</td>";
 			element += "</tr>";

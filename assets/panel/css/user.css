@@ -36,7 +36,7 @@ label {
 }
 
 .table-user {
-	width: 1150px !important;
+	width: 1050px !important;
 }
 
 .table-group {
@@ -60,7 +60,7 @@ td[data-col="group"] {
 }
 
 td[data-col="level"] {
-	width: 250px;
+	width: 150px;
 }
 
 td[data-col="status"] {
@@ -84,7 +84,7 @@ td[data-col="action"] {
 }
 
 .section-1 .table-empty-state {
-	width: 1150px;
+	width: 1050px;
 }
 
 .section-2 .table-empty-state {

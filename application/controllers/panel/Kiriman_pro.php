@@ -1,32 +1,32 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kiriman extends MY_Controller
+class Kiriman_pro extends MY_Controller
 {
 
     public function __construct(){
         parent::__construct();
-        $this->load->model("Kiriman_model");
+        $this->load->model("Kiriman_pro_model");
 		$this->loadModule("tabs");
 		$this->loadModule("rating");
     }
 
     public function index()
     {   
-		$this->activeMenu["kiriman_saya"] = "active";
+		$this->activeMenu["kiriman_saya_bisnis"] = "active";
 		$data = array(
-            'title' => 'Kiriman Terbuka',
-			'page_title' => "Kiriman Terbuka",
+            'title' => 'Kiriman Tertutup',
+			'page_title' => "Kiriman Tertutup",
         );
 		
-        parent::template('kiriman', $data);
+        parent::template('kiriman_pro', $data);
 	}
 
 	public function getInfoEkspedisi() {
 		parent::checkAjaxRequest();
 
 		$shipment_id = $this->input->post("shipment_id");
-		$info = $this->Kiriman_model->getInfoEkspedisi($shipment_id);
+		$info = $this->Kiriman_pro_model->getInfoEkspedisi($shipment_id);
 		echo json_encode($info);
 	}
 	
@@ -46,7 +46,7 @@ class Kiriman extends MY_Controller
 		parent::checkAjaxRequest();
 
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getKirimanCount($user_id)[0];
+		$kiriman = $this->Kiriman_pro_model->getKirimanCount($user_id)[0];
 		echo json_encode($kiriman);
 	}
 	
@@ -54,7 +54,7 @@ class Kiriman extends MY_Controller
 		parent::checkAjaxRequest();
 
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getOpenKiriman($user_id);
+		$kiriman = $this->Kiriman_pro_model->getOpenKiriman($user_id);
 		$iLength = sizeof($kiriman);
 		for ($i = 0; $i < $iLength; $i++) {
 			$berakhir = $kiriman[$i]->berakhir;
@@ -67,7 +67,7 @@ class Kiriman extends MY_Controller
 		parent::checkAjaxRequest();
 
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getProgressKiriman($user_id);
+		$kiriman = $this->Kiriman_pro_model->getProgressKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
@@ -75,7 +75,7 @@ class Kiriman extends MY_Controller
 		parent::checkAjaxRequest();
 
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getSelesaiKiriman($user_id);
+		$kiriman = $this->Kiriman_pro_model->getSelesaiKiriman($user_id);
 		$iLength = sizeof($kiriman);
 		for ($i = 0; $i < $iLength; $i++) {
 			$waktu = intval($kiriman[$i]->waktu_kiriman);
@@ -90,7 +90,7 @@ class Kiriman extends MY_Controller
 		parent::checkAjaxRequest();
 
 		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getCancelKiriman($user_id);
+		$kiriman = $this->Kiriman_pro_model->getCancelKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
@@ -109,7 +109,7 @@ class Kiriman extends MY_Controller
 			"shipment_rating_feedback" => $shipment_rating_feedback
 		);
 		
-		$affected_rows = $this->Kiriman_model->submitRating($data);
+		$affected_rows = $this->Kiriman_pro_model->submitRating($data);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {
@@ -126,7 +126,7 @@ class Kiriman extends MY_Controller
 			"shipment_id" => $shipment_id,
 			"user_id" => $user_id
 		);
-		$affected_rows = $this->Kiriman_model->cancelShipment($data);
+		$affected_rows = $this->Kiriman_pro_model->cancelShipment($data);
 		if ($affected_rows > 0) {
 			echo "success";
 		} else {

@@ -1,0 +1,177 @@
+.content {
+	width: 1040px;
+}
+
+.section {
+	height: 80px;
+	width: 1040px;
+	padding-top: 10px;
+	margin: 0 auto;
+	background-color: white;
+	z-index: 100;
+}
+
+.section.fixed {
+	position: fixed;
+	top: 30px;
+}
+
+.section.fixed + div {
+	margin-top: 110px;
+}
+
+.subsection-filter {
+	float: left;
+}
+
+.subsection-title {
+	float: left;
+	margin-top: 33px;
+	margin-right: 20px;
+}
+
+.form-item {
+	float: left;
+	width: 170px;
+	margin-right: 10px;
+}
+
+.form-item-kota {
+	width: 160px;
+}
+
+.form-item-jarak {
+	width: 300px;
+}
+
+input[type=range] {
+	-webkit-appearance: none;
+	width: 200px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 25px;
+	height: 25px;
+	border-radius: 100%;
+	background-color: #3F51B5;
+	cursor: pointer;
+	margin-top: -11px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+}
+
+input[type=range]::-moz-range-thumb {
+	border: 1px solid #000000;
+	width: 25px;
+	height: 25px;
+	border-radius: 100%;
+	background-color: #3F51B5;
+	cursor: pointer;
+}
+
+input[type=range]::-ms-thumb {
+	border: 1px solid #000000;
+	width: 25px;
+	height: 25px;
+	border-radius: 100%;
+	background-color: #3F51B5;
+	cursor: pointer;
+}
+
+input[type=range]:focus {
+	outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+	width: 100%;
+	height: 3px;
+	cursor: pointer;
+	background: #AAA;
+	border-radius: 3px;
+}
+
+input[type=range]::-moz-range-track {
+	width: 100%;
+	height: 3px;
+	cursor: pointer;
+	background: #AAA;
+	border-radius: 3px;
+}
+
+input[type=range]::-ms-track {
+	width: 100%;
+	height: 3px;
+	cursor: pointer;
+	background: #AAA;
+	border-radius: 3px;
+}
+
+input[type="range"] + input[type="text"] {
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	margin-left: 5px;
+	width: 70px;
+}
+
+.form-item-label {
+	font-size: 10pt;
+}
+
+.table-kiriman {
+	margin: 0 auto;
+	width: auto !important;
+}
+
+.table-kiriman thead, .table-kiriman tbody {
+	display: block;
+}
+
+.table-kiriman thead {
+	background-color: white;
+}
+
+.table-kiriman thead tr {
+	height: 50px;
+}
+
+.table-kiriman thead td[data-sortable="true"] {
+	cursor: pointer;
+}
+
+.table-kiriman thead td[data-sortable="true"]:hover {
+	background-color: #EEE;
+}
+
+.table-kiriman .tr-icon {
+	margin-bottom: -5px;
+	margin-left: 10px;
+}
+
+.table-kiriman thead td[data-sortable="true"][data-sort-value=""] .tr-icon {
+	display: none;
+}
+
+.table-kiriman.fixed thead {
+	position: fixed;
+	top: 150px;
+	margin-right: 15px;
+	z-index: 0;
+}
+
+.table-kiriman.fixed tbody {
+	margin-top: 40px;
+}
+
+.table-empty-state {
+	width: 100%;
+}
+
+.subsection-sort {
+	float: right;
+	margin-right: -10px;
+}
+
+.subsection-sort .form-item {
+	width: 200px;
+	float: right;
+}

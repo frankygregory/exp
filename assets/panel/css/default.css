@@ -38,19 +38,29 @@ input[type="file"] {
 	border: 1px solid #9E9E9E;
 }
 
-.tag-premium {
+.tag-premium, .tag-premium-large {
 	display: inline-block;
-	background-color: yellow;
+	background-color: rgb(251, 231, 0);
 	color: black;
-	padding: 5px 10px;
-	font-size: 10pt;
 	font-weight: bold;
+}
+
+.tag-premium {
+	padding: 5px 10px;
+	font-size: 9pt;
 	border-radius: 30px;
 	margin-left: 5px;
 }
 
-.tag-premium:after {
+.tag-premium:after, .tag-premium-large:after {
 	content: "PRO";
+}
+
+.tag-premium-large {
+	padding: 8px 20px;
+	font-size: 16pt;
+	border-radius: 30px;
+	margin-left: 20px;
 }
 
 button {
