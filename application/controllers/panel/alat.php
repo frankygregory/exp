@@ -21,20 +21,26 @@ class Alat extends MY_Controller
     }
 	
 	function getAlat() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$alat = $this->Alat_model->getAlatByUserId($user_id);
 		echo json_encode($alat);
 	}
 
 	public function checkUserKembar() {
+		parent::checkAjaxRequest();
 		parent::checkUserKembar();
 	}
 
 	public function checkEmailKembar() {
+		parent::checkAjaxRequest();
 		parent::checkEmailKembar();
 	}
 	
 	public function tambahAlat() {
+		parent::checkAjaxRequest();
+
 		$config = parent::get_default_email_config();
 		$this->load->library("email", $config);
 
@@ -81,6 +87,8 @@ class Alat extends MY_Controller
 	}
 	
 	public function updateAlat() {
+		parent::checkAjaxRequest();
+
 		$submit_update = $this->input->post("submit_update");
 		$device_id = $this->input->post("device_id");
 		$device_name = $this->input->post("device_name");
@@ -103,6 +111,8 @@ class Alat extends MY_Controller
 	}
 
 	public function gantiPassword() {
+		parent::checkAjaxRequest();
+
 		$device_id = $this->input->post("device_id", true);
 		$device_password = $this->input->post("device_password", true);
 		if ($device_id && $device_password) {
@@ -127,6 +137,8 @@ class Alat extends MY_Controller
 	}
 	
 	public function toggleAlatAktif() {
+		parent::checkAjaxRequest();
+
 		$device_id = $this->input->post("device_id");
 		$device_status = intval($this->input->post("device_status"));
 		$user_id = $this->session->userdata("user_id");
@@ -142,6 +154,8 @@ class Alat extends MY_Controller
 	}
 	
 	public function deleteAlat() {
+		parent::checkAjaxRequest();
+		
 		$device_id = $this->input->post("device_id");
 		$user_id = $this->session->userdata("user_id");
 		$db = $this->Alat_model->deleteAlat($device_id, $user_id);

@@ -26,7 +26,7 @@
 					<tr>
 						<td class="">Nama</td>
 						<td>
-							<input type="text" class="input-insert-user_fullname" />
+							<input type="text" class="input-insert-user_fullname" maxlength="30" />
 							<div class="error"></div>
 						</td>
 					</tr>
@@ -76,7 +76,7 @@
 					<tr>
 						<td class="">Nama</td>
 						<td>
-							<input type="text" class="input-edit-user_fullname" />
+							<input type="text" class="input-edit-user_fullname" maxlength="30" />
 							<div class="error"></div>
 						</td>
 					</tr>
@@ -168,7 +168,7 @@
 					<tr>
 						<td class="">Nama Grup</td>
 						<td>
-							<input type="text" class="input-group_name" />
+							<input type="text" class="input-group_name" maxlength="30" />
 							<div class="error"></div>
 						</td>
 					</tr>
@@ -204,7 +204,7 @@
 				<tbody>
 					<tr>
 						<td class="">Nama Grup</td>
-						<td><input type="text" class="input-group_name" /></td>
+						<td><input type="text" class="input-group_name" maxlength="30" /></td>
 					</tr>
 				</tbody>
 			</table>

@@ -20,12 +20,16 @@ class Lokasi extends MY_Controller
     }
 	
 	public function getMyLocation() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$data = $this->Lokasi_model->getMyLocation($user_id);
 		echo json_encode($data);
 	}
 	
 	public function addLocation() {
+		parent::checkAjaxRequest();
+
 		$location_name = $this->input->post("location_name");
 		$location_address = $this->input->post("location_address");
 		$location_city = $this->input->post("location_city");
@@ -37,28 +41,32 @@ class Lokasi extends MY_Controller
 		$location_from = intval($this->input->post("location_from"));
 		$location_to = intval($this->input->post("location_to"));
 		$user_id = $this->session->userdata("user_id");
-		
-		$data = array(
-			"location_name" => $location_name,
-			"location_address" => $location_address,
-			"location_city" => $location_city,
-			"location_lat" => $location_lat,
-			"location_lng" => $location_lng,
-			"location_detail" => $location_detail,
-			"location_contact" => $location_contact,
-			"location_from" => $location_from,
-			"location_to" => $location_to,
-			"user_id" => $user_id
-		);
-		$affected_rows = $this->Lokasi_model->addLocation($data);
-		if ($affected_rows > 0) {
-			echo "success";
-		} else {
-			echo "null";
+
+		if ($location_name && $location_address && $location_city && $location_latlng) {
+			$data = array(
+				"location_name" => $location_name,
+				"location_address" => $location_address,
+				"location_city" => $location_city,
+				"location_lat" => $location_lat,
+				"location_lng" => $location_lng,
+				"location_detail" => $location_detail,
+				"location_contact" => $location_contact,
+				"location_from" => $location_from,
+				"location_to" => $location_to,
+				"user_id" => $user_id
+			);
+			$affected_rows = $this->Lokasi_model->addLocation($data);
+			if ($affected_rows > 0) {
+				echo "success";
+			} else {
+				echo "null";
+			}
 		}
 	}
 	
 	public function updateLocation() {
+		parent::checkAjaxRequest();
+
 		$location_id = $this->input->post("location_id");
 		$location_name = $this->input->post("location_name");
 		$location_address = $this->input->post("location_address");
@@ -72,28 +80,32 @@ class Lokasi extends MY_Controller
 		$location_to = intval($this->input->post("location_to"));
 		$user_id = $this->session->userdata("user_id");
 		
-		$data = array(
-			"location_id" => $location_id,
-			"location_name" => $location_name,
-			"location_address" => $location_address,
-			"location_city" => $location_city,
-			"location_lat" => $location_lat,
-			"location_lng" => $location_lng,
-			"location_detail" => $location_detail,
-			"location_contact" => $location_contact,
-			"location_from" => $location_from,
-			"location_to" => $location_to,
-			"user_id" => $user_id
-		);
-		$affected_rows = $this->Lokasi_model->updateLocation($data);
-		if ($affected_rows > 0) {
-			echo "success";
-		} else {
-			echo "null";
+		if ($location_id && $location_name && $location_address && $location_city && $location_latlng) {
+			$data = array(
+				"location_id" => $location_id,
+				"location_name" => $location_name,
+				"location_address" => $location_address,
+				"location_city" => $location_city,
+				"location_lat" => $location_lat,
+				"location_lng" => $location_lng,
+				"location_detail" => $location_detail,
+				"location_contact" => $location_contact,
+				"location_from" => $location_from,
+				"location_to" => $location_to,
+				"user_id" => $user_id
+			);
+			$affected_rows = $this->Lokasi_model->updateLocation($data);
+			if ($affected_rows > 0) {
+				echo "success";
+			} else {
+				echo "null";
+			}
 		}
 	}
 	
 	public function deleteLocation() {
+		parent::checkAjaxRequest();
+		
 		$location_id = $this->input->post("location_id");
 		$user_id = $this->session->userdata("user_id");
 		$affected_rows = $this->Lokasi_model->deleteLocation($location_id, $user_id);

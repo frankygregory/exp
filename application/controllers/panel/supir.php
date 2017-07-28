@@ -21,6 +21,8 @@ class Supir extends MY_Controller
     }
 	
 	function getSupir() {
+		parent::checkAjaxRequest();
+
 		$role_id = $this->session->userdata("role_id");
 		if ($role_id == 2) {
 			$user_id = $this->session->userdata("user_id");
@@ -32,6 +34,8 @@ class Supir extends MY_Controller
 	}
 	
 	public function tambahSupir() {
+		parent::checkAjaxRequest();
+
 		$submit_tambah = $this->input->post("submit_tambah");
 		$driver_name = $this->input->post("driver_name");
 		$driver_handphone = $this->input->post("driver_handphone");
@@ -57,6 +61,8 @@ class Supir extends MY_Controller
 	}
 	
 	public function updateSupir() {
+		parent::checkAjaxRequest();
+
 		$submit_update = $this->input->post("submit_update");
 		$driver_id = $this->input->post("driver_id");
 		$driver_name = $this->input->post("driver_name");
@@ -82,6 +88,8 @@ class Supir extends MY_Controller
 	}
 	
 	public function toggleSupirAktif() {
+		parent::checkAjaxRequest();
+
 		$driver_id = $this->input->post("driver_id");
 		$driver_status = intval($this->input->post("driver_status"));
 		$user_id = $this->session->userdata("user_id");
@@ -95,6 +103,8 @@ class Supir extends MY_Controller
 	}
 	
 	public function deleteSupir() {
+		parent::checkAjaxRequest();
+		
 		$driver_id = $this->input->post("driver_id");
 		$user_id = $this->session->userdata("user_id");
 		if ($driver_id) {

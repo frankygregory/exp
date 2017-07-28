@@ -152,6 +152,14 @@ class MY_Controller extends CI_Controller
 		return $str;
 	}
 
+    function checkAjaxRequest() {
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' )) {
+            return true;
+        } else {
+            header("Location: " . base_url());
+        }
+    }
+
     public function queryData($select) {
         return $this->M_GenFunc->querydata($select);
     }

@@ -21,6 +21,8 @@ class User extends MY_Controller
     }
 	
 	public function getUser() {
+		parent::checkAjaxRequest();
+
 		$user_level = $this->session->userdata("user_level");
 		$group_ids = $this->session->userdata("group_ids");
 		$user_id = $this->session->userdata("user_id");
@@ -34,12 +36,16 @@ class User extends MY_Controller
 	}
 	
 	public function getMyGroups() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$data = $this->User_model->getMyGroups($user_id);
 		echo json_encode($data);
 	}
 	
 	public function insertGroup() {
+		parent::checkAjaxRequest();
+
 		$group_name = $this->input->post("group_name");
 		$user_id = $this->session->userdata("user_id");
 		
@@ -55,6 +61,8 @@ class User extends MY_Controller
 	}
 	
 	public function updateGroup() {
+		parent::checkAjaxRequest();
+
 		$group_id = $this->input->post("group_id");
 		$group_name = $this->input->post("group_name");
 		$user_id = $this->session->userdata("user_id");
@@ -69,6 +77,8 @@ class User extends MY_Controller
 	}
 	
 	public function deleteGroup() {
+		parent::checkAjaxRequest();
+
 		$group_id = $this->input->post("group_id");
 		$user_id = $this->session->userdata("user_id");
 		
@@ -85,14 +95,18 @@ class User extends MY_Controller
 	}
 
 	public function checkUserKembar() {
+		parent::checkAjaxRequest();
 		parent::checkUserKembar();
 	}
 
 	public function checkEmailKembar() {
+		parent::checkAjaxRequest();
 		parent::checkEmailKembar();
 	}
 	
 	public function addOtherUser() {
+		parent::checkAjaxRequest();
+
 		$config = parent::get_default_email_config();
 		$this->load->library("email", $config);
 
@@ -145,6 +159,8 @@ class User extends MY_Controller
 	}
 	
 	public function updateOtherUser() {
+		parent::checkAjaxRequest();
+
 		$other_user_id = $this->input->post("user_id");
 		$other_user_fullname = $this->input->post("user_fullname");
 		$group_ids = $this->input->post("group_ids");
@@ -170,6 +186,8 @@ class User extends MY_Controller
 	}
 
 	public function updateOtherUserPassword() {
+		parent::checkAjaxRequest();
+
 		$other_user_id = $this->input->post("user_id", true);
 		$other_user_password = $this->input->post("password", true);
 		if ($other_user_id && $other_user_password) {
@@ -194,6 +212,8 @@ class User extends MY_Controller
 	}
 	
 	public function deleteOtherUser() {
+		parent::checkAjaxRequest();
+		
 		$other_user_id = $this->input->post("user_id");
 		$user_id = $this->session->userdata("user_id");
 		$data = array(

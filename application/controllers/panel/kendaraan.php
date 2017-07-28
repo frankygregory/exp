@@ -23,6 +23,8 @@ class Kendaraan extends MY_Controller
     }
 	
 	public function getKendaraan() {
+		parent::checkAjaxRequest();
+
 		$role_id = $this->session->userdata("role_id");
 		if ($role_id == 2) {
 			$user_id = $this->session->userdata("user_id");
@@ -34,6 +36,8 @@ class Kendaraan extends MY_Controller
 	}
 	
 	public function tambahKendaraan() {
+		parent::checkAjaxRequest();
+
 		$submit_tambah = $this->input->post("submit_tambah");
 		$vehicle_nomor = $this->input->post("vehicle_nomor");
 		$vehicle_name = $this->input->post("vehicle_name");
@@ -59,6 +63,8 @@ class Kendaraan extends MY_Controller
 	}
 	
 	public function updateKendaraan() {
+		parent::checkAjaxRequest();
+
 		$submit_update = $this->input->post("submit_update");
 		$vehicle_id = $this->input->post("vehicle_id");
 		$vehicle_nomor = $this->input->post("vehicle_nomor");
@@ -84,6 +90,8 @@ class Kendaraan extends MY_Controller
 	}
 	
 	public function toggleKendaraanAktif() {
+		parent::checkAjaxRequest();
+
 		$vehicle_status = intval($this->input->post("vehicle_status"));
 		$vehicle_id = $this->input->post("vehicle_id");
 		$user_id = $this->session->userdata("user_id");
@@ -99,6 +107,8 @@ class Kendaraan extends MY_Controller
 	}
 	
 	public function deleteKendaraan() {
+		parent::checkAjaxRequest();
+		
 		$submit_delete = $this->input->post("submit_delete");
 		$vehicle_id = $this->input->post("vehicle_id");
 		$user_id = $this->session->userdata("user_id");

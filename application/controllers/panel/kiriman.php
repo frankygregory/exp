@@ -23,6 +23,8 @@ class Kiriman extends MY_Controller
 	}
 
 	public function getInfoEkspedisi() {
+		parent::checkAjaxRequest();
+
 		$shipment_id = $this->input->post("shipment_id");
 		$info = $this->Kiriman_model->getInfoEkspedisi($shipment_id);
 		echo json_encode($info);
@@ -41,12 +43,16 @@ class Kiriman extends MY_Controller
 	}
 	
 	public function getKirimanCount() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getKirimanCount($user_id)[0];
 		echo json_encode($kiriman);
 	}
 	
 	public function getOpenKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getOpenKiriman($user_id);
 		$iLength = sizeof($kiriman);
@@ -58,42 +64,16 @@ class Kiriman extends MY_Controller
 	}
 
 	public function getProgressKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getProgressKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
-	/*public function getPendingKiriman() {
-		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getPendingKiriman($user_id);
-		echo json_encode($kiriman);
-	}
-	
-	public function getPesananKiriman() {
-		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getPesananKiriman($user_id);
-		echo json_encode($kiriman);
-	}
-	
-	public function getDikirimKiriman() {
-		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getDikirimKiriman($user_id);
-		echo json_encode($kiriman);
-	}
-	
-	public function getDiambilKiriman() {
-		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getDiambilKiriman($user_id);
-		echo json_encode($kiriman);
-	}
-	
-	public function getDiterimaKiriman() {
-		$user_id = $this->session->userdata("user_id");
-		$kiriman = $this->Kiriman_model->getDiterimaKiriman($user_id);
-		echo json_encode($kiriman);
-	}*/
-	
 	public function getSelesaiKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getSelesaiKiriman($user_id);
 		$iLength = sizeof($kiriman);
@@ -107,12 +87,16 @@ class Kiriman extends MY_Controller
 	}
 	
 	public function getCancelKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getCancelKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
 	public function submitRating() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$shipment_id = $this->input->post("shipment_id");
 		$shipment_rating_number = $this->input->post("shipment_rating_number");
@@ -134,6 +118,8 @@ class Kiriman extends MY_Controller
 	}
 	
 	public function cancelShipment() {
+		parent::checkAjaxRequest();
+		
 		$shipment_id = $this->input->post("shipment_id");
 		$user_id = $this->session->userdata("user_id");
 		$data = array(

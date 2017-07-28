@@ -23,6 +23,7 @@ class Statistik extends MY_Controller
     }
 	
 	public function getStatistik() {
+        
 		$user_id = $this->session->userdata("user_id");
 		$statistik = $this->Statistik_model->getStatistik($user_id);
 		echo json_encode($statistik);

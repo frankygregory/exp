@@ -21,47 +21,63 @@ class Kiriman_ekspedisi extends MY_Controller
 	}
 
 	public function getDetailPengirim() {
+		parent::checkAjaxRequest();
+
 		$shipment_id = $this->input->post("shipment_id");
 		$detail = $this->Kiriman_ekspedisi_model->getDetailPengirim($shipment_id);
 		echo json_encode($detail);
 	}
 	
 	public function getDealKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_ekspedisi_model->getDealKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
 	public function getPendingKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_ekspedisi_model->getPendingKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
 	public function getPesananKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_ekspedisi_model->getPesananKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
 	public function getDikirimKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_ekspedisi_model->getDikirimKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
 	public function getDiambilKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_ekspedisi_model->getDiambilKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	public function getDiterimaKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_ekspedisi_model->getDiterimaKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 	
 	public function getSelesaiKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_ekspedisi_model->getSelesaiKiriman($user_id);
 		$iLength = sizeof($kiriman);
@@ -74,6 +90,8 @@ class Kiriman_ekspedisi extends MY_Controller
 		echo json_encode($kiriman);
 	}
 	public function getCancelKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_ekspedisi_model->getCancelKiriman($user_id);
 		echo json_encode($kiriman);
@@ -93,12 +111,16 @@ class Kiriman_ekspedisi extends MY_Controller
 	}
 		
 	public function getKirimanSaya() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_ekspedisi_model->getKirimanCount($user_id);
 		echo json_encode($kiriman);
 	}
 	
 	public function submitDeal() {
+		parent::checkAjaxRequest();
+
 		$shipment_id = $this->input->post("shipment_id");
 		$user_id = $this->session->userdata("user_id");
 		$data = array(
@@ -114,6 +136,8 @@ class Kiriman_ekspedisi extends MY_Controller
 	}
 	
 	public function submitPesan() {
+		parent::checkAjaxRequest();
+
 		$shipment_id = $this->input->post("shipment_id");
 		$user_id = $this->session->userdata("user_id");
 		$shipment_jenis_muatan = $this->input->post("jenis_muatan");
@@ -138,6 +162,8 @@ class Kiriman_ekspedisi extends MY_Controller
 	}
 	
 	public function submitKirim() {
+		parent::checkAjaxRequest();
+
 		$shipment_id = $this->input->post("shipment_id");
 		$user_id = $this->session->userdata("user_id");
 		$data = array(
@@ -153,6 +179,8 @@ class Kiriman_ekspedisi extends MY_Controller
 	}
 	
 	public function submitAmbil() {
+		parent::checkAjaxRequest();
+
 		$shipment_id = $this->input->post("shipment_id");
 		$user_id = $this->session->userdata("user_id");
 		$data = array(
@@ -168,6 +196,8 @@ class Kiriman_ekspedisi extends MY_Controller
 	}
 	
 	public function submitTerima() {
+		parent::checkAjaxRequest();
+		
 		$shipment_id = $this->input->post("shipment_id");
 		$user_id = $this->session->userdata("user_id");
 		$data = array(
@@ -183,6 +213,8 @@ class Kiriman_ekspedisi extends MY_Controller
 	}
 	
 	public function cancelShipment() {
+		parent::checkAjaxRequest();
+		
 		$shipment_id = $this->input->post("shipment_id");
 		$user_id = $this->session->userdata("user_id");
 		$data = array(
@@ -198,18 +230,24 @@ class Kiriman_ekspedisi extends MY_Controller
 	}
 	
 	public function getSupir() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$driver = $this->Kiriman_ekspedisi_model->getDriverAktif($user_id);
 		echo json_encode($driver);
 	}
 	
 	public function getKendaraan() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$vehicle = $this->Kiriman_ekspedisi_model->getKendaraanAktif($user_id);
 		echo json_encode($vehicle);
 	}
 	
 	public function getAlat() {
+		parent::checkAjaxRequest();
+		
 		$user_id = $this->session->userdata("user_id");
 		$device = $this->Kiriman_ekspedisi_model->getAlatAktif($user_id);
 		echo json_encode($device);

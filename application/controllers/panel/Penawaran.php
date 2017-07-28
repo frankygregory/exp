@@ -21,6 +21,8 @@ class Penawaran extends MY_Controller
 	}
 
 	public function getOpenKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Penawaran_model->getOpenKiriman($user_id);
 		$iLength = sizeof($kiriman);
@@ -32,12 +34,16 @@ class Penawaran extends MY_Controller
 	}
 
 	public function getClosedKiriman() {
+		parent::checkAjaxRequest();
+
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Penawaran_model->getClosedKiriman($user_id);
 		echo json_encode($kiriman);
 	}
 
 	public function getKirimanCount() {
+		parent::checkAjaxRequest();
+		
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Penawaran_model->getKirimanCount($user_id);
 		echo json_encode($kiriman);

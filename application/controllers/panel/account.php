@@ -24,6 +24,8 @@ class Account extends MY_Controller
     }
 	
 	public function updateCertainField() {
+		parent::checkAjaxRequest();
+		
 		$field = $this->input->post("field", true);
 		$value = $this->input->post("value", true);
 		$table = $this->input->post("table", true);
