@@ -225,6 +225,48 @@
 	</div>
 </div>
 <div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-kirim-kiriman">
+		<div class="dialog-header">
+			<div class="dialog-title">Konfirmasi Kirim Kiriman</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-kirim-kiriman">Dikirim</button>
+			<button type="button" class="btn-neutral btn-batal">Tidak Jadi</button>
+		</div>
+	</div>
+</div>
+<div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-ambil-kiriman">
+		<div class="dialog-header">
+			<div class="dialog-title">Konfirmasi Ambil Kiriman</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-ambil-kiriman">Diambil</button>
+			<button type="button" class="btn-neutral btn-batal">Tidak Jadi</button>
+		</div>
+	</div>
+</div>
+<div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-terima-kiriman">
+		<div class="dialog-header">
+			<div class="dialog-title">Konfirmasi Terima Kiriman</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-terima-kiriman">Diterima</button>
+			<button type="button" class="btn-neutral btn-batal">Tidak Jadi</button>
+		</div>
+	</div>
+</div>
+<div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-cancel-transaction">
 		<div class="dialog-header">
 			<div class="dialog-title">Pembatalan Kiriman</div>
@@ -322,15 +364,66 @@ $(function() {
 	});
 	
 	$(document).on("click", ".btn-dikirim", function() {
-		submitKirim(this);
+		var trKiriman = $(this).closest(".tr-kiriman");
+		var shipment_id = trKiriman.data("id");
+		var shipment_title = trKiriman.data("shipment-title");
+		var shipment_from = trKiriman.data("asal");
+		var shipment_to = trKiriman.data("tujuan");
+		var shipment_length = trKiriman.find(".td-km").html();
+		var jenis_muatan = trKiriman.find(".td-jenis-muatan").html();
+		var driver_name = trKiriman.find(".td-supir").html();
+		var vehicle_name = trKiriman.find(".td-kendaraan").html();
+		var device_name = trKiriman.find(".td-alat").html();
+
+		$(".dialog-konfirmasi-kirim-kiriman").data("id", shipment_id);
+		$(".dialog-konfirmasi-kirim-kiriman .dialog-body").html("Nama Kiriman : " + shipment_title + "<br>Asal : " + shipment_from + "<br>Tujuan : " + shipment_to + "<br>Jarak : " + shipment_length + " Km<br>Jenis Muatan : " + jenis_muatan + "<br>Supir : " + driver_name + "<br>Kendaraan : " + vehicle_name + "<br>Alat : " + device_name);
+		showDialog(".dialog-konfirmasi-kirim-kiriman");
+	});
+
+	$(document).on("click", ".btn-submit-kirim-kiriman", function() {
+		submitKirim();
 	});
 	
 	$(document).on("click", ".btn-diambil", function() {
-		submitAmbil(this);
+		var trKiriman = $(this).closest(".tr-kiriman");
+		var shipment_id = trKiriman.data("id");
+		var shipment_title = trKiriman.data("shipment-title");
+		var shipment_from = trKiriman.data("asal");
+		var shipment_to = trKiriman.data("tujuan");
+		var shipment_length = trKiriman.find(".td-km").html();
+		var jenis_muatan = trKiriman.find(".td-jenis-muatan").html();
+		var driver_name = trKiriman.find(".td-supir").html();
+		var vehicle_name = trKiriman.find(".td-kendaraan").html();
+		var device_name = trKiriman.find(".td-alat").html();
+
+		$(".dialog-konfirmasi-ambil-kiriman").data("id", shipment_id);
+		$(".dialog-konfirmasi-ambil-kiriman .dialog-body").html("Nama Kiriman : " + shipment_title + "<br>Asal : " + shipment_from + "<br>Tujuan : " + shipment_to + "<br>Jarak : " + shipment_length + " Km<br>Jenis Muatan : " + jenis_muatan + "<br>Supir : " + driver_name + "<br>Kendaraan : " + vehicle_name + "<br>Alat : " + device_name);
+		showDialog(".dialog-konfirmasi-ambil-kiriman");
+	});
+
+	$(document).on("click", ".btn-submit-ambil-kiriman", function() {
+		submitAmbil();
 	});
 	
 	$(document).on("click", ".btn-diterima", function() {
-		submitTerima(this);
+		var trKiriman = $(this).closest(".tr-kiriman");
+		var shipment_id = trKiriman.data("id");
+		var shipment_title = trKiriman.data("shipment-title");
+		var shipment_from = trKiriman.data("asal");
+		var shipment_to = trKiriman.data("tujuan");
+		var shipment_length = trKiriman.find(".td-km").html();
+		var jenis_muatan = trKiriman.find(".td-jenis-muatan").html();
+		var driver_name = trKiriman.find(".td-supir").html();
+		var vehicle_name = trKiriman.find(".td-kendaraan").html();
+		var device_name = trKiriman.find(".td-alat").html();
+
+		$(".dialog-konfirmasi-terima-kiriman").data("id", shipment_id);
+		$(".dialog-konfirmasi-terima-kiriman .dialog-body").html("Nama Kiriman : " + shipment_title + "<br>Asal : " + shipment_from + "<br>Tujuan : " + shipment_to + "<br>Jarak : " + shipment_length + " Km<br>Jenis Muatan : " + jenis_muatan + "<br>Supir : " + driver_name + "<br>Kendaraan : " + vehicle_name + "<br>Alat : " + device_name);
+		showDialog(".dialog-konfirmasi-terima-kiriman");
+	});
+
+	$(document).on("click", ".btn-submit-terima-kiriman", function() {
+		submitTerima();
 	});
 	
 	$(document).on("click", ".btn-batal-pengiriman", function() {
@@ -438,50 +531,53 @@ function getAlat() {
 	});
 }
 
-function submitTerima(element) {
+function submitTerima() {
 	showFullscreenLoading();
-	var shipment_id = $(element).closest(".tr-kiriman").data("id");
+	var shipment_id = $(".dialog-konfirmasi-terima-kiriman").data("id");
 	var data = {
 		shipment_id: shipment_id
 	};
 	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitTerima") ?>", data, function(result) {
+		closeDialog();
 		hideFullscreenLoading();
 		if (result == "success") {
 			refreshData();
 		} else {
-			alert(result);
+			console.log(result);
 		}
 	});
 }
 
-function submitAmbil(element) {
+function submitAmbil() {
 	showFullscreenLoading();
-	var shipment_id = $(element).closest(".tr-kiriman").data("id");
+	var shipment_id = $(".dialog-konfirmasi-ambil-kiriman").data("id");
 	var data = {
 		shipment_id: shipment_id
 	};
 	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitAmbil") ?>", data, function(result) {
+		closeDialog();
 		hideFullscreenLoading();
 		if (result == "success") {
 			refreshData();
 		} else {
-			alert(result);
+			console.log(result);
 		}
 	});
 }
 
-function submitKirim(element) {
+function submitKirim() {
 	showFullscreenLoading();
-	var shipment_id = $(element).closest(".tr-kiriman").data("id");
+	var shipment_id = $(".dialog-konfirmasi-kirim-kiriman").data("id");
 	var data = {
 		shipment_id: shipment_id
 	};
 	ajaxCall("<?= base_url("kiriman-darat-ekspedisi/submitKirim") ?>", data, function(result) {
+		closeDialog();
 		hideFullscreenLoading();
 		if (result == "success") {
 			refreshData();
 		} else {
-			alert(result);
+			console.log(result);
 		}
 	});
 }
@@ -514,7 +610,7 @@ function submitPesan() {
 			if (result == "success") {
 				refreshData();
 			} else {
-				alert(result);
+				console.log(result);
 			}
 		});
 	}
@@ -532,7 +628,7 @@ function submitDeal() {
 		if (result == "success") {
 			refreshData();
 		} else {
-			alert(result);
+			console.log(result);
 		}
 	});
 }
@@ -628,7 +724,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		},
 		"diambil": {
 			value: "",
-			btn: "<td><button class='btn-default btn-diterima'>Diterima</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: "<td><button class='btn-default btn-diterima'>Diterima</button></td>"
 		},
 		"diterima": {
 			value: "",
@@ -658,7 +754,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		}
 		
 		var btnViewKontak = "<button class='btn-default btn-view-kontak'>Info Kontak</button>";
-		var tdJenisMuatan = "<td>" + jenis_muatan + "</td>";
+		var tdJenisMuatan = "<td class='td-jenis-muatan'>" + jenis_muatan + "</td>";
 		var additionalTd = "";
 		var tdCancelBy = "";
 		var waktu = "";
@@ -672,20 +768,20 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				additionalTd = "<td><select class='select-supir'></select></td><td><select class='select-kendaraan'></select></td><td><select class='select-alat'></select></td>";
 				break;
 			case "pesanan":
-				additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
+				additionalTd = "<td class='td-supir'>" + result[i].driver_names + "</td><td class='td-kendaraan'>" + result[i].vehicle_names + "</td><td class='td-alat'>" + result[i].device_names + "</td>";
 				break;
 			case "dikirim":
-				additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
+				additionalTd = "<td class='td-supir'>" + result[i].driver_names + "</td><td class='td-kendaraan'>" + result[i].vehicle_names + "</td><td class='td-alat'>" + result[i].device_names + "</td>";
 				break;
 			case "diambil":
-				additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
+				additionalTd = "<td class='td-supir'>" + result[i].driver_names + "</td><td class='td-kendaraan'>" + result[i].vehicle_names + "</td><td class='td-alat'>" + result[i].device_names + "</td>";
 				break;
 			case "diterima":
-				additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
+				additionalTd = "<td class='td-supir'>" + result[i].driver_names + "</td><td class='td-kendaraan'>" + result[i].vehicle_names + "</td><td class='td-alat'>" + result[i].device_names + "</td>";
 				break;
 			case "selesai":
 				btnViewKontak = "";
-				additionalTd = "<td>" + result[i].driver_names + "</td><td>" + result[i].vehicle_names + "</td><td>" + result[i].device_names + "</td>";
+				additionalTd = "<td class='td-supir'>" + result[i].driver_names + "</td><td class='td-kendaraan'>" + result[i].vehicle_names + "</td><td class='td-alat'>" + result[i].device_names + "</td>";
 				waktu = "<td data-align='center'>" + result[i].waktu_kiriman + " hari</td><td data-align='center'>" + result[i].total_waktu + " hari</td>";
 				break;
 			case "cancel":

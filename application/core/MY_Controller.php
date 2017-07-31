@@ -54,7 +54,7 @@ class MY_Controller extends CI_Controller
     }
 	
 	public function loadModule($moduleName) {
-		$this->modules .= "<link href='" . base_url("assets/template/css/" . $moduleName . ".css?v=5") . "' rel='stylesheet'>" . "<script src='" . base_url("assets/template/js/" . $moduleName . ".js?v=5") . "'></script>";
+		$this->modules .= "<link href='" . base_url("assets/template/css/" . $moduleName . ".css?v=5") . "' rel='stylesheet'>" . "<script src='" . base_url("assets/template/js/" . $moduleName . ".js?v=6") . "'></script>";
 	}
 
     public function upload_file_settings($path = '', $max_size = '', $file_name = "")

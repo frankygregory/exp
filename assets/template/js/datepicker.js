@@ -72,6 +72,18 @@ var datepickerMonthNames = ["January", "February", "March", "April", "May", "Jun
 			}
 		});
 
+		datepickerElement.on("input", ".datepicker-input-jam", function() {
+			var value = $(this).val();
+			value = (value > 23) ? 23 : value;
+			$(this).val(value);
+		})
+
+		datepickerElement.on("input", ".datepicker-input-menit", function() {
+			var value = $(this).val();
+			value = (value > 59) ? 59 : value;
+			$(this).val(value);
+		})
+
 		datepickerElement.on("click", ".datetimepicker-btn-ok", function(e) {
 			datepickerHide(datepickerElement, thisElement);
 			thisElement.trigger("datetimeOkSelected");
