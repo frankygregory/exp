@@ -186,6 +186,11 @@ class Home extends CI_Controller
     }
 	
 	public function doRegisterConsumer() {
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header('Content-Type: text/html');
+		
 		$config["protocol"] = "smtp";
 		$config["smtp_host"] = "mail.wahanafurniture.com";
 		$config["smtp_user"] = "admin@wahanafurniture.com";
@@ -264,15 +269,52 @@ class Home extends CI_Controller
 				$this->email->subject("Verifikasi Yukirim");
 				$this->email->message("Dear " . $nama . ",\n\nTerima kasih telah mendaftar. Untuk mengaktifkan account anda, silakan mengklik link di bawah ini:\n" . base_url("verify-email/" . $result->generated_token) . "\n\nBest regards,\n\nYukirim");
 				if (!$this->email->send()) {
-					header("Location: " . base_url("list-kiriman"));
+					$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $email . "<form class='form-resend-email' action='" . base_url("resendVerificationEmail") . "' method='post'><input type='hidden' name='verifikasi_id' value='" . $result->verifikasi_id . "' /><button class='btn-resend' type='submit'>Kirim Ulang Email</button></form>");
+					$this->session->keep_flashdata("flash_message");
+					header("Location: " . base_url());
 				} else {
-					$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $email);
+					$this->session->set_flashdata('flash_message', 'Kode verifikasi untuk mengaktifkan account anda telah dikirim ke ' . $email . "<form class='form-resend-email' action='" . base_url("resendVerificationEmail") . "' method='post'><input type='hidden' name='verifikasi_id' value='" . $result->verifikasi_id . "' /><button class='btn-resend' type='submit'>Kirim Ulang Email</button></form>");
 					$this->session->keep_flashdata("flash_message");
 					header("Location: " . base_url());
 				}
 			} else {
 				echo "error";
 			}
+		}
+	}
+
+	public function resendVerificationEmail() {
+		$verifikasi_id = $this->input->post("verifikasi_id", true);
+		if ($verifikasi_id) {
+			$result = $this->Registration_model->getVerificationToken($verifikasi_id);
+			if (sizeof($result) > 0) {
+				$result = $result[0];
+
+				$config["protocol"] = "smtp";
+				$config["smtp_host"] = "mail.wahanafurniture.com";
+				$config["smtp_user"] = "admin@wahanafurniture.com";
+				$config["smtp_pass"] = "admin123123";
+				$config["smtp_port"] = 587;
+				$config["smtp_crypto"] = "tls";
+				$this->load->library("email", $config);
+
+				$this->email->set_newline("\r\n");
+				$this->email->from("admin@wahanafurniture.com", "Yukirim");
+				$this->email->to($result->user_email);
+				$this->email->subject("Verifikasi Yukirim");
+				$this->email->message("Dear " . $result->user_fullname . ",\n\nTerima kasih telah mendaftar. Untuk mengaktifkan account anda, silakan mengklik link di bawah ini:\n" . base_url("verify-email/" . $result->generated_token) . "\n\nBest regards,\n\nYukirim");
+				if (!$this->email->send()) {
+					$this->session->set_flashdata('flash_message', 'Kode verifikasi telah dikirim ulang ke ' . $result->user_email);
+					$this->session->keep_flashdata("flash_message");
+					header("Location: " . base_url());
+				} else {
+					$this->session->set_flashdata('flash_message', 'Kode verifikasi telah dikirim ulang ke ' . $result->user_email);
+					$this->session->keep_flashdata("flash_message");
+					header("Location: " . base_url());
+				}
+			}
+		} else {
+			header("Location: " . base_url());
 		}
 	}
 	
@@ -354,6 +396,11 @@ class Home extends CI_Controller
 	}
 
 	public function forgot_password() {
+		header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");
+		header('Content-Type: text/html');
+
 		$isLoggedIn = $this->cekLogin();
         $data = array(
             'title' => 'Lupa Password',
@@ -415,6 +462,7 @@ class Home extends CI_Controller
 
 		$result = $this->Registration_model->verifyResetPassword($token)[0];
 		$data["result"] = $result;
+		
 		$this->load->view('front/common/header', $data);
         $this->load->view('front/verify', $data);
 		$this->load->view('front/common/footer', $data);

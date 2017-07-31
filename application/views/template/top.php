@@ -67,9 +67,12 @@
 			</a>
 	<?php	if ($this->session->userdata("user_level") != 3) { ?>
 				<a href="<?= base_url("user") ?>" class="<?= $activeMenu["user"] ?>">
-					<div class="">User</div>
+					<div class="">User <span class="tag-premium"></span></div>
 				</a>
 	<?php	}	?>
+			<a href="<?= base_url("rekanan") ?>" class="<?= $activeMenu["rekanan"] ?>">
+				<div>Rekanan <span class="tag-premium"></span></div>
+			</a>
 <?php	}	?>
 	<?php
 		if ($this->session->userdata("role_id") == 2) { ?>
@@ -102,9 +105,12 @@
 			</a>
 	<?php	if ($this->session->userdata("user_level") != 3) { ?>
 				<a href="<?= base_url("user") ?>" class="<?= $activeMenu["user"] ?>">
-					<div class="">User</div>
+					<div class="">User <span class="tag-premium"></span></div>
 				</a>
 	<?php	}	?>
+			<a href="<?= base_url("rekanan-ekspedisi") ?>" class="<?= $activeMenu["rekanan"] ?>">
+				<div>Rekanan <span class="tag-premium"></span></div>
+			</a>
 			<a href="<?= base_url("ulasan") ?>" class="<?= $activeMenu["ulasan"] ?>">
 				<div class="">Ulasan</div>
 			</a>

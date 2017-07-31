@@ -1,0 +1,46 @@
+.btn-tambah {
+	margin-bottom: 20px;
+}
+
+.btn-submit-tambah, .btn-submit-edit, .btn-batal, .btn-submit-delete {
+	float: right;
+}
+
+.btn-ganti-password {
+	margin-top: 20px;
+}
+
+.th-no, .td-no, .th-ketersediaan, .td-ketersediaan, .th-status, .td-status, .th-action, .td-action {
+	text-align: center;
+}
+
+.table-alat {
+	width: auto !important;
+}
+
+.table-alat td[data-col="no"] {
+	width: 50px;
+}
+.table-alat td[data-col="nama-alat"] {
+	width: 220px;
+}
+.table-alat td[data-col="keterangan"] {
+	width: 250px;
+}
+.table-alat td[data-col="email"] {
+	width: 200px;
+}
+.table-alat td[data-col="ketersediaan"] {
+	width: 100px;
+}
+.table-alat td[data-col="status"] {
+	width: 180px;
+}
+.table-alat td[data-col="action"] {
+	width: 100px;
+}
+
+.table-empty-state {
+	margin: 0;
+	width: 1105px;
+}

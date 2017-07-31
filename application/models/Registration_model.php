@@ -51,4 +51,11 @@ class Registration_model extends CI_Model
 		$query = $this->db->query("CALL verify_reset_user_password('" . $token . "');");
 		return $query->result();
 	}
+
+	public function getVerificationToken($verifikasi_id) {
+		$this->db->select("verifikasi_token, user_email, user_fullname");
+		$this->db->where("verifikasi_status", 1);
+		$this->db->limit("1");
+		return $this->db->get("verifikasi")->result();
+	}
 }

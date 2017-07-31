@@ -25,6 +25,7 @@ class MY_Controller extends CI_Controller
         "supir" => "",
         "alat" => "",
         "user" => "",
+        "rekanan" => "",
         "ulasan" => "",
         "statistik" => ""
     );

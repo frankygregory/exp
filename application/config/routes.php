@@ -65,6 +65,7 @@ $route['forgot-password'] = 'home/forgot_password';
 $route['how/pemilik-kendaraan'] = 'home/how/pemilik-kendaraan';
 $route['how/pemilik-barang'] = 'home/how/pemilik-barang';
 $route['register'] = 'home/register';
+$route["resendVerificationEmail"] = "home/resendVerificationEmail";
 $route['login'] = 'login';
 $route['dologin'] = 'login/dologin';
 $route['logout'] = 'login/logout';
@@ -198,8 +199,8 @@ $route['lokasi/addLocation'] = 'panel/lokasi/addLocation';
 $route['lokasi/updateLocation'] = 'panel/lokasi/updateLocation';
 $route['lokasi/deleteLocation'] = 'panel/lokasi/deleteLocation';
 
-$route['rekanan'] = 'panel/rekanan';
-$route['rekanan/(:any)'] = 'panel/rekanan/$1/$2';
+$route['rekanan-ekspedisi'] = 'panel/rekanan_ekspedisi';
+$route['rekanan'] = 'panel/rekanan_konsumen';
 $route['report'] = 'panel/report';
 
 $route['supir'] = 'panel/supir';

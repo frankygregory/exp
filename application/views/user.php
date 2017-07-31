@@ -1,6 +1,6 @@
 <div id="page-wrapper">
 <div class="container-fluid">
-<div class="page-title"><?= $page_title ?></div>
+<div class="page-title"><?= $page_title ?><span class="tag-premium-large"></span></div>
 <div class="dialog-background">
 	<div class="dialog dialog-tambah-user">
 		<div class="dialog-header">

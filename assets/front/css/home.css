@@ -19,6 +19,23 @@
 	}
 }
 
+.form-resend-email {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.btn-resend {
+	background-color: #2196F3;
+	color: white;
+	border: 0;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+.btn-resend:hover {
+	background-color: #1E88E5;
+}
+
 .section-1 {
 	width: 100%;
 	height: calc(100vh - 70px);
