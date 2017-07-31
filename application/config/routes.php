@@ -200,6 +200,8 @@ $route['lokasi/updateLocation'] = 'panel/lokasi/updateLocation';
 $route['lokasi/deleteLocation'] = 'panel/lokasi/deleteLocation';
 
 $route['rekanan-ekspedisi'] = 'panel/rekanan_ekspedisi';
+$route["rekanan-ekspedisi/getRekanan"] = "panel/rekanan_ekspedisi/getRekanan";
+$route["rekanan-ekspedisi/getPendingRekanan"] = "panel/rekanan_ekspedisi/getPendingRekanan";
 $route['rekanan'] = 'panel/rekanan_konsumen';
 $route['report'] = 'panel/report';
 
