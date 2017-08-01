@@ -1,0 +1,108 @@
+.btn-tambah {
+	margin: 10px 0;
+}
+
+.form-item-value {
+	overflow-x: hidden;
+	padding: 10px 10px;
+	border: 1px solid #AAA;
+}
+
+.badge-result {
+	display: inline-block;
+	background-color: #DDD;
+	border-radius: 5px;
+	padding: 5px 10px;
+	margin-top: -5px;
+	margin-bottom: -5px;
+}
+
+.badge-result .badge-delete {
+	float: right;
+	margin-left: 20px;
+	margin-right: -5px;
+	padding: 0 5px;
+	cursor: pointer;
+}
+
+.badge-delete:hover {
+	background-color: #CCC;
+}
+
+.form-item-value input {
+	padding: 0;
+	border: 0;
+	outline: 0;
+	width: auto !important;
+}
+
+.search-results {
+	display: none;
+	box-shadow: 0 0 10px #AAA;
+	padding: 10px 0;
+	border-radius: 3px;
+	margin-top: -15px;
+}
+
+.search-results.shown {
+	display: block;
+}
+
+.result-label, .result-item {
+	padding: 20px 15px;
+	cursor: pointer;
+	border-bottom: 1px solid #EEE;
+}
+
+.result-label {
+	cursor: default;
+}
+
+.result-label span {
+	font-weight: bold;
+}
+
+.result-item:hover {
+	background-color: #EEE;
+}
+
+.result-label span, .result-item span {
+	display: inline-block;
+}
+
+.search-results span[data-col="no"] {
+	width: 50px;
+	text-align: center;
+}
+
+.search-results span[data-col="username"] {
+	width: 150px;
+	margin-right: 10px;
+}
+
+.search-results span[data-col="nama"] {
+	width: 220px;
+}
+
+.table-rekanan {
+	width: auto !important;
+	margin: 0 auto;
+}
+
+.table-rekanan td[data-col="no"] {
+	width: 50px;
+}
+.table-rekanan td[data-col="username"] {
+	width: 200px;
+}
+.table-rekanan td[data-col="nama"] {
+	width: 300px;
+}
+.table-rekanan td[data-col="status"] {
+	width: 200px;
+}
+
+.table-empty-state {
+	margin: 0 auto;
+	width: 750px;
+}

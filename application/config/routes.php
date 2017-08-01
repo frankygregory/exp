@@ -199,10 +199,13 @@ $route['lokasi/addLocation'] = 'panel/lokasi/addLocation';
 $route['lokasi/updateLocation'] = 'panel/lokasi/updateLocation';
 $route['lokasi/deleteLocation'] = 'panel/lokasi/deleteLocation';
 
-$route['rekanan-ekspedisi'] = 'panel/rekanan_ekspedisi';
-$route["rekanan-ekspedisi/getRekanan"] = "panel/rekanan_ekspedisi/getRekanan";
-$route["rekanan-ekspedisi/getPendingRekanan"] = "panel/rekanan_ekspedisi/getPendingRekanan";
-$route['rekanan'] = 'panel/rekanan_konsumen';
+$route['rekanan'] = 'panel/rekanan';
+$route["rekanan/getRekanan"] = "panel/rekanan/getRekanan";
+$route["rekanan/getPendingRekanan"] = "panel/rekanan/getPendingRekanan";
+$route["rekanan/getRekananCount"] = "panel/rekanan/getRekananCount";
+$route["rekanan/searchUsernameOrName"] = "panel/rekanan/searchUsernameOrName";
+$route["rekanan/requestRekanan"] = "panel/rekanan/requestRekanan";
+
 $route['report'] = 'panel/report';
 
 $route['supir'] = 'panel/supir';
