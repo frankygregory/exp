@@ -71,4 +71,49 @@ class Rekanan extends MY_Controller
             echo json_encode($result);
         }
     }
+
+    public function konfirmasiRekanan() {
+        parent::checkAjaxRequest();
+
+        $party_id = $this->input->post("user_id", true);
+        $user_id = $this->session->userdata("user_id");
+        if ($party_id && $user_id) {
+            $data = array(
+                "party_id" => $party_id,
+                "user_id" => $user_id
+            );
+            $result = $this->Rekanan_model->konfirmasiRekanan($data)[0];
+            echo json_encode($result);
+        }
+    }
+
+    public function tolakRekanan() {
+        parent::checkAjaxRequest();
+
+        $party_id = $this->input->post("user_id", true);
+        $user_id = $this->session->userdata("user_id");
+        if ($party_id && $user_id) {
+            $data = array(
+                "party_id" => $party_id,
+                "user_id" => $user_id
+            );
+            $result = $this->Rekanan_model->tolakRekanan($data)[0];
+            echo json_encode($result);
+        }
+    }
+
+    public function deleteRekanan() {
+        parent::checkAjaxRequest();
+
+        $party_id = $this->input->post("user_id", true);
+        $user_id = $this->session->userdata("user_id");
+        if ($party_id && $user_id) {
+            $data = array(
+                "party_id" => $party_id,
+                "user_id" => $user_id
+            );
+            $result = $this->Rekanan_model->deleteRekanan($data)[0];
+            echo json_encode($result);
+        }
+    }
 }

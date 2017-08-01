@@ -205,6 +205,9 @@ $route["rekanan/getPendingRekanan"] = "panel/rekanan/getPendingRekanan";
 $route["rekanan/getRekananCount"] = "panel/rekanan/getRekananCount";
 $route["rekanan/searchUsernameOrName"] = "panel/rekanan/searchUsernameOrName";
 $route["rekanan/requestRekanan"] = "panel/rekanan/requestRekanan";
+$route["rekanan/konfirmasiRekanan"] = "panel/rekanan/konfirmasiRekanan";
+$route["rekanan/tolakRekanan"] = "panel/rekanan/tolakRekanan";
+$route["rekanan/deleteRekanan"] = "panel/rekanan/deleteRekanan";
 
 $route['report'] = 'panel/report';
 

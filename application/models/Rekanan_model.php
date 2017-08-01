@@ -52,4 +52,19 @@ class Rekanan_model extends CI_Model
         $query = $this->db->query("CALL request_rekanan('" . $data["user_id"] . "', '" . $data["party_id"] . "');");
         return $query->result();
     }
+
+    public function konfirmasiRekanan($data) {
+        $query = $this->db->query("CALL terima_rekanan('" . $data["user_id"] . "', '" . $data["party_id"] . "');");
+        return $query->result();
+    }
+
+    public function tolakRekanan($data) {
+        $query = $this->db->query("CALL tolak_rekanan('" . $data["user_id"] . "', '" . $data["party_id"] . "');");
+        return $query->result();
+    }
+
+    public function deleteRekanan($data) {
+        $query = $this->db->query("CALL delete_rekanan('" . $data["user_id"] . "', '" . $data["party_id"] . "');");
+        return $query->result();
+    }
 }

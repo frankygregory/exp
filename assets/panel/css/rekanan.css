@@ -99,10 +99,18 @@
 	width: 300px;
 }
 .table-rekanan td[data-col="status"] {
-	width: 200px;
+	width: 250px;
+}
+
+.btn-konfirmasi {
+	margin-right: 10px;
+}
+
+.btn-delete {
+	margin-left: 20px;
 }
 
 .table-empty-state {
 	margin: 0 auto;
-	width: 750px;
+	width: 800px;
 }
