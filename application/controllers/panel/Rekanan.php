@@ -68,6 +68,17 @@ class Rekanan extends MY_Controller
                 "user_id" => $user_id
             );
             $result = $this->Rekanan_model->requestRekanan($data)[0];
+            if ($result->status == "success") {
+                $config = parent::get_default_email_config();
+		        $this->load->library("email", $config);
+
+                $this->email->set_newline("\r\n");
+                $this->email->from("admin@wahanafurniture.com", "Yukirim");
+                $this->email->to($result->party_email);
+                $this->email->subject("Permintaan Rekanan Yukirim");
+                $this->email->message("Dear " . $result->party_fullname . ",\n\nUser " . $result->user_username . " telah mengirimi Anda permintaan untuk menjadi rekanan. Silakan melihat di " . base_url("rekanan") . "\n\nBest regards,\n\nYukirim");
+                $this->email->send();
+            }
             echo json_encode($result);
         }
     }

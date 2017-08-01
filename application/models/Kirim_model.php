@@ -192,11 +192,12 @@ class Kirim_model extends CI_Model
 	}
 	
 	public function getBidding($shipment_id) {
-		$query = $this->db->query(
-			"SELECT t.*, u.username, u.user_verified
+		$query = $this->db->query("
+			SELECT t.*, u.username, u.user_verified
 			FROM `t_bidding` t, `m_user` u
-			WHERE t.created_by = u.user_id AND shipment_id = " . $shipment_id . ";"
-		);
+			WHERE t.created_by = u.user_id AND shipment_id = " . $shipment_id . "
+			ORDER BY CASE t.bidding_status WHEN 1 THEN 2 WHEN 0 THEN 1 ELSE 0 END DESC, t.bidding_price ASC;
+		");
 		return $query->result();
 	}
 	
