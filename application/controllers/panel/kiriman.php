@@ -26,8 +26,49 @@ class Kiriman extends MY_Controller
 		parent::checkAjaxRequest();
 
 		$shipment_id = $this->input->post("shipment_id");
-		$info = $this->Kiriman_model->getInfoEkspedisi($shipment_id);
-		echo json_encode($info);
+		$result = $this->Kiriman_model->getInfoEkspedisi($shipment_id)[0];
+		$result->pending_date = date_format(new DateTime($result->pending_date), "d-m-Y H:i");
+		$result->confirmation_date = date_format(new DateTime($result->confirmation_date), "d-m-Y H:i");
+		if ($result->bidding_type == 1) {
+			$result->order_date = date_format(new DateTime($result->order_date), "d-m-Y H:i");
+			$result->delivery_date = date_format(new DateTime($result->delivery_date), "d-m-Y H:i");
+			$result->pickup_date = date_format(new DateTime($result->pickup_date), "d-m-Y H:i");
+			$result->receive_date = date_format(new DateTime($result->receive_date), "d-m-Y H:i");
+		} else {
+			$result->door_start_date = date_format(new DateTime($result->door_start_date), "d-m-Y H:i");
+			$result->port_start_date = date_format(new DateTime($result->port_start_date), "d-m-Y H:i");
+			$result->port_finish_date = date_format(new DateTime($result->port_finish_date), "d-m-Y H:i");
+			$result->door_finish_date = date_format(new DateTime($result->door_finish_date), "d-m-Y H:i");
+		}
+		echo json_encode($result);
+	}
+
+	public function getAllStatusKiriman() {
+		parent::checkAjaxRequest();
+
+		$shipment_id = $this->input->post("shipment_id");
+		if ($shipment_id) {
+			$result = $this->Kiriman_model->getAllStatusKiriman($shipment_id)[0];
+			if ($result->status == "success") {
+				$result->pending_date = date_format(new DateTime($result->pending_date), "d-m-Y H:i");
+				$result->confirmation_date = date_format(new DateTime($result->confirmation_date), "d-m-Y H:i");
+				
+				if ($result->bidding_type == 1) {
+					$result->order_date = date_format(new DateTime($result->order_date), "d-m-Y H:i");
+					$result->delivery_date = date_format(new DateTime($result->delivery_date), "d-m-Y H:i");
+					$result->pickup_date = date_format(new DateTime($result->pickup_date), "d-m-Y H:i");
+					$result->receive_date = date_format(new DateTime($result->receive_date), "d-m-Y H:i");
+					$result->end_date = date_format(new DateTime($result->end_date), "d-m-Y H:i");
+				} else {
+					$result->door_start_date = date_format(new DateTime($result->door_start_date), "d-m-Y H:i");
+					$result->port_start_date = date_format(new DateTime($result->port_start_date), "d-m-Y H:i");
+					$result->port_finish_date = date_format(new DateTime($result->port_finish_date), "d-m-Y H:i");
+					$result->door_finish_date = date_format(new DateTime($result->door_finish_date), "d-m-Y H:i");
+					$result->ending_date = date_format(new DateTime($result->ending_date), "d-m-Y H:i");
+				}
+			}
+			echo json_encode($result);
+		}
 	}
 	
 	function secondsToTime($seconds) {
@@ -76,13 +117,6 @@ class Kiriman extends MY_Controller
 
 		$user_id = $this->session->userdata("user_id");
 		$kiriman = $this->Kiriman_model->getSelesaiKiriman($user_id);
-		$iLength = sizeof($kiriman);
-		for ($i = 0; $i < $iLength; $i++) {
-			$waktu = intval($kiriman[$i]->waktu_kiriman);
-			$kiriman[$i]->waktu_kiriman = $this->secondsToDay($waktu);
-			$waktu = intval($kiriman[$i]->total_waktu);
-			$kiriman[$i]->total_waktu = $this->secondsToDay($waktu);
-		}
 		echo json_encode($kiriman);
 	}
 	

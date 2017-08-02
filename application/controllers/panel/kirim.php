@@ -298,7 +298,7 @@ class Kirim extends MY_Controller
 			'title' => 'home',
 			'page_name' => "kirimbarang_detail",
 			'page_title'=> 'Detail Kiriman',
-			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=8" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css?v=15" rel="stylesheet">',
+			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=10" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css?v=20" rel="stylesheet">',
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => "",
 			"activePage" => $activePage,
@@ -377,6 +377,33 @@ class Kirim extends MY_Controller
 		);
 
 		return $data;
+	}
+
+	public function getAllStatusKiriman() {
+		parent::checkAjaxRequest();
+
+		$shipment_id = $this->input->post("shipment_id");
+		if ($shipment_id) {
+			$result = $this->Kirim_model->getAllStatusKiriman($shipment_id)[0];
+			if ($result->status == "success") {
+				$result->pending_date = date_format(new DateTime($result->pending_date), "d-m-Y H:i");
+				$result->confirmation_date = date_format(new DateTime($result->confirmation_date), "d-m-Y H:i");
+				if ($result->bidding_type == 1) {
+					$result->order_date = date_format(new DateTime($result->order_date), "d-m-Y H:i");
+					$result->delivery_date = date_format(new DateTime($result->delivery_date), "d-m-Y H:i");
+					$result->pickup_date = date_format(new DateTime($result->pickup_date), "d-m-Y H:i");
+					$result->receive_date = date_format(new DateTime($result->receive_date), "d-m-Y H:i");
+					$result->end_date = date_format(new DateTime($result->end_date), "d-m-Y H:i");
+				} else {
+					$result->door_start_date = date_format(new DateTime($result->door_start_date), "d-m-Y H:i");
+					$result->port_start_date = date_format(new DateTime($result->port_start_date), "d-m-Y H:i");
+					$result->port_finish_date = date_format(new DateTime($result->port_finish_date), "d-m-Y H:i");
+					$result->door_finish_date = date_format(new DateTime($result->door_finish_date), "d-m-Y H:i");
+					$result->ending_date = date_format(new DateTime($result->ending_date), "d-m-Y H:i");
+				}
+			}
+			echo json_encode($result);
+		}
 	}
 
 	public function getSavedLocation() {

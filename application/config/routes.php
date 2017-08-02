@@ -107,6 +107,7 @@ $route['kirim/dokirimbarang'] = 'panel/kirim/doKirimBarang';
 $route['kirim/updatekirimbarang'] = 'panel/kirim/updatekirimBarang';
 $route['kirim/update-items'] = 'panel/kirim/updateItems';
 $route['kirim/setujuPenawaran'] = 'panel/kirim/setujuPenawaran';
+$route['kirim/getAllStatusKiriman'] = 'panel/kirim/getAllStatusKiriman';
 
 $route['penawaran-bisnis'] = 'panel/penawaran_pro';
 $route['penawaran-bisnis/getOpenKiriman'] = 'panel/penawaran_pro/getOpenKiriman';
@@ -127,6 +128,7 @@ $route['kiriman-saya-bisnis/getSelesaiKiriman'] = 'panel/kiriman_pro/getSelesaiK
 $route['kiriman-saya-bisnis/getCancelKiriman'] = 'panel/kiriman_pro/getCancelKiriman';
 $route['kiriman-saya-bisnis/submitRating'] = 'panel/kiriman_pro/submitRating';
 $route['kiriman-saya-bisnis/cancelShipment'] = 'panel/kiriman_pro/cancelShipment';
+$route['kiriman-saya-bisnis/getAllStatusKiriman'] = 'panel/kiriman_pro/getAllStatusKiriman';
 
 $route['kiriman-saya'] = 'panel/kiriman';
 $route['kiriman-saya/getKirimanCount'] = 'panel/kiriman/getKirimanCount';
@@ -137,6 +139,7 @@ $route['kiriman-saya/getSelesaiKiriman'] = 'panel/kiriman/getSelesaiKiriman';
 $route['kiriman-saya/getCancelKiriman'] = 'panel/kiriman/getCancelKiriman';
 $route['kiriman-saya/submitRating'] = 'panel/kiriman/submitRating';
 $route['kiriman-saya/cancelShipment'] = 'panel/kiriman/cancelShipment';
+$route['kiriman-saya/getAllStatusKiriman'] = 'panel/kiriman/getAllStatusKiriman';
 
 $route['kiriman-darat-ekspedisi'] = 'panel/kiriman_ekspedisi';
 $route['kiriman-darat-ekspedisi/getKirimanSaya'] = 'panel/kiriman_ekspedisi/getKirimanSaya';

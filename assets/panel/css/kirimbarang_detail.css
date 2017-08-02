@@ -361,3 +361,31 @@ td.td-action {
 	margin-top: 10px;
 	margin-right: 5px;
 }
+
+.section-status {
+	overflow: auto;
+	margin-bottom: 50px;
+}
+
+.detail-status-title {
+	float: none;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.status-item {
+	float: left;
+	text-align: center;
+	margin-right: 25px;
+}
+
+.status-item:last-child {
+	margin-right: 0;
+}
+
+.status-time {
+	display: block;
+	font-size: 10pt;
+	margin-top: 5px;
+	word-spacing: 3px;
+}

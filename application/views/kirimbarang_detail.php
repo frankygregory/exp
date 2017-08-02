@@ -183,6 +183,7 @@
 	
 		
 	</div>
+	<div class="section-status"></div>
 	<div class="section-3">
 		<div class="section-title">Diskusi</div>
 		<div class="section-3-content">
@@ -324,6 +325,7 @@ var profilUrl = "<?= base_url("profil/") ?>";
 var shipment_user_id = "<?= $shipment_user_id ?>";
 
 var data_shipment_id = <?= $shipment_id ?>;
+var data_shipment_status = <?= $shipment_status ?>;
 
 $(function() {
 	getDiscussions();
@@ -347,6 +349,81 @@ $divQuestions = "element += \"<div class='questions'>\";";
 $tr_bidding = "";
 $btnSetujuBidding = "";
 $btnCancelBidding = "";
+
+if ($user_id && ($isOwner OR $expedition_id == $user_id)) { ?>
+	ajaxCall("<?= base_url("kirim/getAllStatusKiriman") ?>", {shipment_id: data_shipment_id}, function(json) {
+		var result = JSON.parse(json);
+		if (result.status == "success") {
+			var status_0 = result.pending_date;
+			var status_1 = result.confirmation_date;
+			var status_1_col = "confirmation_by";
+			var status_2, status_2_name, status_2_col, status_3, status_3_name, status_3_col, status_4, status_4_name, status_4_col, status_5, status_5_name, status_5_col, status_6, status_6_col;
+			if (result.bidding_type == 1) {
+				status_2 = result.order_date;
+				status_2_name = "Pesanan";
+				status_2_col = "order_by";
+				status_3 = result.delivery_date;
+				status_3_name = "Dikirim";
+				status_3_col = "delivery_by";
+				status_4 = result.pickup_date;
+				status_4_name = "Diambil";
+				status_4_col = "pickup_by";
+				status_5 = result.receive_date;
+				status_5_name = "Diterima";
+				status_5_col = "receive_by";
+				status_6 = result.end_date;
+				status_6_col = "end_by";
+			} else {
+				status_2 = result.door_start_date;
+				status_2_name = "Door 1";
+				status_2_col = "door_start_by";
+				status_3 = result.port_start_date;
+				status_3_name = "Port 1";
+				status_3_col = "port_start_by";
+				status_4 = result.port_finish_date;
+				status_4_name = "Diambil";
+				status_4_col = "port_finish_by";
+				status_5 = result.door_finish_date;
+				status_5_name = "Door 2";
+				status_5_col = "door_finish_by";
+				status_6 = result.ending_date;
+				status_6_col = "ending_by";
+			}
+			
+			var status_7 = result.cancel_date;
+			var status_7_col = "cancel_by";
+
+			var content = "";
+			content += "<div class='detail-status'>";
+			content += "<div class='section-title'>Status</div>";
+			content += "<div class='status-item'><span class='status-badge' data-status='0'>Pending</span><span class='status-time'>" + status_0 + "</span></div>";
+			
+			if (data_shipment_status >= 1 && result[status_1_col] != "0") {
+				content += "<div class='status-item'><span class='status-badge' data-status='1'>Konfirmasi</span><span class='status-time'>" + status_1 + "</span></div>";
+			}
+			if (data_shipment_status >= 2 && result[status_2_col] != "0") {
+				content += "<div class='status-item'><span class='status-badge' data-status='2'>" + status_2_name + "</span><span class='status-time'>" + status_2 + "</span></div>";
+			}
+			if (data_shipment_status >= 3 && result[status_3_col] != "0") {
+				content += "<div class='status-item'><span class='status-badge' data-status='3'>" + status_3_name + "</span><span class='status-time'>" + status_3 + "</span></div>";
+			}
+			if (data_shipment_status >= 4 && result[status_4_col] != "0") {
+				content += "<div class='status-item'><span class='status-badge' data-status='4'>" + status_4_name + "</span><span class='status-time'>" + status_4 + "</span></div>";
+			}
+			if (data_shipment_status >= 5 && result[status_5_col] != "0") {
+				content += "<div class='status-item'><span class='status-badge' data-status='5'>" + status_5_name + "</span><span class='status-time'>" + status_5 + "</span></div>";
+			}
+			if (data_shipment_status >= 6 && result[status_6_col] != "0") {
+				content += "<div class='status-item'><span class='status-badge' data-status='6'>Selesai</span><span class='status-time'>" + status_6 + "</span></div>";
+			}
+			if (data_shipment_status >= 7 && result[status_7_col] != "0") {
+				content += "<div class='status-item'><span class='status-badge' data-status='7'>Canceled</span><span class='status-time'>" + status_7 + "</span></div>";
+			}
+			content += "</div>";
+			$(".section-status").html(content);
+		}
+	});
+<?php }
 
 if ($role_id == 1 && $isOwner && $shipment_status == -1) { 
 	$btnJawabPertanyaan = "element += \"<button class='btn-neutral btn-jawab-pertanyaan'>Jawab</button>\";";

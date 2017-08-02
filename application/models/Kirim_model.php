@@ -241,4 +241,9 @@ class Kirim_model extends CI_Model
 	public function acceptBidding($data) {
 		$this->db->query("CALL setuju_penawaran('" . $data["shipment_id"] . "', '" . $data["bidding_id"] . "', '" . $data["user_id"] . "');");
 	}
+
+	public function getAllStatusKiriman($shipment_id) {
+		$query = $this->db->query("CALL get_all_status_kiriman('" . $shipment_id . "');");
+		return $query->result();
+	}
 }

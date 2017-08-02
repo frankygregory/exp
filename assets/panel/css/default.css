@@ -485,3 +485,47 @@ table td[data-align="center"] {
 .verified-icon-explanation.visible {
 	display: block;
 }
+
+.status-badge {
+	display: inline-block;
+	padding: 3px 0;
+	width: 85px;
+	text-align: center;
+	font-size: 10pt;
+	border-radius: 20px;
+}
+
+.status-badge[data-status="0"] {
+	background-color: #FF5722;
+	color: white;
+}
+
+.status-badge[data-status="1"] {
+	background-color: #EF6C00;
+	color: white;
+}
+
+.status-badge[data-status="2"] {
+	background-color: #FFC107;
+}
+
+.status-badge[data-status="3"] {
+	background-color: #FFEB3B;
+}
+
+.status-badge[data-status="4"] {
+	background-color: #CDDC39;
+}
+
+.status-badge[data-status="5"] {
+	background-color: #9CCC65;
+}
+
+.status-badge[data-status="6"] {
+	background-color: #76FF03;
+}
+
+.status-badge[data-status="7"] {
+	background-color: #F44336;
+	color: white;
+}
