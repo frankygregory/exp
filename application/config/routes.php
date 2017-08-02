@@ -161,6 +161,7 @@ $route["kiriman-darat-ekspedisi/getDiambilKiriman"] = 'panel/kiriman_ekspedisi/g
 $route["kiriman-darat-ekspedisi/getDiterimaKiriman"] = 'panel/kiriman_ekspedisi/getDiterimaKiriman';
 $route["kiriman-darat-ekspedisi/getSelesaiKiriman"] = 'panel/kiriman_ekspedisi/getSelesaiKiriman';
 $route["kiriman-darat-ekspedisi/getCancelKiriman"] = 'panel/kiriman_ekspedisi/getCancelKiriman';
+$route["kiriman-darat-ekspedisi/getAllStatusKiriman"] = 'panel/kiriman_ekspedisi/getAllStatusKiriman';
 
 $route['kiriman-laut-ekspedisi'] = 'panel/kiriman_ekspedisi_laut';
 $route['kiriman-laut-ekspedisi/getKirimanSaya'] = 'panel/kiriman_ekspedisi_laut/getKirimanSaya';
@@ -176,6 +177,7 @@ $route["kiriman-laut-ekspedisi/getCancelKiriman"] = 'panel/kiriman_ekspedisi_lau
 $route['kiriman-laut-ekspedisi/submitDeal'] = 'panel/kiriman_ekspedisi_laut/submitDeal';
 $route['kiriman-laut-ekspedisi/submitUbah'] = 'panel/kiriman_ekspedisi_laut/submitUbah';
 $route['kiriman-laut-ekspedisi/cancelShipment'] = 'panel/kiriman_ekspedisi_laut/cancelShipment';
+$route["kiriman-laut-ekspedisi/getAllStatusKiriman"] = 'panel/kiriman_ekspedisi_laut/getAllStatusKiriman';
 
 $route['alat'] = 'panel/alat';
 $route['alat/(:any)'] = 'panel/alat/$1/$2';

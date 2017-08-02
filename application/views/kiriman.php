@@ -329,7 +329,7 @@ function getDetailPengirim(element) {
 			if (result["shipment_status"] > 1) {
 				content += "<div class='detail-col'>";
 				content += "<div class='detail-title'>Detail Kiriman</div>";
-				content += "<div class='detail-row'><span class='detail-label'>Nomor Kontainer</span><span class='detail-titikdua'> : </span><span>" + result["shipment_details_container_number"] + "</span></div>";
+				content += "<div class='detail-row'><span class='detail-label'>No. Kontainer</span><span class='detail-titikdua'> : </span><span>" + result["shipment_details_container_number"] + "</span></div>";
 				content += "</div>";
 			}
 		}

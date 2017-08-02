@@ -19,8 +19,8 @@
 			</div>
 			<div class="form-item form-item-jarak">
 				<div class="form-item-label">Jarak (Km)</div>
-				<input type="range" class="input-jarak-slider" max="2000" min="0" step="10" value="2000" />
-				<input type="text" class="input-jarak-max" maxlength="4" value="2000" />
+				<input type="range" class="input-jarak-slider" max="5000" min="0" step="10" value="5000" />
+				<input type="text" class="input-jarak-max" maxlength="4" value="5000" />
 			</div>
 		</div>
 		<div class="subsection-sort">
@@ -294,8 +294,8 @@ $(function() {
 
 	$(".input-jarak-max").on("change", function() {
 		let value = parseInt($(this).val());
-		if (value > 2000) {
-			$(this).val("2000");
+		if (value > 5000) {
+			$(this).val("5000");
 		}
 	});
 

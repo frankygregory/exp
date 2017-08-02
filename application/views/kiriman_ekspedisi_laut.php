@@ -376,19 +376,140 @@ $(function() {
 			$(detailElement).removeClass("show");
 		}
 	});
+
+	$(document).on("click", ".tabs-content[data-tabs-number='7'] .tr-kiriman", function() {
+		var detailElement = $(this).next();
+		if (detailElement.height() == 0) {
+			detailElement.addClass("show");
+			if (detailElement.find(".row-detail-td-content").html().trim() == "") {
+				getAllStatusKiriman(this, detailElement);
+			}
+		} else {
+			detailElement.removeClass("show");
+		}
+	});
 });
+
+function getAllStatusKiriman(tr, element) {
+	var shipment_id = $(tr).data("id");
+	ajaxCall("<?= base_url("kiriman-laut-ekspedisi/getAllStatusKiriman") ?>", {shipment_id: shipment_id}, function(json) {
+		var result = JSON.parse(json);
+		if (result.status == "success") {
+			var status_0 = result.pending_date;
+			var status_1 = result.confirmation_date;
+			var status_2, status_2_name, status_3, status_3_name, status_4, status_4_name, status_5, status_5_name;
+			if (result.bidding_type == 1) {
+				status_2 = result.order_date;
+				status_2_name = "Pesanan";
+				status_3 = result.delivery_date;
+				status_3_name = "Dikirim";
+				status_4 = result.pickup_date;
+				status_4_name = "Diambil";
+				status_5 = result.receive_date;
+				status_5_name = "Diterima";
+			} else {
+				status_2 = result.door_start_date;
+				status_2_name = "Door 1";
+				status_3 = result.port_start_date;
+				status_3_name = "Port 1";
+				status_4 = result.port_finish_date;
+				status_4_name = "Diambil";
+				status_5 = result.door_finish_date;
+				status_5_name = "Door 2";
+			}
+			var status_6 = result.end_date;
+
+			var content = "";
+			content += "<div class='detail-status'>";
+			content += "<div class='detail-status-title'>Status</div>";
+			content += "<div class='status-item'><span class='status-badge' data-status='0'>Pending</span><span class='status-time'>" + status_0 + "</span></div>";
+			content += "<div class='status-item'><span class='status-badge' data-status='1'>Konfirmasi</span><span class='status-time'>" + status_1 + "</span></div>";
+			content += "<div class='status-item'><span class='status-badge' data-status='2'>" + status_2_name + "</span><span class='status-time'>" + status_2 + "</span></div>";
+			content += "<div class='status-item'><span class='status-badge' data-status='3'>" + status_3_name + "</span><span class='status-time'>" + status_3 + "</span></div>";
+			content += "<div class='status-item'><span class='status-badge' data-status='4'>" + status_4_name + "</span><span class='status-time'>" + status_4 + "</span></div>";
+			content += "<div class='status-item'><span class='status-badge' data-status='5'>" + status_5_name + "</span><span class='status-time'>" + status_5 + "</span></div>";
+			content += "<div class='status-item'><span class='status-badge' data-status='6'>Selesai</span><span class='status-time'>" + status_6 + "</span></div>";
+			content += "</div>";
+			$(element).find(".row-detail-td-content").html(content);
+		}
+	});
+}
 
 function getDetailPengirim(element) {
 	var shipment_id = $(element).data("id");
+	
 	ajaxCall("<?= base_url("kiriman-laut-ekspedisi/getDetailPengirim") ?>", {shipment_id: shipment_id}, function(json) {
+		
 		var result = jQuery.parseJSON(json);
-		result = result[0];
 		var content = "";
-		content += "<div class='detail-title'>Detail Kontak</div>";
+		content += "<div class='detail-col'>";
+		content += "<div class='detail-title'>Info Pemilik Barang</div>";
 		content += "<div class='detail-row'><span class='detail-label'>Nama</span><span class='detail-titikdua'> : </span><span>" + result["user_fullname"] + "</span></div>";
 		content += "<div class='detail-row'><span class='detail-label'>Alamat</span><span class='detail-titikdua'> : </span><span>" + result["user_address"] + "</span></div>";
 		content += "<div class='detail-row'><span class='detail-label'>Telepon</span><span class='detail-titikdua'> : </span><span>" + result["user_telephone"] + "</span></div>";
 		content += "<div><span class='detail-label'>Handphone</span><span class='detail-titikdua'> : </span><span>" + result["user_handphone"] + "</span></div>";
+		content += "</div>";
+
+		var status_0 = result["pending_date"];
+		var status_1 = result["confirmation_date"];
+		var status_2, status_2_name, status_3, status_3_name, status_4, status_4_name, status_5, status_5_name;
+
+		if (result["bidding_type"] == "1") {
+			status_2 = result["order_date"];
+			status_2_name = "Pesanan";
+			status_3 = result["delivery_date"];
+			status_3_name = "Dikirim";
+			status_4 = result["pickup_date"];
+			status_4_name = "Diambil";
+			status_5 = result["receive_date"];
+			status_5_name = "Diterima";
+
+			if (result["shipment_status"] > 1) {
+				content += "<div class='detail-col'>";
+				content += "<div class='detail-title'>Detail Supir</div>";
+				content += "<div class='detail-row'><span class='detail-label'>Nama</span><span class='detail-titikdua'> : </span><span>" + result["driver_name"] + "</span></div>";
+				content += "<div class='detail-row'><span class='detail-label'>Handphone</span><span class='detail-titikdua'> : </span><span>" + result["driver_handphone"] + "</span></div>";
+				content += "<div class='detail-row'><span class='detail-label'>Kendaraan</span><span class='detail-titikdua'> : </span><span>" + result["vehicle_name"] + " (" + result["vehicle_nomor"] + ")</span></div>";
+				content += "</div>";
+			}
+		} else {
+			status_2 = result["door_start_date"];
+			status_2_name = "Door 1";
+			status_3 = result["port_start_date"];
+			status_3_name = "Port 1";
+			status_4 = result["port_finish_date"];
+			status_4_name = "Port 2";
+			status_5 = result["door_finish_date"];
+			status_5_name = "Door 2";
+
+			if (result["shipment_status"] > 1) {
+				content += "<div class='detail-col'>";
+				content += "<div class='detail-title'>Detail Kiriman</div>";
+				content += "<div class='detail-row'><span class='detail-label'>No. Kontainer</span><span class='detail-titikdua'> : </span><span>" + result["shipment_details_container_number"] + "</span></div>";
+				content += "</div>";
+			}
+		}
+
+		content += "<div class='detail-status'>";
+		content += "<div class='detail-status-title'>Status</div>";
+		content += "<div class='status-item'><span class='status-badge' data-status='0'>Pending</span><span class='status-time'>" + status_0 + "</span></div>";
+		if (result["shipment_status"] >= 1) {
+			content += "<div class='status-item'><span class='status-badge' data-status='1'>Konfirmasi</span><span class='status-time'>" + status_1 + "</span></div>";
+		}
+		if (result["shipment_status"] >= 2) {
+			content += "<div class='status-item'><span class='status-badge' data-status='2'>" + status_2_name + "</span><span class='status-time'>" + status_2 + "</span></div>";
+		}
+		if (result["shipment_status"] >= 3) {
+			content += "<div class='status-item'><span class='status-badge' data-status='3'>" + status_3_name + "</span><span class='status-time'>" + status_3 + "</span></div>";
+		}
+		if (result["shipment_status"] >= 4) {
+			content += "<div class='status-item'><span class='status-badge' data-status='4'>" + status_4_name + "</span><span class='status-time'>" + status_4 + "</span></div>";
+		}
+		if (result["shipment_status"] >= 5) {
+			content += "<div class='status-item'><span class='status-badge' data-status='5'>" + status_5_name + "</span><span class='status-time'>" + status_5 + "</span></div>";
+		}
+		content += "</div>";
+		
 		$(element).next().find(".row-detail-td-content").html(content);
 	});
 }
@@ -598,19 +719,19 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		},
 		"door1": {
 			value: "",
-			btn: "<td><button class='btn-default btn-ubah'>Ubah</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: "<td><button class='btn-default btn-ubah'>Ubah</button></td>"
 		},
 		"port1": {
 			value: "",
-			btn: "<td><button class='btn-default btn-ubah'>Ubah</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: "<td><button class='btn-default btn-ubah'>Ubah</button></td>"
 		},
 		"port2": {
 			value: "",
-			btn: "<td><button class='btn-default btn-ubah'>Ubah</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: "<td><button class='btn-default btn-ubah'>Ubah</button></td>"
 		},
 		"door2": {
 			value: "",
-			btn: "<td><button class='btn-default btn-ubah'>Ubah</button><button class='btn-negative btn-batal-pengiriman'>Batalkan</button></td>"
+			btn: ""
 		},
 		"selesai": {
 			value: "",

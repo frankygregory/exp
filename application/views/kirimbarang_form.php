@@ -865,7 +865,6 @@ function distanceMatrixCallback(response, status) {
 			distance = google.maps.geometry.spherical.computeDistanceBetween(map_from_latlng, map_to_latlng);
 		}
 		distance /= 1000;
-		console.log(distance);
 		$("#shipment_length").val(distance);
 	}
 }

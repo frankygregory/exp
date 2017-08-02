@@ -8,12 +8,12 @@ class Kiriman_ekspedisi_model extends CI_Model
     }
 
 	public function getDetailPengirim($shipment_id) {
-		$query = $this->db->query("
-			SELECT u.username, u.user_email, u.user_fullname, u.user_address, u.user_telephone, u.user_handphone
-			FROM `m_user` u, `m_shipment` s
-			WHERE s.user_id = u.user_id AND s.shipment_id = '" . $shipment_id . "'
-			LIMIT 1"
-		);
+		$query = $this->db->query("CALL get_all_info_kiriman_ekspedisi(" . $shipment_id . ");");
+		return $query->result();
+	}
+
+	public function getAllStatusKiriman($shipment_id) {
+		$query = $this->db->query("CALL get_all_status_kiriman('" . $shipment_id . "');");
 		return $query->result();
 	}
 	
