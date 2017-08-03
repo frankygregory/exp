@@ -17,22 +17,8 @@ class Lokasi_model extends CI_Model
 	}
 	
 	public function addLocation($data) {
-		$insertData = array(
-			"location_name" => $data["location_name"],
-			"location_address" => $data["location_address"],
-			"location_city" => $data["location_city"],
-			"location_lat" => $data["location_lat"],
-			"location_lng" => $data["location_lng"],
-			"location_detail" => $data["location_detail"],
-			"location_contact" => $data["location_contact"],
-			"location_from" => $data["location_from"],
-			"location_to" => $data["location_to"],
-			"user_id" => $data["user_id"],
-			"created_by" => $data["user_id"],
-			"modified_by" => $data["user_id"]
-		);
-		$this->db->insert("m_location", $insertData);
-		return $this->db->affected_rows();
+		$query = $this->db->query("CALL add_location('" . $data["location_name"] . "', '" . $data["location_address"] . "', '" . $data["location_city"] . "', '" . $data["location_lat"] . "', '" . $data["location_lng"] . "', '" . $data["location_detail"] . "', '" . $data["location_contact"] . "', b'" . $data["location_from"] . "', b'" . $data["location_to"] . "', '" . $data["user_id"] . "');");
+		return $query->result();
 	}
 	
 	public function updateLocation($data) {

@@ -131,6 +131,7 @@ $(function() {
 		$(".dialog-tambah .btn-batal").css("display", "block");
 				
 		var location_id = $(this).closest(".tr-lokasi").data("id");
+		var location_city = $(this).closest(".tr-lokasi").data("city");
 		var location_name = $(this).closest(".tr-lokasi").find(".td-location_name").html();
 		var location_address = $(this).closest(".tr-lokasi").find(".td-location_address").html();
 		var location_detail = $(this).closest(".tr-lokasi").find(".td-location_detail").html();
@@ -151,6 +152,7 @@ $(function() {
 		}
 		
 		$(".dialog-tambah").data("id", location_id);
+		$("#location_city").val(location_city);
 		$("#location_address").val(location_address);
 		$("#location_latlng").val(location_lat + ", " + location_lng);
 		$("#location_name").val(location_name);
@@ -194,6 +196,7 @@ function deleteLocation() {
 function updateLocation() {
 	var location_id = $(".dialog-tambah").data("id");
 	var location_name = $("#location_name").val();
+	var location_city = $("#location_city").val();
 	var location_address = $("#location_address").val();
 	var location_detail = $("#location_detail").val();
 	var location_contact = $("#location_contact").val();
@@ -213,6 +216,7 @@ function updateLocation() {
 		var data = {
 			location_id: location_id,
 			location_name: location_name,
+			location_city: location_city,
 			location_address: location_address,
 			location_detail: location_detail,
 			location_contact: location_contact,
@@ -282,10 +286,20 @@ function addLocation() {
 			location_from: location_from,
 			location_to: location_to
 		};
-		ajaxCall("lokasi/addLocation", data, function(result) {
+		ajaxCall("lokasi/addLocation", data, function(json) {
 			hideFullscreenLoading();
-			closeDialog();
-			getMyLocation();
+			var result = jQuery.parseJSON(json);
+			if (result.status == "success") {
+				getMyLocation();
+				closeDialog();
+			} else {
+				if (result.status_message == "duplicate") {
+					alert("Lokasi ini sudah ada di daftar");
+				} else {
+					closeDialog();
+				}
+			}
+			
 		});
 	}
 }
@@ -314,7 +328,7 @@ function addLocationToTable(result) {
 		
 		var btnEdit = "<button class='btn-action btn-edit' title='edit' style='background-image: url(" + editIconUrl + ");'></button>";
 		var btnDelete = "<button class='btn-action btn-delete' title='delete' style='background-image: url(" + deleteIconUrl + ");'></button>";
-		element += "<tr class='tr-lokasi' data-id='" + result[i].location_id + "' data-lat='" + result[i].location_lat + "' data-lng='" + result[i].location_lng + "'>";
+		element += "<tr class='tr-lokasi' data-id='" + result[i].location_id + "' data-lat='" + result[i].location_lat + "' data-lng='" + result[i].location_lng + "' data-city='" + result[i].location_city + "'>";
 		element += "<td data-align='center'>" + (i + 1) + "</td>";
 		element += "<td class='td-location_name'>" + result[i].location_name + "</td>";
 		element += "<td class='td-location_address'>" + result[i].location_address + "</td>";

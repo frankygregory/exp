@@ -444,6 +444,28 @@ $(function() {
 				$("#location_" + fromto + "_detail").val(detail);
 				$("#location_" + fromto + "_contact").val(contact);
 				get_lat_long('location', latlng, "location_" + fromto + "_latlng");
+
+				if (fromto == "from") {
+					var to_address = $("#location_to_address").val();
+					if (to_address != "") {
+						var to_latlng = $("#location_to_latlng").val().split(",");
+						var to_lat = parseFloat(to_latlng[0]);
+						var to_lng = parseFloat(to_latlng[1]);
+						
+						to_latlng = new google.maps.LatLng(to_lat, to_lng);
+						callDistanceMatrixService(latlng, to_latlng);
+					}
+				} else {
+					var from_address = $("#location_from_address").val();
+					if (from_address != "") {
+						var from_latlng = $("#location_from_latlng").val().split(",");
+						var from_lat = parseFloat(from_latlng[0]);
+						var from_lng = parseFloat(from_latlng[1]);
+						
+						from_latlng = new google.maps.LatLng(from_lat, from_lng);
+						callDistanceMatrixService(latlng, from_latlng);
+					}
+				}
 			}
 		});
 	});
@@ -865,6 +887,7 @@ function distanceMatrixCallback(response, status) {
 			distance = google.maps.geometry.spherical.computeDistanceBetween(map_from_latlng, map_to_latlng);
 		}
 		distance /= 1000;
+		
 		$("#shipment_length").val(distance);
 	}
 }

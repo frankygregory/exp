@@ -55,12 +55,8 @@ class Lokasi extends MY_Controller
 				"location_to" => $location_to,
 				"user_id" => $user_id
 			);
-			$affected_rows = $this->Lokasi_model->addLocation($data);
-			if ($affected_rows > 0) {
-				echo "success";
-			} else {
-				echo "null";
-			}
+			$result = $this->Lokasi_model->addLocation($data)[0];
+			echo json_encode($result);
 		}
 	}
 	
