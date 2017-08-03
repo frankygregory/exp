@@ -66,7 +66,7 @@ class Kiriman_pro_model extends CI_Model
 	
 	public function getKirimanCount($user_id) {
 		$query = $this->db->query("
-			SELECT SUM(IF (m.shipment_status = -1 AND m.shipment_type = 2 AND m.shipment_end_date > CURRENT_TIMESTAMP(), 1, 0)) AS open_kiriman_count, SUM(IF (m.shipment_status > -1 AND m.shipment_status < 6 AND m.shipment_type = 2, 1, 0)) AS progress_kiriman_count, SUM(IF (m.shipment_status = 6 AND m.shipment_type = 2, 1, 0)) AS selesai_kiriman_count, SUM(IF (m.shipment_status = 7 AND m.shipment_type = 2, 1, 0)) AS cancel_kiriman_count
+			SELECT COALESCE(SUM(IF (m.shipment_status = -1 AND m.shipment_type = 2 AND m.shipment_end_date > CURRENT_TIMESTAMP(), 1, 0)), 0) AS open_kiriman_count, COALESCE(SUM(IF (m.shipment_status > -1 AND m.shipment_status < 6 AND m.shipment_type = 2, 1, 0)), 0) AS progress_kiriman_count, COALESCE(SUM(IF (m.shipment_status = 6 AND m.shipment_type = 2, 1, 0)), 0) AS selesai_kiriman_count, COALESCE(SUM(IF (m.shipment_status = 7 AND m.shipment_type = 2, 1, 0)), 0) AS cancel_kiriman_count
 			FROM (SELECT shipment_status, shipment_type, shipment_end_date FROM `m_shipment` WHERE user_id = " . $user_id . ") m
 		");
 		return $query->result();
