@@ -42,7 +42,35 @@ class Kirim_model extends CI_Model
 		return $query->result();
 	}
 
+	public function getRekanan() {
+		$query = $this->db->query("
+			SELECT party_id
+			FROM `m_user_party`
+			WHERE user_id = 3 AND (user_party_status = 3 OR user_party_status = 4)
+		");
+	}
+
 	public function getListKirimanUmumPro($data) {
+		$query = $this->db->query("
+			SELECT party_id
+			FROM `m_user_party`
+			WHERE user_id = " . $data["user_id"] . " AND (user_party_status = 3 OR user_party_status = 4)
+		");
+		$result = $query->result();
+
+		$where_user_id = "";
+		for ($i = 0; $i < sizeof($result); $i++) {
+			if ($where_user_id == "") {
+				$where_user_id .= " AND (";
+			} else {
+				$where_user_id .= " OR ";
+			}
+			$where_user_id .= "user_id = " . $result[$i]->party_id;
+		}
+		if ($where_user_id != "") {
+			$where_user_id .= ")";
+		}
+
 		if ($data["order_by"] != "") {
 			$data["order_by"] = " ORDER BY m." . $data["order_by"];
 		}
@@ -51,7 +79,7 @@ class Kirim_model extends CI_Model
 
 		$str = "SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.location_from_city, m.location_to_city, TIMESTAMPDIFF(SECOND, CURRENT_TIMESTAMP(), m.shipment_end_date) AS berakhir, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low
 			FROM `m_shipment` m
-			WHERE m.shipment_end_date > CURRENT_TIMESTAMP() AND m.shipment_status = -1 AND m.shipment_type = 2 AND m.location_from_city LIKE '%" . $data["location_from_city"] . "%' AND m.location_to_city LIKE '%" . $data["location_to_city"] . "%'" . $where_shipment_max . "
+			WHERE m.shipment_end_date > CURRENT_TIMESTAMP() AND m.shipment_status = -1 AND m.shipment_type = 2" . $where_user_id . " AND m.location_from_city LIKE '%" . $data["location_from_city"] . "%' AND m.location_to_city LIKE '%" . $data["location_to_city"] . "%'" . $where_shipment_max . "
 			GROUP BY m.shipment_id " . $data["order_by"] . "
 			LIMIT " . $data["limit"] . " OFFSET " . $data["offset"];
 		
@@ -60,6 +88,26 @@ class Kirim_model extends CI_Model
 	}
 
 	public function getListKirimanUmumCountPro($data) {
+		$query = $this->db->query("
+			SELECT party_id
+			FROM `m_user_party`
+			WHERE user_id = " . $data["user_id"] . " AND (user_party_status = 3 OR user_party_status = 4)
+		");
+		$result = $query->result();
+
+		$where_user_id = "";
+		for ($i = 0; $i < sizeof($result); $i++) {
+			if ($where_user_id == "") {
+				$where_user_id .= " AND (";
+			} else {
+				$where_user_id .= " OR ";
+			}
+			$where_user_id .= "user_id = " . $result[$i]->party_id;
+		}
+		if ($where_user_id != "") {
+			$where_user_id .= ")";
+		}
+
 		if ($data["order_by"] != "") {
 			$data["order_by"] = " ORDER BY m." . $data["order_by"];
 		}
@@ -239,7 +287,8 @@ class Kirim_model extends CI_Model
 	}
 	
 	public function acceptBidding($data) {
-		$this->db->query("CALL setuju_penawaran('" . $data["shipment_id"] . "', '" . $data["bidding_id"] . "', '" . $data["user_id"] . "');");
+		$query = $this->db->query("CALL setuju_penawaran('" . $data["shipment_id"] . "', '" . $data["bidding_id"] . "', '" . $data["user_id"] . "');");
+		return $query->result();
 	}
 
 	public function getAllStatusKiriman($shipment_id) {

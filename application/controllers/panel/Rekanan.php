@@ -51,9 +51,10 @@ class Rekanan extends MY_Controller
     public function searchUsernameOrName() {
         parent::checkAjaxRequest();
 
+        $role_id = $this->session->userdata("role_id");
         $user_id = $this->session->userdata("user_id");
         $keyword = $this->input->post("keyword");
-        $result = $this->Rekanan_model->searchUsernameOrName($keyword, $user_id);
+        $result = $this->Rekanan_model->searchUsernameOrName($role_id, $keyword, $user_id);
         echo json_encode($result);
     }
 

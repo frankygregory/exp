@@ -63,6 +63,7 @@ class Kirim extends MY_Controller
 		$page = $this->input->post("page");
 		$change_page = $this->input->post("change_page");
 		$offset = ($page - 1) * $limit;
+		$user_id = $this->session->userdata("user_id");
 		
 		$data = array(
 			"location_from_city" => $location_from_city,
@@ -70,7 +71,8 @@ class Kirim extends MY_Controller
 			"shipment_length_max" => $shipment_length_max,
 			"order_by" => $order_by,
 			"limit" => $limit,
-			"offset" => $offset
+			"offset" => $offset,
+			"user_id" => $user_id
 		);
 		$kirim = $this->Kirim_model->getListKirimanUmumPro($data);
 		$iLength = sizeof($kirim);
@@ -449,6 +451,7 @@ class Kirim extends MY_Controller
 				$shipment_delivery_date_to = date_format(new DateTime($this->input->post('tanggal-kirim-akhir')), "Y-m-d H:i:s");
 				$shipment_end_date = date_format(new DateTime($this->input->post('tanggal-deadline')), "Y-m-d H:i:s");
 
+				$shipment_type = $this->input->post("shipment_type");
 				$data = array(
 					'shipment_title' => $this->input->post('shipment_title'),
 					'shipment_information' => $this->input->post('shipment_information'),
@@ -505,7 +508,7 @@ class Kirim extends MY_Controller
 					$this->insertData('m_shipment_details', $data);
 				}
 				
-				if ($data["shipment_type"] == 1) {
+				if ($shipment_type == "1") {
 					header("Location: " . base_url("kiriman-saya"));
 				} else {
 					header("Location: " . base_url("kiriman-saya-bisnis"));
@@ -533,8 +536,15 @@ class Kirim extends MY_Controller
 				"bidding_id" => $bidding_id,
 				"user_id" => $user_id
 			);
-			$this->Kirim_model->acceptBidding($data);
-			header("Location: " . base_url("kiriman-saya"));
+			$result = $this->Kirim_model->acceptBidding($data)[0];
+			if ($result->status == "success") {
+				if ($result->shipment_type == 1) {
+					header("Location: " . base_url("kiriman-saya"));
+				} else {
+					header("Location: " . base_url("kiriman-saya-bisnis"));
+				}
+			}
+			
 		} else {
 			header("Location: " . base_url("dashboard"));
 		}

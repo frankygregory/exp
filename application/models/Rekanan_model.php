@@ -38,11 +38,12 @@ class Rekanan_model extends CI_Model
         return $query->result();
     }
 
-    public function searchUsernameOrName($keyword, $user_id) {
+    public function searchUsernameOrName($role_id, $keyword, $user_id) {
+        $where_role_id = ($role_id == 1) ? 2 : 1;
         $query = $this->db->query("
             SELECT user_id, username, user_fullname
             FROM `m_user`
-            WHERE (username LIKE '%" . $keyword . "%' OR user_fullname LIKE '%" . $keyword . "%') AND user_status = 1 AND user_id != " . $user_id . "
+            WHERE (username LIKE '%" . $keyword . "%' OR user_fullname LIKE '%" . $keyword . "%') AND user_status = 1 AND role_id = " . $where_role_id . " AND user_id != " . $user_id . "
             LIMIT 5
         ");
         return $query->result();
