@@ -201,10 +201,6 @@ $(function() {
 		updateAlat();
 	});
 	
-	$(document).on("click", ".btn-toggle", function() {
-		toggleAlatAktif(this);
-	});
-	
 	$(document).on("click", ".btn-delete", function() {
 		var namaAlat = $(this).closest(".tr-alat").children(".td-name").html();
 		var device_id = $(this).closest(".tr-alat").data("id");
@@ -293,25 +289,6 @@ function deleteAlat(element) {
 	});
 }
 
-function toggleAlatAktif(element) {
-	showFullscreenLoading();
-	var device_id = $(element).closest(".tr-alat").data("id");
-	var device_status = $(element).data("value");
-	
-	var data = {
-		device_id: device_id,
-		device_status: device_status
-	};
-	ajaxCall("<?= base_url("alat/toggleAlatAktif") ?>", data, function(json) {
-		hideFullscreenLoading();
-		var result = JSON.parse(json);
-		if (result.status == "success") {
-			closeDialog();
-			getAlat();
-		}
-	});
-}
-
 function clearErrors() {
 	$(".error").html("");
 }
@@ -370,17 +347,11 @@ function cekUpdateInputError(device_name) {
 
 function editAlat(element) {
 	var id = $(element).data("id");
-	
-	var device_name = $(".tr-alat[data-id='" + id + "'] .td-name").html();
-	var device_email = $(".tr-alat[data-id='" + id + "'] .td-email").html();
-	var device_information = $(".tr-alat[data-id='" + id + "'] .td-information").html();
-	var device_status = $(".tr-alat[data-id='" + id + "'] .btn-aktif").prop("disabled");
-	
-	if (device_status) {
-		device_status = "1";
-	} else {
-		device_status = "0";
-	}
+	var trAlat = $(element).closest(".tr-alat");
+	var device_name = trAlat.find(".td-name").html();
+	var device_email = trAlat.find(".td-email").html();
+	var device_information = trAlat.find(".td-information").html();
+	var device_status = trAlat.data("status");
 	
 	$(".dialog-edit").data("id", id);
 	$(".dialog-edit .input-nama").val(device_name);
@@ -466,19 +437,12 @@ function addAlatToTable(no, result) {
 		ketersediaan = "<a href='<?= base_url("kirim/detail/") ?>" + result.shipment_id + "'>" + result.shipment_id + " (No. Kirim)</a>";
 	}
 	
-	var aktifDisabled = "disabled", tidakAktifDisabled = "";
-	if (result.device_status == 0) {
-		aktifDisabled = "";
-		tidakAktifDisabled = "disabled";
-	}
-	
-	var btnAktif = "<button class='btn-default btn-toggle btn-aktif' data-value='1' " + aktifDisabled + ">Aktif</button>";
-	var btnTidakAktif = "<button class='btn-default btn-toggle btn-tidak-aktif' data-value='0' " + tidakAktifDisabled + ">Tidak Aktif</button>";
+	var status = (result.device_status == 0) ? "Tidak Aktif" : "Aktif";
 	
 	var btnEdit = "<button class='btn-action btn-edit' title='edit' style='background-image: url(" + editIconUrl + ");' data-id='" + result.device_id + "'></button>";
 	var btnDelete = "<button class='btn-action btn-delete' title='delete' style='background-image: url(" + deleteIconUrl + ");' data-id='" + result.device_id + "'></button>";
 	
-	var element = "<tr class='tr-alat' data-id='" + result.device_id + "'><td class='td-no'>" + no + "</td><td class='td-name'>" + result.device_name + "</td><td class='td-information'>" + result.device_information + "</td><td class='td-email'>" + result.device_email + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td class='td-status'>" + btnAktif + btnTidakAktif + "</td><td class='td-action'>" + btnEdit + btnDelete + "</td></tr>";
+	var element = "<tr class='tr-alat' data-id='" + result.device_id + "' data-status='" + result.device_status + "'><td class='td-no'>" + no + "</td><td class='td-name'>" + result.device_name + "</td><td class='td-information'>" + result.device_information + "</td><td class='td-email'>" + result.device_email + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td class='td-status'>" + status + "</td><td class='td-action'>" + btnEdit + btnDelete + "</td></tr>";
 	$(".tbody-alat").append(element);
 }
 </script>

@@ -89,23 +89,6 @@ class Kendaraan extends MY_Controller
 		}
 	}
 	
-	public function toggleKendaraanAktif() {
-		parent::checkAjaxRequest();
-
-		$vehicle_status = intval($this->input->post("vehicle_status"));
-		$vehicle_id = $this->input->post("vehicle_id");
-		$user_id = $this->session->userdata("user_id");
-		if ($vehicle_id) {
-			$data = array(
-				"vehicle_id" => $vehicle_id,
-				"vehicle_status" => $vehicle_status,
-				"modified_by" => $user_id
-			);
-			$db = $this->Kendaraan_model->toggleKendaraanAktif($data);
-			parent::generate_common_results($db, "ci");
-		}
-	}
-	
 	public function deleteKendaraan() {
 		parent::checkAjaxRequest();
 		

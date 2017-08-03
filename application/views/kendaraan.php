@@ -153,10 +153,6 @@ $(function() {
 		updateKendaraan();
 	});
 	
-	$(document).on("click", ".btn-toggle", function() {
-		toggleKendaraanAktif(this);
-	});
-	
 	$(document).on("click", ".btn-delete", function() {
 		var namaKendaraan = $(this).closest(".tr-kendaraan").children(".td-name").html();
 		var vehicle_id = $(this).closest(".tr-kendaraan").data("id");
@@ -169,24 +165,6 @@ $(function() {
 		deleteKendaraan(this);
 	});
 });
-
-function toggleKendaraanAktif(element) {
-	showFullscreenLoading();
-	var vehicle_status = $(element).data("value");
-	var vehicle_id = $(element).closest(".tr-kendaraan").data("id");
-	
-	var data = {
-		vehicle_id: vehicle_id,
-		vehicle_status: vehicle_status
-	};
-	ajaxCall("<?= base_url("kendaraan/toggleKendaraanAktif") ?>", data, function(json) {
-		hideFullscreenLoading();
-		var result = JSON.parse(json);
-		if (result.status == "success") {
-			getKendaraan();
-		}
-	});
-}
 
 function clearErrors() {
 	$(".error").html("");
@@ -208,16 +186,11 @@ function cekInputError(vehicle_name, vehicle_nomor) {
 
 function editKendaraan(element) {
 	var id = $(element).data("id");
-	var vehicle_nomor = $(".tr-kendaraan[data-id='" + id + "'] .td-nomor").html();
-	var vehicle_name = $(".tr-kendaraan[data-id='" + id + "'] .td-name").html();
-	var vehicle_information = $(".tr-kendaraan[data-id='" + id + "'] .td-information").html();
-	var vehicle_status = $(".tr-kendaraan[data-id='" + id + "'] .btn-aktif").prop("disabled");
-	
-	if (vehicle_status) {
-		vehicle_status = "1";
-	} else {
-		vehicle_status = "0";
-	}
+	var trKendaraan = $(element).closest(".tr-kendaraan");
+	var vehicle_nomor = trKendaraan.find(".td-nomor").html();
+	var vehicle_name = trKendaraan.find(".td-name").html();
+	var vehicle_information = trKendaraan.find(".td-information").html();
+	var vehicle_status = trKendaraan.data("status");
 	
 	$(".dialog-edit").data("id", id);
 	$(".dialog-edit .input-nopol").val(vehicle_nomor);
@@ -336,19 +309,12 @@ function addKendaraanToTable(no, result) {
 		ketersediaan = "<a href='<?= base_url("kirim/detail/") ?>" + result.shipment_id + "'>" + result.shipment_id + " (No. Kirim)</a>";
 	}
 	
-	var aktifDisabled = "disabled", tidakAktifDisabled = "";
-	if (result.vehicle_status == 0) {
-		aktifDisabled = "";
-		tidakAktifDisabled = "disabled";
-	}
-	
-	var btnAktif = "<button class='btn-default btn-toggle btn-aktif' data-value='1' " + aktifDisabled + ">Aktif</button>";
-	var btnTidakAktif = "<button class='btn-default btn-toggle btn-tidak-aktif' data-value='0' " + tidakAktifDisabled + ">Tidak Aktif</button>";
+	var status = (result.vehicle_status == 0) ? "Tidak Aktif" : "Aktif";
 	
 	var btnEdit = "<button class='btn-action btn-edit' title='edit' style='background-image: url(" + editIconUrl + ");' data-id='" + result.vehicle_id + "'></button>";
 	var btnDelete = "<button class='btn-action btn-delete' title='delete' style='background-image: url(" + deleteIconUrl + ");' data-id='" + result.vehicle_id + "'></button>";
 	
-	var element = "<tr class='tr-kendaraan' data-id='" + result.vehicle_id + "'><td class='td-no' data-label='No'>" + no + "</td><td class='td-nomor' data-label='Nopol'>" + result.vehicle_nomor + "</td><td class='td-name' data-label='Nama'>" + result.vehicle_name + "</td><td class='td-ketersediaan' data-label='Ketersediaan'>" + ketersediaan + "</td><td class='td-jumlah-transaksi' data-label='Jumlah Transaksi'>" + result.vehicle_jumlah_transaksi + "</td><td class='td-information' data-label='Keterangan'>" + result.vehicle_information + "</td><td>" + btnAktif + btnTidakAktif + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
+	var element = "<tr class='tr-kendaraan' data-id='" + result.vehicle_id + "' data-status='" + result.vehicle_status + "'><td class='td-no' data-label='No'>" + no + "</td><td class='td-nomor' data-label='Nopol'>" + result.vehicle_nomor + "</td><td class='td-name' data-label='Nama'>" + result.vehicle_name + "</td><td class='td-ketersediaan' data-label='Ketersediaan'>" + ketersediaan + "</td><td class='td-jumlah-transaksi' data-label='Jumlah Transaksi'>" + result.vehicle_jumlah_transaksi + "</td><td class='td-information' data-label='Keterangan'>" + result.vehicle_information + "</td><td>" + status + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
 	$(".tbody-kendaraan").append(element);
 }
 </script>

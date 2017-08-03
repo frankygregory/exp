@@ -40,7 +40,7 @@ td[data-col="ketersediaan"] {
 }
 
 td[data-col="jumlah-transaksi"] {
-  width: 100px;
+  width: 120px;
 }
 
 td[data-col="keterangan"] {
@@ -48,47 +48,9 @@ td[data-col="keterangan"] {
 }
 
 td[data-col="status"] {
-  width: 200px;
+  width: 130px;
 }
 
 td[data-col="action"] {
   width: 100px;
-}
-
-@media screen and (max-width: 600px) {
-  .table {
-	  width: 350px;
-  }
-  
-  .table thead {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
-  
-  .table tr {
-    border-bottom: 3px solid #ddd;
-    display: block;
-    margin-bottom: 20px;
-  }
-  .table td {
-    border-bottom: 1px solid #ddd;
-    display: block;
-    font-size: .8em;
-    text-align: right;
-  }
-  .table td:before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  .table td:last-child {
-    border-bottom: 0;
-  }
 }

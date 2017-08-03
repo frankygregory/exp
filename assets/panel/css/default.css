@@ -63,12 +63,16 @@ input[type="file"] {
 	margin-left: 20px;
 }
 
-button {
-	cursor: pointer;
+/* Disable user selection */
+button, .status-badge {
 	-webkit-user-select: none;  /* Chrome all / Safari all */
 	-moz-user-select: none;     /* Firefox all */
 	-ms-user-select: none;      /* IE 10+ */
 	user-select: none;          /* Likely future */  
+}
+
+button {
+	cursor: pointer;
 }
 
 .btn-default, .btn-default:focus, .btn-negative, .btn-negative:focus, .btn-neutral, .btn-neutral:focus, .btn-positive, .btn-positive:focus {
@@ -493,6 +497,7 @@ table td[data-align="center"] {
 	text-align: center;
 	font-size: 10pt;
 	border-radius: 20px;
+	cursor: default;
 }
 
 .status-badge[data-status="0"] {

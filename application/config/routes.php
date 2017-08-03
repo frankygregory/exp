@@ -187,7 +187,6 @@ $route['alat/checkEmailKembar'] = 'panel/alat/checkEmailKembar';
 $route["alat/tambahAlat"] = "panel/alat/tambahAlat";
 $route["alat/updateAlat"] = "panel/alat/updateAlat";
 $route['alat/gantiPassword'] = 'panel/alat/gantiPassword';
-$route["alat/toggleAlatAktif"] = "panel/alat/toggleAlatAktif";
 $route["alat/deleteAlat"] = "panel/alat/deleteAlat";
 
 $route['kendaraan'] = 'panel/kendaraan';
@@ -195,7 +194,6 @@ $route['kendaraan/(:any)'] = 'panel/kendaraan/$1/$2';
 $route["kendaraan/getKendaraan"] = "panel/kendaraan/getKendaraan";
 $route["kendaraan/tambahKendaraan"] = "panel/kendaraan/tambahKendaraan";
 $route["kendaraan/updateKendaraan"] = "panel/kendaraan/updateKendaraan";
-$route["kendaraan/toggleKendaraanAktif"] = "panel/kendaraan/toggleKendaraanAktif";
 $route["kendaraan/deleteKendaraan"] = "panel/kendaraan/deleteKendaraan";
 
 $route['lokasi'] = 'panel/lokasi';
@@ -220,7 +218,6 @@ $route['supir'] = 'panel/supir';
 $route['supir/(:any)'] = 'panel/supir/$1/$2';
 $route["supir/tambahSupir"] = "panel/supir/tambahSupir";
 $route["supir/updateSupir"] = "panel/supir/updateSupir";
-$route["supir/toggleSupirAktif"] = "panel/supir/toggleSupirAktif";
 $route["supir/deleteSupir"] = "panel/supir/deleteSupir";
 
 $route['tagihan'] = 'panel/tagihan';

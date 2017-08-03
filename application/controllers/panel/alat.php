@@ -136,23 +136,6 @@ class Alat extends MY_Controller
 		}
 	}
 	
-	public function toggleAlatAktif() {
-		parent::checkAjaxRequest();
-
-		$device_id = $this->input->post("device_id");
-		$device_status = intval($this->input->post("device_status"));
-		$user_id = $this->session->userdata("user_id");
-		if ($device_id) {
-			$data = array(
-				"device_id" => $device_id,
-				"device_status" => $device_status,
-				"modified_by" => $user_id
-			);
-			$db = $this->Alat_model->toggleAlatAktif($data);
-			parent::generate_common_results($db, "ci");
-		}
-	}
-	
 	public function deleteAlat() {
 		parent::checkAjaxRequest();
 		

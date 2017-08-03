@@ -505,7 +505,11 @@ class Kirim extends MY_Controller
 					$this->insertData('m_shipment_details', $data);
 				}
 				
-				header("Location: " . base_url("kiriman-saya"));
+				if ($data["shipment_type"] == 1) {
+					header("Location: " . base_url("kiriman-saya"));
+				} else {
+					header("Location: " . base_url("kiriman-saya-bisnis"));
+				}
 			} else {
 				echo json_encode(array(
 					"status" => "error",

@@ -87,21 +87,6 @@ class Supir extends MY_Controller
 		}
 	}
 	
-	public function toggleSupirAktif() {
-		parent::checkAjaxRequest();
-
-		$driver_id = $this->input->post("driver_id");
-		$driver_status = intval($this->input->post("driver_status"));
-		$user_id = $this->session->userdata("user_id");
-		$data = array(
-			"driver_id" => $driver_id,
-			"driver_status" => $driver_status,
-			"modified_by" => $user_id
-		);
-		$db = $this->Driver_model->toggleDriverAktif($data);
-		parent::generate_common_results($db, "ci");
-	}
-	
 	public function deleteSupir() {
 		parent::checkAjaxRequest();
 		
