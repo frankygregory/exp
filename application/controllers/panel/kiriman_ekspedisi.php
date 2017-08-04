@@ -34,7 +34,7 @@ class Kiriman_ekspedisi extends MY_Controller
 				$result->delivery_date = date_format(new DateTime($result->delivery_date), "d-m-Y H:i");
 				$result->pickup_date = date_format(new DateTime($result->pickup_date), "d-m-Y H:i");
 				$result->receive_date = date_format(new DateTime($result->receive_date), "d-m-Y H:i");
-				
+				$result->end_date = date_format(new DateTime($result->end_date), "d-m-Y H:i");
 			}
 			echo json_encode($result);
 		}

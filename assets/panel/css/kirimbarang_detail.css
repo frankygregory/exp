@@ -376,7 +376,6 @@ td.td-action {
 .status-item {
 	float: left;
 	text-align: center;
-	margin-right: 25px;
 }
 
 .status-item:last-child {
@@ -388,4 +387,10 @@ td.td-action {
 	font-size: 10pt;
 	margin-top: 5px;
 	word-spacing: 3px;
+}
+
+.svg-right-arrow {
+	display: block;
+	float: left;
+	margin: 0 10px;
 }

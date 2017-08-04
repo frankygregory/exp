@@ -35,7 +35,7 @@ class Kiriman_ekspedisi_laut extends MY_Controller
 				$result->port_start_date = date_format(new DateTime($result->port_start_date), "d-m-Y H:i");
 				$result->port_finish_date = date_format(new DateTime($result->port_finish_date), "d-m-Y H:i");
 				$result->door_finish_date = date_format(new DateTime($result->door_finish_date), "d-m-Y H:i");
-				
+				$result->ending_date = date_format(new DateTime($result->ending_date), "d-m-Y H:i");
 			}
 			echo json_encode($result);
 		}

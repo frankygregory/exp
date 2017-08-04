@@ -42,7 +42,7 @@
 }
 
 .tabs-content[data-tabs-number="3"] .table-empty-state {
-	width: 962px;
+	width: 1062px;
 }
 
 .tabs-content[data-tabs-number="4"] .table-empty-state {
@@ -55,6 +55,10 @@
 
 .table-kiriman td[data-col="status"] {
 	width: 100px;
+}
+
+.tabs-content[data-tabs-number="3"] .table-kiriman td[data-col="status"] {
+	width: 200px;
 }
 
 .table-kiriman td[data-col="action"] {
@@ -198,11 +202,6 @@ table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
 .status-item {
 	float: left;
 	text-align: center;
-	margin-right: 25px;
-}
-
-.status-item:last-child {
-	margin-right: 0;
 }
 
 .status-time {
@@ -210,4 +209,10 @@ table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
 	font-size: 10pt;
 	margin-top: 5px;
 	word-spacing: 3px;
+}
+
+.svg-right-arrow {
+	display: block;
+	float: left;
+	margin: 0 10px;
 }

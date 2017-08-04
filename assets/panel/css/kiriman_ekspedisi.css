@@ -155,11 +155,6 @@ table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
 .status-item {
 	float: left;
 	text-align: center;
-	margin-right: 25px;
-}
-
-.status-item:last-child {
-	margin-right: 0;
 }
 
 .status-time {
@@ -167,4 +162,10 @@ table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
 	font-size: 10pt;
 	margin-top: 5px;
 	word-spacing: 3px;
+}
+
+.svg-right-arrow {
+	display: block;
+	float: left;
+	margin: 0 10px;
 }
