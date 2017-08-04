@@ -77,6 +77,8 @@ $route['api/submit-terima'] = 'api/submit_terima';
 $route['api/submit-ambil'] = 'api/submit_ambil';
 $route['api/submit-kirim'] = 'api/submit_kirim';
 
+$route['admin'] = 'panel/admin';
+$route['admin/login_as'] = 'panel/admin/login_as';
 $route['dashboard'] = 'panel/dashboard';
 
 $route['cari-kiriman-bisnis'] = 'panel/kirim/pro';

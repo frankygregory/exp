@@ -10,6 +10,7 @@ class MY_Controller extends CI_Controller
 {
 	protected $modules = "";
     protected $activeMenu = array(
+        "admin" => "",
         "dashboard" => "",
         "kirim_barang" => "",
         "kiriman_saya" => "",

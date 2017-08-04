@@ -1,0 +1,16 @@
+.form-item-login-as {
+  width : 500px;
+}
+
+.btn-login-as {
+  float: right;
+  width: 100px;
+  margin-top: 20px;
+}
+
+.flash-message {
+  background-color: #FFEBEE;
+  color: #B71C1C;
+  padding: 10px;
+  margin-bottom: 20px;
+}

@@ -49,10 +49,10 @@
 	<div class="navigation-header-space"></div>
 	<div class="container-body">
 		<div class="navigation-menu">
+<?php	if ($this->session->userdata("role_id") == 1) { ?>
 			<a href="<?= base_url("dashboard") ?>" class="<?= $activeMenu["dashboard"] ?>">
 				<div>Dashboard</div>
 			</a>
-<?php	if ($this->session->userdata("role_id") == 1) { ?>
 			<a href="<?= base_url("kirim/kirimbarang") ?>" class="<?= $activeMenu["kirim_barang"] ?>">
 				<div>Kirim Barang</div>
 			</a>
@@ -73,9 +73,13 @@
 			<a href="<?= base_url("rekanan") ?>" class="<?= $activeMenu["rekanan"] ?>">
 				<div>Rekanan <span class="tag-premium"></span></div>
 			</a>
-<?php	}	?>
-	<?php
-		if ($this->session->userdata("role_id") == 2) { ?>
+			<a href="<?= base_url("statistik") ?>" class="<?= $activeMenu["statistik"] ?>">
+				<div class="">Statistik</div>
+			</a>
+<?php	} else if ($this->session->userdata("role_id") == 2) { ?>
+			<a href="<?= base_url("dashboard") ?>" class="<?= $activeMenu["dashboard"] ?>">
+				<div>Dashboard</div>
+			</a>
 			<a href="<?= base_url("cari-kiriman-bisnis") ?>" class="<?= $activeMenu["cari_kiriman_bisnis"] ?>">
 				<div>Cari Kiriman <span class="tag-premium"></span></div>
 			</a>
@@ -114,10 +118,14 @@
 			<a href="<?= base_url("ulasan") ?>" class="<?= $activeMenu["ulasan"] ?>">
 				<div class="">Ulasan</div>
 			</a>
-<?php	}	?>
 			<a href="<?= base_url("statistik") ?>" class="<?= $activeMenu["statistik"] ?>">
 				<div class="">Statistik</div>
 			</a>
+<?php	} else if ($this->session->userdata("role_id") == 3) { ?>
+			<a href="<?= base_url("admin") ?>" class="<?= $activeMenu["admin"] ?>">
+				<div>Admin</div>
+			</a>
+<?php   } ?>
 		</div>
 		<div class="container-content">
 			<div class="fullscreen-transparent-loader">

@@ -11,6 +11,10 @@ class Dashboard extends MY_Controller
 
     public function index()
     {
+        if ($this->session->userdata("role_id") == 3) {
+            header("Location: " . base_url("admin"));
+            exit();
+        }
         $this->activeMenu["dashboard"] = "active";
         $data = array(
             'title' => 'Dashboard',
