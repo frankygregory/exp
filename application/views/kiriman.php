@@ -201,12 +201,13 @@ $(function() {
 		}
 	});
 
-	$(document).on("click", ".tabs-content[data-tabs-number='3'] .tr-kiriman", function() {
-		var detailElement = $(this).next();
+	$(document).on("click", ".tabs-content[data-tabs-number='3'] .btn-view-kontak", function() {
+		var tr = $(this).closest(".tr-kiriman");
+		var detailElement = $(tr).next();
 		if (detailElement.height() == 0) {
 			detailElement.addClass("show");
 			if (detailElement.find(".row-detail-td-content").html().trim() == "") {
-				getAllStatusKiriman(this, detailElement);
+				getAllStatusKiriman(tr, detailElement);
 			}
 		} else {
 			detailElement.removeClass("show");
@@ -243,7 +244,7 @@ function getAllStatusKiriman(tr, element) {
 		if (result.status == "success") {
 			var status_0 = result.pending_date;
 			var status_1 = result.confirmation_date;
-			var status_2, status_2_name, status_3, status_3_name, status_4, status_4_name, status_5, status_5_name;
+			var status_2, status_2_name, status_3, status_3_name, status_4, status_4_name, status_5, status_5_name, status_6;
 			if (result.bidding_type == 1) {
 				status_2 = result.order_date;
 				status_2_name = "Pesanan";
@@ -253,17 +254,18 @@ function getAllStatusKiriman(tr, element) {
 				status_4_name = "Diambil";
 				status_5 = result.receive_date;
 				status_5_name = "Diterima";
+				status_6 = result.end_date;
 			} else {
 				status_2 = result.door_start_date;
 				status_2_name = "Door 1";
 				status_3 = result.port_start_date;
 				status_3_name = "Port 1";
 				status_4 = result.port_finish_date;
-				status_4_name = "Diambil";
+				status_4_name = "Port 2";
 				status_5 = result.door_finish_date;
 				status_5_name = "Door 2";
+				status_6 = result.ending_date;
 			}
-			var status_6 = result.end_date;
 
 			var content = "";
 			content += "<div class='detail-status'>";
@@ -287,11 +289,11 @@ function getDetailPengirim(element) {
 		var result = jQuery.parseJSON(json);
 		var content = "";
 		content += "<div class='detail-col'>";
-		content += "<div class='detail-title'>Info Ekspedisi</div>";
-		content += "<div class='detail-row'><span class='detail-label'>Nama</span><span class='detail-titikdua'> : </span><span>" + result["user_fullname"] + "</span></div>";
-		content += "<div class='detail-row'><span class='detail-label'>Alamat</span><span class='detail-titikdua'> : </span><span>" + result["user_address"] + "</span></div>";
-		content += "<div class='detail-row'><span class='detail-label'>Telepon</span><span class='detail-titikdua'> : </span><span>" + result["user_telephone"] + "</span></div>";
-		content += "<div><span class='detail-label'>Handphone</span><span class='detail-titikdua'> : </span><span>" + result["user_handphone"] + "</span></div>";
+		content += "<div class='detail-title'>Info Kiriman</div>";
+		content += "<div class='detail-row'><span class='detail-label'>Nama</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["user_fullname"] + "</span></div>";
+		content += "<div class='detail-row'><span class='detail-label'>Alamat</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["user_address"] + "</span></div>";
+		content += "<div class='detail-row'><span class='detail-label'>Telepon</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["user_telephone"] + "</span></div>";
+		content += "<div class='detail-row'><span class='detail-label'>Handphone</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["user_handphone"] + "</span></div>";
 		content += "</div>";
 
 		var status_0 = result["pending_date"];
@@ -311,9 +313,9 @@ function getDetailPengirim(element) {
 			if (result["shipment_status"] > 1) {
 				content += "<div class='detail-col'>";
 				content += "<div class='detail-title'>Detail Supir</div>";
-				content += "<div class='detail-row'><span class='detail-label'>Nama</span><span class='detail-titikdua'> : </span><span>" + result["driver_name"] + "</span></div>";
-				content += "<div class='detail-row'><span class='detail-label'>Handphone</span><span class='detail-titikdua'> : </span><span>" + result["driver_handphone"] + "</span></div>";
-				content += "<div class='detail-row'><span class='detail-label'>Kendaraan</span><span class='detail-titikdua'> : </span><span>" + result["vehicle_name"] + " (" + result["vehicle_nomor"] + ")</span></div>";
+				content += "<div class='detail-row'><span class='detail-label'>Nama</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["driver_name"] + "</span></div>";
+				content += "<div class='detail-row'><span class='detail-label'>Handphone</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["driver_handphone"] + "</span></div>";
+				content += "<div class='detail-row'><span class='detail-label'>Kendaraan</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["vehicle_name"] + " (" + result["vehicle_nomor"] + ")</span></div>";
 				content += "</div>";
 			}
 		} else {
@@ -329,7 +331,7 @@ function getDetailPengirim(element) {
 			if (result["shipment_status"] > 1) {
 				content += "<div class='detail-col'>";
 				content += "<div class='detail-title'>Detail Kiriman</div>";
-				content += "<div class='detail-row'><span class='detail-label'>No. Kontainer</span><span class='detail-titikdua'> : </span><span>" + result["shipment_details_container_number"] + "</span></div>";
+				content += "<div class='detail-row'><span class='detail-label'>No. Kontainer</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["shipment_details_container_number"] + "</span></div>";
 				content += "</div>";
 			}
 		}
@@ -497,7 +499,6 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				statusTd = "<td data-col='status' data-align='center'>" + statusDetail[status][bidding_type] + "</td>";
 				break;
 			case "selesai":
-				btnViewKontak = "";
 				low = "";
 
 				actionTd = "";

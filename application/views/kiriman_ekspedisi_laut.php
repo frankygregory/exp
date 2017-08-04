@@ -137,7 +137,6 @@
 								<td data-col='kapal'>Kapal</td>
 								<td data-col='no-kontainer'>No. Kontainer</td>
 								<td data-col='status'>Status</td>
-								<td data-align="center" data-col='action'>Action</td>
 							</tr>
 						</thead>
 						<tbody class="tbody-kiriman">
@@ -377,12 +376,13 @@ $(function() {
 		}
 	});
 
-	$(document).on("click", ".tabs-content[data-tabs-number='7'] .tr-kiriman", function() {
-		var detailElement = $(this).next();
+	$(document).on("click", ".tabs-content[data-tabs-number='7'] .btn-view-kontak", function() {
+		var tr = $(this).closest(".tr-kiriman");
+		var detailElement = $(tr).next();
 		if (detailElement.height() == 0) {
 			detailElement.addClass("show");
 			if (detailElement.find(".row-detail-td-content").html().trim() == "") {
-				getAllStatusKiriman(this, detailElement);
+				getAllStatusKiriman(tr, detailElement);
 			}
 		} else {
 			detailElement.removeClass("show");
@@ -444,50 +444,30 @@ function getDetailPengirim(element) {
 		var content = "";
 		content += "<div class='detail-col'>";
 		content += "<div class='detail-title'>Info Pemilik Barang</div>";
-		content += "<div class='detail-row'><span class='detail-label'>Nama</span><span class='detail-titikdua'> : </span><span>" + result["user_fullname"] + "</span></div>";
-		content += "<div class='detail-row'><span class='detail-label'>Alamat</span><span class='detail-titikdua'> : </span><span>" + result["user_address"] + "</span></div>";
-		content += "<div class='detail-row'><span class='detail-label'>Telepon</span><span class='detail-titikdua'> : </span><span>" + result["user_telephone"] + "</span></div>";
-		content += "<div><span class='detail-label'>Handphone</span><span class='detail-titikdua'> : </span><span>" + result["user_handphone"] + "</span></div>";
+		content += "<div class='detail-row'><span class='detail-label'>Nama</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["user_fullname"] + "</span></div>";
+		content += "<div class='detail-row'><span class='detail-label'>Alamat</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["user_address"] + "</span></div>";
+		content += "<div class='detail-row'><span class='detail-label'>Telepon</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["user_telephone"] + "</span></div>";
+		content += "<div class='detail-row'><span class='detail-label'>Handphone</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["user_handphone"] + "</span></div>";
 		content += "</div>";
 
 		var status_0 = result["pending_date"];
 		var status_1 = result["confirmation_date"];
 		var status_2, status_2_name, status_3, status_3_name, status_4, status_4_name, status_5, status_5_name;
 
-		if (result["bidding_type"] == "1") {
-			status_2 = result["order_date"];
-			status_2_name = "Pesanan";
-			status_3 = result["delivery_date"];
-			status_3_name = "Dikirim";
-			status_4 = result["pickup_date"];
-			status_4_name = "Diambil";
-			status_5 = result["receive_date"];
-			status_5_name = "Diterima";
+		status_2 = result["door_start_date"];
+		status_2_name = "Door 1";
+		status_3 = result["port_start_date"];
+		status_3_name = "Port 1";
+		status_4 = result["port_finish_date"];
+		status_4_name = "Port 2";
+		status_5 = result["door_finish_date"];
+		status_5_name = "Door 2";
 
-			if (result["shipment_status"] > 1) {
-				content += "<div class='detail-col'>";
-				content += "<div class='detail-title'>Detail Supir</div>";
-				content += "<div class='detail-row'><span class='detail-label'>Nama</span><span class='detail-titikdua'> : </span><span>" + result["driver_name"] + "</span></div>";
-				content += "<div class='detail-row'><span class='detail-label'>Handphone</span><span class='detail-titikdua'> : </span><span>" + result["driver_handphone"] + "</span></div>";
-				content += "<div class='detail-row'><span class='detail-label'>Kendaraan</span><span class='detail-titikdua'> : </span><span>" + result["vehicle_name"] + " (" + result["vehicle_nomor"] + ")</span></div>";
-				content += "</div>";
-			}
-		} else {
-			status_2 = result["door_start_date"];
-			status_2_name = "Door 1";
-			status_3 = result["port_start_date"];
-			status_3_name = "Port 1";
-			status_4 = result["port_finish_date"];
-			status_4_name = "Port 2";
-			status_5 = result["door_finish_date"];
-			status_5_name = "Door 2";
-
-			if (result["shipment_status"] > 1) {
-				content += "<div class='detail-col'>";
-				content += "<div class='detail-title'>Detail Kiriman</div>";
-				content += "<div class='detail-row'><span class='detail-label'>No. Kontainer</span><span class='detail-titikdua'> : </span><span>" + result["shipment_details_container_number"] + "</span></div>";
-				content += "</div>";
-			}
+		if (result["shipment_status"] > 1) {
+			content += "<div class='detail-col'>";
+			content += "<div class='detail-title'>Detail Kiriman</div>";
+			content += "<div class='detail-row'><span class='detail-label'>No. Kontainer</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["shipment_details_container_number"] + "</span></div>";
+			content += "</div>";
 		}
 
 		content += "<div class='detail-status'>";
@@ -755,7 +735,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 		var tdStatus = "";
 		var tdCancelBy = "";
 		var waktu = "";
-		var btnViewKontak = "<button class='btn-default btn-view-kontak'>Info Kontak</button>";
+		var btnViewKontak = "<button class='btn-default btn-view-kontak'>Info Kiriman</button>";
 		switch (tab) {
 			case "deal":
 				btnViewKontak = "";
@@ -781,7 +761,6 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				tdStatus = "<td><strong>D1 &rarr; P1 &rarr; P2 &rarr; D2</strong></td>";
 				break;
 			case "selesai":
-				btnViewKontak = "";
 				additionalTd = "<td>" + result[i].ship_id + "</td><td>" + result[i].shipment_details_container_number + "</td>";
 				tdStatus = "<td><strong>D1 &rarr; P1 &rarr; P2 &rarr; D2</strong></td>";
 				waktu = "<td data-align='center'>" + result[i].total_waktu + " hari</td>";
@@ -792,7 +771,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				break;
 		}
 		
-		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "' data-status='" + result[i].shipment_status + "'><td class='td-title' data-align='center'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + shipment_picture + "' onerror='this.onerror=null; this.src=\"<?php echo base_url("assets/panel/images/default.gif"); ?>\";' /><span>" + result[i].shipment_title + "</span></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR" + btnViewKontak + "</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + tdCancelBy + additionalTd + tdStatus + element[tab].btn + waktu + "</tr>";
+		element[tab].value += "<tr class='tr-kiriman' data-id='" + result[i].shipment_id + "' data-shipment-title='" + result[i].shipment_title + "' data-status='" + result[i].shipment_status + "'><td class='td-title'><a href='<?= base_url("kirim/detail/") ?>" + result[i].shipment_id + "'>" + "<img class='shipment-picture' src='<?= base_url("assets/panel/images/") ?>" + shipment_picture + "' onerror='this.onerror=null; this.src=\"<?php echo base_url("assets/panel/images/default.gif"); ?>\";' /><span>" + result[i].shipment_title + "</span></a></td><td class='td-price'>Bid : " + result[i].bidding_count + "<br>Low : " + addCommas(result[i].low) + " IDR" + btnViewKontak + "</td><td class='td-asal'>" + result[i].location_from_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-tujuan'>" + result[i].location_to_city + "<br>" + fullDateFrom + " - " + fullDateTo + "</td><td class='td-km' data-align='center'>" + parseInt(result[i].shipment_length) + "</td>" + tdCancelBy + additionalTd + tdStatus + element[tab].btn + waktu + "</tr>";
 		element[tab].value += "<tr class='row-detail-tr'><td class='row-detail-td' colspan='9'><div class='row-detail-td-content'></div></td></tr>";
 	}
 	

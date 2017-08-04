@@ -145,20 +145,17 @@ table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
 	background-color: #EEE !important;
 }
 
-.tabs-content[data-tabs-number="7"] table tbody tr:nth-child(odd) {
-	cursor: pointer;
-}
-
 .row-detail-tr {
 	height: 0;
 }
 
 .row-detail-tr.show {
-	height: 250px;
+	min-height: 270px;
+	max-height: 300px;
 }
 
 .tabs-content[data-tabs-number="7"] .row-detail-tr.show {
-	height: 150px;
+	height: 120px;
 }
 
 .row-detail-td {
@@ -172,12 +169,14 @@ table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
 
 .row-detail-tr.show .row-detail-td {
 	display: table-cell;
+	vertical-align: top;
 }
 
 .row-detail-td-content {
 	width: 100%;
-	padding: 0 25px 25px 25px;
+	padding: 25px;
 	opacity: 0;
+	overflow: auto;
 }
 
 .row-detail-tr.show .row-detail-td-content {
@@ -192,6 +191,14 @@ table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
 	}
 }
 
+.detail-col {
+	min-width: 350px;
+	max-width: 450px;
+	float: left;
+	padding-right: 15px;
+	margin-bottom: 20px;
+}
+
 .detail-title {
 	font-weight: bold;
 	margin-bottom: 10px;
@@ -201,16 +208,24 @@ table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
 	margin-bottom: 10px;
 }
 
-.detail-label {
+.detail-row span {
 	display: inline-block;
+	vertical-align: top;
+}
+
+.detail-value {
+	min-width: 220px;
+	max-width: 320px;
+	word-wrap: break-word;
+	white-space: normal;
+}
+
+.detail-label {
 	width: 100px;
 }
 
-.detail-col {
-	width: 33%;
-	float: left;
-	padding-right: 15px;
-	margin-bottom: 30px;
+.detail-titikdua {
+	width: 10px;
 }
 
 .detail-status {
@@ -227,6 +242,7 @@ table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
 .tabs-content[data-tabs-number="7"] .detail-status-title {
 	float: none;
 	margin-bottom: 20px;
+	margin-top: -20px;
 }
 
 .status-item {

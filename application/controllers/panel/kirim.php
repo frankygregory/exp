@@ -390,6 +390,7 @@ class Kirim extends MY_Controller
 			if ($result->status == "success") {
 				$result->pending_date = date_format(new DateTime($result->pending_date), "d-m-Y H:i");
 				$result->confirmation_date = date_format(new DateTime($result->confirmation_date), "d-m-Y H:i");
+				$result->cancel_date = date_format(new DateTime($result->cancel_date), "d-m-Y H:i");
 				if ($result->bidding_type == 1) {
 					$result->order_date = date_format(new DateTime($result->order_date), "d-m-Y H:i");
 					$result->delivery_date = date_format(new DateTime($result->delivery_date), "d-m-Y H:i");

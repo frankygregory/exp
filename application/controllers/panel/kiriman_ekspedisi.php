@@ -30,19 +30,11 @@ class Kiriman_ekspedisi extends MY_Controller
 				$result->pending_date = date_format(new DateTime($result->pending_date), "d-m-Y H:i");
 				$result->confirmation_date = date_format(new DateTime($result->confirmation_date), "d-m-Y H:i");
 				
-				if ($result->bidding_type == 1) {
-					$result->order_date = date_format(new DateTime($result->order_date), "d-m-Y H:i");
-					$result->delivery_date = date_format(new DateTime($result->delivery_date), "d-m-Y H:i");
-					$result->pickup_date = date_format(new DateTime($result->pickup_date), "d-m-Y H:i");
-					$result->receive_date = date_format(new DateTime($result->receive_date), "d-m-Y H:i");
-					$result->end_date = date_format(new DateTime($result->end_date), "d-m-Y H:i");
-				} else {
-					$result->door_start_date = date_format(new DateTime($result->door_start_date), "d-m-Y H:i");
-					$result->port_start_date = date_format(new DateTime($result->port_start_date), "d-m-Y H:i");
-					$result->port_finish_date = date_format(new DateTime($result->port_finish_date), "d-m-Y H:i");
-					$result->door_finish_date = date_format(new DateTime($result->door_finish_date), "d-m-Y H:i");
-					$result->ending_date = date_format(new DateTime($result->ending_date), "d-m-Y H:i");
-				}
+				$result->order_date = date_format(new DateTime($result->order_date), "d-m-Y H:i");
+				$result->delivery_date = date_format(new DateTime($result->delivery_date), "d-m-Y H:i");
+				$result->pickup_date = date_format(new DateTime($result->pickup_date), "d-m-Y H:i");
+				$result->receive_date = date_format(new DateTime($result->receive_date), "d-m-Y H:i");
+				
 			}
 			echo json_encode($result);
 		}
@@ -52,8 +44,15 @@ class Kiriman_ekspedisi extends MY_Controller
 		parent::checkAjaxRequest();
 
 		$shipment_id = $this->input->post("shipment_id");
-		$detail = $this->Kiriman_ekspedisi_model->getDetailPengirim($shipment_id)[0];
-		echo json_encode($detail);
+		$result = $this->Kiriman_ekspedisi_model->getDetailPengirim($shipment_id)[0];
+		$result->pending_date = date_format(new DateTime($result->pending_date), "d-m-Y H:i");
+		$result->confirmation_date = date_format(new DateTime($result->confirmation_date), "d-m-Y H:i");
+		$result->order_date = date_format(new DateTime($result->order_date), "d-m-Y H:i");
+		$result->delivery_date = date_format(new DateTime($result->delivery_date), "d-m-Y H:i");
+		$result->pickup_date = date_format(new DateTime($result->pickup_date), "d-m-Y H:i");
+		$result->receive_date = date_format(new DateTime($result->receive_date), "d-m-Y H:i");
+
+		echo json_encode($result);
 	}
 	
 	public function getDealKiriman() {
