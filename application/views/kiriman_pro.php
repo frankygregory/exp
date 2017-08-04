@@ -285,7 +285,7 @@ function getDetailPengirim(element) {
 		var result = jQuery.parseJSON(json);
 		var content = "";
 		content += "<div class='detail-col'>";
-		content += "<div class='detail-title'>Info Kiriman</div>";
+		content += "<div class='detail-title'>Info Ekspedisi</div>";
 		content += "<div class='detail-row'><span class='detail-label'>Nama</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["user_fullname"] + "</span></div>";
 		content += "<div class='detail-row'><span class='detail-label'>Alamat</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["user_address"] + "</span></div>";
 		content += "<div class='detail-row'><span class='detail-label'>Telepon</span><span class='detail-titikdua'> : </span><span class='detail-value'>" + result["user_telephone"] + "</span></div>";
