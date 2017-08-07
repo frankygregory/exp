@@ -195,11 +195,11 @@ table td[data-align="center"] {
 }
 
 .table-kiriman td[data-col="harga"] {
-	width: 180px;
+	width: 190px;
 }
 
 .table-kiriman td[data-col="asal"], .table-kiriman td[data-col="tujuan"] {
-	width: 190px;
+	width: 200px;
 }
 
 .table-kiriman td[data-col="km"] {
@@ -207,16 +207,12 @@ table td[data-align="center"] {
 	text-align: center;
 }
 
-.table-kiriman td[data-col="berakhir"] {
-	width: 180px;
-}
-
 .table-kiriman td[data-col="action"] {
 	width: 100px;
 }
 
 .table-kiriman td[data-col="muatan"] {
-	width: 90px;
+	width: 100px;
 }
 
 .table-kiriman td[data-col="supir"] {
@@ -228,7 +224,7 @@ table td[data-align="center"] {
 }
 
 .table-kiriman td[data-col="lacak"] {
-	width: 100px;
+	width: 120px;
 }
 
 .table-kiriman td[data-col="waktu-kiriman"] {

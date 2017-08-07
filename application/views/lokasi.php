@@ -86,9 +86,9 @@
 						<td data-col='lokasi-google-map'>Lokasi Google Map</td>
 						<td data-col='detail-lokasi'>Detail Lokasi</td>
 						<td data-col='kontak'>Kontak</td>
-						<td data-col='asal'>Asal</td>
-						<td data-col='tujuan'>Tujuan</td>
-						<td data-col='action'>Action</td>
+						<td data-col='asal' data-align='center'>Asal</td>
+						<td data-col='tujuan' data-align='center'>Tujuan</td>
+						<td data-col='action' data-align='center'>Action</td>
 					</tr>
 				</thead>
 				<tbody class="tbody-lokasi">
@@ -334,9 +334,9 @@ function addLocationToTable(result) {
 		element += "<td class='td-location_address'>" + result[i].location_address + "</td>";
 		element += "<td class='td-location_detail'>" + result[i].location_detail + "</td>";
 		element += "<td class='td-location_contact'>" + result[i].location_contact + "</td>";
-		element += "<td class='td-location_asal'>" + asal + "</td>";
-		element += "<td class='td-location_tujuan'>" + tujuan + "</td>";
-		element += "<td>" + btnEdit + btnDelete + "</td>";
+		element += "<td class='td-location_asal' data-align='center'>" + asal + "</td>";
+		element += "<td class='td-location_tujuan' data-align='center'>" + tujuan + "</td>";
+		element += "<td data-align='center'>" + btnEdit + btnDelete + "</td>";
 		element += "</tr>";
 	}
 	

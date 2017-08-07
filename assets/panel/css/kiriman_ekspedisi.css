@@ -3,7 +3,6 @@
 }
 
 .table-kiriman {
-	width: auto !important;
 	margin: 10px auto 0;
 }
 
@@ -11,28 +10,42 @@
 	background-color: #E0E0E0 !important;
 }
 
-.tabs-content[data-tabs-number="1"] .table-empty-state {
-	width: 940px;
+.table-kiriman td[data-col="action"] {
+	width: 150px;
 }
 
-.tabs-content[data-tabs-number="6"] .table-empty-state {
-	width: 1270px;
+.tabs-content[data-tabs-number="1"] .table-kiriman, .tabs-content[data-tabs-number="1"] .table-empty-state {
+	width: 1010px !important;
 }
 
-.tabs-content[data-tabs-number="2"] .table-empty-state, .tabs-content[data-tabs-number="3"] .table-empty-state, .tabs-content[data-tabs-number="4"] .table-empty-state, .tabs-content[data-tabs-number="5"] .table-empty-state {
-	width: 1300px;
+.tabs-content[data-tabs-number="2"] .table-kiriman, .tabs-content[data-tabs-number="2"] .table-empty-state, .tabs-content[data-tabs-number="3"] .table-kiriman, .tabs-content[data-tabs-number="3"] .table-empty-state, .tabs-content[data-tabs-number="4"] .table-kiriman, .tabs-content[data-tabs-number="4"] .table-empty-state, .tabs-content[data-tabs-number="5"] .table-kiriman, .tabs-content[data-tabs-number="5"] .table-empty-state {
+	width: 1500px !important;
 }
 
-.tabs-content[data-tabs-number="8"] .table-empty-state {
-	width: 990px;
+.tabs-content[data-tabs-number="6"] .table-kiriman, .tabs-content[data-tabs-number="6"] .table-empty-state {
+	width: 1350px !important;
+}
+
+.tabs-content[data-tabs-number="7"] .table-kiriman, .tabs-content[data-tabs-number="7"] .table-empty-state {
+	width: 1490px !important;
+}
+
+.tabs-content[data-tabs-number="8"] .table-kiriman, .tabs-content[data-tabs-number="8"] .table-empty-state {
+	width: 1040px !important;
+}
+
+.btn-deal, .btn-pesan, .btn-dikirim, .btn-diambil, .btn-diterima, .btn-batal-pengiriman {
+	display: block;
+	margin: 0 auto;
+	width: 110px;
+}
+
+.btn-batal-pengiriman {
+	margin-top: 10px;
 }
 
 .subsection-sort {
 	float: right;
-}
-
-.table-kiriman td[data-col="asal"], .table-kiriman td[data-col="tujuan"] {
-	width: 180px;
 }
 
 .btn-action {
@@ -81,9 +94,14 @@ table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
 
 .row-detail-td-content {
 	width: 100%;
+	min-height: 260px;
 	padding: 25px;
 	opacity: 0;
 	overflow: auto;
+}
+
+.tabs-content[data-tabs-number="7"] .row-detail-td-content {
+	min-height: 130px;
 }
 
 .row-detail-tr.show .row-detail-td-content {

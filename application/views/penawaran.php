@@ -16,7 +16,7 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='nama-kirim'>Nama Kiriman</td>
 								<td data-col='harga'>Harga</td>
 								<td data-col='asal'>Asal</td>
 								<td data-col='tujuan'>Tujuan</td>
@@ -35,7 +35,7 @@
 					<table class="table table-kiriman">
 						<thead>
 							<tr>
-								<td data-col='nama-kirim'>Nama Kirim</td>
+								<td data-col='nama-kirim'>Nama Kiriman</td>
 								<td data-col='harga'>Harga</td>
 								<td data-col='asal'>Asal</td>
 								<td data-col='tujuan'>Tujuan</td>

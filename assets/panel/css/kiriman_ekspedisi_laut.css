@@ -3,24 +3,27 @@
 }
 
 .table-kiriman {
-	width: auto !important;
 	margin: 10px auto 0;
 }
 
-.tabs-content[data-tabs-number="1"] .table-empty-state {
-	width: 960px;
+.tabs-content[data-tabs-number="1"] .table-kiriman, .tabs-content[data-tabs-number="1"] .table-empty-state {
+	width: 1040px !important;
 }
 
-.tabs-content[data-tabs-number="2"] .table-empty-state, .tabs-content[data-tabs-number="3"] .table-empty-state, .tabs-content[data-tabs-number="4"] .table-empty-state, .tabs-content[data-tabs-number="5"] .table-empty-state, .tabs-content[data-tabs-number="6"] .table-empty-state {
-	width: 1300px;
+.tabs-content[data-tabs-number="2"] .table-kiriman, .tabs-content[data-tabs-number="2"] .table-empty-state, .tabs-content[data-tabs-number="3"] .table-kiriman, .tabs-content[data-tabs-number="3"] .table-empty-state, .tabs-content[data-tabs-number="4"] .table-kiriman, .tabs-content[data-tabs-number="4"] .table-empty-state, .tabs-content[data-tabs-number="5"] .table-kiriman, .tabs-content[data-tabs-number="5"] .table-empty-state {
+	width: 1390px !important;
 }
 
-.tabs-content[data-tabs-number="7"] .table-empty-state {
-	width: 1300px;
+.tabs-content[data-tabs-number="6"] .table-kiriman, .tabs-content[data-tabs-number="6"] .table-empty-state {
+	width: 1290px !important;
 }
 
-.tabs-content[data-tabs-number="8"] .table-empty-state {
-	width: 1010px;
+.tabs-content[data-tabs-number="7"] .table-kiriman, .tabs-content[data-tabs-number="7"] .table-empty-state {
+	width: 1360px !important;
+}
+
+.tabs-content[data-tabs-number="8"] .table-kiriman, .tabs-content[data-tabs-number="8"] .table-empty-state {
+	width: 1290px !important;
 }
 
 .table-kiriman td[data-col="konfirmasi"] {
@@ -37,10 +40,6 @@
 
 .table-kiriman td[data-col="status"] {
 	width: 170px;
-}
-
-.table-kiriman td[data-col="action"] {
-	width: 100px;
 }
 
 .input-no-kontainer {
@@ -174,9 +173,14 @@ table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
 
 .row-detail-td-content {
 	width: 100%;
+	min-height: 260px;
 	padding: 25px;
 	opacity: 0;
 	overflow: auto;
+}
+
+.tabs-content[data-tabs-number="7"] .row-detail-td-content {
+	min-height: 130px;
 }
 
 .row-detail-tr.show .row-detail-td-content {

@@ -19,20 +19,25 @@
 	float: right;
 }
 
+.table-lokasi, .table-empty-state {
+	width: 1240px !important;
+	margin: 0;
+}
+
 .table-lokasi td[data-col="no"] {
 	width: 50px;
 }
 .table-lokasi td[data-col="nama-lokasi"] {
-	width: 150px;
-}
-.table-lokasi td[data-col="lokasi-google-map"] {
-	width: 250px;
-}
-.table-lokasi td[data-col="detail-lokasi"] {
 	width: 200px;
 }
+.table-lokasi td[data-col="lokasi-google-map"] {
+	width: 300px;
+}
+.table-lokasi td[data-col="detail-lokasi"] {
+	width: 300px;
+}
 .table-lokasi td[data-col="kontak"] {
-	width: 100px;
+	width: 150px;
 }
 .table-lokasi td[data-col="asal"] {
 	width: 70px;
@@ -42,9 +47,4 @@
 }
 .table-lokasi td[data-col="action"] {
 	width: 100px;
-}
-
-.table-empty-state {
-	margin: 0;
-	width: 1200px;
 }

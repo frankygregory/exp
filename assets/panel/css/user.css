@@ -35,12 +35,12 @@ label {
 	display: block;
 }
 
-.table-user {
-	width: 1050px !important;
+.table-user, .section-1 .table-empty-state {
+	width: 1040px !important;
 }
 
-.table-group {
-	width: 400px !important;
+.table-group, .section-2 .table-empty-state {
+	width: 370px !important;
 }
 
 td[data-col="no"] {
@@ -56,7 +56,7 @@ td[data-col="email"] {
 }
 
 td[data-col="group"] {
-	width: 200px;
+	width: 220px;
 }
 
 td[data-col="level"] {
@@ -68,7 +68,7 @@ td[data-col="status"] {
 }
 
 td[data-col="action"] {
-	width: 150px;
+	width: 120px;
 }
 
 .error {
@@ -81,12 +81,4 @@ td[data-col="action"] {
 
 .table-empty-state {
 	margin: 0;
-}
-
-.section-1 .table-empty-state {
-	width: 1050px;
-}
-
-.section-2 .table-empty-state {
-	width: 400px;
 }

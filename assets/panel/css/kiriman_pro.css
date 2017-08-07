@@ -8,7 +8,6 @@
 
 .table-kiriman {
 	margin: 10px auto 0;
-	width: auto !important;
 }
 
 .table-kiriman thead, .table-kiriman tbody {
@@ -33,24 +32,20 @@
 	margin-top: 40px;
 }
 
-.tabs-content[data-tabs-number="1"] .table-empty-state {
-	width: 1292px;
+.tabs-content[data-tabs-number="1"] .table-kiriman, .tabs-content[data-tabs-number="1"] .table-empty-state {
+	width: 1320px !important;
 }
 
-.tabs-content[data-tabs-number="2"] .table-empty-state {
-	width: 1162px;
+.tabs-content[data-tabs-number="2"] .table-kiriman, .tabs-content[data-tabs-number="2"] .table-empty-state {
+	width: 1190px !important;
 }
 
-.tabs-content[data-tabs-number="3"] .table-empty-state {
-	width: 1062px;
+.tabs-content[data-tabs-number="3"] .table-kiriman, .tabs-content[data-tabs-number="3"] .table-empty-state {
+	width: 1090px !important;
 }
 
-.tabs-content[data-tabs-number="4"] .table-empty-state {
-	width: 1012px;
-}
-
-.table-kiriman td[data-col="keterangan"] {
-	width: 260px;
+.tabs-content[data-tabs-number="4"] .table-kiriman, .tabs-content[data-tabs-number="4"] .table-empty-state {
+	width: 1040px !important;
 }
 
 .table-kiriman td[data-col="status"] {
@@ -128,9 +123,14 @@ table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
 
 .row-detail-td-content {
 	width: 100%;
+	min-height: 260px;
 	padding: 25px;
 	opacity: 0;
 	overflow: auto;
+}
+
+.tabs-content[data-tabs-number="3"] .row-detail-td-content {
+	min-height: 130px;
 }
 
 .row-detail-tr.show .row-detail-td-content {

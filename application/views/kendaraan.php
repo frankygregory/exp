@@ -116,7 +116,7 @@
 						<td class="th-jumlah-transaksi" data-col='jumlah-transaksi'>Jumlah Transaksi</td>
 						<td data-col='keterangan'>Keterangan</td>
 						<td class="th-status" data-col='status'>Status</td>
-						<td class="th-action" data-col='action'>Action</td>
+						<td class="th-action" data-col='action' data-align='center'>Action</td>
 					</tr>
 				</thead>
 				<tbody class="tbody-kendaraan">
@@ -314,7 +314,7 @@ function addKendaraanToTable(no, result) {
 	var btnEdit = "<button class='btn-action btn-edit' title='edit' style='background-image: url(" + editIconUrl + ");' data-id='" + result.vehicle_id + "'></button>";
 	var btnDelete = "<button class='btn-action btn-delete' title='delete' style='background-image: url(" + deleteIconUrl + ");' data-id='" + result.vehicle_id + "'></button>";
 	
-	var element = "<tr class='tr-kendaraan' data-id='" + result.vehicle_id + "' data-status='" + result.vehicle_status + "'><td class='td-no' data-label='No'>" + no + "</td><td class='td-nomor' data-label='Nopol'>" + result.vehicle_nomor + "</td><td class='td-name' data-label='Nama'>" + result.vehicle_name + "</td><td class='td-ketersediaan' data-label='Ketersediaan'>" + ketersediaan + "</td><td class='td-jumlah-transaksi' data-label='Jumlah Transaksi'>" + result.vehicle_jumlah_transaksi + "</td><td class='td-information' data-label='Keterangan'>" + result.vehicle_information + "</td><td>" + status + "</td><td>" + btnEdit + btnDelete + "</td></tr>";
+	var element = "<tr class='tr-kendaraan' data-id='" + result.vehicle_id + "' data-status='" + result.vehicle_status + "'><td class='td-no' data-label='No'>" + no + "</td><td class='td-nomor' data-label='Nopol'>" + result.vehicle_nomor + "</td><td class='td-name' data-label='Nama'>" + result.vehicle_name + "</td><td class='td-ketersediaan' data-label='Ketersediaan'>" + ketersediaan + "</td><td class='td-jumlah-transaksi' data-label='Jumlah Transaksi'>" + result.vehicle_jumlah_transaksi + "</td><td class='td-information' data-label='Keterangan'>" + result.vehicle_information + "</td><td>" + status + "</td><td data-align='center'>" + btnEdit + btnDelete + "</td></tr>";
 	$(".tbody-kendaraan").append(element);
 }
 </script>

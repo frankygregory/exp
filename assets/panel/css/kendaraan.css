@@ -6,12 +6,9 @@
 	float: right;
 }
 
-.table-container {
-  min-width: 1000px;
-}
-
 .table-kendaraan {
   width: 1180px !important;
+  margin: 0 auto;
 }
 
 table .td-no, .td-ketersediaan, .th-jumlah-transaksi, .td-jumlah-transaksi {

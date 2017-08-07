@@ -10,8 +10,9 @@
 	text-align: center;
 }
 
-.table-driver {
-	width: auto !important;
+.table-driver, .table-empty-state {
+	width: 1260px !important;
+	margin: 0 auto;
 }
 
 .table-driver td[data-col="no"] {
@@ -21,7 +22,7 @@
 	width: 150px;
 }
 .table-driver td[data-col="no-hp"] {
-	width: 150px;
+	width: 130px;
 }
 .table-driver td[data-col="alamat"] {
 	width: 250px;
@@ -39,7 +40,7 @@
 	width: 200px;
 }
 .table-driver td[data-col="status"] {
-	width: 120px;
+	width: 100px;
 }
 .table-driver td[data-col="action"] {
 	width: 100px;
