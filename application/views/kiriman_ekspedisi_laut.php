@@ -227,6 +227,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-cancel-transaction">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Pembatalan Kiriman</div>
 		</div>
 		<div class="dialog-body">
@@ -241,6 +242,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-ubah">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Ubah Status Kiriman</div>
 		</div>
 		<div class="dialog-body">

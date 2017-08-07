@@ -199,6 +199,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-deal-kiriman">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Konfirmasi Kiriman</div>
 		</div>
 		<div class="dialog-body">
@@ -213,6 +214,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-pesan-kiriman">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Konfirmasi Pesan Kiriman</div>
 		</div>
 		<div class="dialog-body">
@@ -227,6 +229,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-kirim-kiriman">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Konfirmasi Kirim Kiriman</div>
 		</div>
 		<div class="dialog-body">
@@ -241,6 +244,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-ambil-kiriman">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Konfirmasi Ambil Kiriman</div>
 		</div>
 		<div class="dialog-body">
@@ -255,6 +259,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-terima-kiriman">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Konfirmasi Terima Kiriman</div>
 		</div>
 		<div class="dialog-body">
@@ -269,6 +274,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-cancel-transaction">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Pembatalan Kiriman</div>
 		</div>
 		<div class="dialog-body">

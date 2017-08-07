@@ -6,18 +6,13 @@
 	float: right;
 }
 
-.table-kendaraan {
-  width: 1180px !important;
+.table-kendaraan, .table-empty-state {
+  width: 1230px !important;
   margin: 0 auto;
 }
 
 table .td-no, .td-ketersediaan, .th-jumlah-transaksi, .td-jumlah-transaksi {
   text-align: center;
-}
-
-.table-empty-state {
-  margin-left: 0;
-  width: 1180px;
 }
 
 td[data-col="no"] {
@@ -33,7 +28,7 @@ td[data-col="nama-kendaraan"] {
 }
 
 td[data-col="ketersediaan"] {
-  width: 100px;
+  width: 150px;
 }
 
 td[data-col="jumlah-transaksi"] {

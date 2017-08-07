@@ -281,6 +281,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-setuju">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Setuju Bid</div>
 		</div>
 		<div class="dialog-body">
@@ -298,6 +299,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-cancel-bidding">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Batal Penawaran</div>
 		</div>
 		<div class="dialog-body">

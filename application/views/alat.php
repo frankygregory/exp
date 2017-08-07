@@ -4,6 +4,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-tambah">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Tambah Alat</div>
 		</div>
 		<div class="dialog-body">
@@ -63,6 +64,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-edit">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Edit Alat</div>
 		</div>
 		<div class="dialog-body">
@@ -108,6 +110,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-ganti-password">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Ganti Password</div>
 		</div>
 		<div class="dialog-body">
@@ -139,6 +142,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-delete">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Delete Alat</div>
 		</div>
 		<div class="dialog-body">

@@ -4,6 +4,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-tambah-user">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Tambah User</div>
 		</div>
 		<div class="dialog-body">
@@ -68,6 +69,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-edit-user">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Edit User</div>
 		</div>
 		<div class="dialog-body">
@@ -115,6 +117,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-override-password">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Override Password User</div>
 		</div>
 		<div class="dialog-body">
@@ -146,6 +149,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-delete-user">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Delete User</div>
 		</div>
 		<div class="dialog-body">
@@ -160,6 +164,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-tambah-group">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Tambah Group</div>
 		</div>
 		<div class="dialog-body">
@@ -183,6 +188,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-konfirmasi-delete-group">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title">Delete Group</div>
 		</div>
 		<div class="dialog-body">
@@ -197,6 +203,7 @@
 <div class="dialog-background">
 	<div class="dialog dialog-edit-group">
 		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
 			<div class="dialog-title"></div>
 		</div>
 		<div class="dialog-body">

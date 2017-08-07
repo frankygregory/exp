@@ -1,3 +1,7 @@
+.content {
+	max-width: 1320px;
+}
+
 .tabs-item[data-tabs-number="2"] {
 	width: 150px;
 }
