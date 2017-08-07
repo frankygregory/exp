@@ -59,7 +59,7 @@
 				<tr>
 					<td class="td-label">Keterangan</td>
 					<td class="td-value">
-						<span class="span-value"><?= $data->user_details_information ?></span>
+						<pre class="span-value"><?= $data->user_details_information ?></pre>
 						<span class="edit-icon" data-table="2" data-field="user_details_information" data-input-type="textarea">Edit</span>
 					</td>
 				</tr>
@@ -178,7 +178,7 @@ function cekInput() {
 	var type = $(".dialog-edit").data("type");
 	if (type == "text" || type == "textarea") {
 		var label = $(".dialog-edit .dialog-title").html();
-		var value = (type == "text") ? $(".dialog-edit input[type='text']").val() : $(".dialog-edit " + type).val();
+		var value = (type == "text") ? $(".dialog-edit input[type='text']").val().trim() : $(".dialog-edit " + type).val().trim();
 		if (value == "" || value === undefined) {
 			valid = false;
 			$(".dialog-edit .error").html(label + " harus diisi");

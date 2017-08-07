@@ -350,7 +350,7 @@ $tr_bidding = "";
 $btnSetujuBidding = "";
 $btnCancelBidding = "";
 
-if ($user_id && ($isOwner OR $expedition_id == $user_id)) { ?>
+if ($user_id && ($isOwner OR $expedition_id == $user_id) && $shipment_status > 0) { ?>
 	ajaxCall("<?= base_url("kirim/getAllStatusKiriman") ?>", {shipment_id: data_shipment_id}, function(json) {
 		var result = JSON.parse(json);
 		if (result.status == "success") {
@@ -869,6 +869,9 @@ function addBiddingListToTable(result) {
 		element += "<td class='td-bidding-tanggal-ambil'>";
 		element += "<div>Tanggal Ambil : " + result.data[i].bidding_pickupdate + "</div>";
 		element += "<div>Keterangan : " + result.data[i].bidding_information + "</div>";
+		if (result.data[i].bidding_vehicle !== null) {
+			element += "<div>Kendaraan : " + result.data[i].bidding_vehicle + "</div>";
+		}
 		element += "</td>";
 		element += "<td>";
 		if (result.data[i].bidding_status == 1) {

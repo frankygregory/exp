@@ -1,5 +1,5 @@
 .section-1 {
-	width: 570px;
+	width: 600px;
 	margin-bottom: 50px !important;
 }
 
@@ -30,7 +30,8 @@ td {
 
 .span-value {
 	display: inline-block;
-	width: 250px;
+	width: 280px;
+	white-space: normal;
 }
 
 .error {
@@ -64,4 +65,8 @@ textarea {
 	padding: 15px 40px !important;
 	float: right;
 	margin-top: 20px;
+}
+
+pre {
+	
 }

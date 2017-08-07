@@ -9,9 +9,10 @@ class Profil_model extends CI_Model
 	
 	public function getUser($user_id) {
 		$query = $this->db->query("
-			SELECT *
-			FROM `m_user`
-			WHERE user_id = '" . $user_id . "'
+			SELECT u.*, ud.*
+			FROM `m_user` u, `m_user_details` ud
+			WHERE u.user_id = '" . $user_id . "' AND ud.user_id = u.user_id
+			LIMIT 1
 		");
 		return $query->result();
 	}

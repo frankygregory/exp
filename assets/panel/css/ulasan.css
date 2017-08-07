@@ -72,7 +72,11 @@
 }
 
 .feedback-item-left .td-value {
-	color: #1976D2;
+	text-align: left;
+}
+
+.td-value a:link, .td-value a:visited {
+	color: blue;
 }
 
 .stars-container {

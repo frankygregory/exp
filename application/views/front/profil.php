@@ -1,8 +1,13 @@
 <div class="content">
     <div class="section-1">
         <div class="username"><?php echo $user[0]->username; echo ($user[0]->user_verified == 0) ? "" : "<span class='verified-icon' style='background-image: url(" . base_url("assets/icons/ic_verified_user_black_24px.svg") . ");'><div></div></span>"; ?></div>
-    </div>
-    <div class="section-2 section">
+	</div>
+	<div class="section-2 section">
+		<div>
+			<pre><?php echo $user[0]->user_details_information ?></pre>
+		</div>
+	</div>
+    <div class="section-3 section">
         <div class="subsection subsection-kiriman">
             <div class="section-title">Statistik Kiriman</div>
 			<div class="table-statistik-kiriman-container">
@@ -95,7 +100,7 @@
 <?php	}	?>
     </div>
  <?php	if ($user[0]->role_id == 2) { ?>
-    <div class="section-3">
+    <div class="section-4">
         <div class="subsection-rating-total">
             <div class="rating-total">
                 <span class="rating-label">Rating : </span>

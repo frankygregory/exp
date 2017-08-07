@@ -18,8 +18,8 @@
 	</style>
 	<link href="<?=base_url()?>assets/front/css/default.css?v=1" rel="stylesheet">
 	<link href="<?=base_url()?>assets/front/css/header.css?v=2" rel="stylesheet" media="(orientation: landscape)">
-	<!--<link href="<?=base_url()?>assets/front/css/header - portrait.css" rel="stylesheet" media="(orientation: portrait)">-->
-	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css?v=3" rel="stylesheet">
+	<!--<link href="<?//=base_url()?>assets/front/css/header - portrait.css" rel="stylesheet" media="(orientation: portrait)">-->
+	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css?v=4" rel="stylesheet">
 	<?= $additional_file ?>
 
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
