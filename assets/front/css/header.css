@@ -1,6 +1,10 @@
+* {
+	-ms-touch-action: pan-y;
+	touch-action: pan-y;
+}
+
 .header {
 	width: 100vw;
-	height: 70px;
 	position: fixed;
 	top: 0;
 	background-color: rgb(251, 231, 0);
@@ -12,15 +16,16 @@
 	user-select: none;          /* Likely future */  
 }
 
+.header-overlay {
+	width: 100%;
+}
+
 .logo {
 	display: block;
 	float: left;
-	width: 387px;
-	height: 70px;
 	background-size: 100%;
 	background-repeat: no-repeat;
 	background-position: center;
-	margin-left: 30px;
 }
 
 .header.white-background {
@@ -28,30 +33,184 @@
 	box-shadow: 0 0 5px #999;
 }
 
-.header-right {
-	display: block;
-	float: right;
-	margin-right: 5vw;
+@media all and (max-width: 1024px) {
+	.header, .header-overlay {
+		height: 15vw;
+	}
+
+	.logo {
+		width: 82.8vw;
+		height: 15vw;
+	}
+
+	.header-right {
+		display: none;
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+		z-index: 2000;
+		background-color: rgba(0, 0, 0, 0.9);
+		touch-action: none;
+	}
+
+	.header-right.show {
+		display: block;
+	}
+
+	.mobile-header-right-icon {
+		display: block;
+		width: 15vw;
+		height: 15vw;
+		position: fixed;
+		top: 0em;
+		right: 0.5em;
+		background-repeat: no-repeat;
+		background-size: 100%;
+		z-index: 5000;
+	}
+
+	.header-menu-container {
+		position: absolute;
+		width: 60vw;
+		height: 75vw;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		vertical-align: middle;
+	}
+
+	.header-menu {
+		display: block;
+		width: 60vw;
+		text-align: center;
+		font-size: 10vw;
+		margin: 0 auto 8vw;
+		font-weight: bold;
+		color: #FFF;
+	}
+
+	.header-menu:link, .header-menu:visited {
+		color: #FFF;
+		text-decoration: none;
+	}
+
+	.footer {
+		overflow-y: auto;
+		background-color: #000;
+		text-align: left;
+		padding: 10vw 5vw;
+	}
+
+	.copyright {
+		display: block;
+		color: #FFF;
+		line-height: 10vw;
+		margin-bottom: 15vw;
+	}
+
+	.footer-link:link, .footer-link:visited {
+		display: block;
+		color: #FFF;
+		line-height: 10vw;
+		margin-bottom: 5vw;
+		text-decoration: none;
+	}
+}
+
+@media all and (min-width: 600px) {
 	
 }
 
-.header-menu {
-	display: inline-block;
-	font-size: 14pt;
-	margin-top: 20px;
-	margin-right: 50px;
-	font-weight: bold;
-	cursor: pointer;
-	color: #000;
-}
+@media all and (min-width: 1025px) {
+	.header, .header-overlay {
+		height: 70px;
+	}
 
-.header-menu:link, .header-menu:visited {
-	color: #000;
-	text-decoration: none;
-}
+	.logo {
+		width: 387px;
+		height: 70px;
+		margin-left: 30px;
+	}
 
-.header-menu.active > .bottom-line {
-	opacity: 1;
+	.header-right {
+		display: block;
+		position: relative;
+		width: auto;
+		height: auto;
+		background: none;
+		float: right;
+		margin-right: 5vw;
+	}
+
+	.mobile-header-right-icon {
+		display: none;
+	}
+
+	.header-menu-container {
+		position: relative;
+		width: initial;
+		height: initial;
+		top: initial;
+		left: initial;
+		right: initial;
+		bottom: initial;
+		margin: initial;
+		vertical-align: initial;
+	}
+
+	.header-menu {
+		display: inline-block;
+		width: auto;
+		font-size: 14pt;
+		margin-top: 20px;
+		margin-right: 50px;
+		font-weight: bold;
+		cursor: pointer;
+		color: #000;
+	}
+
+	.header-menu:link, .header-menu:visited {
+		color: #000;
+		text-decoration: none;
+	}
+
+	.header-menu.active > .bottom-line {
+		opacity: 1;
+	}
+
+	.header-menu:hover > .bottom-line {
+		opacity: 1;
+	}
+
+	.footer {
+		height: 130px;
+		background-color: #000;
+		text-align: center;
+	}
+
+	.copyright {
+		display: inline-block;
+		color: white;
+		line-height: 130px;
+	}
+
+	.footer-link:link, .footer-link:visited {
+		display: inline-block;
+		color: #FFF;
+		text-decoration: none;
+		line-height: 130px;
+	}
+
+	.footer-link:hover {
+		text-decoration: underline;
+	}
+
+	.footer-margin {
+		display: inline-block;
+		width: 80px;
+	}
 }
 
 .header-menu-dashboard {
@@ -67,10 +226,6 @@
 	height: 3px;
 	background-color: #000;
 	transition: all 0.2s;
-}
-
-.header-menu:hover > .bottom-line {
-	opacity: 1;
 }
 
 .login-dialog {
@@ -251,37 +406,4 @@
   border-top-color: #EF6C00;
   -webkit-animation: spin 1s infinite linear;
           animation: spin 1s infinite linear;
-}
-
-.header-overlay {
-	width: 100%;
-	height: 70px;
-}
-
-.footer {
-	height: 130px;
-	background-color: #000;
-	text-align: center;
-}
-
-.copyright {
-	display: inline-block;
-	color: white;
-	line-height: 130px;
-}
-
-.footer-link:link, .footer-link:visited {
-	display: inline-block;
-	color: #FFF;
-	text-decoration: none;
-	line-height: 130px;
-}
-
-.footer-link:hover {
-	text-decoration: underline;
-}
-
-.footer-margin {
-	display: inline-block;
-	width: 80px;
 }

@@ -17,8 +17,7 @@
 		}
 	</style>
 	<link href="<?=base_url()?>assets/panel/css/default.css?v=12" rel="stylesheet">
-	<link href="<?=base_url()?>assets/template/css/top.css?v=2" rel="stylesheet" media="(orientation: landscape)">
-	<link href="<?=base_url()?>assets/template/css/top - portrait.css" rel="stylesheet" media="(orientation: portrait)">
+	<link href="<?=base_url()?>assets/template/css/top.css?v=2" rel="stylesheet">
 	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=26" rel="stylesheet">
 	
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>

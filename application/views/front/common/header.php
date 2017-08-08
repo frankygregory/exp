@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -17,9 +17,8 @@
 		}
 	</style>
 	<link href="<?=base_url()?>assets/front/css/default.css?v=1" rel="stylesheet">
-	<link href="<?=base_url()?>assets/front/css/header.css?v=2" rel="stylesheet" media="(orientation: landscape)">
-	<!--<link href="<?//=base_url()?>assets/front/css/header - portrait.css" rel="stylesheet" media="(orientation: portrait)">-->
-	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css?v=4" rel="stylesheet">
+	<link href="<?=base_url()?>assets/front/css/header.css?v=3" rel="stylesheet">
+	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css?v=5" rel="stylesheet">
 	<?= $additional_file ?>
 
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
@@ -30,6 +29,7 @@
 <div class="header">
 	<a href="<?= base_url() ?>" class="logo" style="background-image: url('<?= base_url("assets/icons/logo2.png") ?>');"></a>
 	<div class="header-right">
+		<div class="header-menu-container">
 <?php   if ($isLoggedIn == 1) {	?>
 			<a href="<?= base_url('dashboard') ?>" class="header-menu header-menu-dashboard">My Dashboard
 			</a>
@@ -56,7 +56,9 @@
 			</span>
 		</a>
 <?php	}	?>
+		</div>
 	</div>
+	<div class="mobile-header-right-icon" style="background-image: url('<?php echo base_url("assets/icons/header_menu_icon.svg"); ?>');"></div>
 <?php
 	if ($isLoggedIn == 1) {	?>
 		<div class="profile-dropdown">
@@ -84,10 +86,25 @@
 </div>
 <div class="header-overlay"></div>
 <script>
+var isMobile = false;
 var ajaxVariable;
 var verifiedIconUrl = "<?php echo base_url("assets/icons/ic_verified_user_black_24px.svg") ?>";
 $(function() {
-	
+	var mobileHeaderRightIcon = $(".mobile-header-right-icon");
+	if (mobileHeaderRightIcon.css("display") == "block") {
+		isMobile = true;
+
+		mobileHeaderRightIcon[0].addEventListener("touchend", function() {
+			var headerRight = $(".header-right");
+			if (headerRight.hasClass("show")) {
+				headerRight.removeClass("show");
+				mobileHeaderRightIcon.css("background-image", "url('<?php echo base_url("assets/icons/header_menu_icon.svg"); ?>')");
+			} else {
+				headerRight.addClass("show");
+				mobileHeaderRightIcon.css("background-image", "url('<?php echo base_url("assets/icons/header_menu_close_icon.svg"); ?>')");
+			}
+		});
+	}
 <?php
 	if ($isLoggedIn) {	?>
 		$("body:not(.profile-dropdown)").on("click", function(e) {
