@@ -1,22 +1,13 @@
-.section-1 {
-    width: 100%;
-    height: calc(100vh - 70px);
-    position: relative;
-    display: table;
-}
-
 .section-1-image {
     width: 100%;
-	height: 100%;
-	background-size: 100%;
-	background-repeat: no-repeat;
-	background-position: center;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
     filter: brightness(30%);
     position: absolute;
     top: 0;
     left: 0;
 }
-
 
 .section-1-text {
     width: 100%;
@@ -25,75 +16,6 @@
     vertical-align: middle;
     color: white;
     text-align: center;
-}
-
-.section-1-title {
-    max-width: 900px;
-    margin: 0 auto;
-    font-size: 3em;
-}
-
-.section-1-description {
-    font-size: 1.5em;
-    margin-top: 50px;
-}
-
-.section-2 {
-	width: 770px;
-	height: 1100px;
-    margin: 0 auto;
-    padding: 100px 0;
-}
-
-.section-2 .section-title {
-    font-size: 3em;
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.section-2 .section-content {
-	width: 100%;
-	margin: 0 auto;
-}
-
-.section-2-step {
-    height: 90px;
-    display: table;
-}
-
-.section-2-step-icon {
-	width: 90px;
-	height: 90px;
-	display: table-cell;
-	background-size: 50px;
-	background-repeat: no-repeat;
-	background-position: center;
-	border: 3px solid #000;
-	border-radius: 100%;
-}
-
-@keyframes anim {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.section-2-step-description {
-    width: 340px;
-    min-height: 1px;
-    height: 100%;
-    display: table-cell;
-	font-size: 18pt;
-    vertical-align: middle;
-    opacity: 0;
-}
-
-.section-2 .section-content.show .section-2-step-description {
-    -webkit-animation-name: anim;
-    -webkit-animation-duration: 0.5s;
-    -webkit-animation-fill-mode: forwards;
-    animation-name: anim;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
 }
 
 .section-2 .section-content.show .step-2 .section-2-step-description {
@@ -121,33 +43,244 @@
     animation-delay: 2.5s;
 }
 
-.section-2-step-description:first-child {
-    padding-right: 15px;
-    text-align: right;
+@keyframes anim {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-.section-2-step-icon + .section-2-step-description {
-    padding-left: 15px;
+.section-2 .section-content.show .section-2-step-description {
+    -webkit-animation-name: anim;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-fill-mode: forwards;
+    animation-name: anim;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
 }
 
-.section-2-vertical-line {
-    width: 1px;
-    height: 30px;
-    background-color: #777;
-    margin: 20px auto;
+@media all and (max-width: 1024px) {
+    .section-1 {
+        width: 100%;
+        height: 150vw;
+        position: relative;
+        display: table;
+    }
+
+    .section-1-image {
+        background-size: auto 100%;
+    }
+
+    .section-1-title {
+        margin: 0 auto;
+        font-size: 8vw;
+        margin-top: -20vw;
+        text-align: left;
+        padding: 0 5vw;
+    }
+
+    .section-1-description {
+        font-size: 5vw;
+        margin-top: 7vw;
+        text-align: left;
+        padding: 0 5vw;
+    }
+
+    .btn-daftar {
+        display: inline-block;
+        width: 80vw;
+        font-size: 5vw;
+        margin-top: 80px;
+        border: 2px solid #64B5F6;
+        color: #64B5F6;
+        font-weight: bold;
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-daftar:focus {
+        border: 2px solid #2196F3;
+        background-color: #2196F3;
+        color: white;
+    }
+
+    .section-2 {
+        width: 100vw;
+        height: 270vw;
+        margin: 0 auto;
+        padding: 15vw 0 0;
+    }
+
+    .section-2 .section-title {
+        font-size: 9.5vw;
+        text-align: center;
+        margin-bottom: 10vw;
+    }
+
+    .section-2-step {
+        width: 100%;
+        min-height: 45vw;
+        overflow-y: auto;
+        text-align: center;
+        position: relative;
+    }
+
+    .section-2-step-icon {
+        width: 24vw;
+        height: 24vw;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        background-size: 15vw;
+        background-repeat: no-repeat;
+        background-position: center;
+        border: 3px solid #000;
+        border-radius: 100%;
+    }
+
+    .section-2-step-description {
+        display: block;
+        width: 100%;
+        padding: 0 10vw;
+        position: absolute;
+        top: 26vw;
+        text-align: center;
+        font-size: 5vw;
+        opacity: 0;
+        margin: 0 auto;
+    }
+
+    .section-2-vertical-line {
+        display: none;
+    }
 }
 
-.btn-daftar {
-    display: inline-block;
-    width: 300px;
-    margin-top: 80px;
-    border: 2px solid #64B5F6;
-    color: #64B5F6;
-    font-weight: bold;
+@media all and (min-width: 768px) and (max-width: 1024px) {
+    .section-1 {
+        height: 120vw;
+    }
+
+    .section-1-title {
+        margin-top: -10vw;
+    }
+
+    .section-2 {
+        height: 210vw;
+        padding: 10vw 0 0;
+    }
+
+    .section-2 .section-title {
+        font-size: 8vw;
+        margin-bottom: 10vw;
+    }
+
+    .section-2-step {
+        min-height: 34vw;
+    }
+
+    .section-2-step-icon {
+        width: 16vw;
+        height: 16vw;
+        background-size: 10vw;
+    }
+
+    .section-2-step-description {
+        padding: 0 10vw;
+        top: 17vw;
+        font-size: 4vw;
+    }
 }
 
-.btn-daftar:hover {
-    border: 2px solid #2196F3;
-    background-color: #2196F3;
-    color: white;
+@media all and (min-width: 1025px) {
+    .section-1 {
+        width: 100%;
+        height: calc(100vh - 70px);
+        position: relative;
+        display: table;
+    }
+
+    .section-1-image {
+        background-size: 100%;
+    }
+
+    .section-1-title {
+        max-width: 900px;
+        margin: 0 auto;
+        font-size: 3em;
+    }
+
+    .section-1-description {
+        font-size: 1.5em;
+        margin-top: 50px;
+    }
+
+    .btn-daftar {
+        display: inline-block;
+        width: 300px;
+        margin-top: 80px;
+        border: 2px solid #64B5F6;
+        color: #64B5F6;
+        font-weight: bold;
+    }
+
+    .btn-daftar:hover {
+        border: 2px solid #2196F3;
+        background-color: #2196F3;
+        color: white;
+    }
+
+    .section-2 {
+        width: 770px;
+        height: 1100px;
+        margin: 0 auto;
+        padding: 100px 0;
+    }
+
+    .section-2 .section-title {
+        font-size: 3em;
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .section-2-step {
+        height: 90px;
+        display: table;
+    }
+
+    .section-2-step-icon {
+        width: 90px;
+        height: 90px;
+        display: table-cell;
+        background-size: 50px;
+        background-repeat: no-repeat;
+        background-position: center;
+        border: 3px solid #000;
+        border-radius: 100%;
+    }
+
+    .section-2-step-description {
+        width: 340px;
+        min-height: 1px;
+        height: 100%;
+        display: table-cell;
+        font-size: 18pt;
+        vertical-align: middle;
+        opacity: 0;
+    }
+
+    .section-2-step-description:first-child {
+        padding-right: 15px;
+        text-align: right;
+    }
+
+    .section-2-step-icon + .section-2-step-description {
+        padding-left: 15px;
+    }
+
+    .section-2-vertical-line {
+        width: 1px;
+        height: 30px;
+        background-color: #777;
+        margin: 20px auto;
+    }
 }

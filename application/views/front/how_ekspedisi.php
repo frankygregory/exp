@@ -44,7 +44,7 @@
 </div>
 <script>
 var section2Top = 0;
-var scrollTop = 0;
+var scrollTop = 0, showOffset = 300;
 var innerHeight = window.innerHeight;
 $(function() {
 	initialize();
@@ -57,6 +57,9 @@ $(function() {
 });
 
 function initialize() {
+	if (isMobile) {
+		showOffset = 150;
+	}
 	scrollTop = window.scrollY;
 	section2Top = $(".section-2").offset().top;
 	
@@ -65,8 +68,7 @@ function initialize() {
 
 function showSection2() {
 	var section2 = section2Top - scrollTop;
-	console.log(section2);
-	if (section2 < innerHeight - 400) {
+	if (section2 < innerHeight - showOffset) {
 		$(".section-2 .section-content").addClass("show");
 		$(document).off("scroll", showSection2);
 	}

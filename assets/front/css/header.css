@@ -62,17 +62,17 @@
 
 	.header-right.show {
 		display: block;
-		-webkit-animation: show-header-right 0.1s ease-in forwards;
-        animation: show-header-right 0.1s ease-in forwards;
+		-webkit-animation: show-header-right 0.1s ease-out forwards;
+        animation: show-header-right 0.1s ease-out forwards;
 	}
 
 	.mobile-header-right-icon {
 		display: block;
-		width: 15vw;
-		height: 15vw;
+		width: 11vw;
+		height: 11vw;
 		position: fixed;
-		top: 0em;
-		right: 0.5em;
+		top: 2vw;
+		right: 2vw;
 		background-repeat: no-repeat;
 		background-size: 100%;
 		z-index: 5000;

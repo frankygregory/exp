@@ -17,8 +17,8 @@
 		}
 	</style>
 	<link href="<?=base_url()?>assets/front/css/default.css?v=1" rel="stylesheet">
-	<link href="<?=base_url()?>assets/front/css/header.css?v=4" rel="stylesheet">
-	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css?v=6" rel="stylesheet">
+	<link href="<?=base_url()?>assets/front/css/header.css?v=5" rel="stylesheet">
+	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css?v=7" rel="stylesheet">
 	<?= $additional_file ?>
 
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
@@ -94,7 +94,7 @@ $(function() {
 	if (mobileHeaderRightIcon.css("display") == "block") {
 		isMobile = true;
 
-		mobileHeaderRightIcon[0].addEventListener("touchend", function() {
+		mobileHeaderRightIcon[0].addEventListener("touchstart", function() {
 			var headerRight = $(".header-right");
 			if (headerRight.hasClass("show")) {
 				headerRight.removeClass("show");
