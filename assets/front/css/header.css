@@ -33,7 +33,7 @@
 	box-shadow: 0 0 5px #999;
 }
 
-@media all and (max-width: 1024px) {
+@media all and (max-width: 767px) {
 	.header, .header-overlay {
 		height: 15vw;
 	}
@@ -51,10 +51,19 @@
 		z-index: 2000;
 		background-color: rgba(0, 0, 0, 0.9);
 		touch-action: none;
+		opacity: 0;
+	}
+
+	@keyframes show-header-right {
+		to {
+			opacity: 1;
+		}
 	}
 
 	.header-right.show {
 		display: block;
+		-webkit-animation: show-header-right 0.1s ease-in forwards;
+        animation: show-header-right 0.1s ease-in forwards;
 	}
 
 	.mobile-header-right-icon {
@@ -119,8 +128,101 @@
 	}
 }
 
-@media all and (min-width: 600px) {
-	
+@media all and (min-width: 768px) and (max-width: 1024px) {
+	.header, .header-overlay {
+		height: 10vw;
+	}
+
+	.logo {
+		width: 55.2vw;
+		height: 10vw;
+	}
+
+	.header-right {
+		display: none;
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+		z-index: 2000;
+		background-color: rgba(0, 0, 0, 0.9);
+		touch-action: none;
+		opacity: 0;
+	}
+
+	@keyframes show-header-right {
+		to {
+			opacity: 1;
+		}
+	}
+
+	.header-right.show {
+		display: block;
+		-webkit-animation: show-header-right 0.1s ease-in forwards;
+        animation: show-header-right 0.1s ease-in forwards;
+	}
+
+	.mobile-header-right-icon {
+		display: block;
+		width: 10vw;
+		height: 10vw;
+		position: fixed;
+		top: 0em;
+		right: 0.5em;
+		background-repeat: no-repeat;
+		background-size: 100%;
+		z-index: 5000;
+	}
+
+	.header-menu-container {
+		position: absolute;
+		width: 60vw;
+		height: 75vw;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		vertical-align: middle;
+	}
+
+	.header-menu {
+		display: block;
+		width: 60vw;
+		text-align: center;
+		font-size: 10vw;
+		margin: 0 auto 8vw;
+		font-weight: bold;
+		color: #FFF;
+	}
+
+	.header-menu:link, .header-menu:visited {
+		color: #FFF;
+		text-decoration: none;
+	}
+
+	.footer {
+		overflow-y: auto;
+		background-color: #000;
+		text-align: left;
+		padding: 10vw 5vw;
+	}
+
+	.copyright {
+		font-size: 3.5vw;
+		display: block;
+		color: #FFF;
+		line-height: 10vw;
+		margin-bottom: 15vw;
+	}
+
+	.footer-link:link, .footer-link:visited {
+		font-size: 3.5vw;
+		display: block;
+		color: #FFF;
+		line-height: 10vw;
+		margin-bottom: 5vw;
+		text-decoration: none;
+	}
 }
 
 @media all and (min-width: 1025px) {
