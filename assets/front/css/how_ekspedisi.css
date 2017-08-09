@@ -3,6 +3,7 @@
     height: 100%;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: #FFF;
     filter: brightness(30%);
     position: absolute;
     top: 0;
@@ -60,7 +61,7 @@
 @media all and (max-width: 1024px) {
     .section-1 {
         width: 100%;
-        height: 150vw;
+        height: 165vw;
         position: relative;
         display: table;
     }
@@ -157,7 +158,7 @@
 
 @media all and (min-width: 768px) and (max-width: 1024px) {
     .section-1 {
-        height: 120vw;
+        height: 125vw;
     }
 
     .section-1-title {

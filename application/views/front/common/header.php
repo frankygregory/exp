@@ -94,7 +94,7 @@ $(function() {
 	if (mobileHeaderRightIcon.css("display") == "block") {
 		isMobile = true;
 
-		mobileHeaderRightIcon[0].addEventListener("touchstart", function() {
+		mobileHeaderRightIcon[0].addEventListener("touchend", function() {
 			var headerRight = $(".header-right");
 			if (headerRight.hasClass("show")) {
 				headerRight.removeClass("show");
