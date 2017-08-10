@@ -17,8 +17,8 @@
 		}
 	</style>
 	<link href="<?=base_url()?>assets/front/css/default.css?v=1" rel="stylesheet">
-	<link href="<?=base_url()?>assets/front/css/header.css?v=5" rel="stylesheet">
-	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css?v=7" rel="stylesheet">
+	<link href="<?=base_url()?>assets/front/css/header.css?v=6" rel="stylesheet">
+	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css?v=8" rel="stylesheet">
 	<?= $additional_file ?>
 
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
@@ -44,7 +44,7 @@
 		<a href="<?= base_url("register") ?>" class="header-menu <?= $activePage["daftar"] ?>">Daftar
 			<div class="bottom-line"></div>
 		</a>
-		<a class="header-menu header-menu-login">Login
+		<a class="header-menu header-menu-login" href="<?php echo base_url("login"); ?>">Login
 			<div class="bottom-line"></div>
 		</a>
 <?php	} else {	?>
@@ -67,22 +67,6 @@
 		</div>
 <?php
 	}	?>
-	<div class="login-dialog">
-		<input type="text" class="input-login-user_email" placeholder="email" />
-		<div class="login-error login-error-username error"></div>
-		<input type="password" class="input-login-password" placeholder="password" />
-		<div class="login-error login-error-password error"></div>
-		<a class="forgot-password-link" href="<?php echo base_url("forgot-password"); ?>">Lupa Password</a>
-		<div class="remember-me">
-			<label>
-				<input type="checkbox" class="input-remember-me" value="remember-me" /> Ingat saya
-			</label>
-		</div>
-		<button type="button" class="btn-login">Login</button>
-		<div class="loading-div">
-			<div class="loading-circle"></div>
-		</div>
-	</div>
 </div>
 <div class="header-overlay"></div>
 <script>
@@ -123,63 +107,6 @@ $(function() {
 				$(".profile-dropdown").css("display", "none");
 			}
 		});
-<?php
-	} else {	?>
-		$("body:not(.login-dialog)").on("click", function(e) {
-			if ($(e.target).closest(".login-dialog").length == 0) {
-				if ($(".login-dialog").css("display") == "block") {
-					hideLoginDialog();
-				}
-			}
-		});
-
-		$(".header-menu-login").on("click", function(e) {
-			e.stopPropagation();
-			toggleLoginDialog();
-		});
-
-		$(".input-login-user_email, .input-login-password").on("keypress", function(e) {
-			if (e.which == 13) {
-				doLogin();
-			}
-		});
-
-		$(".btn-login").on("click", function() {
-			doLogin();
-		});
-
-		function doLogin() {
-			$(".login-dialog .login-error").html("");
-			var user_email = $(".input-login-user_email").val().trim();
-			var password = $(".input-login-password").val().trim();
-			
-			var valid = true;
-			if (user_email == "") {
-				valid = false;
-				$(".login-error.login-error-username").html("Username harus diisi");
-			}
-			if (password == "") {
-				valid = false;
-				$(".login-error.login-error-password").html("Password harus diisi");
-			}
-
-			if (valid) {
-				showLoading();
-				var data = {
-					user_email: user_email,
-					password: password
-				};
-				ajaxCall("<?= base_url('login/doLogin') ?>", data, function(json) {
-					var result = jQuery.parseJSON(json);
-					if (result.status == "error") {
-						hideLoading();
-						$(".login-error.login-error-password").html(result.reason);
-					} else if (result.status == "success") {
-						window.location = "<?= base_url('dashboard') ?>";
-					}
-				});
-			}
-		}
 <?php
 	}	?>
 });

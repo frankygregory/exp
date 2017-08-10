@@ -66,7 +66,7 @@ $route['how/pemilik-kendaraan'] = 'home/how/pemilik-kendaraan';
 $route['how/pemilik-barang'] = 'home/how/pemilik-barang';
 $route['register'] = 'home/register';
 $route["resendVerificationEmail"] = "home/resendVerificationEmail";
-$route['login'] = 'login';
+$route['login'] = 'home/login';
 $route['dologin'] = 'login/dologin';
 $route['logout'] = 'login/logout';
 

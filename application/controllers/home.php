@@ -15,6 +15,10 @@ class Home extends CI_Controller
 	public function loadModule($moduleName) {
 		$this->modules .= "<link href='" . base_url("assets/template/css/" . $moduleName . ".css?v=5") . "' rel='stylesheet'>" . "<script src='" . base_url("assets/template/js/" . $moduleName . ".js?v=5") . "'></script>";
 	}
+
+	function isMobile() {
+		return preg_match("/(android|webos|avantgo|iphone|ipad|ipod|blackbe‌​rry|iemobile|bolt|bo‌​ost|cricket|docomo|f‌​one|hiptop|mini|oper‌​a mini|kitkat|mobi|palm|phone|pie|tablet|up\.browser|up\.link|‌​webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+	}
 	
 	public function cekLogin()
     {
@@ -27,10 +31,12 @@ class Home extends CI_Controller
 
     public function index()
     {
+		$is_mobile = $this->isMobile();
 		$isLoggedIn = $this->cekLogin();
         $data = array(
             'title' => 'home',
             'page_name' => "home",
+			"is_mobile" => $is_mobile,
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
@@ -42,8 +48,31 @@ class Home extends CI_Controller
 		$this->load->view('front/common/footer', $data);
     }
 
+	public function login() {
+		$is_mobile = $this->isMobile();
+		$isLoggedIn = $this->cekLogin();
+		if ($isLoggedIn) {
+			header("Location: " . base_url("dashboard"));
+		}
+
+        $data = array(
+            'title' => 'Login',
+            'page_name' => "login",
+			"is_mobile" => $is_mobile,
+			'additional_file' => "",
+			"isLoggedIn" => $isLoggedIn,
+			"modules" => $this->modules,
+			"activePage" => $this->activePage
+        );
+
+		$this->load->view('front/common/header', $data);
+        $this->load->view('front/login', $data);
+		$this->load->view('front/common/footer', $data);
+	}
+
 	public function list_kiriman()
 	{
+		$is_mobile = $this->isMobile();
 		$this->activePage["list_kiriman"] = "active";
 		$isLoggedIn = $this->cekLogin();
 		$this->loadModule("pagination");
@@ -51,6 +80,7 @@ class Home extends CI_Controller
             'title' => 'List Kiriman',
             'page_name' => "kirim",
 			'page_title'=> 'List Kiriman',
+			"is_mobile" => $is_mobile,
 			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=9" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirim.css?v=14" rel="stylesheet">',
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
@@ -64,6 +94,7 @@ class Home extends CI_Controller
 
 	public function how($role)
 	{
+		$is_mobile = $this->isMobile();
 		$isLoggedIn = $this->cekLogin();
 		$segment = $this->uri->segment(2);
 		$page_name;
@@ -77,6 +108,7 @@ class Home extends CI_Controller
             'title' => 'How It Works',
             'page_name' => $page_name,
 			'page_title'=> 'How It Works - Pemilik Barang',
+			"is_mobile" => $is_mobile,
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
@@ -98,11 +130,13 @@ class Home extends CI_Controller
 
     public function register()
     {
+		$is_mobile = $this->isMobile();
 		$this->activePage["daftar"] = "active";
 		$isLoggedIn = $this->cekLogin();
         $data = array(
             'title' => 'Register',
 			'page_name' => "register",
+			"is_mobile" => $is_mobile,
             'active' => array('', '', '', 'active'),
 			'konsumenChecked' => 'checked',
 			'ekspedisiChecked' => '',
@@ -125,6 +159,7 @@ class Home extends CI_Controller
     }
 
 	public function profil($id) {
+		$is_mobile = $this->isMobile();
 		$this->load->model("Profil_model");
 		$user = $this->Profil_model->getUser($id);
 		if (sizeof($user) > 0) {
@@ -133,6 +168,7 @@ class Home extends CI_Controller
 				'title' => 'Profil',
 				'page_name' => "profil",
 				'page_title'=> 'Profil',
+				"is_mobile" => $is_mobile,
 				'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=9" rel="stylesheet">',
 				"user" => $user,
 				"isLoggedIn" => $isLoggedIn,
@@ -170,11 +206,13 @@ class Home extends CI_Controller
 	}
 
     public function terms(){
+		$is_mobile = $this->isMobile();
 		$isLoggedIn = $this->cekLogin();
         $data = array(
             'title' => 'Syarat dan Ketentuan',
 			'page_name' => "terms",
 			'page_title'=> 'Syarat dan Ketentuan',
+			"is_mobile" => $is_mobile,
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
@@ -347,10 +385,12 @@ class Home extends CI_Controller
 	}
 
 	public function verify_email($token) {
+		$is_mobile = $this->isMobile();
 		$isLoggedIn = $this->cekLogin();
         $data = array(
             'title' => 'Verifikasi',
             'page_name' => "verify",
+			"is_mobile" => $is_mobile,
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
@@ -367,10 +407,12 @@ class Home extends CI_Controller
 	}
 
 	public function verify_device_email($token) {
+		$is_mobile = $this->isMobile();
 		$isLoggedIn = $this->cekLogin();
         $data = array(
             'title' => 'Verifikasi',
             'page_name' => "verify",
+			"is_mobile" => $is_mobile,
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
@@ -401,10 +443,12 @@ class Home extends CI_Controller
 		header("Pragma: no-cache");
 		header('Content-Type: text/html');
 
+		$is_mobile = $this->isMobile();
 		$isLoggedIn = $this->cekLogin();
         $data = array(
             'title' => 'Lupa Password',
             'page_name' => "forgot_password",
+			"is_mobile" => $is_mobile,
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,
@@ -449,10 +493,12 @@ class Home extends CI_Controller
 	}
 
 	public function reset_password($token) {
+		$is_mobile = $this->isMobile();
 		$isLoggedIn = $this->cekLogin();
         $data = array(
             'title' => 'Reset Password',
             'page_name' => "verify",
+			"is_mobile" => $is_mobile,
 			'additional_file' => "",
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => $this->modules,

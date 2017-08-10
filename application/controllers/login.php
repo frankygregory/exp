@@ -11,20 +11,12 @@ class Login extends CI_Controller
 
     public function index()
     {
-        $isLoggedIn = $this->cekLogin();
-        $data = array(
-            'title' => 'Login',
-            'page_name' => "login",
-			'additional_file' => "",
-			"isLoggedIn" => $isLoggedIn,
-			"modules" => $this->modules,
-			"activePage" => $this->activePage
-        );
-
-		$this->load->view('front/common/header', $data);
-        $this->load->view('front/login', $data);
-		$this->load->view('front/common/footer', $data);
+        
     }
+
+    function isMobile() {
+		return preg_match("/(android|webos|avantgo|iphone|ipad|ipod|blackbe‌​rry|iemobile|bolt|bo‌​ost|cricket|docomo|f‌​one|hiptop|mini|oper‌​a mini|kitkat|mobi|palm|phone|pie|tablet|up\.browser|up\.link|‌​webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+	}
 
     public function doLogin()
     {
