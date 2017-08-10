@@ -1,39 +1,112 @@
 .content {
-    width: 700px;
-    min-height: 1000px;
     overflow-y: auto;
     margin: 0 auto;
 }
 
-.content-right {
-    width: 700px;
-    padding-top: 50px;
-    padding-bottom: 100px;
-}
-
 .title {
-    font-size: 1.7em;
-    margin-bottom: 30px;
+    font-weight: bold;
 }
 
 .definition {
-    margin-bottom: 30px;
-    line-height: 25px;
     color: #444;
-    font-size: 11pt;
 }
 
 .subtitle {
     font-weight: bold;
-    margin-bottom: 10px;
-}
-
-li {
-    margin-left: 17px;
-    padding-left: 5px;
-    font-size: 11pt;
 }
 
 ul li {
     list-style-type: disc;
+}
+
+@media all and (max-width: 1024px) {
+    .content {
+        width: 90%;
+        min-height: 100vw;
+    }
+
+    .content-right {
+        padding-top: 10vw;
+        padding-bottom: 10vw;
+    }
+
+    .title {
+        font-size: 7vw;
+        margin-bottom: 8vw;
+    }
+
+    .definition {
+        margin-bottom: 7vw;
+        line-height: 8vw;
+        font-size: 4.8vw;
+    }
+
+    .subtitle {
+        margin-bottom: 2vw;
+        font-size: 4.8vw;
+    }
+
+    li {
+        margin-left: 5.8vw;
+        padding-left: 1vw;
+        font-size: 4.8vw;
+    }
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+    .title {
+        font-size: 6vw;
+        margin-bottom: 6vw;
+    }
+
+    .definition {
+        margin-bottom: 6vw;
+        line-height: 6vw;
+        font-size: 3.5vw;
+    }
+
+    .subtitle {
+        margin-bottom: 2vw;
+        font-size: 3.5vw;
+    }
+
+    li {
+        margin-left: 4vw;
+        padding-left: 1vw;
+        font-size: 3.5vw;
+    }
+}
+
+@media all and (min-width: 1025px) {
+    .content {
+        width: 700px;
+        min-height: 1000px;
+    }
+
+    .content-right {
+        width: 700px;
+        padding-top: 50px;
+        padding-bottom: 100px;
+    }
+
+    .title {
+        font-size: 1.7em;
+        margin-bottom: 30px;
+    }
+
+    .definition {
+        margin-bottom: 30px;
+        line-height: 25px;
+        font-size: 11pt;
+    }
+
+    .subtitle {
+        margin-bottom: 10px;
+    }
+
+    li {
+        margin-left: 17px;
+        padding-left: 5px;
+        font-size: 11pt;
+    }
 }

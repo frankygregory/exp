@@ -50,7 +50,7 @@
 </div>
 <script>
 var section2Top = 0;
-var scrollTop = 0, showOffset = 300;
+var scrollTop = 0, showOffset = 400;
 var innerHeight = window.innerHeight;
 $(function() {
 	initialize();
@@ -64,7 +64,7 @@ $(function() {
 
 function initialize() {
 	if (isMobile) {
-		showOffset = 150;
+		showOffset = 300;
 	}
 	scrollTop = window.scrollY;
 	section2Top = $(".section-2").offset().top;

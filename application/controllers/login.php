@@ -11,7 +11,19 @@ class Login extends CI_Controller
 
     public function index()
     {
-        header("Location: " . base_url());
+        $isLoggedIn = $this->cekLogin();
+        $data = array(
+            'title' => 'Login',
+            'page_name' => "login",
+			'additional_file' => "",
+			"isLoggedIn" => $isLoggedIn,
+			"modules" => $this->modules,
+			"activePage" => $this->activePage
+        );
+
+		$this->load->view('front/common/header', $data);
+        $this->load->view('front/login', $data);
+		$this->load->view('front/common/footer', $data);
     }
 
     public function doLogin()
