@@ -176,7 +176,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="form-group" id="map_asal" style="width: 100%; height: 200px"></div>
+				<a class="form-group" id="map_asal" <?php if ($user_id && ($isOwner OR $expedition_id == $user_id)) echo "href='https://www.google.com/maps/dir/" . $location_from_lat . "," . $location_from_lng . "/" . $location_to_lat . "," . $location_to_lng . "' target='_blank'"; ?>></a>
 			</div>
 			
 		</div>
@@ -918,14 +918,23 @@ function initMap() {
 		streetViewControl: false,
 		disableDefaultUI: true
 	});
-	
-	map.addListener("click", function(e) {
-		return false;
+
+	marker_from = new google.maps.Marker({
+		position: new google.maps.LatLng(location_from_lat, location_from_lng),
+		map: map,
+		icon: "https://maps.google.com/mapfiles/marker_greenA.png"
+	});
+
+	marker_to = new google.maps.Marker({
+		position: new google.maps.LatLng(location_to_lat, location_to_lng),
+		map: map,
+		label: "B"
 	});
 
 	var directionsService = new google.maps.DirectionsService;
 	var directionsDisplay = new google.maps.DirectionsRenderer;
 	directionsDisplay.setMap(map);
+	directionsDisplay.setOptions({suppressMarkers: true});
 	calculateAndDisplayRoute(directionsService, directionsDisplay);
 }
 
@@ -941,18 +950,6 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 			if (status == "ZERO_RESULTS") {
 				var bounds = new google.maps.LatLngBounds();
 				var infowindow = new google.maps.InfoWindow();
-
-				marker_from = new google.maps.Marker({
-					position: new google.maps.LatLng(location_from_lat, location_from_lng),
-					map: map,
-					icon: "https://maps.google.com/mapfiles/marker_greenA.png"
-				});
-
-				marker_to = new google.maps.Marker({
-					position: new google.maps.LatLng(location_to_lat, location_to_lng),
-					map: map,
-					label: "B"
-				});
 
 				bounds.extend(marker_from.position);
 				bounds.extend(marker_to.position);

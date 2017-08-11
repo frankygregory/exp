@@ -116,8 +116,10 @@ td {
 	width: 70px;
 }
 
-#map-asal {
-	border: 1px solid black;
+#map_asal {
+	display: block;
+	width: 100%;
+	height: 200px;
 }
 
 .section-title {

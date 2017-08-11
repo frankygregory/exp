@@ -300,7 +300,7 @@ class Kirim extends MY_Controller
 			'title' => 'home',
 			'page_name' => "kirimbarang_detail",
 			'page_title'=> 'Detail Kiriman',
-			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=10" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css?v=20" rel="stylesheet">',
+			'additional_file' => '<link href="' . base_url() . 'assets/panel/css/default.css?v=10" rel="stylesheet"><link href="' . base_url() . 'assets/panel/css/kirimbarang_detail.css?v=27" rel="stylesheet">',
 			"isLoggedIn" => $isLoggedIn,
 			"modules" => "",
 			"activePage" => $activePage,
