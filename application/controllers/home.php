@@ -219,6 +219,24 @@ class Home extends CI_Controller
 			"activePage" => $this->activePage
         );
 		$this->load->view('front/common/header', $data);
+        $this->load->view('front/terms', $data);
+		$this->load->view('front/common/footer', $data);
+    }
+
+	public function privacy_policy(){
+		$is_mobile = $this->isMobile();
+		$isLoggedIn = $this->cekLogin();
+        $data = array(
+            'title' => 'Kebijakan Privasi',
+			'page_name' => "privacy_policy",
+			'page_title'=> 'Kebijakan Privasi',
+			"is_mobile" => $is_mobile,
+			'additional_file' => "",
+			"isLoggedIn" => $isLoggedIn,
+			"modules" => $this->modules,
+			"activePage" => $this->activePage
+        );
+		$this->load->view('front/common/header', $data);
         $this->load->view('front/privacy_policy', $data);
 		$this->load->view('front/common/footer', $data);
     }

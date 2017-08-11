@@ -53,6 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 $route['contact'] = 'home/contact';
 $route['syarat-dan-ketentuan'] = 'home/terms';
+$route['kebijakan-privasi'] = 'home/privacy_policy';
 $route['profil/(:any)'] = 'home/profil/$1';
 $route['profil/getStatistik'] = 'home/profil/getStatistik';
 $route['profil/getProfilRating'] = 'home/profil/getProfilRating';
