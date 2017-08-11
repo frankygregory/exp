@@ -112,7 +112,7 @@
 			<button class="btn btn-daftar" type="submit">Daftar</button>
 		</form>
 		<div class="login">
-			<span>Sudah daftar? <a href="<?= base_url() ?>#login">Go To Login</a></span>
+			<span>Sudah daftar? <a href="<?= base_url("login") ?>">Go To Login</a></span>
 		</div>
 	</div>
 </div>
