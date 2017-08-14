@@ -742,6 +742,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 				bidding_type: bidding_type,
 				bidding_price: bidding_price,
 				bidding_pickupdate: bidding_pickupdate,
+				bidding_vehicle: bidding_vehicle,
 				bidding_information: bidding_information,
 				shipment_id: shipment_id,
 				user_id: user_id

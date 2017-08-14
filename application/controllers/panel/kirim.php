@@ -585,6 +585,7 @@ class Kirim extends MY_Controller
 		if ($submit_bid != null) {
 			$bidding_type = $this->input->post("bidding_type");
 			$bidding_price = $this->input->post("bidding_price");
+			$bidding_vehicle = $this->input->post("bidding_vehicle");
 			$bidding_pickupdate = $this->input->post("bidding_pickupdate");
 			$bidding_pickupdate = date_format(new DateTime($bidding_pickupdate), "Y-m-d H:i:s");
 			$bidding_information = $this->input->post("bidding_information");
@@ -594,6 +595,7 @@ class Kirim extends MY_Controller
 			$data = array(
 				"bidding_type" => $bidding_type,
 				"bidding_price" => $bidding_price,
+				"bidding_vehicle" => $bidding_vehicle,
 				"bidding_pickupdate" => $bidding_pickupdate,
 				"bidding_information" => $bidding_information,
 				"shipment_id" => $shipment_id,
