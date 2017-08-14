@@ -4,6 +4,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-color: #FFF;
+    -webkit-filter: brightness(30%);
     filter: brightness(30%);
     position: absolute;
     top: 0;
@@ -44,12 +45,18 @@
     animation-delay: 2.5s;
 }
 
+@-webkit-keyframes anim {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
 @keyframes anim {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
 .section-2 .section-content.show .section-2-step-description {
+    -ms-animation-name: none;
     -webkit-animation-name: anim;
     -webkit-animation-duration: 0.5s;
     -webkit-animation-fill-mode: forwards;
@@ -284,4 +291,20 @@
         background-color: #777;
         margin: 20px auto;
     }
+}
+
+@media screen\0 {
+   .section-1-image:after {
+       content: "";
+       position: absolute;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background-color: rgba(0, 0, 0, 0.7);
+   }
+
+	.section-2-step-description {
+		opacity: 1;
+	}
 }

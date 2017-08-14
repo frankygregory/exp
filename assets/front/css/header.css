@@ -54,6 +54,12 @@
 		opacity: 0;
 	}
 
+	@-webkit-keyframes show-header-right {
+		to {
+			opacity: 1;
+		}
+	}
+
 	@keyframes show-header-right {
 		to {
 			opacity: 1;
@@ -62,6 +68,7 @@
 
 	.header-right.show {
 		display: block;
+		-ms-animation: none;
 		-webkit-animation: show-header-right 0.1s ease-out forwards;
         animation: show-header-right 0.1s ease-out forwards;
 	}
@@ -130,6 +137,12 @@
 		line-height: 10vw;
 		margin-bottom: 5vw;
 		text-decoration: none;
+	}
+}
+
+@media all and (max-width: 1024px), screen\0 {
+	.header-right.show {
+		opacity: 1;
 	}
 }
 
@@ -407,6 +420,17 @@
 
 .loading-div.shown {
 	display: block;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {

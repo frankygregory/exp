@@ -17,8 +17,8 @@
 		}
 	</style>
 	<link href="<?=base_url()?>assets/front/css/default.css?v=1" rel="stylesheet">
-	<link href="<?=base_url()?>assets/front/css/header.css?v=6" rel="stylesheet">
-	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css?v=8" rel="stylesheet">
+	<link href="<?=base_url()?>assets/front/css/header.css?v=7" rel="stylesheet">
+	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css?v=9" rel="stylesheet">
 	<?= $additional_file ?>
 
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
@@ -73,11 +73,11 @@
 var isMobile = false;
 var ajaxVariable;
 var verifiedIconUrl = "<?php echo base_url("assets/icons/ic_verified_user_black_24px.svg") ?>";
-$(function() {
+$(function(e) {
 	var mobileHeaderRightIcon = $(".mobile-header-right-icon");
 	if (mobileHeaderRightIcon.css("display") == "block") {
 		isMobile = true;
-
+		
 		mobileHeaderRightIcon[0].addEventListener("touchend", function() {
 			var headerRight = $(".header-right");
 			if (headerRight.hasClass("show")) {
@@ -117,15 +117,6 @@ function showLoading() {
 
 function hideLoading() {
 	$(".loading-div").removeClass("shown");
-}
-
-function toggleLoginDialog() {
-	if ($(".login-dialog").css("display") == "none") {
-		$(".login-dialog").css("display", "block");
-		$(".input-login-user_email").select();
-	} else {
-		hideLoginDialog();
-	}
 }
 
 function hideLoginDialog() {
@@ -168,7 +159,7 @@ function setLoading(element) {
 	$(element).addClass("shown");
 }
 
-function removeLoading(element = null) {
+function removeLoading(element) {
 	if (element) {
 		if ($(element).hasClass("default-loading-container")) {
 			$(element).removeClass("shown");
@@ -190,12 +181,6 @@ function addCommas(nStr) {
     }
     return x1 + x2;
 }
-
-/*function isNumber(e) {
-	if ((e.which >= 65 && e.which <= 90) || e.which >= 186) {
-		e.preventDefault();
-	}
-}*/
 
 function isNumber(e) {
 	if (e.key.length == 1) {
