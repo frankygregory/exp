@@ -80,6 +80,11 @@ $route['api/submit-kirim'] = 'api/submit_kirim';
 
 $route['admin'] = 'panel/admin';
 $route['admin/login_as'] = 'panel/admin/login_as';
+$route['admin/verifikasi-user'] = 'panel/admin/verifikasi_user';
+$route['admin/getUnverifiedUser'] = 'panel/admin/getUnverifiedUser';
+$route['admin/getSuratUser'] = 'panel/admin/getSuratUser';
+$route['admin/verifyUser'] = 'panel/admin/verifyUser';
+
 $route['dashboard'] = 'panel/dashboard';
 $route['dashboard/getKirimanCount'] = 'panel/dashboard/getKirimanCount';
 

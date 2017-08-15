@@ -16,6 +16,7 @@ class Admin extends MY_Controller
 
     public function index()
     {
+        $this->activeMenu["admin"] = "active";
         $data = array(
             'title' => 'Admin',
 			'page_title' => "Admin"
@@ -56,7 +57,66 @@ class Admin extends MY_Controller
                 $this->session->set_flashdata("flash_message", "Username / Email tidak ada");
                 header("Location: " . base_url("admin"));
             }
+        } else {
+            $this->session->set_flashdata("flash_message", "Username / Email tidak ada");
+            header("Location: " . base_url("admin"));
         }
+    }
+
+    public function verifikasi_user() {
+        $this->loadModule("pagination");
+        $this->activeMenu["verifikasi"] = "active";
+        $data = array(
+            'title' => 'Verifikasi',
+			'page_title' => "Verifikasi"
+        );
+
+        parent::template('verifikasi', $data);
+    }
+
+    public function getUnverifiedUser() {
+        parent::checkAjaxRequest();
+
+        $limit = $this->input->post("view_per_page");
+        $page = $this->input->post("page");
+        $change_page = $this->input->post("change_page");
+        $offset = ($page - 1) * $limit;
+
+        $data = array(
+            "limit" => $limit,
+            "offset" => $offset
+        );
+
+        $data = $this->Admin_model->getUnverifiedUser($data);
+
+        $result = new stdClass();
+		$result->data = $data;
+
+		if ($change_page == "false") {
+			$count = $this->Admin_model->getUnverifiedUserCount()[0]->count;
+			$result->count = $count;
+		}
+        echo json_encode($result);
+    }
+
+    public function getSuratUser() {
+        parent::checkAjaxRequest();
+
+        $user_id = $this->input->post("user_id", true);
+        $result = $this->Admin_model->getSuratUser($user_id)[0];
+        echo json_encode($result);
+    }
+
+    public function verifyUser() {
+        $user_id = $this->input->post("user_id", true);
+        $modified_by = $this->session->userdata("user_id");
+        
+        $data = array(
+            "user_id" => $user_id,
+            "modified_by" => $modified_by
+        );
+        $db = $this->Admin_model->verifyUser($data);
+        parent::generate_common_results($db, "ci");
     }
 
     public function setuserdata($user_id, $username, $user_fullname, $group_ids, $user_level, $role_id, $type_id, $menu, $urlpage)

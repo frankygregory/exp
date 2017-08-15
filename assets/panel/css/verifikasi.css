@@ -1,0 +1,179 @@
+.table-user {
+	margin: 0 auto;
+	width: auto !important;
+}
+
+.table-user thead {
+	background-color: white;
+}
+
+.table-user thead tr {
+	height: 50px;
+}
+
+.table-user thead td[data-sortable="true"] {
+	cursor: pointer;
+}
+
+.table-user thead td[data-sortable="true"]:hover {
+	background-color: #EEE;
+}
+
+.table-user .tr-icon {
+	margin-bottom: -5px;
+	margin-left: 10px;
+}
+
+.table-user thead td[data-sortable="true"][data-sort-value=""] .tr-icon {
+	display: none;
+}
+
+.table-user td[data-col="no"] {
+  width: 50px;
+}
+
+.table-user td[data-col="username"] {
+  width: 250px;
+}
+
+.table-user td[data-col="email"] {
+  width: 250px;
+}
+
+.table-user td[data-col="role"] {
+  width: 150px;
+}
+
+.table-user td[data-col="action"] {
+  width: 135px;
+}
+
+.table-empty-state {
+	width: 835px;
+}
+
+.subsection-sort {
+	float: right;
+	margin-right: -10px;
+}
+
+.subsection-sort .form-item {
+	width: 200px;
+	float: right;
+}
+
+table tbody tr:nth-child(even) {
+	background-color: transparent !important;
+}
+
+table tbody tr:nth-child(4n - 1), table tbody tr:nth-child(4n) {
+	background-color: #EEE !important;
+}
+
+.row-detail-tr {
+	height: 0;
+}
+
+.row-detail-tr.show {
+	height: 150px;
+}
+
+.row-detail-td {
+	display: none;
+	width: auto;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.row-detail-tr.show .row-detail-td {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.row-detail-td-content {
+	width: 100%;
+	min-height: 150px;
+	padding: 25px;
+	opacity: 0;
+  overflow: auto;
+}
+
+.row-detail-tr.show .row-detail-td-content {
+  -ms-animation-name: row-detail-td-show;
+  -ms-animation-duration: 0.3s;
+	-ms-animation-fill-mode: forwards;
+  -webkit-animation-name: row-detail-td-show;
+  -webkit-animation-duration: 0.3s;
+	-webkit-animation-fill-mode: forwards;
+	animation-name: row-detail-td-show;
+  animation-duration: 0.3s;
+	animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes row-detail-td-show {
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes row-detail-td-show {
+	to {
+		opacity: 1;
+	}
+}
+
+.detail-item {
+  float: left;
+  margin-right: 20px;
+  text-align: center;
+}
+
+.detail-image {
+  width: 100px;
+  height: 100px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.btn-verifikasi {
+  float: right;
+  margin-top: 30px;
+}
+
+.image-viewer {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 1500;
+}
+
+.image-viewer.shown {
+	display: block;
+}
+
+.image-viewer-close-icon {
+	display: block;
+	position: absolute;
+	top: 50px;
+	right: 50px;
+	cursor: pointer;
+}
+
+.image-viewer img {
+	position: absolute;
+	max-width: calc(100vw - 200px);
+	max-height: calc(100vh - 150px);
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	box-shadow: 0 0 50px #222;
+}

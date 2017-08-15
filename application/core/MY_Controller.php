@@ -28,6 +28,7 @@ class MY_Controller extends CI_Controller
         "user" => "",
         "rekanan" => "",
         "ulasan" => "",
+        "verifikasi" => "",
         "statistik" => ""
     );
     public function __construct()

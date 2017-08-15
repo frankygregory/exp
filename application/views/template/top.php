@@ -124,6 +124,9 @@
 			<a href="<?= base_url("admin") ?>" class="<?= $activeMenu["admin"] ?>">
 				<div>Admin</div>
 			</a>
+			<a href="<?= base_url("admin/verifikasi-user") ?>" class="<?= $activeMenu["verifikasi"] ?>">
+				<div>Verifikasi User</div>
+			</a>
 <?php   } ?>
 		</div>
 		<div class="container-content">
