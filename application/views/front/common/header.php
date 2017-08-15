@@ -77,18 +77,18 @@ $(function(e) {
 	var mobileHeaderRightIcon = $(".mobile-header-right-icon");
 	if (mobileHeaderRightIcon.css("display") == "block") {
 		isMobile = true;
-		
-		mobileHeaderRightIcon[0].addEventListener("touchend", function() {
-			var headerRight = $(".header-right");
-			if (headerRight.hasClass("show")) {
-				headerRight.removeClass("show");
-				mobileHeaderRightIcon.css("background-image", "url('<?php echo base_url("assets/icons/header_menu_icon.svg"); ?>')");
-			} else {
-				headerRight.addClass("show");
-				mobileHeaderRightIcon.css("background-image", "url('<?php echo base_url("assets/icons/header_menu_close_icon.svg"); ?>')");
-			}
-		});
 	}
+
+	mobileHeaderRightIcon[0].addEventListener("click", function() {
+		var headerRight = $(".header-right");
+		if (headerRight.hasClass("show")) {
+			headerRight.removeClass("show");
+			mobileHeaderRightIcon.css("background-image", "url('<?php echo base_url("assets/icons/header_menu_icon.svg"); ?>')");
+		} else {
+			headerRight.addClass("show");
+			mobileHeaderRightIcon.css("background-image", "url('<?php echo base_url("assets/icons/header_menu_close_icon.svg"); ?>')");
+		}
+	});
 <?php
 	if ($isLoggedIn) {	?>
 		$("body:not(.profile-dropdown)").on("click", function(e) {
