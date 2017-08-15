@@ -81,6 +81,7 @@ $route['api/submit-kirim'] = 'api/submit_kirim';
 $route['admin'] = 'panel/admin';
 $route['admin/login_as'] = 'panel/admin/login_as';
 $route['dashboard'] = 'panel/dashboard';
+$route['dashboard/getKirimanCount'] = 'panel/dashboard/getKirimanCount';
 
 $route['cari-kiriman-bisnis'] = 'panel/kirim/pro';
 $route['cari-kiriman-bisnis/getKirimanPro'] = 'panel/kirim/getKirimanPro';

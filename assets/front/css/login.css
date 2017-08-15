@@ -2,6 +2,14 @@
 	color: red;
 }
 
+a:visited {
+	color: blue;
+}
+
+.forgot-password {
+	float: right;
+}
+
 @media all and (max-width: 1024px) {
 	.content {
 		min-height: 100vw;
@@ -24,7 +32,7 @@
 		margin-bottom: 15vw;
 	}
 
-	.label, input {
+	.label, input, .forgot-password {
 		font-size: 5vw;
 	}
 
@@ -41,6 +49,10 @@
 		float: right;
 	}
 
+	.forgot-password {
+		margin-bottom: 5vw;
+	}
+
 	.btn-login {
 		width: 100%;
 		padding: 5vw 0 !important;
@@ -53,7 +65,7 @@
 		margin-bottom: 10vw;
 	}
 
-	.label, input {
+	.label, input, .forgot-password {
 		font-size: 4vw;
 	}
 
@@ -95,7 +107,7 @@
 		margin-bottom: 50px;
 	}
 
-	.label, input {
+	.label, input, .forgot-password {
 		font-size: 12pt;
 	}
 

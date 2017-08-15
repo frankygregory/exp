@@ -11,6 +11,7 @@
             <input type="password" class="section-login-password" maxlength="30" />
             <div class="error error-password"></div>
         </div>
+        <a class="forgot-password" href="<?php echo base_url("forgot-password"); ?>">Lupa Password</a>
         <button class="btn-default btn-login">LOGIN</button>
         <div class="loading-div">
             <div class="loading-circle"></div>

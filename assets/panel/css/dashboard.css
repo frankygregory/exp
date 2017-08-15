@@ -1,0 +1,86 @@
+.content {
+    width: 970px;
+}
+
+.dashboard-item {
+    float: left;
+}
+
+.dashboard-item .value {
+    display: block;
+    font-size: 28pt;
+    font-weight: bold;
+}
+
+.dashboard-item-separator {
+    float: left;
+    width: 2px;
+    height: 60px;
+    background-color: #AAA;
+    margin: 0 50px;
+}
+
+.section {
+	overflow: auto;
+    margin-bottom: 50px;
+}
+
+.rating-total {
+    height: 80px;
+    float: right;
+}
+
+.rating-label {
+	float: left;
+	font-size: 14pt;
+	line-height: 80px;
+	margin-right: 10px;
+}
+
+.rating-total-number {
+	float: left;
+	width: 80px;
+	height: 80px;
+	line-height: 80px;
+	text-align: center;
+	font-size: 20pt;
+	border: 1px solid black;
+	border-radius: 100%;
+}
+
+.section-2 {
+    float: left;
+    margin-right: 50px;
+}
+
+.section-title {
+	font-size: 14pt;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.table-statistik-kiriman-container, .table-statistik-bidding-container {
+	width: 460px;
+	position: relative;
+}
+
+table td {
+	width: 90px;
+	text-align: center;
+    border-bottom: 1px solid #BDBDBD;
+}
+
+.tr-col-header {
+	font-weight: bold;
+}
+
+.tr-col-header td {
+	font-size: 11pt;
+}
+
+.td-row-header {
+	width: 60px;
+	text-align: right;
+	font-weight: bold;
+    font-size: 11pt;
+}

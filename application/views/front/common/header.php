@@ -18,7 +18,7 @@
 	</style>
 	<link href="<?=base_url()?>assets/front/css/default.css?v=1" rel="stylesheet">
 	<link href="<?=base_url()?>assets/front/css/header.css?v=7" rel="stylesheet">
-	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css?v=9" rel="stylesheet">
+	<link href="<?=base_url()?>assets/front/css/<?= $page_name ?>.css?v=10" rel="stylesheet">
 	<?= $additional_file ?>
 
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
