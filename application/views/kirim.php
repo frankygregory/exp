@@ -216,4 +216,4 @@ var shipmentUrl = "<?php echo base_url("kirim/detail/"); ?>";
 var shipmentPictureUrl = "<?php echo base_url("assets/panel/images/"); ?>";
 var defaultPictureUrl = "<?php echo base_url("assets/panel/images/default.gif"); ?>";
 </script>
-<script src="<?php echo base_url("assets/panel/js/kirim_minified.js"); ?>" ></script>
+<script src="<?php echo base_url("assets/panel/js/kirim.js"); ?>" defer></script>
