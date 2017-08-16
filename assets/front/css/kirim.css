@@ -20,5 +20,5 @@ input[type="text"]:focus {
 }
 
 .table-kiriman.fixed thead {
-	top: 170px;
+	top: 160px !important;
 }
