@@ -334,6 +334,8 @@ class Kirim extends MY_Controller
 		if ($user_id == $data[0]->created_by) {
 			$isOwner = true;
 		}
+
+		$verified_icon = ($data[0]->user_verified == 0) ? "" : "<span class='verified-icon' style='background-image: url(" . base_url("assets/icons/ic_verified_user_black_24px.svg") . ");'></span>";
 		
 		$data = array(
 			'title' => 'Kirim Barang',
@@ -344,6 +346,8 @@ class Kirim extends MY_Controller
 			'user_id' => $user_id,
 			'username' => $user_username,
 			'role_id' => $user_role,
+			"user_verified" => $data[0]->user_verified,
+			"verified_icon" => $verified_icon,
 			'isOwner' => $isOwner,
 			'expedition_id' => $data[0]->expedition_id,
 			'shipment_owner_id' => $data[0]->created_by,

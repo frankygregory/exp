@@ -142,9 +142,9 @@ var dialog = {
 	shown: false
 };
 var ajaxVariable;
-var verifiedIconUrl = "<?php echo base_url("assets/icons/ic_verified_user_black_24px.svg") ?>";
-var editIconUrl = "<?php echo base_url("assets/icons/ic_edit_black_24px.svg") ?>";
-var deleteIconUrl = "<?php echo base_url("assets/icons/ic_delete_forever_black_24px.svg") ?>";
+var verifiedIconUrl = "<?php echo base_url("assets/icons/ic_verified_user_black_24px.svg"); ?>";
+var editIconUrl = "<?php echo base_url("assets/icons/ic_edit_black_24px.svg"); ?>";
+var deleteIconUrl = "<?php echo base_url("assets/icons/ic_delete_forever_black_24px.svg"); ?>";
 $(function() {
 	$(".nav-account").on("click", function(e) {
 		toggleProfileDropdown(e);

@@ -21,7 +21,10 @@
 					<tr>
 						<td class="td-label">Pelanggan</td>
 						<td class="td-titikdua">:</td>
-						<td><a href="<?= base_url("profil/") . $shipment_user_id ?>"><?= $shipment_owner_username ?></a></td>
+						<td>
+							<a href="<?= base_url("profil/") . $shipment_user_id ?>"><?= $shipment_owner_username ?></a>
+							<?php echo $verified_icon; ?>
+						</td>
 					</tr>
 					<tr>
 						<td class="td-label">Harga yang ditawarkan</td>
@@ -315,6 +318,7 @@
 	</div>
 </div>
 <script>
+var verified_icon = "<?php echo $verified_icon; ?>";
 var map;
 var marker_from, marker_to;
 var lat, lng, center_from;
@@ -820,7 +824,7 @@ function addDiscussionToTable(result) {
 		var jLength = answers.length;
 		for (var j = 0; j < jLength; j++) {
 			element += "<div class='answers'>";
-			element += "<div class='answers-user-id'><a href='" + profilUrl + shipment_user_id + "'><?= $shipment_owner_username ?></a></div>";
+			element += "<div class='answers-user-id'><a href='" + profilUrl + shipment_user_id + "'><?= $shipment_owner_username ?></a>" + verified_icon + "</div>";
 			element += "<div class='answers-text'>" + answers[j].answers_text + "</div>";
 			element += "<div class='discussion-item-time'>" + answers[j].created_date + "</div>";
 			element += "</div>";

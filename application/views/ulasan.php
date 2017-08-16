@@ -56,6 +56,8 @@ function getMyFeedback() {
 		var element = "";
 		var iLength = result.length;
 		for (var i = 0; i < iLength; i++) {
+			var icon = (result[i].user_verified == 0) ? "" : "<span class='verified-icon' style='background-image: url(" + verifiedIconUrl + ");'><div></div></span>";
+
 			element += '<div class="feedback-item">';
 			element += '<div class="feedback-item-left">';
 			element += '<table>';
@@ -66,7 +68,7 @@ function getMyFeedback() {
 			element += '</tr>';
 			element += '<tr>';
 			element += '<td class="td-label">Oleh</td>';
-			element += '<td class="td-value"><a href="' + profilUrl + result[i].created_by + '">' + result[i].username + '</a></td>';
+			element += '<td class="td-value"><a href="' + profilUrl + result[i].created_by + '">' + result[i].username + icon + '</a></td>';
 			element += '</tr>';
 			element += '<tr>';
 			element += '<td class="td-label">Kiriman</td>';

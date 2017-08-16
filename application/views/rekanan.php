@@ -365,6 +365,7 @@ function addRekananToTable(result, tabsNumber, tab) {
 	};
 	
 	for (var i = 0; i < iLength; i++) {
+		var icon = (result[i].user_verified == 0) ? "" : "<span class='verified-icon' style='background-image: url(" + verifiedIconUrl + ");'><div></div></span>";
 		var status = "";
 		switch(result[i].user_party_status) {
 			case "1":
@@ -390,7 +391,7 @@ function addRekananToTable(result, tabsNumber, tab) {
 		
 		element[tab].value += "<tr class='tr-rekanan' data-id='" + result[i].party_id + "' data-username='" + result[i].party_username + "'>";
         element[tab].value += "<td data-align='center'>" + (i + 1) + "</td>";
-        element[tab].value += "<td>" + result[i].party_username + "</td>";
+        element[tab].value += "<td>" + result[i].party_username + icon + "</td>";
         element[tab].value += "<td>" + result[i].party_fullname + "</td>";
         element[tab].value += "<td>" + status + "</td>";
 		element[tab].value += "</tr>";

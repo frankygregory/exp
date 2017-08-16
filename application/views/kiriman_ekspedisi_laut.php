@@ -771,7 +771,8 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				break;
 			case "cancel":
 				btnViewKontak = "";
-				tdCancelBy = "<td class='td-cancel_by'><a href='" + profilUrl + result[i].cancel_by + "'>" + result[i].cancel_username + "</a></td>";
+				var icon = (result[i].user_verified == 0) ? "" : "<span class='verified-icon' style='background-image: url(" + verifiedIconUrl + ");'><div></div></span>";
+				tdCancelBy = "<td class='td-cancel_by'><a href='" + profilUrl + result[i].cancel_by + "'>" + result[i].cancel_username + icon + "</a></td>";
 				break;
 		}
 		

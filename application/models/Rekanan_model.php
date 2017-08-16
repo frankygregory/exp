@@ -9,7 +9,7 @@ class Rekanan_model extends CI_Model
 	
 	public function getRekanan($user_id) {
         $query = $this->db->query("
-            SELECT up.party_id, up.user_party_status, u.username AS party_username, u.user_fullname AS party_fullname
+            SELECT up.party_id, up.user_party_status, u.username AS party_username, u.user_fullname AS party_fullname, u.user_verified
             FROM `m_user_party` up
             LEFT JOIN `m_user` u
             ON up.party_id = u.user_id
@@ -20,7 +20,7 @@ class Rekanan_model extends CI_Model
 
     public function getPendingRekanan($user_id) {
         $query = $this->db->query("
-            SELECT up.party_id, up.user_party_status, u.username AS party_username, u.user_fullname AS party_fullname
+            SELECT up.party_id, up.user_party_status, u.username AS party_username, u.user_fullname AS party_fullname, u.user_verified
             FROM `m_user_party` up
             LEFT JOIN `m_user` u
             ON up.party_id = u.user_id
