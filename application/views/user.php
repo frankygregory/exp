@@ -541,6 +541,7 @@ function checkUsernameKembar(data) {
 			if (result.result == "tidak_kembar") {
 				addValidPoints(data);
 			} else {
+				hideFullscreenLoading();
 				$(".input-insert-username").next().html("Username sudah ada");
 			}
 		}
@@ -554,6 +555,7 @@ function checkEmailKembar(data) {
 			if (result.result == "tidak_kembar") {
 				addValidPoints(data);
 			} else {
+				hideFullscreenLoading();
 				$(".input-insert-user_email").next().html("Email sudah ada");
 			}
 		}
