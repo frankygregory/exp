@@ -162,6 +162,21 @@
 	</div>
 </div>
 <div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-cancel-pending">
+		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
+			<div class="dialog-title">Batalkan User</div>
+		</div>
+		<div class="dialog-body">
+			<div></div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-negative btn-submit-cancel-pending">Batal</button>
+			<button type="button" class="btn-neutral btn-batal">Tidak jadi</button>
+		</div>
+	</div>
+</div>
+<div class="dialog-background">
 	<div class="dialog dialog-tambah-group">
 		<div class="dialog-header">
 			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
@@ -224,7 +239,10 @@
 </div>
 <div class="content">
 	<div class="section-1">
-		<button type="button" class="btn-default btn-tambah-user">Tambah User</button>
+		<div class="section-header">
+			<span class="section-title">User</span>
+			<button type="button" class="btn-default btn-tambah-user">Tambah User</button>
+		</div>
 		<div class="table-container">
 			<table class="table table-user">
 				<thead>
@@ -241,11 +259,36 @@
 				<tbody class="tbody-user">
 				</tbody>
 			</table>
-			<div class="table-empty-state">Tidak ada user</div>
+			<div class="table-empty-state" id="section-1-table-empty-state">Tidak ada user</div>
 		</div>
 	</div>
 	<div class="section-2">
-		<button type="button" class="btn-default btn-tambah-group">Tambah Group</button>
+		<div class="section-header">
+			<span class="section-title">User Pending</span>
+		</div>
+		<div class="table-container">
+			<table class="table table-user-pending">
+				<thead>
+					<tr>
+						<td class='td-no' data-col='no' data-align='center'>No.</td>
+						<td data-col='nama'>Nama</td>
+						<td data-col='email'>Email</td>
+						<td data-col='group'>Group</td>
+						<td data-col='level'>Level</td>
+						<td data-col='action'>Action</td>
+					</tr>
+				</thead>
+				<tbody class="tbody-user-pending">
+				</tbody>
+			</table>
+			<div class="table-empty-state" id="section-2-table-empty-state">Tidak ada user pending</div>
+		</div>
+	</div>
+	<div class="section-3">
+		<div class="section-header">
+			<span class="section-title">Group</span>
+			<button type="button" class="btn-default btn-tambah-group">Tambah Group</button>
+		</div>
 		<table class="table table-group">
 			<thead>
 				<tr>
@@ -266,6 +309,7 @@
 var validPoints = 0;
 $(function() {
 	getUser();
+	getUserPending();
 	getMyGroups();
 	
 	$(".btn-tambah-user").on("click", function() {
@@ -312,6 +356,20 @@ $(function() {
 	
 	$(".btn-submit-delete-user").on("click", function() {
 		deleteUser();
+	});
+
+	$(document).on("click", ".btn-cancel-pending", function() {
+		var trUserPending = $(this).closest(".tr-user-pending");
+		var verifikasi_id = trUserPending.data("id");
+		var user_email = trUserPending.data("user_email");
+		var user_fullname = trUserPending.data("user_fullname");
+		$(".dialog-konfirmasi-cancel-pending").data("verifikasi_id", verifikasi_id);
+		$(".dialog-konfirmasi-cancel-pending .dialog-body").html("Batalkan penambahan user " + user_fullname + "?");
+		showDialog(".dialog-konfirmasi-cancel-pending");
+	});
+
+	$(".btn-submit-cancel-pending").on("click", function() {
+		cancelPending();
 	});
 	
 	$(".btn-tambah-group").on("click", function() {
@@ -452,6 +510,21 @@ function cekUserEditInputError(user_fullname, group_ids, user_level) {
 	return valid;
 }
 
+function cancelPending() {
+	showFullscreenLoading();
+	var verifikasi_id = $(".dialog-konfirmasi-cancel-pending").data("verifikasi_id");
+	ajaxCall("<?php echo base_url("user/cancelPending"); ?>", {verifikasi_id: verifikasi_id}, function(json) {
+		hideFullscreenLoading();
+		var result = jQuery.parseJSON(json);
+		if (result.status == "success") {
+			closeDialog();
+			getUserPending();
+		} else {
+
+		}
+	});
+}
+
 function deleteUser() {
 	showFullscreenLoading();
 	var user_id = $(".dialog-konfirmasi-delete-user").data("id");
@@ -572,11 +645,68 @@ function addValidPoints(data) {
 			if (result.status == "success") {
 				alert(result.message);
 				getUser();
+				getUserPending();
 			} else {
 				alert(result.status);
 			}
 		});
 	}
+}
+
+function getUserPending() {
+	$(".tbody-user-pending").html("");
+	setLoading(".section-2 .table-empty-state");
+	ajaxCall("<?= base_url("user/getUserPending") ?>", null, function(json) {
+		removeLoading(".section-2 .table-empty-state");
+		var result = jQuery.parseJSON(json);
+		addUserPendingToTable(result);
+	});
+}
+
+function addUserPendingToTable(result) {
+	var element = "";
+	var iLength = result.length;
+	for (var i = 0; i < iLength; i++) {
+		if (result[i].verifikasi_id != null) {
+			var group_names = "";
+			var group_name = (result[i].group_ids + "").split(",");
+			
+			group_names += group_name[0];
+			for (var j = 1; j < group_name.length; j++) {
+				group_names += ", " + group_name[j];
+			}
+			if (group_names == "") {
+				group_names = "default";
+			}
+			
+			var user_level = "", adminChecked = "", dataUserLevel = "";
+			if (result[i].user_level == 2) {
+				user_level = "Super Admin";
+				dataUserLevel = "super";
+			} else if (result[i].user_level == 3) {
+				user_level = " Admin";
+				dataUserLevel = "admin";
+			}
+
+			var btnBatal = "<button class='btn-negative btn-cancel-pending'>Batal</button>";
+			
+			element += "<tr class='tr-user-pending' data-id='" + result[i].verifikasi_id + "' data-user_fullname='" + result[i].user_fullname + "' data-user_email='" + result[i].user_email + "'>";
+			element += "<td data-col='no' data-align='center'>" + (i + 1) + "</td>";
+			element += "<td class='td-user_fullname' data-col='nama'>" + result[i].user_fullname + "</td>";
+			element += "<td class='td-user_email' data-col='email'>" + result[i].user_email + "</td>";
+			element += "<td class='td-user_group' data-col='group' data-group_ids='" + result[i].group_ids + "'>" + group_names + "</td>";
+			element += "<td class='td-user_level' data-col='level' data-user_level='" + dataUserLevel + "'>" + user_level + "</td>";
+			element += "<td data-col='action'>" + btnBatal + "</td>";
+			element += "</tr>";
+		}
+	}
+	
+	if (iLength == 0) {
+		$("#section-2-table-empty-state").addClass("shown");
+	} else {
+		$("#section-2-table-empty-state").removeClass("shown");
+	}
+	$(".tbody-user-pending").html(element);
 }
 
 function getUser() {
@@ -635,10 +765,10 @@ function addUserToTable(result) {
 	}
 	
 	if (iLength == 0) {
-		$(".section-1 .table-empty-state").addClass("shown");
+		$("#section-1-table-empty-state").addClass("shown");
 		
 	} else {
-		$(".section-1 .table-empty-state").removeClass("shown");
+		$("#section-1-table-empty-state").removeClass("shown");
 	}
 	$(".tbody-user").html(element);
 }
@@ -705,7 +835,7 @@ function getMyGroups() {
 	$(".tbody-group").html("");
 	setLoading(".section-2 .table-empty-state");
 	ajaxCall("<?= base_url("user/getMyGroups") ?>", null, function(json) {
-		removeLoading(".section-2 .table-empty-state");
+		removeLoading(".section-3 .table-empty-state");
 		var result = jQuery.parseJSON(json);
 		addGroupsToTable(result);
 	});
@@ -736,10 +866,10 @@ function addGroupsToTable(result) {
 	}
 
 	if (iLength == 0) {
-		$(".section-2 .table-empty-state").addClass("shown");
+		$(".section-3 .table-empty-state").addClass("shown");
 		
 	} else {
-		$(".section-2 .table-empty-state").removeClass("shown");
+		$(".section-3 .table-empty-state").removeClass("shown");
 	}
 
 	$(".tbody-group").html(element);

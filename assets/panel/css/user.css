@@ -1,10 +1,21 @@
-.section-1 {
-	height: 400px;
+.section-1, .section-2 {
+	max-height: 400px;
+	min-height: 100px;
 	margin-bottom: 50px;
 }
 
-.btn-tambah-user, .btn-tambah-group {
+.section-3 {
+	margin-bottom: 50px;
+}
+
+.section-header {
 	margin-bottom: 20px;
+}
+
+.section-title {
+	font-weight: bold;
+	font-size: 14pt;
+	padding-right: 50px;
 }
 
 label {
@@ -31,7 +42,7 @@ label {
 	float: right;
 }
 
-.table-user, .table-group {
+.table-user, .table-user-pending, .table-group {
 	display: block;
 }
 
@@ -39,7 +50,11 @@ label {
 	width: 1040px !important;
 }
 
-.table-group, .section-2 .table-empty-state {
+.table-user-pending, .section-2 .table-empty-state {
+	width: 940px !important;
+}
+
+.table-group, .section-3 .table-empty-state {
 	width: 370px !important;
 }
 

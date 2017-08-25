@@ -24,6 +24,15 @@ class User_model extends CI_Model{
 		$data = $this->db->query($str);
 		return $data->result();
 	}
+
+	public function getOtherUserPending($data) {
+		$query = $this->db->query("
+			SELECT v.*
+			FROM `verifikasi` v
+			WHERE user_id_ref = " . $data["user_id"] . " AND verifikasi_status = 1
+		");
+		return $query->result();
+	}
 	
 	public function add_other_user($data) {
 		$data["password"] = md5($data["password"]);
@@ -50,6 +59,16 @@ class User_model extends CI_Model{
 	public function deleteUser($data) {
 		$query = $this->db->query("CALL delete_other_user('" . $data["other_user_id"] . "', '" . $data["user_id"] . "');");
 		return 1;
+	}
+
+	public function cancelPending($data) {
+		$this->db->where("verifikasi_id", $data["verifikasi_id"]);
+		$updateData = array(
+			"verifikasi_status" => 0,
+			"modified_by" => $data["user_id"]
+		);
+		$this->db->update("verifikasi", $updateData);
+		return $this->db;
 	}
 	
 	public function getMyGroups($user_id) {

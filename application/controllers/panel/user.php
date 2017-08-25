@@ -34,6 +34,17 @@ class User extends MY_Controller
 		$users = $this->User_model->getOtherUser($data);
 		echo json_encode($users);
 	}
+
+	public function getUserPending() {
+		parent::checkAjaxRequest();
+
+		$user_id = $this->session->userdata("user_id");
+		$data = array(
+			"user_id" => $user_id
+		);
+		$users = $this->User_model->getOtherUserPending($data);
+		echo json_encode($users);
+	}
 	
 	public function getMyGroups() {
 		parent::checkAjaxRequest();
@@ -226,5 +237,18 @@ class User extends MY_Controller
 		} else {
 			echo "no rows affected. WHY??";
 		}
+	}
+
+	public function cancelPending() {
+		parent::checkAjaxRequest();
+		
+		$verifikasi_id = $this->input->post("verifikasi_id", true);
+		$user_id = $this->session->userdata("user_id");
+		$data = array(
+			"verifikasi_id" => $verifikasi_id,
+			"user_id" => $user_id
+		);
+		$db = $this->User_model->cancelPending($data);
+		parent::generate_common_results($db);
 	}
 }
