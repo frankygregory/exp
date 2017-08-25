@@ -54,6 +54,7 @@ class Registration_model extends CI_Model
 
 	public function getVerificationToken($verifikasi_id) {
 		$this->db->select("verifikasi_token, user_email, user_fullname");
+		$this->db->where("verifikasi_id", $verifikasi_id);
 		$this->db->where("verifikasi_status", 1);
 		$this->db->limit("1");
 		return $this->db->get("verifikasi")->result();
