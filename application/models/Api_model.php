@@ -13,6 +13,16 @@ class Api_model extends CI_Model
         return $query->result();
     }
 
+    public function updateFirebaseToken($data) {
+        $this->db->where("device_id", $data["device_id"]);
+        $this->db->where("token", $data["token"]);
+        $updateData = array(
+            "firebase_token" => $data["firebase_token"]
+        );
+        $this->db->update("m_device_customer", $updateData);
+        return $this->db;
+    }
+
     public function cekToken($data) {
         $data["token"] = hash("sha256", $data["token"]);
         $query = $this->db->query("

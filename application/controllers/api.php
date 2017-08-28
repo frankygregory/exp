@@ -46,6 +46,33 @@ class Api extends CI_Controller
 		}
 	}
 
+	public function update_firebase_token() {
+		$device_id = $this->input->post("device_id", true);
+		$token = $this->input->post("token", true);
+		$firebase_token = $this->input->post("firebase_token", true);
+		if ($device_id && $token && $firebase_token) {
+			$data = array(
+				"device_id" => $device_id,
+				"token" => $token,
+				"firebase_token" => $firebase_token
+			);
+			$db = $this->Api_model->updateFirebaseToken($data);
+			if ($db->error()["code"] == "0") {
+                echo json_encode(array(
+                    "status" => "success"
+                ));
+            } else {
+                echo json_encode(array(
+                    "status" => "error",
+                    "error_code" => $db->error()["code"],
+                    "error_message" => $db->error()["message"]
+                ));
+            }
+		} else {
+			echo "{}";
+		}
+	}
+
 	public function device_get_shipment($id) {
 		$token = $this->input->post("token", true);
 		$data = array(
