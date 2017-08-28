@@ -32,10 +32,12 @@ class Api extends CI_Controller
 	public function login() {
 		$device_email = $this->input->post("email", true);
 		$device_password = $this->input->post("password", true);
+		$firebase_token = $this->input->post("firebase_token", true);
 		if ($device_email != null && $device_password != null) {
 			$data = array(
 				"device_email" => $device_email,
-				"device_password" => $device_password
+				"device_password" => $device_password,
+				"firebase_token" => $firebase_token
 			);
 			$result = $this->Api_model->login($data)[0];
 			echo json_encode($result);
