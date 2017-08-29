@@ -60,7 +60,7 @@ class Api_model extends CI_Model
 
     public function answerLocationRequest($data) {
         $this->db->where("device_gps_id", $data["device_gps_id"]);
-        $this->db->where("device_id", $data["device_id"]);
+        //$this->db->where("firebase_token", $data["firebase_token"]);
         $this->db->where("device_gps_type", "request");
         $this->db->where("device_gps_type_status", 1);
 

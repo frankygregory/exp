@@ -129,16 +129,16 @@ class Api extends CI_Controller
 	}
 
 	public function answer_location_request() {
-		$device_id = $this->input->post("device_id", true);
+		$firebase_token = $this->input->post("firebase_token", true);
 		$device_gps_id = $this->input->post("device_gps_id", true);
 		$device_gps_lat = $this->input->post("lat", true);
 		$device_gps_lng = $this->input->post("lng", true);
 		$device_gps_accuracy = $this->input->post("accuracy", true);
 
-		if ($device_id && $device_gps_id && $device_gps_lat && $device_gps_lng && $device_gps_accuracy) {
+		if ($firebase_token && $device_gps_id && $device_gps_lat && $device_gps_lng && $device_gps_accuracy) {
 			$data = array(
 				"device_gps_id" => $device_gps_id,
-				"device_id" => $device_id,
+				"firebase_token" => $firebase_token,
 				"device_gps_lat" => $device_gps_lat,
 				"device_gps_lng" => $device_gps_lng,
 				"device_gps_accuracy" => $device_gps_accuracy
