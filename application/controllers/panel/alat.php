@@ -27,15 +27,15 @@ class Alat extends MY_Controller
 		$data = array(
 			"device_id" => $device_id
 		);
-		$device_gps_id = $this->Alat_model->getAlatLocation($data);
-		if ($device_gps_id) {
+		$result = $this->Alat_model->getAlatLocation($data)[0];
+		if ($result->status == "success") {
 			$postData = array(
 				"data" => array(
 					"message" => "coba kirim dari php",
 					"type" => "request_location",
-					"device_gps_id" => $device_gps_id
+					"device_gps_id" => $result->device_gps_id
 				),
-				"to" => "cg_KSuvgTU8:APA91bHRFYXbm_5uD6wibQRrJJQpUWfQA6UaUCIgIYYfXI88BGyxvWG-xG6B0xL-emA9m5IdezkTBeHDVJaa1q-5QgJT1ByzTayb677msR8okj5M0Wy1gxsZR3p9Qa2651hD7PYO3mBD"
+				"to" => $result->firebase_token
 			);
 	
 			$ch = curl_init('https://fcm.googleapis.com/fcm/send');

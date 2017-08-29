@@ -71,13 +71,15 @@ class Alat_model extends CI_Model
 	}
 
 	public function getAlatLocation($data) {
-		$insertData = array(
+		/*$insertData = array(
 			"device_id" => $data["device_id"],
 			"device_gps_type" => "request",
 			"device_gps_type_status" => 1
 		);
 		$this->db->insert("t_device_gps", $insertData);
-		return $this->db->insert_id();
+		return $this->db->insert_id();*/
+		$query = $this->db->query("CALL device_get_location(" . $data["device_id"] . ");");
+		return $query->result();
 	}
 
 	public function getAlatLastLocation($data) {
