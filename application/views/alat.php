@@ -206,7 +206,8 @@ $(function() {
 	});
 
 	$(document).on("click", ".btn-lokasi", function() {
-		getAlatLocation();
+		var device_id = $(this).closest(".tr-alat").data("id");
+		getAlatLocation(device_id);
 	});
 	
 	$(document).on("click", ".btn-delete", function() {
@@ -254,9 +255,14 @@ $(function() {
 	
 });
 
-function getAlatLocation() {
-	ajaxCall("<?php echo base_url("alat/getAlatLocation"); ?>", null, function(json) {
-		alert(json);
+function getAlatLocation(device_id) {
+	ajaxCall("<?php echo base_url("alat/getAlatLocation"); ?>", {device_id: device_id}, function(json) {
+		var result = jQuery.parseJSON(json);
+		if (result.success == 1) {
+			alert("success");
+		} else {
+			
+		}
 	});
 }
 

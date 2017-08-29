@@ -9,18 +9,7 @@ class Alat_model extends CI_Model
 	
 	public function addAlat($data) {
 		$data["device_password"] = md5($data["device_password"]);
-		/*$insertData = array(
-			"device_name" => $data["device_name"],
-			"device_information" => $data["device_information"],
-			"device_email" => $data["device_email"],
-			"device_password" => $data["device_password"],
-			"device_status" => $data["device_status"],
-			"user_id" => $data["user_id"],
-			"created_by" => $data["user_id"],
-			"modified_by" => $data["user_id"]
-		);
-			
-		$this->db->insert("m_device_customer", $insertData);*/
+		
 		$query = $this->db->query("CALL add_device('" . $data["device_name"] . "', '" . $data["device_information"] . "', '" . $data["device_email"] . "', '" . $data["device_password"] . "', '" . $data["device_status"] . "', '" . $data["user_id"] . "');");
 		return $query->result();
 	}
@@ -79,5 +68,15 @@ class Alat_model extends CI_Model
 		);
 		$this->db->update("m_device_customer", $updateData);
 		return $this->db;
+	}
+
+	public function getAlatLocation($data) {
+		$insertData = array(
+			"device_id" => $data["device_id"],
+			"device_gps_type" => "request",
+			"device_gps_type_status" => 1
+		);
+		$this->db->insert("t_device_gps", $insertData);
+		return $this->db->insert_id();
 	}
 }

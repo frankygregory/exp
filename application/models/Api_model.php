@@ -58,6 +58,22 @@ class Api_model extends CI_Model
         return $this->db->affected_rows();
     }
 
+    public function answerLocationRequest($data) {
+        $this->db->where("device_gps_id", $data["device_gps_id"]);
+        $this->db->where("device_id", $data["device_id"]);
+        $this->db->where("device_gps_type", "request");
+        $this->db->where("device_gps_type_status", 1);
+
+        $updateData = array(
+            "device_gps_lat" => $data["device_gps_lat"],
+            "device_gps_lng" => $data["device_gps_lng"],
+            "device_gps_accuracy" => $data["device_gps_accuracy"],
+            "device_gps_type_status" => 0
+        );
+        $this->db->update("t_device_gps", $updateData);
+        return $this->db;
+    }
+
     public function submitAmbil($data) {
 		$data["token"] = hash("sha256", $data["token"]);
 		$query = $this->db->query("CALL device_ambil_kiriman('" . $data["shipment_id"] . "', '" . $data["device_id"] . "', '" . $data["token"] . "');");

@@ -128,6 +128,38 @@ class Api extends CI_Controller
 		}
 	}
 
+	public function answer_location_request() {
+		$device_id = $this->input->post("device_id", true);
+		$device_gps_id = $this->input->post("device_gps_id", true);
+		$device_gps_lat = $this->input->post("lat", true);
+		$device_gps_lng = $this->input->post("lng", true);
+		$device_gps_accuracy = $this->input->post("accuracy", true);
+
+		if ($device_id && $device_gps_id && $device_gps_lat && $device_gps_lng && $device_gps_accuracy) {
+			$data = array(
+				"device_gps_id" => $device_gps_id,
+				"device_id" => $device_id,
+				"device_gps_lat" => $device_gps_lat,
+				"device_gps_lng" => $device_gps_lng,
+				"device_gps_accuracy" => $device_gps_accuracy
+			);
+			$db = $this->Api_model->answerLocationRequest($data);
+			if ($db->error()["code"] == "0") {
+                echo json_encode(array(
+                    "status" => "success"
+                ));
+            } else {
+                echo json_encode(array(
+                    "status" => "error",
+                    "error_code" => $db->error()["code"],
+                    "error_message" => $db->error()["message"]
+                ));
+            }
+		} else {
+			echo "{}";
+		}
+	}
+
 	public function submit_terima() {
 		$token = $this->input->post("token", true);
 		$device_id = $this->input->post("device_id", true);
