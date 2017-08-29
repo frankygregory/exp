@@ -192,6 +192,7 @@ $route["kiriman-laut-ekspedisi/getAllStatusKiriman"] = 'panel/kiriman_ekspedisi_
 $route['alat'] = 'panel/alat';
 $route['alat/(:any)'] = 'panel/alat/$1/$2';
 $route["alat/getAlat"] = "panel/alat/getAlat";
+$route["alat/getAlatLocation"] = "panel/alat/getAlatLocation";
 $route['alat/checkUserKembar'] = 'panel/alat/checkUserKembar';
 $route['alat/checkEmailKembar'] = 'panel/alat/checkEmailKembar';
 $route["alat/tambahAlat"] = "panel/alat/tambahAlat";

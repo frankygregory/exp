@@ -6,6 +6,11 @@
 	float: right;
 }
 
+.btn-lokasi {
+	display: block;
+	margin-top: 10px;
+}
+
 .btn-ganti-password {
 	margin-top: 20px;
 }

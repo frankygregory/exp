@@ -18,7 +18,37 @@ class Alat extends MY_Controller
 			'page_title' => "Alat"
         );
         parent::template('alat', $data);
-    }
+	}
+	
+	function getAlatLocation() {
+		parent::checkAjaxRequest();
+
+		$postData = array(
+			"data" => array(
+				"message" => "coba kirim dari php"
+			),
+			"to" => "cg_KSuvgTU8:APA91bHRFYXbm_5uD6wibQRrJJQpUWfQA6UaUCIgIYYfXI88BGyxvWG-xG6B0xL-emA9m5IdezkTBeHDVJaa1q-5QgJT1ByzTayb677msR8okj5M0Wy1gxsZR3p9Qa2651hD7PYO3mBD"
+		);
+
+		$ch = curl_init('https://fcm.googleapis.com/fcm/send');
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+		curl_setopt_array($ch, array(
+			CURLOPT_POST => true,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_HTTPHEADER => array(
+				"Authorization:key=AAAAA_VaulM:APA91bFLRWUqDySQaRZezmMk8wNBWFRmVi73oZdG5SQnnCn452-mt3C8OqYD1Axa9rwQRbeofJyMckei3GKxx7xdokQblAOONDoDXPZBfc2NHZLFf_UFJR_9jd0Snzp7tFYVdstEeAVf",
+				"Content-Type: application/json"
+			),
+			CURLOPT_POSTFIELDS => json_encode($postData)
+		));
+		$response = curl_exec($ch);
+		if ($response === FALSE) {
+			echo curl_error($ch);
+		} else {
+			echo json_encode($response);
+		}
+	}
 	
 	function getAlat() {
 		parent::checkAjaxRequest();

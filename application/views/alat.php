@@ -204,6 +204,10 @@ $(function() {
 	$(".btn-submit-edit").on("click", function() {
 		updateAlat();
 	});
+
+	$(document).on("click", ".btn-lokasi", function() {
+		getAlatLocation();
+	});
 	
 	$(document).on("click", ".btn-delete", function() {
 		var namaAlat = $(this).closest(".tr-alat").children(".td-name").html();
@@ -249,6 +253,12 @@ $(function() {
 	});
 	
 });
+
+function getAlatLocation() {
+	ajaxCall("<?php echo base_url("alat/getAlatLocation"); ?>", null, function(json) {
+		alert(json);
+	});
+}
 
 function checkEmailKembar(data) {
 	ajaxCall("<?= base_url("alat/checkEmailKembar") ?>", {user_email: data.device_email}, function(json) {
@@ -446,7 +456,7 @@ function addAlatToTable(no, result) {
 	var btnEdit = "<button class='btn-action btn-edit' title='edit' style='background-image: url(" + editIconUrl + ");' data-id='" + result.device_id + "'></button>";
 	var btnDelete = "<button class='btn-action btn-delete' title='delete' style='background-image: url(" + deleteIconUrl + ");' data-id='" + result.device_id + "'></button>";
 	
-	var element = "<tr class='tr-alat' data-id='" + result.device_id + "' data-status='" + result.device_status + "'><td class='td-no'>" + no + "</td><td class='td-name'>" + result.device_name + "</td><td class='td-information'>" + result.device_information + "</td><td class='td-email'>" + result.device_email + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td class='td-status'>" + status + "</td><td class='td-action'>" + btnEdit + btnDelete + "</td></tr>";
+	var element = "<tr class='tr-alat' data-id='" + result.device_id + "' data-status='" + result.device_status + "'><td class='td-no'>" + no + "</td><td class='td-name'>" + result.device_name + "<button class='btn-default btn-lokasi'>Lihat Lokasi</button></td><td class='td-information'>" + result.device_information + "</td><td class='td-email'>" + result.device_email + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td class='td-status'>" + status + "</td><td class='td-action'>" + btnEdit + btnDelete + "</td></tr>";
 	$(".tbody-alat").append(element);
 }
 </script>
