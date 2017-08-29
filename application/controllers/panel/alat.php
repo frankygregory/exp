@@ -73,6 +73,21 @@ class Alat extends MY_Controller
 		echo json_encode($alat);
 	}
 
+	function getAlatLastLocation() {
+		parent::checkAjaxRequest();
+
+		$device_id = $this->input->post("device_id", true);
+		$data = array(
+			"device_id" => $device_id
+		);
+		$location = $this->Alat_model->getAlatLastLocation($data);
+		if (sizeof($location) > 0) {
+			$location = $location[0];
+			$location->created_date = date_format(new DateTime($location->created_date), "d-m-Y H:i");
+		}
+		echo json_encode($location);
+	}
+
 	public function checkUserKembar() {
 		parent::checkAjaxRequest();
 		parent::checkUserKembar();

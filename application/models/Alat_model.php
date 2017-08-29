@@ -79,4 +79,11 @@ class Alat_model extends CI_Model
 		$this->db->insert("t_device_gps", $insertData);
 		return $this->db->insert_id();
 	}
+
+	public function getAlatLastLocation($data) {
+		$this->db->where("device_id = " . $data["device_id"] . " AND device_gps_type_status = 0", null, false);
+		$this->db->limit(1);
+		$this->db->order_by("created_date", "desc");
+		return $this->db->get("t_device_gps")->result();
+	}
 }
