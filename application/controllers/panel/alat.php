@@ -54,7 +54,10 @@ class Alat extends MY_Controller
 			if ($response === FALSE) {
 				echo curl_error($ch);
 			} else {
-				echo $response;
+				$data = new stdClass();
+				$data->result = $result;
+				$data->response = json_decode($response);
+				echo json_encode($data);
 			}
 		} else {
 			echo json_encode(array(
@@ -63,6 +66,20 @@ class Alat extends MY_Controller
 				"error_message" => $db->error()["message"]
 			));
 		}
+	}
+
+	function getAlatLocationFromRequest() {
+		parent::checkAjaxRequest();
+		
+		$device_gps_id = $this->input->post("device_gps_id", true);
+		$data = array(
+			"device_gps_id" => $device_gps_id
+		);
+		$result = $this->Alat_model->getAlatLocationFromRequest($data);
+		if (sizeof($result) > 0) {
+			$result = $result[0];
+		}
+		echo json_encode($result);
 	}
 	
 	function getAlat() {

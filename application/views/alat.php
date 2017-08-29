@@ -182,6 +182,8 @@
 </div>
 <script type="text/javascript">
 var maps = [];
+var refreshTimer = null;
+var ajaxObject = null, ajaxTimer = null;
 $(function() {
 	getAlat();
 	
@@ -226,7 +228,7 @@ $(function() {
 	$(document).on("click", ".btn-update-lokasi", function() {
 		var tr = $(this).closest(".row-detail-tr");
 		var device_id = tr.data("id");
-		getAlatLocation(device_id, this);
+		getAlatLocation(device_id, this, tr);
 	});
 	
 	$(document).on("click", ".btn-delete", function() {
@@ -296,15 +298,61 @@ function getAlatLastLocation(device_id, element) {
 	});
 }
 
-function getAlatLocation(device_id, element) {
+function getAlatLocation(device_id, element, tr) {
+	showLoading(tr);
 	ajaxCall("<?php echo base_url("alat/getAlatLocation"); ?>", {device_id: device_id}, function(json) {
-		var result = jQuery.parseJSON(json);
-		if (result.success == 1) {
-			alert("success");
+		var data = jQuery.parseJSON(json);
+		if (data.response.success == 1) {
+			var device_gps_id = data.result.device_gps_id;
+			refreshTimer = setTimeout(function() {
+				clearInterval(ajaxTimer);
+				if (ajaxObject) {
+					ajaxObject.abort();
+				}
+				removeLoading(tr);
+			}, 60000);
 		} else {
-			
+			removeLoading(tr);
+			alert("error");
 		}
 	});
+}
+
+function getAlatLocationFromRequest(device_gps_id, tr) {
+	ajaxObject = ajaxCall("<?php echo base_url("alat/getAlatLocationFromRequest"); ?>", {device_gps_id: device_gps_id}, function(json) {
+		var result = jQuery.parseJSON(json);
+		if (result != "") {
+			clearInterval(refreshTimer);
+			removeLoading(tr);
+
+			var lat = result.device_gps_lat;
+			var lng = result.device_gps_lng;
+			var created_date = result.created_date;
+			var map = tr.find(".map");
+			var index = map.data("index");
+			tr.find(".map-last-updated").html("Update Terakhir : " + created_date);
+
+			/*var marker = new google.maps.Marker({
+				position: new google.maps.LatLng(lat, lng),
+				map: maps[index],
+				icon: "https://maps.google.com/mapfiles/marker_greenA.png"
+			});
+			maps[index].setCenter(new google.maps.LatLng(lat, lng));
+			maps[index].setZoom(10);*/
+		} else {
+			ajaxTimer = setTimeout(function() {
+				getAlatLocationFromRequest(device_gps_id, tr);
+			}, 5000);
+		}
+	});
+}
+
+function showLoading(element) {
+	element.find(".svg-loading-circle-container").addClass("show");
+}
+
+function removeLoading(element) {
+	element.find(".svg-loading-circle-container").removeClass("show");
 }
 
 function checkEmailKembar(data) {
@@ -507,7 +555,11 @@ function addAlatToTable(no, result) {
 	
 	var element = "<tr class='tr-alat' data-id='" + result.device_id + "' data-status='" + result.device_status + "'><td class='td-no'>" + no + "</td><td class='td-name'>" + result.device_name + "<button class='btn-default btn-lokasi'>Lihat Lokasi</button></td><td class='td-information'>" + result.device_information + "</td><td class='td-email'>" + result.device_email + "</td><td class='td-ketersediaan'>" + ketersediaan + "</td><td class='td-status'>" + status + "</td><td class='td-action'>" + btnEdit + btnDelete + "</td></tr>";
 
-	element += "<tr class='row-detail-tr' data-id='" + result.device_id + "'><td class='row-detail-td' colspan='20'><div class='row-detail-td-content'><div class='map'></div><div class='row-detail-footer'><button class='btn-default btn-update-lokasi'>Update</button><span class='map-last-updated'>Update Terakhir : tidak ada</span></div></div></td></tr>";
+	var btnDisabled = (result.firebase_token == "") ? "disabled" : "";
+	var btnUpdateLocation = "<button class='btn-default btn-update-lokasi' " + btnDisabled + ">Refresh</button>";
+	var loader = '<div class="svg-loading-circle-container"><svg version="1.1" class="svg-loading-circle" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" xml:space="preserve"><path fill="#2196F3" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.8s" repeatCount="indefinite"/></path></svg></div>';
+
+	element += "<tr class='row-detail-tr' data-id='" + result.device_id + "'><td class='row-detail-td' colspan='20'><div class='row-detail-td-content'><div class='map'></div><div class='row-detail-footer'>" + loader + btnUpdateLocation + "<span class='map-last-updated'>Update Terakhir : tidak ada</span></div></div></td></tr>";
 	$(".tbody-alat").append(element);
 }
 
@@ -539,4 +591,4 @@ function initMap() {
 	});*/
 }
 </script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo" async defer></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo" async></script>
