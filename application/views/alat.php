@@ -180,8 +180,9 @@
 </div>
 </div>
 </div>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo"></script>
 <script type="text/javascript">
-var maps = [];
+var maps = [], markers = [];
 var refreshTimer = null;
 var ajaxObject = null, ajaxTimer = null;
 $(function() {
@@ -282,12 +283,12 @@ function getAlatLastLocation(device_id, element) {
 		if (result != "") {
 			var lat = result.device_gps_lat;
 			var lng = result.device_gps_lng;
-			var created_date = result.created_date;
+			var modified_date = result.modified_date;
 			var map = $(element).find(".map");
 			var index = map.data("index");
-			$(element).find(".map-last-updated").html("Update Terakhir : " + created_date);
+			$(element).find(".map-last-updated").html("Update Terakhir : " + modified_date);
 
-			var marker = new google.maps.Marker({
+			markers[index] = new google.maps.Marker({
 				position: new google.maps.LatLng(lat, lng),
 				map: maps[index],
 				icon: "https://maps.google.com/mapfiles/marker_greenA.png"
@@ -300,17 +301,20 @@ function getAlatLastLocation(device_id, element) {
 
 function getAlatLocation(device_id, element, tr) {
 	showLoading(tr);
+	refreshTimer = setTimeout(function() {
+		clearInterval(ajaxTimer);
+		if (ajaxObject) {
+			ajaxObject.abort();
+			alert("Gagal mendapatkan lokasi alat");
+		}
+		removeLoading(tr);
+	}, 60000);
+
 	ajaxCall("<?php echo base_url("alat/getAlatLocation"); ?>", {device_id: device_id}, function(json) {
 		var data = jQuery.parseJSON(json);
 		if (data.response.success == 1) {
 			var device_gps_id = data.result.device_gps_id;
-			refreshTimer = setTimeout(function() {
-				clearInterval(ajaxTimer);
-				if (ajaxObject) {
-					ajaxObject.abort();
-				}
-				removeLoading(tr);
-			}, 60000);
+			getAlatLocationFromRequest(device_gps_id, tr);
 		} else {
 			removeLoading(tr);
 			alert("error");
@@ -327,22 +331,25 @@ function getAlatLocationFromRequest(device_gps_id, tr) {
 
 			var lat = result.device_gps_lat;
 			var lng = result.device_gps_lng;
-			var created_date = result.created_date;
+			var modified_date = result.modified_date;
 			var map = tr.find(".map");
 			var index = map.data("index");
-			tr.find(".map-last-updated").html("Update Terakhir : " + created_date);
-
-			/*var marker = new google.maps.Marker({
+			tr.find(".map-last-updated").html("Update Terakhir : " + modified_date);
+			
+			if (markers[index]) {
+				markers[index].setMap(null);
+			}
+			markers[index] = new google.maps.Marker({
 				position: new google.maps.LatLng(lat, lng),
 				map: maps[index],
 				icon: "https://maps.google.com/mapfiles/marker_greenA.png"
 			});
 			maps[index].setCenter(new google.maps.LatLng(lat, lng));
-			maps[index].setZoom(10);*/
+			maps[index].setZoom(15);
 		} else {
 			ajaxTimer = setTimeout(function() {
 				getAlatLocationFromRequest(device_gps_id, tr);
-			}, 5000);
+			}, 1000);
 		}
 	});
 }
@@ -575,6 +582,7 @@ function initMap() {
 			zoom: 4
 		});
 		maps.push(newMap);
+		markers.push(null);
 		$(obj).data("index", i);
 	});
 	
@@ -591,4 +599,3 @@ function initMap() {
 	});*/
 }
 </script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo" async></script>

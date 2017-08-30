@@ -63,14 +63,20 @@ class Api_model extends CI_Model
         //$this->db->where("firebase_token", $data["firebase_token"]);
         $this->db->where("device_gps_type", "request");
         $this->db->where("device_gps_type_status", 1);
-
-        $updateData = array(
+        $this->db->set("device_gps_lat", $data["device_gps_lat"]);
+        $this->db->set("device_gps_lng", $data["device_gps_lng"]);
+        $this->db->set("device_gps_accuracy", $data["device_gps_accuracy"]);
+        $this->db->set("device_gps_type_status", 0);
+        $this->db->set("modified_date", "CURRENT_TIMESTAMP()", false);
+        $this->db->update("t_device_gps");
+        /*$updateData = array(
             "device_gps_lat" => $data["device_gps_lat"],
             "device_gps_lng" => $data["device_gps_lng"],
             "device_gps_accuracy" => $data["device_gps_accuracy"],
             "device_gps_type_status" => 0
-        );
-        $this->db->update("t_device_gps", $updateData);
+        );*/
+        //$this->db->update("t_device_gps", $updateData);
+        
         return $this->db;
     }
 

@@ -78,6 +78,7 @@ class Alat extends MY_Controller
 		$result = $this->Alat_model->getAlatLocationFromRequest($data);
 		if (sizeof($result) > 0) {
 			$result = $result[0];
+			$result->modified_date = date_format(new DateTime($result->modified_date), "d-m-Y H:i");
 		}
 		echo json_encode($result);
 	}
@@ -100,7 +101,7 @@ class Alat extends MY_Controller
 		$location = $this->Alat_model->getAlatLastLocation($data);
 		if (sizeof($location) > 0) {
 			$location = $location[0];
-			$location->created_date = date_format(new DateTime($location->created_date), "d-m-Y H:i");
+			$location->modified_date = date_format(new DateTime($location->modified_date), "d-m-Y H:i");
 		}
 		echo json_encode($location);
 	}
