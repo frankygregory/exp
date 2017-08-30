@@ -183,6 +183,7 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo"></script>
 <script type="text/javascript">
 var maps = [], markers = [];
+var truckIconUrl = "<?php echo base_url("assets/icons/truck.png"); ?>";
 var refreshTimer = null;
 var ajaxObject = null, ajaxTimer = null;
 $(function() {
@@ -291,7 +292,7 @@ function getAlatLastLocation(device_id, element) {
 			markers[index] = new google.maps.Marker({
 				position: new google.maps.LatLng(lat, lng),
 				map: maps[index],
-				icon: "https://maps.google.com/mapfiles/marker_greenA.png"
+				icon: truckIconUrl
 			});
 			maps[index].setCenter(new google.maps.LatLng(lat, lng));
 			maps[index].setZoom(10);
@@ -341,7 +342,7 @@ function getAlatLocationFromRequest(device_gps_id, tr) {
 			markers[index] = new google.maps.Marker({
 				position: new google.maps.LatLng(lat, lng),
 				map: maps[index],
-				icon: "https://maps.google.com/mapfiles/marker_greenA.png"
+				icon: truckIconUrl
 			});
 			maps[index].setCenter(new google.maps.LatLng(lat, lng));
 			maps[index].setZoom(15);
@@ -570,8 +571,6 @@ function addAlatToTable(no, result) {
 }
 
 function initMap() {	
-	//lat = location_from_lat;
-	//lng = location_from_lng;
 	center_from = {lat: -2.4153238, lng: 108.8510806};
 	maps = [];
 	$(".map").each(function(i, obj) {
@@ -584,17 +583,5 @@ function initMap() {
 		markers.push(null);
 		$(obj).data("index", i);
 	});
-	
-	/*marker_from = new google.maps.Marker({
-		position: new google.maps.LatLng(location_from_lat, location_from_lng),
-		map: map,
-		icon: "https://maps.google.com/mapfiles/marker_greenA.png"
-	});
-
-	marker_to = new google.maps.Marker({
-		position: new google.maps.LatLng(location_to_lat, location_to_lng),
-		map: map,
-		label: "B"
-	});*/
 }
 </script>
