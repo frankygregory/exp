@@ -33,11 +33,17 @@ class Api extends CI_Controller
 		$device_email = $this->input->post("email", true);
 		$device_password = $this->input->post("password", true);
 		$firebase_token = $this->input->post("firebase_token", true);
+		$device_gps_lat = $this->input->post("device_gps_lat", true);
+		$device_gps_lng = $this->input->post("device_gps_lng", true);
+		$device_gps_accuracy = $this->input->post("device_gps_accuracy", true);
 		if ($device_email != null && $device_password != null) {
 			$data = array(
 				"device_email" => $device_email,
 				"device_password" => $device_password,
-				"firebase_token" => $firebase_token
+				"firebase_token" => $firebase_token,
+				"device_gps_lat" => $device_gps_lat,
+				"device_gps_lng" => $device_gps_lng,
+				"device_gps_accuracy" => $device_gps_accuracy
 			);
 			$result = $this->Api_model->login($data)[0];
 			echo json_encode($result);

@@ -9,7 +9,7 @@ class Api_model extends CI_Model
 
     public function login($data) {
         $data["device_password"] = md5($data["device_password"]);
-        $query = $this->db->query("CALL device_login('" . $data["device_email"] . "', '" . $data["device_password"] . "', '" . $data["firebase_token"] . "');");
+        $query = $this->db->query("CALL device_login('" . $data["device_email"] . "', '" . $data["device_password"] . "', '" . $data["firebase_token"] . "', '" . $data["device_gps_lat"] . "', '" . $data["device_gps_lng"] . "', '" . $data["device_gps_accuracy"] . "');");
         return $query->result();
     }
 
