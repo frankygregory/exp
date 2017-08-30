@@ -308,7 +308,7 @@ function getAlatLocation(device_id, element, tr) {
 			alert("Gagal mendapatkan lokasi alat");
 		}
 		removeLoading(tr);
-	}, 60000);
+	}, 45000);
 
 	ajaxCall("<?php echo base_url("alat/getAlatLocation"); ?>", {device_id: device_id}, function(json) {
 		var data = jQuery.parseJSON(json);
