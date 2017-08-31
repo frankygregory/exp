@@ -170,11 +170,17 @@ class Api extends CI_Controller
 		$token = $this->input->post("token", true);
 		$device_id = $this->input->post("device_id", true);
 		$shipment_id = $this->input->post("shipment_id", true);
+		$device_gps_lat = $this->input->post("device_gps_lat", true);
+		$device_gps_lng = $this->input->post("device_gps_lng", true);
+		$device_gps_accuracy = $this->input->post("device_gps_accuracy", true);
 		if ($shipment_id != null && $device_id != null && $token != null) {
 			$data = array(
 				"token" => $token,
 				"device_id" => $device_id,
-				"shipment_id" => $shipment_id
+				"shipment_id" => $shipment_id,
+				"device_gps_lat" => $device_gps_lat,
+				"device_gps_lng" => $device_gps_lng,
+				"device_gps_accuracy" => $device_gps_accuracy
 			);
 			$result = $this->Api_model->submitTerima($data);
 			echo json_encode($result);
@@ -187,11 +193,17 @@ class Api extends CI_Controller
 		$token = $this->input->post("token", true);
 		$device_id = $this->input->post("device_id", true);
 		$shipment_id = $this->input->post("shipment_id", true);
+		$device_gps_lat = $this->input->post("device_gps_lat", true);
+		$device_gps_lng = $this->input->post("device_gps_lng", true);
+		$device_gps_accuracy = $this->input->post("device_gps_accuracy", true);
 		if ($shipment_id != null && $device_id != null && $token != null) {
 			$data = array(
 				"token" => $token,
 				"device_id" => $device_id,
-				"shipment_id" => $shipment_id
+				"shipment_id" => $shipment_id,
+				"device_gps_lat" => $device_gps_lat,
+				"device_gps_lng" => $device_gps_lng,
+				"device_gps_accuracy" => $device_gps_accuracy
 			);
 			$result = $this->Api_model->submitAmbil($data);
 			echo json_encode($result);
@@ -204,11 +216,17 @@ class Api extends CI_Controller
 		$token = $this->input->post("token", true);
 		$device_id = $this->input->post("device_id", true);
 		$shipment_id = $this->input->post("shipment_id", true);
+		$device_gps_lat = $this->input->post("device_gps_lat", true);
+		$device_gps_lng = $this->input->post("device_gps_lng", true);
+		$device_gps_accuracy = $this->input->post("device_gps_accuracy", true);
 		if ($shipment_id != null && $device_id != null && $token != null) {
 			$data = array(
 				"token" => $token,
 				"device_id" => $device_id,
-				"shipment_id" => $shipment_id
+				"shipment_id" => $shipment_id,
+				"device_gps_lat" => $device_gps_lat,
+				"device_gps_lng" => $device_gps_lng,
+				"device_gps_accuracy" => $device_gps_accuracy
 			);
 			$result = $this->Api_model->submitKirim($data);
 			echo json_encode($result);

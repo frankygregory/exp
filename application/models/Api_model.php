@@ -74,19 +74,19 @@ class Api_model extends CI_Model
 
     public function submitAmbil($data) {
 		$data["token"] = hash("sha256", $data["token"]);
-		$query = $this->db->query("CALL device_ambil_kiriman('" . $data["shipment_id"] . "', '" . $data["device_id"] . "', '" . $data["token"] . "');");
+		$query = $this->db->query("CALL device_ambil_kiriman('" . $data["shipment_id"] . "', '" . $data["device_id"] . "', '" . $data["token"] . "', '" . $data["device_gps_lat"] . "', '" . $data["device_gps_lng"] . "', '" . $data["device_gps_accuracy"] . "');");
 		return $query->result();
 	}
 
     public function submitKirim($data) {
         $data["token"] = hash("sha256", $data["token"]);
-		$query = $this->db->query("CALL device_kirim_kiriman('" . $data["shipment_id"] . "', '" . $data["device_id"] . "', '" . $data["token"] . "');");
+		$query = $this->db->query("CALL device_kirim_kiriman('" . $data["shipment_id"] . "', '" . $data["device_id"] . "', '" . $data["token"] . "', '" . $data["device_gps_lat"] . "', '" . $data["device_gps_lng"] . "', '" . $data["device_gps_accuracy"] . "');");
 		return $query->result();
 	}
 	
 	public function submitTerima($data) {
 		$data["token"] = hash("sha256", $data["token"]);
-		$query = $this->db->query("CALL device_terima_kiriman('" . $data["shipment_id"] . "', '" . $data["device_id"] . "', '" . $data["token"] . "');");
+		$query = $this->db->query("CALL device_terima_kiriman('" . $data["shipment_id"] . "', '" . $data["device_id"] . "', '" . $data["token"] . "', '" . $data["device_gps_lat"] . "', '" . $data["device_gps_lng"] . "', '" . $data["device_gps_accuracy"] . "');");
 		return $query->result();
 	}
 }
