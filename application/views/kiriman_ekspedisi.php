@@ -338,6 +338,58 @@ $(function() {
 	$(document).on("click", ".btn-submit-deal-kiriman", function() {
 		submitDeal();
 	});
+
+	$(document).on("change", ".select-jenis-muatan", function() {
+		var value = $(this).val();
+		var tr = $(this).closest(".tr-kiriman");
+		var selectSupir = tr.find(".select-supir");
+		var selectKendaraan = tr.find(".select-kendaraan");
+		var selectAlat = tr.find(".select-alat");
+		var elementSupir = "", elementKendaraan = "", elementAlat = "";
+		var iLength = supir.length;
+		var jLength = kendaraan.length;
+		var kLength = alat.length;
+		if (value == 0) {
+			for (var i = 0; i < iLength; i++) {
+				if (supir[i].status == 0 || (supir[i].status == 1 && supir[i].jenis_muatan == 0)) {
+					elementSupir += "<option value='" + supir[i].id + "'>" + supir[i].name + "</option>";
+				}
+			}
+
+			for (var j = 0; j < jLength; j++) {
+				if (kendaraan[j].status == 0 || (kendaraan[j].status == 1 && kendaraan[j].jenis_muatan == 0)) {
+					elementKendaraan += "<option value='" + kendaraan[j].id + "'>" + kendaraan[j].name + "</option>";
+				}
+			}
+
+			for (var k = 0; k < kLength; k++) {
+				if (alat[k].status == 0 || (alat[k].status == 1 && alat[k].jenis_muatan == 0)) {
+					elementAlat += "<option value='" + alat[k].id + "'>" + alat[k].name + "</option>";
+				}
+			}
+		} else {
+			for (var i = 0; i < iLength; i++) {
+				if (supir[i].status == 0) {
+					elementSupir += "<option value='" + supir[i].id + "'>" + supir[i].name + "</option>";
+				}
+			}
+
+			for (var j = 0; j < jLength; j++) {
+				if (kendaraan[j].status == 0) {
+					elementKendaraan += "<option value='" + kendaraan[j].id + "'>" + kendaraan[j].name + "</option>";
+				}
+			}
+
+			for (var k = 0; k < kLength; k++) {
+				if (alat[k].status == 0) {
+					elementAlat += "<option value='" + alat[k].id + "'>" + alat[k].name + "</option>";
+				}
+			}
+		}
+		selectSupir.html(elementSupir);
+		selectKendaraan.html(elementKendaraan);
+		selectAlat.html(elementAlat);
+	});
 	
 	$(document).on("click", ".btn-pesan", function() {
 		var trKiriman = $(this).closest(".tr-kiriman");
@@ -599,12 +651,17 @@ function getKendaraan() {
 			
 		var element = "";
 		var iLength = result.length;
+		kendaraan = [];
 		for (var i = 0; i < iLength; i++) {
 			kendaraan.push({
 				id: result[i].vehicle_id,
-				name: result[i].vehicle_name
+				name: result[i].vehicle_name,
+				status: result[i].vehicle_details_status,
+				jenis_muatan: result[i].shipment_jenis_muatan
 			});
-			element += "<option value='" + result[i].vehicle_id + "'>" + result[i].vehicle_name + "</option>";
+			if (result[i].vehicle_details_status == 0) {
+				element += "<option value='" + result[i].vehicle_id + "'>" + result[i].vehicle_name + "</option>";
+			}
 		}
 		$(".select-kendaraan").append(element);
 	});
@@ -616,12 +673,17 @@ function getSupir() {
 			
 		var element = "";
 		var iLength = result.length;
+		supir = [];
 		for (var i = 0; i < iLength; i++) {
 			supir.push({
 				id: result[i].driver_id,
-				name: result[i].driver_name
+				name: result[i].driver_name,
+				status: result[i].driver_details_status,
+				jenis_muatan: result[i].shipment_jenis_muatan
 			});
-			element += "<option value='" + result[i].driver_id + "'>" + result[i].driver_name + "</option>";
+			if (result[i].driver_details_status == 0) {
+				element += "<option value='" + result[i].driver_id + "'>" + result[i].driver_name + "</option>";
+			}
 		}
 		$(".select-supir").append(element);
 	});
@@ -633,12 +695,17 @@ function getAlat() {
 			
 		var element = "";
 		var iLength = result.length;
+		alat = [];
 		for (var i = 0; i < iLength; i++) {
 			alat.push({
 				id: result[i].device_id,
-				name: result[i].device_name
+				name: result[i].device_name,
+				status: result[i].device_details_status,
+				jenis_muatan: result[i].shipment_jenis_muatan
 			});
-			element += "<option value='" + result[i].device_id + "'>" + result[i].device_name + "</option>";
+			if (result[i].device_details_status == 0) {
+				element += "<option value='" + result[i].device_id + "'>" + result[i].device_name + "</option>";
+			}
 		}
 		$(".select-alat").append(element);
 	});

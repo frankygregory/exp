@@ -145,11 +145,11 @@ class Kiriman_ekspedisi_model extends CI_Model
 	
 	public function getKendaraanAktif($user_id) {
 		$query = $this->db->query("
-			SELECT m.*, COALESCE(d.shipment_id, '') AS shipment_id
+			SELECT m.*, d.shipment_jenis_muatan, (CASE WHEN d.shipment_jenis_muatan IS NULL THEN 0 ELSE 1 END) AS vehicle_details_status
 			FROM `m_vehicle` m
-			LEFT JOIN `m_vehicle_details` d
-			ON m.vehicle_id = d.vehicle_id AND d.vehicle_details_status = 1
-			WHERE m.user_id = '" . $user_id . "' AND COALESCE(d.shipment_id, '') = '' AND m.vehicle_status = 1
+			LEFT JOIN (SELECT vehicle_id, (CASE SUM(shipment_jenis_muatan) WHEN 0 THEN 0 ELSE 1 END) AS shipment_jenis_muatan FROM `m_vehicle_details` WHERE vehicle_details_status = 1 GROUP BY vehicle_id) d
+			ON m.vehicle_id = d.vehicle_id
+			WHERE m.user_id = '" . $user_id . "' AND m.vehicle_status = 1
 			GROUP BY m.vehicle_id
 		");
 		return $query->result();
@@ -157,11 +157,11 @@ class Kiriman_ekspedisi_model extends CI_Model
 	
 	public function getDriverAktif($user_id) {
 		$query = $this->db->query("
-			SELECT m.*, COALESCE(d.shipment_id, '') AS shipment_id
+			SELECT m.*, d.shipment_jenis_muatan, (CASE WHEN d.shipment_jenis_muatan IS NULL THEN 0 ELSE 1 END) AS driver_details_status
 			FROM `m_driver` m
-			LEFT JOIN `m_driver_details` d
-			ON m.driver_id = d.driver_id AND d.driver_details_status = 1
-			WHERE m.user_id = '" . $user_id . "' AND COALESCE(d.shipment_id, '') = '' AND m.driver_status = 1
+			LEFT JOIN (SELECT driver_id, (CASE SUM(shipment_jenis_muatan) WHEN 0 THEN 0 ELSE 1 END) AS shipment_jenis_muatan FROM `m_driver_details` WHERE driver_details_status = 1 GROUP BY driver_id) d
+			ON m.driver_id = d.driver_id
+			WHERE m.user_id = " . $user_id . " AND m.driver_status = 1
 			GROUP BY m.driver_id
 		");
 		return $query->result();
@@ -169,11 +169,11 @@ class Kiriman_ekspedisi_model extends CI_Model
 	
 	public function getAlatAktif($user_id) {
 		$query = $this->db->query("
-			SELECT m.*, COALESCE(d.shipment_id, '') AS shipment_id
+			SELECT m.*, d.shipment_jenis_muatan, (CASE WHEN d.shipment_jenis_muatan IS NULL THEN 0 ELSE 1 END) AS device_details_status
 			FROM `m_device_customer` m
-			LEFT JOIN `m_device_details` d
-			ON m.device_id = d.device_id AND d.device_details_status = 1
-			WHERE m.user_id = '" . $user_id . "' AND COALESCE(d.shipment_id, '') = '' AND m.device_status = 1
+			LEFT JOIN (SELECT device_id, (CASE SUM(shipment_jenis_muatan) WHEN 0 THEN 0 ELSE 1 END) AS shipment_jenis_muatan FROM `m_device_details` WHERE device_details_status = 1 GROUP BY device_id) d
+			ON m.device_id = d.device_id
+			WHERE m.user_id = '" . $user_id . "' AND m.device_status = 1
 			GROUP BY m.device_id
 		");
 		return $query->result();
