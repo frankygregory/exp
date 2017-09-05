@@ -54,6 +54,7 @@ class Login extends CI_Controller
                         $user[0]['user_level'],
                         $user[0]['role_id'],
                         $user[0]['type_id'],
+                        $user[0]['user_id_ref'],
                         'menu',
                         'dashboard'
                     );
@@ -81,7 +82,7 @@ class Login extends CI_Controller
         $this->load->view($file, $data);
     }
 
-    public function setuserdata($user_id, $username, $user_fullname, $group_ids, $user_level, $role_id, $type_id, $menu, $urlpage)
+    public function setuserdata($user_id, $username, $user_fullname, $group_ids, $user_level, $role_id, $type_id, $user_id_ref, $menu, $urlpage)
     {
         $this->session->set_userdata(array(
                 'user_id' => $user_id,
@@ -90,7 +91,8 @@ class Login extends CI_Controller
 				'group_ids' => $group_ids,
                 'user_level' => $user_level,
                 'role_id' => $role_id,
-				'type_id' => $type_id,
+                'type_id' => $type_id,
+                'user_id_ref' => $user_id_ref,
                 'menu' => $menu,
                 'urlpage' => $urlpage,
                 'isLoggedIn' => true
