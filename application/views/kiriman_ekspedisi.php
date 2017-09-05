@@ -47,9 +47,7 @@
 								<td data-col='tujuan'>Tujuan</td>
 								<td data-align="center" data-col='km'>KM</td>
 								<td data-col='muatan'>Muatan</td>
-								<td data-col='supir'>Supir</td>
-								<td data-col='kendaraan'>Kendaraan</td>
-								<td data-col='lacak'>Lacak</td>
+								<td data-col='detail'>Detail</td>
 								<td data-align="center" data-col='action'>Action</td>
 							</tr>
 						</thead>
@@ -350,45 +348,219 @@ $(function() {
 		var jLength = kendaraan.length;
 		var kLength = alat.length;
 		if (value == 0) {
+			elementSupir += "<option value='0' data-shipment-ids=''>Pilih Supir... </option>";
 			for (var i = 0; i < iLength; i++) {
 				if (supir[i].status == 0 || (supir[i].status == 1 && supir[i].jenis_muatan == 0)) {
-					elementSupir += "<option value='" + supir[i].id + "'>" + supir[i].name + "</option>";
+					var no_kirim = (supir[i].shipment_ids == "") ? "" : " (No. Kirim : " + supir[i].shipment_ids + ")";
+					elementSupir += "<option value='" + supir[i].id + "' data-shipment-ids='" + supir[i].shipment_ids + "'>" + supir[i].name + no_kirim + " </option>";
 				}
 			}
 
+			elementKendaraan += "<option value='0' data-shipment-ids=''>Pilih Kendaraan... </option>";
 			for (var j = 0; j < jLength; j++) {
 				if (kendaraan[j].status == 0 || (kendaraan[j].status == 1 && kendaraan[j].jenis_muatan == 0)) {
-					elementKendaraan += "<option value='" + kendaraan[j].id + "'>" + kendaraan[j].name + "</option>";
+					var no_kirim = (kendaraan[j].shipment_ids == "") ? "" : " (No. Kirim : " + kendaraan[j].shipment_ids + ")";
+					elementKendaraan += "<option value='" + kendaraan[j].id + "' data-shipment-ids='" + kendaraan[j].shipment_ids + "'>" + kendaraan[j].name + no_kirim + " </option>";
 				}
 			}
 
+			elementAlat += "<option value='0' data-shipment-ids=''>Pilih Alat... </option>";
 			for (var k = 0; k < kLength; k++) {
 				if (alat[k].status == 0 || (alat[k].status == 1 && alat[k].jenis_muatan == 0)) {
-					elementAlat += "<option value='" + alat[k].id + "'>" + alat[k].name + "</option>";
+					var no_kirim = (alat[k].shipment_ids == "") ? "" : " (No. Kirim : " + alat[k].shipment_ids + ")";
+					elementAlat += "<option value='" + alat[k].id + "' data-shipment-ids='" + alat[k].shipment_ids + "'>" + alat[k].name + no_kirim + " </option>";
 				}
 			}
 		} else {
+			elementSupir += "<option value='0' data-shipment-ids=''>Pilih Supir... </option>";
 			for (var i = 0; i < iLength; i++) {
 				if (supir[i].status == 0) {
-					elementSupir += "<option value='" + supir[i].id + "'>" + supir[i].name + "</option>";
+					elementSupir += "<option value='" + supir[i].id + "' data-shipment-ids=''>" + supir[i].name + " </option>";
 				}
 			}
 
+			elementKendaraan += "<option value='0' data-shipment-ids=''>Pilih Kendaraan... </option>";
 			for (var j = 0; j < jLength; j++) {
 				if (kendaraan[j].status == 0) {
-					elementKendaraan += "<option value='" + kendaraan[j].id + "'>" + kendaraan[j].name + "</option>";
+					elementKendaraan += "<option value='" + kendaraan[j].id + "' data-shipment-ids=''>" + kendaraan[j].name + " </option>";
 				}
 			}
 
+			elementAlat += "<option value='0' data-shipment-ids=''>Pilih Alat... </option>";
 			for (var k = 0; k < kLength; k++) {
 				if (alat[k].status == 0) {
-					elementAlat += "<option value='" + alat[k].id + "'>" + alat[k].name + "</option>";
+					elementAlat += "<option value='" + alat[k].id + "' data-shipment-ids=''>" + alat[k].name + " </option>";
 				}
 			}
 		}
 		selectSupir.html(elementSupir);
 		selectKendaraan.html(elementKendaraan);
 		selectAlat.html(elementAlat);
+	});
+
+	$(document).on("change", ".select-supir", function() {
+		var tr = $(this).closest(".tr-kiriman");
+		var shipment_ids = $(this).find(":selected").data("shipment-ids") + "";
+		if (shipment_ids != "") {
+			shipment_ids = shipment_ids.split(",");
+			var shipment_id = shipment_ids[0];
+			
+			var kendaraan_shipment_ids = "";
+			var kendaraan_found = false;
+			for (var i = 0; i < kendaraan.length; i++) {
+				kendaraan_shipment_ids = kendaraan[i].shipment_ids;
+				if (kendaraan_shipment_ids != "") {
+					if (kendaraan_shipment_ids.indexOf(shipment_id) != -1) {
+						tr.find(".select-kendaraan").val(kendaraan[i].id);
+						kendaraan_found = true;
+						break;
+					}
+				}
+			}
+			if (!kendaraan_found) {
+				tr.find(".select-kendaraan").val(0);
+			}
+			
+			var alat_shipment_ids = "";
+			var alat_found = false;
+			for (var i = 0; i < alat.length; i++) {
+				alat_shipment_ids = alat[i].shipment_ids;
+				if (alat_shipment_ids != "") {
+					if (alat_shipment_ids.indexOf(shipment_id) != -1) {
+						tr.find(".select-alat").val(alat[i].id);
+						alat_found = true;
+						break;
+					}
+				}
+			}
+			if (!alat_found) {
+				tr.find(".select-alat").val(0);
+			}
+		} else {
+			if (tr.find(".select-jenis-muatan").val() == 0) {
+				var selectKendaraan = tr.find(".select-kendaraan");
+				var selectedKendaraanShipmentIds = selectKendaraan.find(":selected").data("shipment-ids");
+				if (selectedKendaraanShipmentIds != "") {
+					selectKendaraan.val(0);
+				}
+
+				var selectAlat = tr.find(".select-alat");
+				var selectedAlatShipmentIds = selectAlat.find(":selected").data("shipment-ids");
+				if (selectedAlatShipmentIds != "") {
+					selectAlat.val(0);
+				}
+			}
+		}
+	});
+
+	$(document).on("change", ".select-kendaraan", function() {
+		var tr = $(this).closest(".tr-kiriman");
+		var shipment_ids = $(this).find(":selected").data("shipment-ids") + "";
+		if (shipment_ids != "") {
+			shipment_ids = shipment_ids.split(",");
+			var shipment_id = shipment_ids[0];
+			
+			var supir_shipment_ids = "";
+			var supir_found = false;
+			for (var i = 0; i < supir.length; i++) {
+				supir_shipment_ids = supir[i].shipment_ids;
+				if (supir_shipment_ids != "") {
+					if (supir_shipment_ids.indexOf(shipment_id) != -1) {
+						tr.find(".select-supir").val(supir[i].id);
+						supir_found = true;
+						break;
+					}
+				}
+			}
+			if (!supir_found) {
+				tr.find(".select-supir").val(0);
+			}
+			
+			var alat_shipment_ids = "";
+			var alat_found = false;
+			for (var i = 0; i < alat.length; i++) {
+				alat_shipment_ids = alat[i].shipment_ids;
+				if (alat_shipment_ids != "") {
+					if (alat_shipment_ids.indexOf(shipment_id) != -1) {
+						tr.find(".select-alat").val(alat[i].id);
+						alat_found = true;
+						break;
+					}
+				}
+			}
+			if (!alat_found) {
+				tr.find(".select-alat").val(0);
+			}
+		} else {
+			if (tr.find(".select-jenis-muatan").val() == 0) {
+				var selectSupir = tr.find(".select-supir");
+				var selectedSupirShipmentIds = selectSupir.find(":selected").data("shipment-ids");
+				if (selectedSupirShipmentIds != "") {
+					selectSupir.val(0);
+				}
+
+				var selectAlat = tr.find(".select-alat");
+				var selectedAlatShipmentIds = selectAlat.find(":selected").data("shipment-ids");
+				if (selectedAlatShipmentIds != "") {
+					selectAlat.val(0);
+				}
+			}
+		}
+	});
+
+	$(document).on("change", ".select-alat", function() {
+		var tr = $(this).closest(".tr-kiriman");
+		var shipment_ids = $(this).find(":selected").data("shipment-ids") + "";
+		if (shipment_ids != "") {
+			shipment_ids = shipment_ids.split(",");
+			var shipment_id = shipment_ids[0];
+
+			var supir_shipment_ids = "";
+			var supir_found = false;
+			for (var i = 0; i < supir.length; i++) {
+				supir_shipment_ids = supir[i].shipment_ids;
+				if (supir_shipment_ids != "") {
+					if (supir_shipment_ids.indexOf(shipment_id) != -1) {
+						tr.find(".select-supir").val(supir[i].id);
+						supir_found = true;
+						break;
+					}
+				}
+			}
+			if (!supir_found) {
+				tr.find(".select-supir").val(0);
+			}
+			
+			var kendaraan_shipment_ids = "";
+			var kendaraan_found = false;
+			for (var i = 0; i < kendaraan.length; i++) {
+				kendaraan_shipment_ids = kendaraan[i].shipment_ids;
+				if (kendaraan_shipment_ids != "") {
+					if (kendaraan_shipment_ids.indexOf(shipment_id) != -1) {
+						tr.find(".select-kendaraan").val(kendaraan[i].id);
+						kendaraan_found = true;
+						break;
+					}
+				}
+			}
+			if (!kendaraan_found) {
+				tr.find(".select-kendaraan").val(0);
+			}
+		} else {
+			if (tr.find(".select-jenis-muatan").val() == 0) {
+				var selectSupir = tr.find(".select-supir");
+				var selectedSupirShipmentIds = selectSupir.find(":selected").data("shipment-ids");
+				if (selectedSupirShipmentIds != "") {
+					selectSupir.val(0);
+				}
+
+				var selectKendaraan = tr.find(".select-kendaraan");
+				var selectedKendaraanShipmentIds = selectKendaraan.find(":selected").data("shipment-ids");
+				if (selectedKendaraanShipmentIds != "") {
+					selectKendaraan.val(0);
+				}
+			}
+		}
 	});
 	
 	$(document).on("click", ".btn-pesan", function() {
@@ -401,11 +573,11 @@ $(function() {
 		var jenis_muatan = trKiriman.find(".select-jenis-muatan").val();
 		var jenis_muatan_text = trKiriman.find(".select-jenis-muatan option:selected").text();
 		var driver_id = trKiriman.find(".select-supir").val();
-		var driver_id_text = trKiriman.find(".select-supir option:selected").text();
+		var driver_id_text = (driver_id == 0) ? "" : trKiriman.find(".select-supir option:selected").text();
 		var vehicle_id = trKiriman.find(".select-kendaraan").val();
-		var vehicle_id_text = trKiriman.find(".select-kendaraan option:selected").text();
+		var vehicle_id_text = (vehicle_id == 0) ? "" : trKiriman.find(".select-kendaraan option:selected").text();
 		var device_id = trKiriman.find(".select-alat").val();
-		var device_id_text = trKiriman.find(".select-alat option:selected").text();
+		var device_id_text = (device_id == 0) ? "" : trKiriman.find(".select-alat option:selected").text();
 
 		$(".dialog-konfirmasi-pesan-kiriman").data("id", shipment_id);
 		$(".dialog-konfirmasi-pesan-kiriman").data("jenis_muatan", jenis_muatan);
@@ -652,15 +824,17 @@ function getKendaraan() {
 		var element = "";
 		var iLength = result.length;
 		kendaraan = [];
+		element += "<option value='0'>Pilih Kendaraan... </option>";
 		for (var i = 0; i < iLength; i++) {
 			kendaraan.push({
 				id: result[i].vehicle_id,
 				name: result[i].vehicle_name,
 				status: result[i].vehicle_details_status,
-				jenis_muatan: result[i].shipment_jenis_muatan
+				jenis_muatan: result[i].shipment_jenis_muatan,
+				shipment_ids: result[i].shipment_ids
 			});
 			if (result[i].vehicle_details_status == 0) {
-				element += "<option value='" + result[i].vehicle_id + "'>" + result[i].vehicle_name + "</option>";
+				element += "<option value='" + result[i].vehicle_id + "' data-shipment-ids=''>" + result[i].vehicle_name + " </option>";
 			}
 		}
 		$(".select-kendaraan").append(element);
@@ -674,15 +848,17 @@ function getSupir() {
 		var element = "";
 		var iLength = result.length;
 		supir = [];
+		element += "<option value='0'>Pilih Supir... </option>";
 		for (var i = 0; i < iLength; i++) {
 			supir.push({
 				id: result[i].driver_id,
 				name: result[i].driver_name,
 				status: result[i].driver_details_status,
-				jenis_muatan: result[i].shipment_jenis_muatan
+				jenis_muatan: result[i].shipment_jenis_muatan,
+				shipment_ids: result[i].shipment_ids
 			});
 			if (result[i].driver_details_status == 0) {
-				element += "<option value='" + result[i].driver_id + "'>" + result[i].driver_name + "</option>";
+				element += "<option value='" + result[i].driver_id + "' data-shipment-ids=''>" + result[i].driver_name + " </option>";
 			}
 		}
 		$(".select-supir").append(element);
@@ -696,15 +872,17 @@ function getAlat() {
 		var element = "";
 		var iLength = result.length;
 		alat = [];
+		element += "<option value='0'>Pilih Alat... </option>";
 		for (var i = 0; i < iLength; i++) {
 			alat.push({
 				id: result[i].device_id,
 				name: result[i].device_name,
 				status: result[i].device_details_status,
-				jenis_muatan: result[i].shipment_jenis_muatan
+				jenis_muatan: result[i].shipment_jenis_muatan,
+				shipment_ids: result[i].shipment_ids
 			});
 			if (result[i].device_details_status == 0) {
-				element += "<option value='" + result[i].device_id + "'>" + result[i].device_name + "</option>";
+				element += "<option value='" + result[i].device_id + "' data-shipment-ids=''>" + result[i].device_name + " </option>";
 			}
 		}
 		$(".select-alat").append(element);
@@ -769,12 +947,10 @@ function submitPesan() {
 	var vehicle_id = $(".dialog-konfirmasi-pesan-kiriman").data("vehicle_id");
 	var device_id =$(".dialog-konfirmasi-pesan-kiriman").data("device_id");
 	
-	if (driver_id == "" || driver_id == null) {
+	if (driver_id == 0 || driver_id == "") {
 		alert("tidak ada supir yang dipilih");
-	} else if (vehicle_id == "" || vehicle_id == null) {
+	} else if (vehicle_id == 0 || vehicle_id == "") {
 		alert("tidak ada kendaraan yang dipilih");
-	} else if (device_id == "" || device_id == null) {
-		alert("tidak ada alat yang dipilih");
 	} else {
 		showFullscreenLoading();
 		var data = {
@@ -945,7 +1121,7 @@ function addKirimanToTable(result, tabsNumber, tab) {
 				break;
 			case "pending":
 				tdJenisMuatan = "<td><select class='select-jenis-muatan'><option value='1'>Penuh</option><option value='0'>Parsial</option></select></td>";
-				additionalTd = "<td><select class='select-supir'></select></td><td><select class='select-kendaraan'></select></td><td><select class='select-alat'></select></td>";
+				additionalTd = "<td><div class='td-detail-div'><select class='select-supir'></select></div><div class='td-detail-div'><select class='select-kendaraan'></select></div><div class='td-detail-div'><select class='select-alat'></select></div></td>";
 				break;
 			case "pesanan":
 				additionalTd = "<td class='td-supir'>" + result[i].driver_names + "</td><td class='td-kendaraan'>" + result[i].vehicle_names + "</td><td class='td-alat'>" + result[i].device_names + "</td>";

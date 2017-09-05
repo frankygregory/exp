@@ -22,7 +22,11 @@
 	width: 1010px !important;
 }
 
-.tabs-content[data-tabs-number="2"] .table-kiriman, .tabs-content[data-tabs-number="2"] .table-empty-state, .tabs-content[data-tabs-number="3"] .table-kiriman, .tabs-content[data-tabs-number="3"] .table-empty-state, .tabs-content[data-tabs-number="4"] .table-kiriman, .tabs-content[data-tabs-number="4"] .table-empty-state, .tabs-content[data-tabs-number="5"] .table-kiriman, .tabs-content[data-tabs-number="5"] .table-empty-state {
+.tabs-content[data-tabs-number="2"] .table-kiriman, .tabs-content[data-tabs-number="2"] .table-empty-state {
+	width: 1400px !important;
+}
+
+.tabs-content[data-tabs-number="3"] .table-kiriman, .tabs-content[data-tabs-number="3"] .table-empty-state, .tabs-content[data-tabs-number="4"] .table-kiriman, .tabs-content[data-tabs-number="4"] .table-empty-state, .tabs-content[data-tabs-number="5"] .table-kiriman, .tabs-content[data-tabs-number="5"] .table-empty-state {
 	width: 1500px !important;
 }
 
@@ -36,6 +40,30 @@
 
 .tabs-content[data-tabs-number="8"] .table-kiriman, .tabs-content[data-tabs-number="8"] .table-empty-state {
 	width: 1040px !important;
+}
+
+.tabs-content[data-tabs-number="2"] .table-kiriman td[data-col="muatan"] {
+	width: 110px;
+}
+
+.tabs-content[data-tabs-number="2"] .select-jenis-muatan {
+	width: 90px !important;
+}
+
+.table-kiriman td[data-col="detail"] {
+	width: 250px;
+}
+
+.td-detail-div {
+	margin-bottom: 10px;
+}
+
+.td-detail-div:last-child {
+	margin-bottom: 0;
+}
+
+.tabs-content[data-tabs-number="2"] .select-supir, .tabs-content[data-tabs-number="2"] .select-kendaraan, .tabs-content[data-tabs-number="2"] .select-alat {
+	width: 240px !important;
 }
 
 .btn-deal, .btn-pesan, .btn-dikirim, .btn-diambil, .btn-diterima, .btn-batal-pengiriman {

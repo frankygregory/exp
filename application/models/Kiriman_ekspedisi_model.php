@@ -39,7 +39,7 @@ class Kiriman_ekspedisi_model extends CI_Model
 	
 	public function getPesananKiriman($user_id) {
 		$query = $this->db->query("
-			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, m.shipment_jenis_muatan, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, dd.driver_id AS driver_ids, dd.driver_name AS driver_names, vd.vehicle_id AS vehicle_ids, vd.vehicle_name AS vehicle_names, ded.device_id AS device_ids, ded.device_name AS device_names
+			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, m.shipment_jenis_muatan, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, dd.driver_id AS driver_ids, dd.driver_name AS driver_names, vd.vehicle_id AS vehicle_ids, vd.vehicle_name AS vehicle_names, ded.device_id AS device_ids, COALESCE(ded.device_name, '') AS device_names
 			FROM `t_bidding` t, `m_shipment` m
 			LEFT JOIN (SELECT dd.driver_id, dd.shipment_id, d.driver_name FROM `m_driver_details` dd, `m_driver` d WHERE dd.driver_id = d.driver_id) dd
             ON dd.shipment_id = m.shipment_id
@@ -55,7 +55,7 @@ class Kiriman_ekspedisi_model extends CI_Model
 	
 	public function getDikirimKiriman($user_id) {
 		$query = $this->db->query("
-			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, m.shipment_jenis_muatan, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, dd.driver_id AS driver_ids, dd.driver_name AS driver_names, vd.vehicle_id AS vehicle_ids, vd.vehicle_name AS vehicle_names, ded.device_id AS device_ids, ded.device_name AS device_names
+			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, m.shipment_jenis_muatan, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, dd.driver_id AS driver_ids, dd.driver_name AS driver_names, vd.vehicle_id AS vehicle_ids, vd.vehicle_name AS vehicle_names, ded.device_id AS device_ids, COALESCE(ded.device_name, '') AS device_names
 			FROM `t_bidding` t, `m_shipment` m
 			LEFT JOIN (SELECT dd.driver_id, dd.shipment_id, d.driver_name FROM `m_driver_details` dd, `m_driver` d WHERE dd.driver_id = d.driver_id) dd
             ON dd.shipment_id = m.shipment_id
@@ -71,7 +71,7 @@ class Kiriman_ekspedisi_model extends CI_Model
 	
 	public function getDiambilKiriman($user_id) {
 		$query = $this->db->query("
-			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, m.shipment_jenis_muatan, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, dd.driver_id AS driver_ids, dd.driver_name AS driver_names, vd.vehicle_id AS vehicle_ids, vd.vehicle_name AS vehicle_names, ded.device_id AS device_ids, ded.device_name AS device_names
+			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, m.shipment_jenis_muatan, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, dd.driver_id AS driver_ids, dd.driver_name AS driver_names, vd.vehicle_id AS vehicle_ids, vd.vehicle_name AS vehicle_names, ded.device_id AS device_ids, COALESCE(ded.device_name, '') AS device_names
 			FROM `t_bidding` t, `m_shipment` m
 			LEFT JOIN (SELECT dd.driver_id, dd.shipment_id, d.driver_name FROM `m_driver_details` dd, `m_driver` d WHERE dd.driver_id = d.driver_id) dd
             ON dd.shipment_id = m.shipment_id
@@ -87,7 +87,7 @@ class Kiriman_ekspedisi_model extends CI_Model
 	
 	public function getDiterimaKiriman($user_id) {
 		$query = $this->db->query("
-			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, m.shipment_jenis_muatan, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, dd.driver_id AS driver_ids, dd.driver_name AS driver_names, vd.vehicle_id AS vehicle_ids, vd.vehicle_name AS vehicle_names, ded.device_id AS device_ids, ded.device_name AS device_names
+			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, m.shipment_jenis_muatan, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, dd.driver_id AS driver_ids, dd.driver_name AS driver_names, vd.vehicle_id AS vehicle_ids, vd.vehicle_name AS vehicle_names, ded.device_id AS device_ids, COALESCE(ded.device_name, '') AS device_names
 			FROM `t_bidding` t, `m_shipment` m
 			LEFT JOIN (SELECT dd.driver_id, dd.shipment_id, d.driver_name FROM `m_driver_details` dd, `m_driver` d WHERE dd.driver_id = d.driver_id) dd
             ON dd.shipment_id = m.shipment_id
@@ -103,7 +103,7 @@ class Kiriman_ekspedisi_model extends CI_Model
 	
 	public function getSelesaiKiriman($user_id) {
 		$query = $this->db->query("
-			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, m.shipment_jenis_muatan, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, dd.driver_id AS driver_ids, dd.driver_name AS driver_names, vd.vehicle_id AS vehicle_ids, vd.vehicle_name AS vehicle_names, ded.device_id AS device_ids, ded.device_name AS device_names, TIMESTAMPDIFF(SECOND, sd.delivery_date, sd.receive_date) AS waktu_kiriman, TIMESTAMPDIFF(SECOND, sd.order_date, sd.end_date) AS total_waktu
+			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, m.shipment_jenis_muatan, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, dd.driver_id AS driver_ids, dd.driver_name AS driver_names, vd.vehicle_id AS vehicle_ids, vd.vehicle_name AS vehicle_names, ded.device_id AS device_ids, COALESCE(ded.device_name, '') AS device_names, TIMESTAMPDIFF(SECOND, sd.delivery_date, sd.receive_date) AS waktu_kiriman, TIMESTAMPDIFF(SECOND, sd.order_date, sd.end_date) AS total_waktu
 			FROM `t_bidding` t, `m_shipment_darat` sd, `m_shipment` m
 			LEFT JOIN (SELECT dd.driver_id, dd.shipment_id, d.driver_name FROM `m_driver_details` dd, `m_driver` d WHERE dd.driver_id = d.driver_id) dd
             ON dd.shipment_id = m.shipment_id
@@ -145,11 +145,11 @@ class Kiriman_ekspedisi_model extends CI_Model
 	
 	public function getKendaraanAktif($user_id) {
 		$query = $this->db->query("
-			SELECT m.*, d.shipment_jenis_muatan, (CASE WHEN d.shipment_jenis_muatan IS NULL THEN 0 ELSE 1 END) AS vehicle_details_status
+			SELECT m.*, d.shipment_jenis_muatan, (CASE WHEN d.shipment_jenis_muatan IS NULL THEN 0 ELSE 1 END) AS vehicle_details_status, COALESCE(d.shipment_ids, '') AS shipment_ids
 			FROM `m_vehicle` m
-			LEFT JOIN (SELECT vehicle_id, (CASE SUM(shipment_jenis_muatan) WHEN 0 THEN 0 ELSE 1 END) AS shipment_jenis_muatan FROM `m_vehicle_details` WHERE vehicle_details_status = 1 GROUP BY vehicle_id) d
+			LEFT JOIN (SELECT vehicle_id, (CASE SUM(shipment_jenis_muatan) WHEN 0 THEN 0 ELSE 1 END) AS shipment_jenis_muatan, GROUP_CONCAT(shipment_id) AS shipment_ids FROM `m_vehicle_details` WHERE vehicle_details_status = 1 GROUP BY vehicle_id) d
 			ON m.vehicle_id = d.vehicle_id
-			WHERE m.user_id = '" . $user_id . "' AND m.vehicle_status = 1
+			WHERE m.user_id = " . $user_id . " AND m.vehicle_status = 1
 			GROUP BY m.vehicle_id
 		");
 		return $query->result();
@@ -157,9 +157,9 @@ class Kiriman_ekspedisi_model extends CI_Model
 	
 	public function getDriverAktif($user_id) {
 		$query = $this->db->query("
-			SELECT m.*, d.shipment_jenis_muatan, (CASE WHEN d.shipment_jenis_muatan IS NULL THEN 0 ELSE 1 END) AS driver_details_status
+			SELECT m.*, d.shipment_jenis_muatan, (CASE WHEN d.shipment_jenis_muatan IS NULL THEN 0 ELSE 1 END) AS driver_details_status, COALESCE(d.shipment_ids, '') AS shipment_ids
 			FROM `m_driver` m
-			LEFT JOIN (SELECT driver_id, (CASE SUM(shipment_jenis_muatan) WHEN 0 THEN 0 ELSE 1 END) AS shipment_jenis_muatan FROM `m_driver_details` WHERE driver_details_status = 1 GROUP BY driver_id) d
+			LEFT JOIN (SELECT driver_id, (CASE SUM(shipment_jenis_muatan) WHEN 0 THEN 0 ELSE 1 END) AS shipment_jenis_muatan, GROUP_CONCAT(shipment_id) AS shipment_ids FROM `m_driver_details` WHERE driver_details_status = 1 GROUP BY driver_id) d
 			ON m.driver_id = d.driver_id
 			WHERE m.user_id = " . $user_id . " AND m.driver_status = 1
 			GROUP BY m.driver_id
@@ -169,9 +169,9 @@ class Kiriman_ekspedisi_model extends CI_Model
 	
 	public function getAlatAktif($user_id) {
 		$query = $this->db->query("
-			SELECT m.*, d.shipment_jenis_muatan, (CASE WHEN d.shipment_jenis_muatan IS NULL THEN 0 ELSE 1 END) AS device_details_status
+			SELECT m.*, d.shipment_jenis_muatan, (CASE WHEN d.shipment_jenis_muatan IS NULL THEN 0 ELSE 1 END) AS device_details_status, COALESCE(d.shipment_ids, '') AS shipment_ids
 			FROM `m_device_customer` m
-			LEFT JOIN (SELECT device_id, (CASE SUM(shipment_jenis_muatan) WHEN 0 THEN 0 ELSE 1 END) AS shipment_jenis_muatan FROM `m_device_details` WHERE device_details_status = 1 GROUP BY device_id) d
+			LEFT JOIN (SELECT device_id, (CASE SUM(shipment_jenis_muatan) WHEN 0 THEN 0 ELSE 1 END) AS shipment_jenis_muatan, GROUP_CONCAT(shipment_id) AS shipment_ids FROM `m_device_details` WHERE device_details_status = 1 GROUP BY device_id) d
 			ON m.device_id = d.device_id
 			WHERE m.user_id = '" . $user_id . "' AND m.device_status = 1
 			GROUP BY m.device_id
