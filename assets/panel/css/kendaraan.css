@@ -7,11 +7,11 @@
 }
 
 .table-kendaraan, .table-empty-state {
-  width: 1230px !important;
+  width: 1300px !important;
   margin: 0 auto;
 }
 
-table .td-no, .td-ketersediaan, .th-jumlah-transaksi, .td-jumlah-transaksi {
+table .td-no, .th-jumlah-transaksi, .td-jumlah-transaksi {
   text-align: center;
 }
 
@@ -28,7 +28,7 @@ td[data-col="nama-kendaraan"] {
 }
 
 td[data-col="ketersediaan"] {
-  width: 150px;
+  width: 200px;
 }
 
 td[data-col="jumlah-transaksi"] {
@@ -36,7 +36,7 @@ td[data-col="jumlah-transaksi"] {
 }
 
 td[data-col="keterangan"] {
-  width: 250px;
+  width: 270px;
 }
 
 td[data-col="status"] {
@@ -45,4 +45,13 @@ td[data-col="status"] {
 
 td[data-col="action"] {
   width: 100px;
+}
+
+a.shipment-id {
+	display: block;
+	clear: both;
+}
+
+a.shipment-id:link, a.shipment-id:visited {
+	color: blue;
 }

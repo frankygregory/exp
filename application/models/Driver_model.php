@@ -49,11 +49,11 @@ class Driver_model extends CI_Model
 	
 	public function getDriverByUserId($user_id) {
 		$query = $this->db->query("
-			SELECT m.*, COALESCE(d.shipment_id, '') AS shipment_id
+			SELECT m.*, COALESCE(d.shipment_ids, '') AS shipment_ids
 			FROM `m_driver` m
-			LEFT JOIN `m_driver_details` d
-			ON m.driver_id = d.driver_id AND d.driver_details_status = 1
-			WHERE m.user_id = '" . $user_id . "' AND m.driver_status != -1
+			LEFT JOIN (SELECT driver_id, GROUP_CONCAT(shipment_id) AS shipment_ids FROM `m_driver_details` WHERE driver_details_status = 1 GROUP BY driver_id) d
+			ON m.driver_id = d.driver_id
+			WHERE m.user_id = " . $user_id . " AND m.driver_status != -1
 			GROUP BY m.driver_id
 		");
 		return $query->result();

@@ -333,8 +333,12 @@ function getSupir() {
 
 function addSupirToTable(no, result) {
 	var ketersediaan = "Tersedia";
-	if (result.shipment_id != "") {
-		ketersediaan = "<a href='<?= base_url("kirim/detail/") ?>" + result.shipment_id + "'>" + result.shipment_id + " (No. Kirim)</a>";
+	var shipment_ids = result.shipment_ids.split(",");
+	if (shipment_ids.length > 0 && shipment_ids != "") {
+		ketersediaan = "";
+		for (var i = 0; i < shipment_ids.length; i++) {
+			ketersediaan += "<a class='shipment-id' href='<?= base_url("kirim/detail/") ?>" + shipment_ids[i] + "'>" + shipment_ids[i] + " (No. Kirim)</a>";
+		}
 	}
 	
 	if (result.driver_rating == null) {

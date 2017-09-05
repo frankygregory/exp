@@ -15,12 +15,12 @@
 	margin-top: 20px;
 }
 
-.th-no, .td-no, .th-ketersediaan, .td-ketersediaan, .th-action, .td-action {
+.th-no, .td-no, .th-action, .td-action {
 	text-align: center;
 }
 
 .table-alat, .table-empty-state {
-	width: 1090px !important;
+	width: 1190px !important;
 	margin: 0 auto;
 }
 
@@ -34,16 +34,25 @@
 	width: 270px;
 }
 .table-alat td[data-col="email"] {
-	width: 200px;
+	width: 250px;
 }
 .table-alat td[data-col="ketersediaan"] {
-	width: 150px;
+	width: 200px;
 }
 .table-alat td[data-col="status"] {
 	width: 100px;
 }
 .table-alat td[data-col="action"] {
 	width: 100px;
+}
+
+a.shipment-id {
+	display: block;
+	clear: both;
+}
+
+a.shipment-id:link, a.shipment-id:visited {
+	color: blue;
 }
 
 .table-alat tbody tr:nth-child(even) {

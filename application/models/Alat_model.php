@@ -50,11 +50,11 @@ class Alat_model extends CI_Model
 	
 	public function getAlatByUserId($user_id) {
 		$query = $this->db->query("
-			SELECT m.*, COALESCE(d.shipment_id, '') AS shipment_id
+			SELECT m.*, COALESCE(d.shipment_ids, '') AS shipment_ids
 			FROM `m_device_customer` m
-			LEFT JOIN `m_device_details` d
-			ON m.device_id = d.device_id AND d.device_details_status = 1
-			WHERE m.user_id = '" . $user_id . "' AND m.device_status != -1
+			LEFT JOIN (SELECT device_id, GROUP_CONCAT(shipment_id) AS shipment_ids FROM `m_device_details` WHERE device_details_status = 1 GROUP BY device_id) d
+			ON m.device_id = d.device_id
+			WHERE m.user_id = " . $user_id . " AND m.device_status != -1
 			GROUP BY m.device_id
 		");
 		return $query->result();

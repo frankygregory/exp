@@ -1,5 +1,5 @@
 .content {
-	max-width: 1310px;
+	max-width: 1380px;
 }
 
 .btn-tambah {
@@ -10,12 +10,12 @@
 	float: right;
 }
 
-.th-no, .td-no, .th-ketersediaan, .td-ketersediaan, .th-rating, .td-rating, .th-jumlah-transaksi, .td-jumlah-transaksi, .th-action {
+.th-no, .td-no, .th-rating, .td-rating, .th-jumlah-transaksi, .td-jumlah-transaksi, .th-action {
 	text-align: center;
 }
 
 .table-driver, .table-empty-state {
-	width: 1310px !important;
+	width: 1380px !important;
 	margin: 0 auto;
 }
 
@@ -32,13 +32,13 @@
 	width: 250px;
 }
 .table-driver td[data-col="ketersediaan"] {
-	width: 150px;
+	width: 200px;
 }
 .table-driver td[data-col="rating"] {
 	width: 100px;
 }
 .table-driver td[data-col="jumlah-transaksi"] {
-	width: 80px;
+	width: 100px;
 }
 .table-driver td[data-col="keterangan"] {
 	width: 200px;
@@ -48,4 +48,13 @@
 }
 .table-driver td[data-col="action"] {
 	width: 100px;
+}
+
+a.shipment-id {
+	display: block;
+	clear: both;
+}
+
+a.shipment-id:link, a.shipment-id:visited {
+	color: blue;
 }
