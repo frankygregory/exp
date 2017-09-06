@@ -310,10 +310,10 @@ $(function() {
 		disableDateBefore: new Date()
 	});
 	$(".input-tanggal-kirim-akhir").datepicker({
-		disableDateBefore: new Date("2017-07-25 00:00:00")
+		disableDateBefore: new Date()
 	});
 	$(".input-tanggal-deadline").datepicker({
-		disableDateBefore: new Date("2017-07-25 00:00:00")
+		disableDateBefore: new Date()
 	});
 
 	$(".input-tanggal-kirim-awal").on("datetimeSelected", function() {
@@ -571,7 +571,6 @@ $(function() {
 			e.preventDefault();
 		}
 	});
-	
 });
 
 function toggleSavedLocation(element) {

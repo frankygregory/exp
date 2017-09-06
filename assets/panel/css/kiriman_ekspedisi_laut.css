@@ -1,5 +1,5 @@
 .content {
-	max-width: 1390px;
+	max-width: 1440px;
 }
 
 .table-container {
@@ -11,11 +11,11 @@
 }
 
 .tabs-content[data-tabs-number="1"] .table-kiriman, .tabs-content[data-tabs-number="1"] .table-empty-state {
-	width: 1040px !important;
+	width: 1090px !important;
 }
 
 .tabs-content[data-tabs-number="2"] .table-kiriman, .tabs-content[data-tabs-number="2"] .table-empty-state, .tabs-content[data-tabs-number="3"] .table-kiriman, .tabs-content[data-tabs-number="3"] .table-empty-state, .tabs-content[data-tabs-number="4"] .table-kiriman, .tabs-content[data-tabs-number="4"] .table-empty-state, .tabs-content[data-tabs-number="5"] .table-kiriman, .tabs-content[data-tabs-number="5"] .table-empty-state {
-	width: 1390px !important;
+	width: 1440px !important;
 }
 
 .tabs-content[data-tabs-number="6"] .table-kiriman, .tabs-content[data-tabs-number="6"] .table-empty-state {
@@ -46,12 +46,26 @@
 	width: 170px;
 }
 
+.table-kiriman td[data-col="action"] {
+	width: 150px;
+}
+
 .input-no-kontainer {
 	width: 150px !important;
 }
 
 .subsection-sort {
 	float: right;
+}
+
+.btn-deal, .btn-ubah, .btn-batal-pengiriman {
+	display: block;
+	margin: 0 auto;
+	width: 110px;
+}
+
+.btn-batal-pengiriman {
+	margin-top: 10px;
 }
 
 .btn-action {
