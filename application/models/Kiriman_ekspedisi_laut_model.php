@@ -30,7 +30,7 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 		$query = $this->db->query("
 			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low
 			FROM `t_bidding` t, `m_shipment` m
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 0 AND t.bidding_type = 2
+			WHERE t.created_by = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 0 AND t.bidding_type = 2
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -40,7 +40,7 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 		$query = $this->db->query("
 			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low
 			FROM `t_bidding` t, `m_shipment` m
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 1 AND t.bidding_type = 2
+			WHERE t.created_by = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 1 AND t.bidding_type = 2
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -50,7 +50,7 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 		$query = $this->db->query("
 			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, sd.ship_id, sd.shipment_details_container_number
 			FROM `t_bidding` t, `m_shipment_laut` sd, `m_shipment` m
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 2 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
+			WHERE t.created_by = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 2 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -60,7 +60,7 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 		$query = $this->db->query("
 			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, sd.ship_id, sd.shipment_details_container_number
 			FROM `t_bidding` t, `m_shipment_laut` sd, `m_shipment` m
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 3 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
+			WHERE t.created_by = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 3 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -70,7 +70,7 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 		$query = $this->db->query("
 			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, sd.ship_id, sd.shipment_details_container_number
 			FROM `t_bidding` t, `m_shipment_laut` sd, `m_shipment` m
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 4 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
+			WHERE t.created_by = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 4 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -80,7 +80,7 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 		$query = $this->db->query("
 			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, sd.ship_id, sd.shipment_details_container_number
 			FROM `t_bidding` t, `m_shipment_laut` sd, `m_shipment` m
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 5 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
+			WHERE t.created_by = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 5 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -90,7 +90,7 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 		$query = $this->db->query("
 			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, sd.ship_id, sd.shipment_details_container_number, TIMESTAMPDIFF(SECOND, sd.door_start_date, sd.ending_date) AS total_waktu
 			FROM `t_bidding` t, `m_shipment_laut` sd, `m_shipment` m
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 6 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
+			WHERE t.created_by = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 6 AND t.bidding_type = 2 AND sd.shipment_id = m.shipment_id
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -100,7 +100,7 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 		$query = $this->db->query("
 			SELECT m.shipment_id, m.shipment_title, m.shipment_pictures, m.shipment_delivery_date_from, m.shipment_delivery_date_to, m.shipment_length, m.shipment_status, m.location_from_city, m.location_to_city, get_bidding_count(m.shipment_id) AS bidding_count, get_lowest_bidding_price(m.shipment_id) AS low, m.cancel_by, u.username AS cancel_username, u.user_verified
 			FROM `m_user` u, `t_bidding` t, `m_shipment` m
-			WHERE t.user_id = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 7 AND u.user_id = m.cancel_by AND t.bidding_type = 2
+			WHERE t.created_by = '" . $user_id . "' AND t.shipment_id = m.shipment_id AND t.bidding_status = 1 AND m.shipment_status = 7 AND u.user_id = m.cancel_by AND t.bidding_type = 2
 			GROUP BY m.shipment_id
 		");
 		return $query->result();
@@ -110,7 +110,7 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 		$query = $this->db->query(
 			"SELECT m.shipment_status, COUNT(m.shipment_status) AS count
 			FROM `m_shipment` m, `t_bidding` t
-			WHERE t.user_id = '" . $user_id . "' AND t.bidding_status = 1 AND t.shipment_id = m.shipment_id AND t.bidding_type = 2
+			WHERE t.created_by = '" . $user_id . "' AND t.bidding_status = 1 AND t.shipment_id = m.shipment_id AND t.bidding_type = 2
 			GROUP BY m.shipment_status;"
 		);
 		return $query->result();
@@ -122,7 +122,7 @@ class Kiriman_ekspedisi_laut_model extends CI_Model
 			FROM `m_vehicle` m
 			LEFT JOIN `m_vehicle_details` d
 			ON m.vehicle_id = d.vehicle_id AND d.vehicle_details_status = 1
-			WHERE m.user_id = '" . $user_id . "' AND COALESCE(d.shipment_id, '') = '' AND m.vehicle_status = 1
+			WHERE m.created_by = '" . $user_id . "' AND COALESCE(d.shipment_id, '') = '' AND m.vehicle_status = 1
 			GROUP BY m.vehicle_id
 		");
 		return $query->result();

@@ -50,7 +50,7 @@ class Kendaraan_model extends CI_Model
 			FROM `m_vehicle` m
 			LEFT JOIN (SELECT vehicle_id, GROUP_CONCAT(shipment_id) AS shipment_ids FROM `m_vehicle_details` WHERE vehicle_details_status = 1 GROUP BY vehicle_id) d
 			ON m.vehicle_id = d.vehicle_id
-			WHERE m.user_id = " . $user_id . " AND m.vehicle_status != -1
+			WHERE m.created_by = " . $user_id . " AND m.vehicle_status != -1
 			GROUP BY m.vehicle_id
 		");
 		return $query->result();

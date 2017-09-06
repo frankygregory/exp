@@ -11,10 +11,10 @@ class Dashboard_model extends CI_Model
 		$query = $this->db->query("
 			SELECT COALESCE((SELECT COUNT(m.shipment_id)
 			FROM `m_shipment` m, `t_bidding` t
-			WHERE t.user_id = " . $user_id . " AND t.shipment_id = m.shipment_id AND m.shipment_end_date > CURRENT_TIMESTAMP() AND m.shipment_status = -1), 0) AS kiriman_open,
+			WHERE t.created_by = " . $user_id . " AND t.shipment_id = m.shipment_id AND m.shipment_end_date > CURRENT_TIMESTAMP() AND m.shipment_status = -1), 0) AS kiriman_open,
             COALESCE((SELECT COUNT(m.shipment_id)
 			FROM `m_shipment` m, `t_bidding` t
-			WHERE t.user_id = " . $user_id . " AND t.bidding_status = 1 AND t.shipment_id = m.shipment_id AND m.shipment_status > -1 AND m.shipment_status < 6), 0) AS kiriman_berjalan
+			WHERE t.created_by = " . $user_id . " AND t.bidding_status = 1 AND t.shipment_id = m.shipment_id AND m.shipment_status > -1 AND m.shipment_status < 6), 0) AS kiriman_berjalan
 		");
 		return $query->result();
 	}
@@ -23,10 +23,10 @@ class Dashboard_model extends CI_Model
 		$query = $this->db->query("
 			SELECT COALESCE((SELECT COUNT(m.shipment_id)
 			FROM `m_shipment` m
-			WHERE m.user_id = " . $user_id . " AND m.shipment_status > -1 AND m.shipment_status < 6), 0) AS kiriman_berjalan,
+			WHERE m.created_by = " . $user_id . " AND m.shipment_status > -1 AND m.shipment_status < 6), 0) AS kiriman_berjalan,
        		COALESCE((SELECT COUNT(m.shipment_id)
 			FROM `m_shipment` m
-			WHERE m.user_id = " . $user_id . "), 0) AS kiriman_total
+			WHERE m.created_by = " . $user_id . "), 0) AS kiriman_total
 		");
 		return $query->result();
 	}

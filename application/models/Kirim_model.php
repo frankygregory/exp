@@ -42,14 +42,6 @@ class Kirim_model extends CI_Model
 		return $query->result();
 	}
 
-	public function getRekanan() {
-		$query = $this->db->query("
-			SELECT party_id
-			FROM `m_user_party`
-			WHERE user_id = 3 AND (user_party_status = 3 OR user_party_status = 4)
-		");
-	}
-
 	public function getListKirimanUmumPro($data) {
 		$query = $this->db->query("
 			SELECT party_id

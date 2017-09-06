@@ -53,7 +53,7 @@ class Driver_model extends CI_Model
 			FROM `m_driver` m
 			LEFT JOIN (SELECT driver_id, GROUP_CONCAT(shipment_id) AS shipment_ids FROM `m_driver_details` WHERE driver_details_status = 1 GROUP BY driver_id) d
 			ON m.driver_id = d.driver_id
-			WHERE m.user_id = " . $user_id . " AND m.driver_status != -1
+			WHERE m.created_by = " . $user_id . " AND m.driver_status != -1
 			GROUP BY m.driver_id
 		");
 		return $query->result();
