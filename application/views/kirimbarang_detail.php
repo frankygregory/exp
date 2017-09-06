@@ -553,7 +553,7 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 <?php } ?>
 });
 </script>
-<script src="<?php echo base_url("assets/panel/js/kirimbarang_detail.js"); ?>" defer></script>
+<script src="<?php echo base_url("assets/panel/js/kirimbarang_detail.js?v=1"); ?>" defer></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCt0M5ZsAQf8_sLJXsviGEOJHQn15QUKXM&callback=initMap" async defer></script>
 </div>
 </div>

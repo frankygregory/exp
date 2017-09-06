@@ -335,7 +335,7 @@ function addBiddingListToTable(result) {
 				element += "<button class='btn-neutral btn-batal-tolak'>Batal Tolak</button>";
 				element += "</div>";
 			} else if (btnCancelBidding) {
-				if (user_id == result.data[i].user_id) {
+				if (user_id == result.data[i].created_by) {
 					element += "<button class='btn-negative btn-cancel-bidding'>Batalkan</button>";
 				}
 			}

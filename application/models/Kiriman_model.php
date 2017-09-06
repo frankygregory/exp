@@ -73,7 +73,7 @@ class Kiriman_model extends CI_Model
 	}
 	
 	public function submitRating($data) {
-		$this->db->query("CALL submit_rating('" . $data["shipment_id"] . "', '" . $data["user_id"] . "', '" . $data["shipment_rating_number"] . "', '" . $data["shipment_rating_feedback"] . "');");
+		$this->db->query("CALL submit_rating('" . $data["shipment_id"] . "', '" . $data["user_id"] . "', '" . $data["shipment_rating_number"] . "', '" . $data["shipment_rating_feedback"] . "', '" . $data["user_id_ref"] . "');");
 		return 1;
 	}
 	

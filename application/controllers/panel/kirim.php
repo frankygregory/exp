@@ -224,10 +224,11 @@ class Kirim extends MY_Controller
 	function getBiddingList() {
 		$shipment_id = $this->input->post("shipment_id");
 		$user_id = $this->session->userdata("user_id");
+		$user_id_ref = $this->session->userdata("user_id_ref");
 		$bidding = $this->Kirim_model->getBidding($shipment_id);
 		$canBid = true;
 		for ($i = 0; $i < sizeof($bidding); $i++) {
-			if ($bidding[$i]->bidding_status == 0 && $bidding[$i]->user_id == $user_id) {
+			if ($bidding[$i]->bidding_status == 0 && $bidding[$i]->user_id == $user_id_ref) {
 				$canBid = false;
 				break;
 			}
@@ -451,6 +452,7 @@ class Kirim extends MY_Controller
 				$ship_status = -1;
 				
 				$user_id = $this->session->userdata('user_id');
+				$user_id_ref = $this->session->userdata("user_id_ref");
 
 				$shipment_delivery_date_from = date_format(new DateTime($this->input->post('tanggal-kirim-awal')), "Y-m-d H:i:s");
 				$shipment_delivery_date_to = date_format(new DateTime($this->input->post('tanggal-kirim-akhir')), "Y-m-d H:i:s");
@@ -483,7 +485,7 @@ class Kirim extends MY_Controller
 					'shipment_price' => $this->input->post('shipment_price'),
 					'shipment_status' => $ship_status,
 					'shipment_type' => $this->input->post('shipment_type'),
-					'user_id' => $user_id,
+					'user_id' => $user_id_ref,
 					'created_by' => $user_id,
 					'modified_by' => $user_id
 				);
@@ -595,6 +597,7 @@ class Kirim extends MY_Controller
 			$bidding_information = $this->input->post("bidding_information");
 			$shipment_id = $this->input->post("shipment_id");
 			$user_id = $this->session->userdata("user_id");
+			$user_id_ref = $this->session->userdata("user_id_ref");
 			
 			$data = array(
 				"bidding_type" => $bidding_type,
@@ -603,7 +606,8 @@ class Kirim extends MY_Controller
 				"bidding_pickupdate" => $bidding_pickupdate,
 				"bidding_information" => $bidding_information,
 				"shipment_id" => $shipment_id,
-				"user_id" => $user_id
+				"user_id" => $user_id,
+				"user_id_ref" => $user_id_ref
 			);
 			
 			$affected_rows = $this->Kirim_model->doBidding($data);
@@ -650,11 +654,13 @@ class Kirim extends MY_Controller
 			$questions_text = $this->input->post("questions_text");
 			$shipment_id = $this->input->post("shipment_id");
 			$user_id = $this->session->userdata("user_id");
+			$user_id_ref = $this->session->userdata("user_id_ref");
 			
 			$insertData = array(
 				"questions_text" => $questions_text,
 				"shipment_id" => $shipment_id,
-				"user_id" => $user_id
+				"user_id" => $user_id,
+				"user_id_ref" => $user_id_ref
 			);
 			
 			$affected_rows = $this->Kirim_model->insertQuestions($insertData);

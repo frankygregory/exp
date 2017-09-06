@@ -197,7 +197,7 @@ class Kirim_model extends CI_Model
 	public function insertQuestions($data) {
 		$insertData = array(
 			"questions_text" => $data["questions_text"],
-			"user_id" => $data["user_id"],
+			"user_id" => $data["user_id_ref"],
 			"shipment_id" => $data["shipment_id"],
 			"created_by" => $data["user_id"],
 			"modified_by" => $data["user_id"]
@@ -235,7 +235,7 @@ class Kirim_model extends CI_Model
 		$query = $this->db->query("
 			SELECT t.*, u.username, u.user_verified
 			FROM `t_bidding` t, `m_user` u
-			WHERE t.created_by = u.user_id AND shipment_id = " . $shipment_id . "
+			WHERE t.user_id = u.user_id AND shipment_id = " . $shipment_id . "
 			ORDER BY CASE t.bidding_status WHEN 1 THEN 2 WHEN 0 THEN 1 ELSE 0 END DESC, t.bidding_price ASC;
 		");
 		return $query->result();
@@ -259,7 +259,7 @@ class Kirim_model extends CI_Model
 			"bidding_pickupdate" => $data["bidding_pickupdate"],
 			"bidding_information" => $data["bidding_information"],
 			"shipment_id" => $data["shipment_id"],
-			"user_id" => $data["user_id"],
+			"user_id" => $data["user_id_ref"],
 			"created_by" => $data["user_id"],
 			"modified_by" => $data["user_id"]
 		);

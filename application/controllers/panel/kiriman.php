@@ -132,6 +132,7 @@ class Kiriman extends MY_Controller
 		parent::checkAjaxRequest();
 
 		$user_id = $this->session->userdata("user_id");
+		$user_id_ref = $this->session->userdata("user_id_ref");
 		$shipment_id = $this->input->post("shipment_id");
 		$shipment_rating_number = $this->input->post("shipment_rating_number");
 		$shipment_rating_feedback = $this->input->post("shipment_rating_feedback");
@@ -140,7 +141,8 @@ class Kiriman extends MY_Controller
 			"shipment_id" => $shipment_id,
 			"user_id" => $user_id,
 			"shipment_rating_number" => $shipment_rating_number,
-			"shipment_rating_feedback" => $shipment_rating_feedback
+			"shipment_rating_feedback" => $shipment_rating_feedback,
+			"user_id_ref" => $user_id_ref
 		);
 		
 		$affected_rows = $this->Kiriman_model->submitRating($data);
