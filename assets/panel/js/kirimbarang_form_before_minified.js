@@ -303,6 +303,7 @@ $(function() {
 	});
 
 	$("#kirimForm").on("submit", function() {
+		showFullscreenLoading();
 		var harga = $(".input-harga").val().replace(/,/g, "");
 		$(".input-harga").val(harga);
 		var group_id = $(".select-group").val();
