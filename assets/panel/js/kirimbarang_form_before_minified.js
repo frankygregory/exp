@@ -1,4 +1,9 @@
+var section1Top = 0, section2Top = 0, section3Top = 0, section4Top = 0;
 $(function() {
+	section2Top = $(".section-2").offset().top - 70;
+	section3Top = $(".section-3").offset().top - 70;
+	section4Top = $(".section-4").offset().top - 70;
+
 	$(".input-tanggal-kirim-awal").datepicker({
 		disableDateBefore: new Date()
 	});
@@ -174,6 +179,8 @@ $(function() {
 	$(document).on("click", "table .btn-remove-item", function() {
 		var no = $(this).data("no");
 		$(".section-4-table tr[data-no='" + no + "']").remove();
+		var count = parseInt($(".detail-count").val());
+		$(".detail-count").val((count - 1));
 	});
 	
 	$("input[data-type='number']").on("keydown", function(e) {
@@ -186,60 +193,73 @@ $(function() {
 		$(this).val(value);
 	});
 	
-	$("#kirimForm").on("submit", function(e) {
+	$(".btn-submit").on("click", function(e) {
 		clearAllErrors();
-
+		
 		var valid = true;
 		var judul = $(".input-judul").val().trim();
 		if (judul == "") {
-			valid = false;
 			$(".input-judul").next().html("Judul harus diisi");
+			if (valid) $(".container-content").scrollTop(section1Top);
+			valid = false;
 		}
 		var keterangan = $(".input-keterangan").val().trim();
 		if (keterangan == "") {
-			valid = false;
 			$(".input-keterangan").next().html("Keterangan harus diisi");
+			if (valid) $(".container-content").scrollTop(section1Top);
+			valid = false;
 		}
 		var lokasi_awal = $("#location_from_address").val().trim();
 		var location_from_name = $("#location_from_name").val().trim();
 		if (lokasi_awal == "") {
-			valid = false;
 			$("#location_from_address").next().html("Lokasi Asal harus diisi");
-		} else if (location_from_name == "") {
+			if (valid) $(".container-content").scrollTop(section2Top);
 			valid = false;
+		} else if (location_from_name == "") {
 			$("#location_from_address").next().html("Lokasi Asal harus dipilih dari Google Maps");
+			if (valid) $(".container-content").scrollTop(section2Top);
+			valid = false;
 		}
 		var detail_awal = $("#location_from_detail").val().trim();
 		if (detail_awal == "") {
 			$("#location_from_detail").next().html("Detail Lokasi harus diisi");
+			if (valid) $(".container-content").scrollTop(section2Top);
+			valid = false;
 		}
 		var kontak_awal = $("#location_from_contact").val().trim();
 		if (kontak_awal == "") {
-			valid = false;
 			$("#location_from_contact").next().html("Kontak harus diisi");
+			if (valid) $(".container-content").scrollTop(section2Top);
+			valid = false;
 		}
 		var lokasi_tujuan = $("#location_to_address").val().trim();
 		var location_to_name = $("#location_to_name").val().trim();
 		if (lokasi_tujuan == "") {
-			valid = false;
 			$("#location_to_address").next().html("Lokasi Tujuan harus diisi");
-		} else if (location_to_name == "") {
+			if (valid) $(".container-content").scrollTop(section2Top);
 			valid = false;
+		} else if (location_to_name == "") {
 			$("#location_to_address").next().html("Lokasi Tujuan harus dipilih dari Google Maps");
+			if (valid) $(".container-content").scrollTop(section2Top);
+			valid = false;
 		}
 		var detail_tujuan = $("#location_to_detail").val().trim();
 		if (detail_tujuan == "") {
 			$("#location_to_detail").next().html("Detail Lokasi harus diisi");
+			if (valid) $(".container-content").scrollTop(section2Top);
+			valid = false;
 		}
 		var kontak_tujuan = $("#location_to_contact").val().trim();
 		if (kontak_tujuan == "") {
-			valid = false;
 			$("#location_to_contact").next().html("Kontak harus diisi");
+			if (valid) $(".container-content").scrollTop(section2Top);
+			valid = false;
 		}
 		var itemCount = parseInt($(".detail-count").val());
 		if (itemCount == 0) {
-			valid = false;
 			$(".section-4-content").next().html("List Barang harus diisi");
+			if (valid) $(".container-content").scrollTop(section4Top);
+			valid = false;
 		}
 		var tanggal_kirim = $(".input-tanggal-kirim-awal").val();
 		if (tanggal_kirim == "") {
@@ -257,14 +277,86 @@ $(function() {
 			$(".input-tanggal-deadline").next().html("Tanggal harus diisi");
 		}
 
-		var value = $(".input-harga").val().replace(/,/g, "");
-		$(".input-harga").val(value);
+		var harga = $(".input-harga").val();
+		var shipment_type = $(".radio-shipment-type:checked").data("text");
 		
-		if (!valid) {
-			e.preventDefault();
+		e.preventDefault();
+
+		if (valid) {
+			var data = {
+				judul: judul,
+				keterangan: keterangan,
+				lokasi_awal: lokasi_awal,
+				detail_awal: detail_awal,
+				kontak_awal: kontak_awal,
+				lokasi_tujuan: lokasi_tujuan,
+				detail_tujuan: detail_tujuan,
+				kontak_tujuan: kontak_tujuan,
+				tanggal_kirim: tanggal_kirim,
+				sampai_dengan: sampai_dengan,
+				berakhir: berakhir,
+				harga: harga,
+				shipment_type: shipment_type
+			};
+			getGroupIds(data);
+		}
+	});
+
+	$("#kirimForm").on("submit", function() {
+		var harga = $(".input-harga").val().replace(/,/g, "");
+		$(".input-harga").val(harga);
+		var group_id = $(".select-group").val();
+		$(this).append("<input type='hidden' name='group_id' value='" + group_id + "' />");
+	});
+
+	$(".btn-submit-submit").on("click", function() {
+		$("#kirimForm").submit();
+	});
+
+	$(".select-group").on("change", function() {
+		var value = $(this).val();
+		if (value == 0) {
+			$(".btn-submit-submit").prop("disabled", true);
+		} else {
+			$(".btn-submit-submit").prop("disabled", false);
 		}
 	});
 });
+
+function getGroupIds(data) {
+	showFullscreenLoading();
+	ajaxCall(getGroupIdsUrl, null, function(json) {
+		hideFullscreenLoading();
+		var result = jQuery.parseJSON(json);
+		var dialog = $(".dialog-konfirmasi-submit");
+		dialog.find(".dialog-value[data-label='judul']").html(data.judul);
+		dialog.find(".dialog-value[data-label='keterangan']").html(data.keterangan);
+		dialog.find(".dialog-image").attr("src", $(".image-preview").attr("src"));
+		dialog.find(".dialog-value[data-label='nama-lokasi-asal']").html(data.lokasi_awal);
+		dialog.find(".dialog-value[data-label='detail-lokasi-asal']").html(data.detail_awal);
+		dialog.find(".dialog-value[data-label='kontak-asal']").html(data.kontak_awal);
+		dialog.find(".dialog-value[data-label='nama-lokasi-tujuan']").html(data.lokasi_tujuan);
+		dialog.find(".dialog-value[data-label='detail-lokasi-tujuan']").html(data.detail_tujuan);
+		dialog.find(".dialog-value[data-label='kontak-tujuan']").html(data.kontak_tujuan);
+		dialog.find(".dialog-value[data-label='tanggal-kirim']").html(data.tanggal_kirim);
+		dialog.find(".dialog-value[data-label='sampai-dengan']").html(data.sampai_dengan);
+		dialog.find(".dialog-value[data-label='berakhir-tanggal']").html(data.berakhir);
+		var harga = data.harga;
+		if (harga != "") {
+			harga += " IDR";
+		}
+		dialog.find(".dialog-value[data-label='harga']").html(harga);
+		dialog.find(".dialog-value[data-label='tipe-penawaran']").html(data.shipment_type);
+		$(".btn-submit-submit").prop("disabled", true);
+		var element = "<option value='0'>Pilih Group...</option>";
+		for (var i = 0; i < result.length; i++) {
+			var group_name = (result[i].group_name != "") ? result[i].group_name : "default";
+			element += "<option value='" + result[i].group_id + "'>" + group_name + "</option>";
+		}
+		dialog.find(".select-group").html(element);
+		showDialog(".dialog-konfirmasi-submit");
+	});
+}
 
 function toggleSavedLocation(element) {
 	var container = $(element).next();
@@ -469,8 +561,8 @@ var map_asal,map_tujuan, placeService;
 var marker_asal,marker_tujuan;
 var autocomplete_asal, autocomplete_tujuan;
 var map_from_latlng, map_to_latlng;
-var center_from = {lat: 0, lng: 0};
-var center_to = {lat: 0, lng: 0};//{lat: -7.2653524, lng: 112.7454884};
+var center_from = {lat: -2.4153238, lng: 108.8510806};
+var center_to = {lat: -2.4153238, lng: 108.8510806};
 
 function updatePosition(div, lat, lng) {
 	$("#"+div).val(lat +', '+lng);
@@ -586,19 +678,6 @@ function distanceMatrixCallback(response, status) {
 
 function initMap() {
 	geocoder = new google.maps.Geocoder;
-	latlng = "<?=$location_from_latlng;?>";
-	if (latlng.length>0) {
-		lat = latlng.substr(0,latlng.indexOf(",")-1)*1;
-		lng = latlng.substr(latlng.indexOf(" ")+1)*1;
-		center_from = {lat: lat, lng: lng};
-	}
-
-	latlng = "<?=$location_to_latlng;?>";
-	if (latlng.length>0) {
-		lat = latlng.substr(0,latlng.indexOf(",")-1)*1;
-		lng = latlng.substr(latlng.indexOf(" ")+1)*1;
-		center_to = {lat: lat, lng: lng};
-	}
 
 	map_asal = new google.maps.Map(document.getElementById('map_asal'), {
 	  center: center_from,

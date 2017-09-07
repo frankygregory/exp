@@ -271,43 +271,123 @@
 					<div class="form-item">
 						<div class="form-item-label">Tipe Penawaran</div>
 						<label class="label-shipment-type">
-							<input type="radio" class="radio-shipment-type" name="shipment_type" value="1" checked="checked" /> Terbuka
+							<input type="radio" class="radio-shipment-type" name="shipment_type" value="1" checked="checked" data-text="Terbuka" /> <span>Terbuka</span>
 						</label>
 						<label class="label-shipment-type">
-							<input type="radio" class="radio-shipment-type" name="shipment_type" value="2" /> Tertutup
+							<input type="radio" class="radio-shipment-type" name="shipment_type" value="2" data-text="Tertutup" /> <span>Tertutup</span>
 						</label>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="buttons">
-			<button class="section-btn btn-submit">Submit</button>
+			<button class="section-btn btn-submit" type="button">Submit</button>
 		</div>
 	</div>
 </form>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo&callback=initMap&libraries=geometry,places&language=id-ID" async defer></script>
+<div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-submit">
+		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
+			<div class="dialog-title">Konfirmasi</div>
+		</div>
+		<div class="dialog-body">
+			<div class="dialog-item">
+				<div class="dialog-label">Judul</div>
+				<div class="dialog-value" data-label="judul"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Keterangan</div>
+				<div class="dialog-value" data-label="keterangan"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Foto</div>
+				<div class="dialog-value" data-label="foto"><img class="dialog-image" /></div>
+			</div>
+			<div class="dialog-item-section">Lokasi Asal</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Nama Lokasi</div>
+				<div class="dialog-value" data-label="nama-lokasi-asal"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Detail Lokasi</div>
+				<div class="dialog-value" data-label="detail-lokasi-asal"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Kontak</div>
+				<div class="dialog-value" data-label="kontak-asal"></div>
+			</div>
+			<div class="dialog-item-section">Lokasi Tujuan</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Nama Lokasi</div>
+				<div class="dialog-value" data-label="nama-lokasi-tujuan"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Detail Lokasi</div>
+				<div class="dialog-value" data-label="detail-lokasi-tujuan"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Kontak</div>
+				<div class="dialog-value" data-label="kontak-tujuan"></div>
+			</div>
+			<div class="dialog-item-section">Tanggal</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Tanggal Kirim</div>
+				<div class="dialog-value" data-label="tanggal-kirim"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Sampai Dengan</div>
+				<div class="dialog-value" data-label="sampai-dengan"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Berakhir Tanggal</div>
+				<div class="dialog-value" data-label="berakhir-tanggal"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Harga</div>
+				<div class="dialog-value" data-label="harga"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Tipe Penawaran</div>
+				<div class="dialog-value" data-label="tipe-penawaran"></div>
+			</div>
+			<div class="dialog-item-section">Group</div>
+			<div class="dialog-item">
+				<div class="dialog-label dialog-label-sebagai-group">Sebagai Group</div>
+				<div class="dialog-value">
+					<select class="select-group"></select>
+				</div>
+			</div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-submit">Submit</button>
+			<button type="button" class="btn-neutral btn-batal">Batal</button>
+		</div>
+	</div>
+</div>
 <script>
+var getGroupIdsUrl = "<?php echo base_url("kirim/getGroupIds"); ?>";
 var toggleSavedLocationUrl = "<?php echo base_url("kirim/getSavedLocation"); ?>";
-   var type = $("#type").val();
-   var url;
-   var error = {
-		nama: "", qty: "", deskripsi: "", dimensi: "", kubikasi: "", berat: ""
-   };
-   
-   var location_from_address = {
-	   autocomplete_clicked: false,
-	   changed: false
-   }
-   
-   var location_to_address = {
-	   autocomplete_clicked: false,
-	   changed: false
-   }
-   
-   var geocoder;
-</script>
-<script src="<?php echo base_url("assets/panel/js/kirimbarang_form.js"); ?>" defer></script>
+var type = $("#type").val();
+var url;
+var error = {
+	nama: "", qty: "", deskripsi: "", dimensi: "", kubikasi: "", berat: ""
+};
 
+var location_from_address = {
+	autocomplete_clicked: false,
+	changed: false
+}
+
+var location_to_address = {
+	autocomplete_clicked: false,
+	changed: false
+}
+
+var geocoder;
+</script>
+<script src="<?php echo base_url("assets/panel/js/kirimbarang_form.js?v=1"); ?>" defer></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyBxOH8f5gil4RYVBIwPCZQ197euUsnnyUo&callback=initMap&libraries=geometry,places&language=id-ID" defer></script>
 </div>
 <!-- /.container-fluid -->
 

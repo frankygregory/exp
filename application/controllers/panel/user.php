@@ -51,6 +51,11 @@ class User extends MY_Controller
 
 		$user_id = $this->session->userdata("user_id");
 		$data = $this->User_model->getMyGroups($user_id);
+		$group_ids = $data[0]->group_id;
+		for ($i = 1; $i < sizeof($data); $i++) {
+			$group_ids .= ";" . $data[$i]->group_id;
+		}
+		$this->session->set_userdata("group_ids", $group_ids);
 		echo json_encode($data);
 	}
 	

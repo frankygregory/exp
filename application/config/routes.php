@@ -119,6 +119,7 @@ $route['kirim/updatekirimbarang'] = 'panel/kirim/updatekirimBarang';
 $route['kirim/update-items'] = 'panel/kirim/updateItems';
 $route['kirim/setujuPenawaran'] = 'panel/kirim/setujuPenawaran';
 $route['kirim/getAllStatusKiriman'] = 'panel/kirim/getAllStatusKiriman';
+$route['kirim/getGroupIds'] = 'panel/kirim/getGroupIds';
 
 $route['penawaran-bisnis'] = 'panel/penawaran_pro';
 $route['penawaran-bisnis/getOpenKiriman'] = 'panel/penawaran_pro/getOpenKiriman';

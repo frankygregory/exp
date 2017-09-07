@@ -486,6 +486,7 @@ class Kirim extends MY_Controller
 					'shipment_status' => $ship_status,
 					'shipment_type' => $this->input->post('shipment_type'),
 					'user_id' => $user_id_ref,
+					'group_id' => $this->input->post('group_id'),
 					'created_by' => $user_id,
 					'modified_by' => $user_id
 				);
@@ -527,7 +528,14 @@ class Kirim extends MY_Controller
 				));
 			}
 		}
-    }
+	}
+	
+	public function getGroupIds() {
+		$this->load->model("User_model");
+		$user_id = $this->session->userdata("user_id");
+		$result = $this->User_model->getMyGroups($user_id);
+		echo json_encode($result);
+	}
 	
 	public function setujuPenawaran() {
 		parent::__second_construct();

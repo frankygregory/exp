@@ -308,9 +308,7 @@
 <script type="text/javascript">
 var validPoints = 0;
 $(function() {
-	getUser();
-	getUserPending();
-	getMyGroups();
+	getMyGroups(true);
 	
 	$(".btn-tambah-user").on("click", function() {
 		clearAllErrors();
@@ -333,12 +331,14 @@ $(function() {
 		
 		$(".dialog-edit-user").data("id", user_id);
 		$(".dialog-edit-user .input-edit-user_fullname").val(user_fullname);
+		$(".dialog-edit-user .input-edit-user_group_id").prop("checked", false);
 		var user_group_id = user_group_ids.split(";");
 		for (var i = 0; i < user_group_id.length; i++) {
 			$(".dialog-edit-user .input-edit-user_group_id[value='" + user_group_id[i] + "']").prop("checked", true);
 		}
 		$(".dialog-edit-user .input-edit-user_level[value='" + user_level + "']").prop("checked", true);
 		$(".dialog-edit-user .select-edit-user_status").val(user_status);
+		clearAllErrors();
 		showDialog(".dialog-edit-user");
 	});
 	
@@ -727,12 +727,10 @@ function addUserToTable(result) {
 			var group_names = "";
 			var group_name = (result[i].group_names + "").split(";");
 			
-			group_names += group_name[0];
+			group_names += (group_name[0] == "") ? "default" : group_name[0];
 			for (var j = 1; j < group_name.length; j++) {
-				group_names += ", " + group_name[j];
-			}
-			if (group_names == "") {
-				group_names = "default";
+				group_names += ", ";
+				group_names += (group_name[j] != "") ? group_name[j] : "default";
 			}
 			
 			var user_level = "", adminChecked = "", dataUserLevel = "";
@@ -831,11 +829,16 @@ function insertGroup() {
 	}
 }
 
-function getMyGroups() {
+function getMyGroups(firstTime) {
+	if (firstTime === undefined) firstTime = false;
 	$(".tbody-group").html("");
-	setLoading(".section-2 .table-empty-state");
+	setLoading(".section-3 .table-empty-state");
 	ajaxCall("<?= base_url("user/getMyGroups") ?>", null, function(json) {
 		removeLoading(".section-3 .table-empty-state");
+		if (firstTime) {
+			getUser();
+			getUserPending();
+		}
 		var result = jQuery.parseJSON(json);
 		addGroupsToTable(result);
 	});
