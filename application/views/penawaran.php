@@ -5,8 +5,8 @@
 	<div class="tabs" data-id="">
 		<div class="tabs-header">
 			<div class="tabs-item-container">
-				<div class="tabs-item active" data-tabs-number="1">Berjalan (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="2">Berakhir (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item active" data-tabs-number="1" data-label="berjalan">Berjalan (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="2" data-label="berakhir">Berakhir (<span class="tabs-item-count">0</span>)</div>
 			</div>
 			<div class="tabs-selection"></div>
 		</div>

@@ -1,12 +1,21 @@
 $(function() {
-	getKiriman(kirimanUrl[1], 1, "deal");
-	getKirimanCount();
-
-	$(".tabs-item").on("click", function() {
+	$(".tabs-item").on("tabs-item-click", function() {
 		var tabsNumber = $(this).data("tabs-number");
 		getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
 	});
-	
+
+	var hash = window.location.hash;
+	if (hash != "") {
+		hash = hash.substring(1);
+		$(".tabs-item[data-label='" + hash + "']").click();
+		if ($(".tabs-item[data-label='" + hash + "']").length == 0) {
+			getKiriman(kirimanUrl[1], 1, "deal");
+		}
+	} else {
+		getKiriman(kirimanUrl[1], 1, "deal");
+	}
+	getKirimanCount();
+
 	$(document).on("click", ".btn-deal", function() {
 		submitDeal(this);
 	});

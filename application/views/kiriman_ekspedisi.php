@@ -5,14 +5,14 @@
 	<div class="tabs" data-id="asd">
 		<div class="tabs-header">
 			<div class="tabs-item-container">
-				<div class="tabs-item active" data-tabs-number="1">Konfirmasi (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="2">Pending (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="3">Pesanan (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="4">Dikirim (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="5">Diambil (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="6">Diterima (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="7">Selesai (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="8">Cancel (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item active" data-tabs-number="1" data-label="konfirmasi">Konfirmasi (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="2" data-label="pending">Pending (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="3" data-label="pesanan">Pesanan (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="4" data-label="dikirim">Dikirim (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="5" data-label="diambil">Diambil (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="6" data-label="diterima">Diterima (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="7" data-label="selesai">Selesai (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="8" data-label="cancel">Cancel (<span class="tabs-item-count">0</span>)</div>
 			</div>
 			<div class="tabs-selection"></div>
 		</div>
@@ -326,4 +326,4 @@ kirimanTabs[8] = "cancel";
 
 var kendaraan = [], supir = [], alat = [];
 </script>
-<script src="<?php echo base_url("assets/panel/js/kiriman_ekspedisi.js"); ?>" defer></script>
+<script src="<?php echo base_url("assets/panel/js/kiriman_ekspedisi.js?v=1"); ?>" defer></script>

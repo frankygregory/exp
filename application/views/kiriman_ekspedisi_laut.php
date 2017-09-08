@@ -5,14 +5,14 @@
 	<div class="tabs" data-id="">
 		<div class="tabs-header">
 			<div class="tabs-item-container">
-				<div class="tabs-item active" data-tabs-number="1">Konfirmasi (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="2">Pending (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="3">Door 1 (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="4">Port 1 (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="5">Port 2 (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="6">Door 2 (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="7">Selesai (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="8">Cancel (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item active" data-tabs-number="1" data-label="konfirmasi">Konfirmasi (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="2" data-label="pending">Pending (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="3" data-label="door-1">Door 1 (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="4" data-label="port-1">Port 1 (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="5" data-label="port-2">Port 2 (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="6" data-label="door-2">Door 2 (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="7" data-label="selesai">Selesai (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="8" data-label="cancel">Cancel (<span class="tabs-item-count">0</span>)</div>
 			</div>
 			<div class="tabs-selection"></div>
 		</div>

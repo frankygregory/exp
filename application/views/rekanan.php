@@ -6,8 +6,8 @@
 	<div class="tabs">
 		<div class="tabs-header">
 			<div class="tabs-item-container">
-				<div class="tabs-item active" data-tabs-number="1">Rekanan (<span class="tabs-item-count">0</span>)</div>
-				<div class="tabs-item" data-tabs-number="2">Pending (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item active" data-tabs-number="1" data-label="rekanan">Rekanan (<span class="tabs-item-count">0</span>)</div>
+				<div class="tabs-item" data-tabs-number="2" data-label="pending">Pending (<span class="tabs-item-count">0</span>)</div>
 			</div>
 			<div class="tabs-selection"></div>
 		</div>
@@ -136,13 +136,22 @@ kirimanTabs[1] = "rekanan";
 kirimanTabs[2] = "pending";
 
 $(function() {
-    getKiriman(kirimanUrl[1], 1, "rekanan");
-	getRekananCount();
-
-    $(".tabs-item").on("click", function() {
+	$(".tabs-item").on("tabs-item-click", function() {
 		var tabsNumber = $(this).data("tabs-number");
 		getKiriman(kirimanUrl[tabsNumber], tabsNumber, kirimanTabs[tabsNumber]);
 	});
+
+	var hash = window.location.hash;
+	if (hash != "") {
+		hash = hash.substring(1);
+		$(".tabs-item[data-label='" + hash + "']").click();
+		if ($(".tabs-item[data-label='" + hash + "']").length == 0) {
+			getKiriman(kirimanUrl[1], 1, "rekanan");
+		}
+	} else {
+		getKiriman(kirimanUrl[1], 1, "rekanan");
+	}
+	getRekananCount();
 
 	$(".btn-tambah").on("click", function() {
 		$(".dialog-tambah .form-item-value").data("count", 0);
