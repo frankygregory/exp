@@ -58,6 +58,14 @@ label {
 	width: 370px !important;
 }
 
+.alt-width .table-user, .section-1.alt-width .table-empty-state {
+	width: 920px !important;
+}
+
+.alt-width .table-group, .section-3.alt-width .table-empty-state {
+	width: 250px !important;
+}
+
 td[data-col="no"] {
 	width: 50px;
 }

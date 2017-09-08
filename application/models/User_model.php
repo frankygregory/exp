@@ -10,7 +10,7 @@ class User_model extends CI_Model{
 			FROM `m_user` u, `m_user_group` ug
 			LEFT JOIN (SELECT g.group_id, g.group_name FROM `m_group` g) g
             ON g.group_id = ug.group_id
-			WHERE u.user_status != -1 AND ug.user_id = u.user_id AND ug.user_id != '" . $data["user_id"] . "' AND (";
+			WHERE u.user_status != -1 AND ug.user_id = u.user_id AND ug.user_id != '" . $data["user_id"] . "' AND u.user_level != 1 AND (";
 		
 		$group_ids = explode(";", $data["group_ids"]);
 		$iLength = sizeof($group_ids);
@@ -73,9 +73,9 @@ class User_model extends CI_Model{
 	
 	public function getMyGroups($user_id) {
 		$query = $this->db->query("
-			SELECT *
-			FROM `m_group`
-			WHERE user_id = '" . $user_id . "' AND group_status != -1
+			SELECT ug.*, g.group_name
+			FROM `m_user_group` ug, `m_group` g
+			WHERE ug.user_id = " . $user_id . " AND g.group_id = ug.group_id AND g.group_status != -1
 		");
 		return $query->result();
 	}

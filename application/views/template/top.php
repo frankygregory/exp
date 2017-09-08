@@ -18,7 +18,7 @@
 	</style>
 	<link href="<?=base_url()?>assets/panel/css/default.css?v=13" rel="stylesheet">
 	<link href="<?=base_url()?>assets/template/css/top.css?v=3" rel="stylesheet">
-	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=36" rel="stylesheet">
+	<link href="<?=base_url()?>assets/panel/css/<?= $pageName ?>.css?v=37" rel="stylesheet">
 	
 	<script src="<?=base_url('assets/panel/js/jquery.js')?>"></script>
 	<script src="<?=base_url('assets/panel/js/velocity.min.js')?>"></script>

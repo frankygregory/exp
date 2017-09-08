@@ -238,10 +238,12 @@
 	</div>
 </div>
 <div class="content">
-	<div class="section-1">
+	<div class="section-1<?php echo $class; ?>">
 		<div class="section-header">
 			<span class="section-title">User</span>
+		<?php if ($isOwner) { ?>
 			<button type="button" class="btn-default btn-tambah-user">Tambah User</button>
+		<?php } ?>
 		</div>
 		<div class="table-container">
 			<table class="table table-user">
@@ -253,7 +255,9 @@
 						<td data-col='group'>Group</td>
 						<td data-col='level'>Level</td>
 						<td data-col='status'>Status</td>
+					<?php if ($isOwner) { ?>
 						<td data-col='action'>Action</td>
+					<?php } ?>
 					</tr>
 				</thead>
 				<tbody class="tbody-user">
@@ -262,6 +266,7 @@
 			<div class="table-empty-state" id="section-1-table-empty-state">Tidak ada user</div>
 		</div>
 	</div>
+<?php if ($isOwner) { ?>
 	<div class="section-2">
 		<div class="section-header">
 			<span class="section-title">User Pending</span>
@@ -284,17 +289,22 @@
 			<div class="table-empty-state" id="section-2-table-empty-state">Tidak ada user pending</div>
 		</div>
 	</div>
-	<div class="section-3">
+<?php } ?>
+	<div class="section-3<?php echo $class; ?>">
 		<div class="section-header">
 			<span class="section-title">Group</span>
+		<?php if ($isOwner) { ?>
 			<button type="button" class="btn-default btn-tambah-group">Tambah Group</button>
+		<?php } ?>
 		</div>
 		<table class="table table-group">
 			<thead>
 				<tr>
 					<td class='td-no' data-col='no' data-align='center'>No.</td>
 					<td data-col='nama'>Nama</td>
+				<?php if ($isOwner) { ?>
 					<td data-col='action'>Action</td>
+				<?php } ?>
 				</tr>
 			</thead>
 			<tbody class="tbody-group">
@@ -307,6 +317,12 @@
 </div>
 <script type="text/javascript">
 var validPoints = 0;
+var canEdit = false;
+<?php
+	if ($this->session->userdata("user_level") == 1) {
+		echo "canEdit = true;";
+	}
+?>
 $(function() {
 	getMyGroups(true);
 	
@@ -654,13 +670,15 @@ function addValidPoints(data) {
 }
 
 function getUserPending() {
-	$(".tbody-user-pending").html("");
-	setLoading(".section-2 .table-empty-state");
-	ajaxCall("<?= base_url("user/getUserPending") ?>", null, function(json) {
-		removeLoading(".section-2 .table-empty-state");
-		var result = jQuery.parseJSON(json);
-		addUserPendingToTable(result);
-	});
+	if (canEdit) {
+		$(".tbody-user-pending").html("");
+		setLoading(".section-2 .table-empty-state");
+		ajaxCall("<?= base_url("user/getUserPending") ?>", null, function(json) {
+			removeLoading(".section-2 .table-empty-state");
+			var result = jQuery.parseJSON(json);
+			addUserPendingToTable(result);
+		});
+	}
 }
 
 function addUserPendingToTable(result) {
@@ -722,6 +740,14 @@ function getUser() {
 function addUserToTable(result) {
 	var element = "";
 	var iLength = result.length;
+
+	var btnEdit = "", btnDelete = "", tdAction = "";
+	if (canEdit) {
+		btnEdit = "<button class='btn-action btn-edit-user' title='edit' style='background-image: url(" + editIconUrl + ");'></button>";
+		btnDelete = "<button class='btn-action btn-delete-user' title='delete' style='background-image: url(" + deleteIconUrl + ");'></button>";
+		tdAction = "<td data-col='action'>" + btnEdit + btnDelete + "</td>";
+	}
+
 	for (var i = 0; i < iLength; i++) {
 		if (result[i].user_id != null) {
 			var group_names = "";
@@ -747,9 +773,6 @@ function addUserToTable(result) {
 				status = "Tidak Aktif";
 			}
 			
-			var btnEdit = "<button class='btn-action btn-edit-user' title='edit' style='background-image: url(" + editIconUrl + ");'></button>";
-			var btnDelete = "<button class='btn-action btn-delete-user' title='delete' style='background-image: url(" + deleteIconUrl + ");'></button>";
-			
 			element += "<tr class='tr-user' data-id='" + result[i].user_id + "'>";
 			element += "<td data-col='no' data-align='center'>" + (i + 1) + "</td>";
 			element += "<td class='td-user_fullname' data-col='nama'>" + result[i].user_fullname + "</td>";
@@ -757,7 +780,7 @@ function addUserToTable(result) {
 			element += "<td class='td-user_group' data-col='group' data-group_ids='" + result[i].group_ids + "'>" + group_names + "</td>";
 			element += "<td class='td-user_level' data-col='level' data-user_level='" + dataUserLevel + "'>" + user_level + "</td>";
 			element += "<td class='td-user_status' data-col='status' data-user_status='" + result[i].user_status + "'>" + status + "</td>";
-			element += "<td data-col='action'>" + btnEdit + btnDelete + "</td>";
+			element += tdAction;
 			element += "</tr>";
 		}
 	}
@@ -849,10 +872,15 @@ function addGroupsToTable(result) {
 	var checkbox = "", checkboxEdit = "";
 	var group_name = "";
 	var iLength = result.length;
-	var btnDelete = "<button class='btn-action btn-delete-group' title='delete' style='background-image: url(" + deleteIconUrl + ");'></button>";
-	if (iLength == 1) {
-		btnDelete = "";
+	var btnEdit = "", btnDelete = "", tdAction = "";
+	if (canEdit) {
+		btnEdit = "<button class='btn-action btn-edit-group' title='edit' style='background-image: url(" + editIconUrl + ");'></button>";
+		if (iLength > 1) {
+			btnDelete = "<button class='btn-action btn-delete-group' title='delete' style='background-image: url(" + deleteIconUrl + ");'></button>";
+		}
+		tdAction = "<td data-col='action'>" + btnEdit + btnDelete + "</td>";
 	}
+
 	for (var i = 0; i < iLength; i++) {
 		group_name = result[i].group_name;
 		if (group_name == "") {
@@ -861,7 +889,7 @@ function addGroupsToTable(result) {
 		element += "<tr class='tr-group' data-id='" + result[i].group_id + "' data-name='" + group_name + "'>";
 		element += "<td data-col='no' data-align='center'>" + (i + 1) + "</td>";
 		element += "<td class='td-group_name' data-col='nama'>" + group_name + "</td>";
-		element += "<td data-col='action'><button class='btn-action btn-edit-group' title='edit' style='background-image: url(" + editIconUrl + ");'></button>" + btnDelete + "</td>";
+		element += tdAction;
 		element += "</tr>";
 		
 		checkbox += "<label class='label-checkbox-group'><input type='checkbox' class='input-insert-user_group_id' value='" + result[i].group_id + "' /> " + group_name + "</label>";
