@@ -604,6 +604,7 @@ class Kirim extends MY_Controller
 			$bidding_pickupdate = date_format(new DateTime($bidding_pickupdate), "Y-m-d H:i:s");
 			$bidding_information = $this->input->post("bidding_information");
 			$shipment_id = $this->input->post("shipment_id");
+			$group_id = $this->input->post("group_id");
 			$user_id = $this->session->userdata("user_id");
 			$user_id_ref = $this->session->userdata("user_id_ref");
 			
@@ -615,7 +616,8 @@ class Kirim extends MY_Controller
 				"bidding_information" => $bidding_information,
 				"shipment_id" => $shipment_id,
 				"user_id" => $user_id,
-				"user_id_ref" => $user_id_ref
+				"user_id_ref" => $user_id_ref,
+				"group_id" => $group_id
 			);
 			
 			$affected_rows = $this->Kirim_model->doBidding($data);

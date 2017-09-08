@@ -260,6 +260,7 @@ class Kirim_model extends CI_Model
 			"bidding_information" => $data["bidding_information"],
 			"shipment_id" => $data["shipment_id"],
 			"user_id" => $data["user_id_ref"],
+			"group_id" => $data["group_id"],
 			"created_by" => $data["user_id"],
 			"modified_by" => $data["user_id"]
 		);
@@ -269,7 +270,7 @@ class Kirim_model extends CI_Model
 
 	public function cancelBidding($data) {
 		$this->db->where("bidding_id", $data["bidding_id"]);
-		$this->db->where("user_id", $data["user_id"]);
+		$this->db->where("created_by", $data["user_id"]);
 		$this->db->where("bidding_status", 0);
 		$updateData = array(
 			"bidding_status" => -1,

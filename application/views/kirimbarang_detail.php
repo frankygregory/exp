@@ -215,8 +215,8 @@
 							<td class="td-label">Jenis</td>
 							<td class="td-titikdua"> : </td>
 							<td>
-								<label class="label-bidding-type"><input type="radio" class="input-bidding-type" name="input-bidding-type" value="1" checked="checked" /> Darat</label>
-								<label class="label-bidding-type"><input type="radio" class="input-bidding-type" name="input-bidding-type" value="2" /> Laut</label>
+								<label class="label-bidding-type"><input type="radio" class="input-bidding-type" name="input-bidding-type" value="1" checked="checked" data-value='Darat' /> Darat</label>
+								<label class="label-bidding-type"><input type="radio" class="input-bidding-type" name="input-bidding-type" value="2" data-value='Laut' /> Laut</label>
 								<div class="error penawaran-error error-bidding-type"></div>
 							</td>
 						</tr>
@@ -317,6 +317,47 @@
 		</div>
 	</div>
 </div>
+<div class="dialog-background">
+	<div class="dialog dialog-konfirmasi-penawaran">
+		<div class="dialog-header">
+			<div class="dialog-header-close-btn" style="background-image: url(<?php echo base_url("assets/icons/close_icon.svg"); ?>);"></div>
+			<div class="dialog-title">Konfirmasi Penawaran</div>
+		</div>
+		<div class="dialog-body">
+			<div class="dialog-item">
+				<div class="dialog-label">Jenis Penawaran</div>
+				<div class="dialog-value" data-label="jenis-penawaran"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Harga</div>
+				<div class="dialog-value" data-label="harga"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Tanggal Ambil</div>
+				<div class="dialog-value" data-label="tanggal-ambil"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label" data-label="kendaraan">Kendaraan</div>
+				<div class="dialog-value" data-label="kendaraan"></div>
+			</div>
+			<div class="dialog-item">
+				<div class="dialog-label">Keterangan</div>
+				<div class="dialog-value" data-label="keterangan"></div>
+			</div>
+			<div class="dialog-item-section">Group</div>
+			<div class="dialog-item">
+				<div class="dialog-label dialog-label-sebagai-group">Sebagai Group</div>
+				<div class="dialog-value">
+					<select class="select-group"></select>
+				</div>
+			</div>
+		</div>
+		<div class="dialog-footer">
+			<button type="button" class="btn-default btn-submit-penawaran">Submit</button>
+			<button type="button" class="btn-neutral btn-batal">Batal</button>
+		</div>
+	</div>
+</div>
 <script>
 var cancelBiddingUrl = "<?php echo base_url("kirim/cancelBidding"); ?>";
 var kirimPertanyaanUrl = "<?php echo base_url("kirim/kirimPertanyaan"); ?>";
@@ -327,6 +368,7 @@ var jawabPertanyaanUrl = "<?php echo base_url("kirim/jawabPertanyaan"); ?>";
 var submitTolakUrl = "<?php echo base_url("kirim/tolakPenawaran"); ?>";
 var getDiscussionsUrl = "<?php echo base_url("kirim/getDiscussions"); ?>";
 var getBiddingListUrl = "<?php echo base_url("kirim/getBiddingList"); ?>";
+var getGroupIdsUrl = "<?php echo base_url("kirim/getGroupIds"); ?>";
 var btnJawabPertanyaan = false;
 var btnCancelBidding = false;
 var shipment_owner_username = "<?php echo $shipment_owner_username; ?>";
@@ -550,10 +592,23 @@ if ($role_id == 1 && $isOwner && $shipment_status == -1) {
 	$(document).on("click", ".btn-submit-cancel-bidding", function() {
 		cancelBidding();
 	});
+
+	$(".select-group").on("change", function() {
+		var value = $(this).val();
+		if (value == 0) {
+			$(".btn-submit-penawaran").prop("disabled", true);
+		} else {
+			$(".btn-submit-penawaran").prop("disabled", false);
+		}
+	});
+
+	$(".btn-submit-penawaran").on("click", function() {
+		submitKirimPenawaran();
+	});
 <?php } ?>
 });
 </script>
-<script src="<?php echo base_url("assets/panel/js/kirimbarang_detail.js?v=1"); ?>" defer></script>
+<script src="<?php echo base_url("assets/panel/js/kirimbarang_detail.js?v=2"); ?>" defer></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCt0M5ZsAQf8_sLJXsviGEOJHQn15QUKXM&callback=initMap" async defer></script>
 </div>
 </div>

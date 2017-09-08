@@ -279,7 +279,7 @@ td {
 .detail-penawaran {
 	display: none;
 	width: 600px;
-	height: 330px;
+	min-height: 330px;
 	margin-bottom: 20px;
 	overflow-y: auto;
 	position: relative;
@@ -403,4 +403,37 @@ td.td-action {
 
 .btn-tolak {
 	margin-left: 10px;
+}
+
+.dialog-item {
+	overflow-y: auto;
+	margin-bottom: 10px;
+	min-height: 1px;
+}
+
+.dialog-label {
+	display: inline-block;
+	width: 120px;
+	font-size: 10pt;
+	color: #888;
+	vertical-align: top;
+	text-align: right;
+	padding-right: 10px;
+	padding-top: 1px;
+}
+
+.dialog-value {
+	display: inline-block;
+	width: 340px;
+}
+
+.dialog-item-section {
+	padding-left: 125px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	color: #888;
+}
+
+.dialog-label-sebagai-group {
+	padding-top: 10px;
 }

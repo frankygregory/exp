@@ -73,13 +73,15 @@ function hideDetailPenawaran() {
 
 function kirimPenawaran() {
 	var bidding_type = $(".input-bidding-type:checked").val();
-	var bidding_price = $(".input-bidding-price").val().replace(/,/g, "");
+	var bidding_type_name = $(".input-bidding-type:checked").data("value");
+	var bidding_price = $(".input-bidding-price").val();
 	var bidding_pickupdate = $(".input-bidding-pickupdate").val();
 	var bidding_vehicle = $(".input-kendaraan").val();
 	var bidding_information = $(".input-bidding-information").val();
 	
 	var data = {
 		bidding_type: bidding_type,
+		bidding_type_name: bidding_type_name,
 		bidding_price: bidding_price,
 		bidding_pickupdate: bidding_pickupdate,
 		bidding_vehicle: bidding_vehicle,
@@ -88,28 +90,42 @@ function kirimPenawaran() {
 	var valid = cekInputPenawaran(data);
 	
 	if (valid) {
-		setLoading(".default-loading-container-kirim-penawaran");
-		var shipment_id = data_shipment_id;
-		var user_id = current_user_id;
-		data = {
-			submit_bid: true,
-			bidding_type: bidding_type,
-			bidding_price: bidding_price,
-			bidding_pickupdate: bidding_pickupdate,
-			bidding_vehicle: bidding_vehicle,
-			bidding_information: bidding_information,
-			shipment_id: shipment_id,
-			user_id: user_id
-		};
-		ajaxCall(kirimPenawaranUrl, data, function(result) {
-			removeLoading(".default-loading-container-kirim-penawaran");
-			if (result == "success") {
-				$(".btn-tawar").prop("disabled", true);
-				hideDetailPenawaran();
-				getBiddingList();
-			}
-		});
+		getGroupIds(data);
 	}
+}
+
+function submitKirimPenawaran() {
+	showFullscreenLoading();
+	var shipment_id = data_shipment_id;
+	var user_id = current_user_id;
+
+	var bidding_type = $(".input-bidding-type:checked").val();
+	var bidding_price = $(".input-bidding-price").val().replace(/,/g, "");
+	var bidding_pickupdate = $(".input-bidding-pickupdate").val();
+	var bidding_vehicle = $(".input-kendaraan").val();
+	var bidding_information = $(".input-bidding-information").val();
+	var group_id = $(".select-group").val();
+
+	var data = {
+		submit_bid: true,
+		bidding_type: bidding_type,
+		bidding_price: bidding_price,
+		bidding_pickupdate: bidding_pickupdate,
+		bidding_vehicle: bidding_vehicle,
+		bidding_information: bidding_information,
+		shipment_id: shipment_id,
+		user_id: user_id,
+		group_id: group_id
+	};
+	ajaxCall(kirimPenawaranUrl, data, function(result) {
+		closeDialog();
+		hideFullscreenLoading();
+		if (result == "success") {
+			$(".btn-tawar").prop("disabled", true);
+			hideDetailPenawaran();
+			getBiddingList();
+		}
+	});
 }
 
 function cekInputPenawaran(data) {
@@ -129,6 +145,37 @@ function cekInputPenawaran(data) {
 		$(".error-kendaraan").html("Kendaraan harus diisi");
 	}
 	return valid;
+}
+
+function getGroupIds(data) {
+	showFullscreenLoading();
+	ajaxCall(getGroupIdsUrl, null, function(json) {
+		hideFullscreenLoading();
+		var result = jQuery.parseJSON(json);
+		var dialog = $(".dialog-konfirmasi-penawaran");
+		dialog.find(".dialog-value[data-label='jenis-penawaran']").html(data.bidding_type_name);
+		var harga = data.bidding_price;
+		if (harga != "") {
+			harga += " IDR";
+		}
+		dialog.find(".dialog-value[data-label='harga']").html(harga);
+		dialog.find(".dialog-value[data-label='tanggal-ambil']").html(data.bidding_pickupdate);
+		if (data.bidding_type_name == "Darat") {
+			dialog.find(".dialog-label[data-label='kendaraan']").html("Kendaraan");
+		} else {
+			dialog.find(".dialog-label[data-label='kendaraan']").html("Kapal");
+		}
+		dialog.find(".dialog-value[data-label='kendaraan']").html(data.bidding_vehicle);
+		dialog.find(".dialog-value[data-label='keterangan']").html(data.bidding_information);
+		$(".btn-submit-penawaran").prop("disabled", true);
+		var element = "<option value='0'>Pilih Group...</option>";
+		for (var i = 0; i < result.length; i++) {
+			var group_name = (result[i].group_name != "") ? result[i].group_name : "default";
+			element += "<option value='" + result[i].group_id + "'>" + group_name + "</option>";
+		}
+		dialog.find(".select-group").html(element);
+		showDialog(".dialog-konfirmasi-penawaran");
+	});
 }
 
 function clearErrors() {

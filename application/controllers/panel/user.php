@@ -20,7 +20,7 @@ class User extends MY_Controller
 		}
         $data = array(
             'title' => 'User',
-			"page_title" => "User",
+			"page_title" => "User & Group",
 			"isOwner" => $isOwner,
 			"class" => $class
         );
