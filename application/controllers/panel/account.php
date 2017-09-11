@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/*
+	Controller Account mengcover halaman Account Settings.
+*/
+
 class Account extends MY_Controller
 {
     public function __construct()
